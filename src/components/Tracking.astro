@@ -1,0 +1,73 @@
+---
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const yandexId = import.meta.env.PUBLIC_YANDEX_METRICA_ID;
+---
+
+{gaId && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", gaId);
+    </script>
+  </>
+)}
+
+{yandexId && (
+  <script is:inline define:vars={{ yandexId }}>
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(Number(yandexId), "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
+    window.__YANDEX_METRICA_ID__ = Number(yandexId);
+  </script>
+)}
+
+<script is:inline>
+  const sendTrackedEvent = (name, params = {}) => {
+    if (!name) return;
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, params);
+    }
+    if (typeof window.ym === "function" && window.__YANDEX_METRICA_ID__) {
+      window.ym(window.__YANDEX_METRICA_ID__, "reachGoal", name, params);
+    }
+    window.dispatchEvent(new CustomEvent("site:analytics", { detail: { name, params } }));
+  };
+  window.trackSiteEvent = sendTrackedEvent;
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target.closest("[data-track]") : null;
+    if (!target) return;
+    sendTrackedEvent(target.getAttribute("data-track"), {
+      label: target.getAttribute("data-track-label") || target.textContent?.trim() || "",
+      href: target.getAttribute("href") || "",
+    });
+  });
+
+  document.addEventListener("submit", (event) => {
+    const form = event.target instanceof Element ? event.target.closest("form[data-track]") : null;
+    if (!form) return;
+    sendTrackedEvent(form.getAttribute("data-track"), {
+      label: form.getAttribute("data-track-label") || "",
+    });
+  });
+
+  let scrolled90 = false;
+  const onScroll = () => {
+    if (scrolled90) return;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollable <= 0) return;
+    const progress = (window.scrollY / scrollable) * 100;
+    if (progress >= 90) {
+      scrolled90 = true;
+      sendTrackedEvent("scroll_90_percent");
+      window.removeEventListener("scroll", onScroll);
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

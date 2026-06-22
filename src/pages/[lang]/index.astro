@@ -1,0 +1,445 @@
+---
+import ProductCard from "@/components/ProductCard.astro";
+import InquiryForm from "@/components/InquiryForm.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  applications,
+  channelLinks,
+  contact,
+  langCodes,
+  localize,
+  productImages,
+  products,
+  qualityChecks,
+  ui,
+  type Lang,
+} from "@/data/site";
+
+export function getStaticPaths() {
+  return langCodes.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = ui[lang];
+const featuredProducts = products.slice(0, 3);
+const featuredApplications = applications.slice(0, 4);
+const path = "/";
+const pageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: t.siteName,
+  url: String(Astro.site ?? "https://lijianblades.com"),
+};
+const polish = {
+  en: {
+    heroKicker: "Source factory / drawing or sample / export support",
+    heroMain: "Custom Food Machine Blades",
+    heroAccent: "For Replacement And OEM",
+  },
+  ru: {
+    heroKicker: "Завод-источник / чертеж или образец / экспорт",
+    heroMain: "Ножи Для Пищевых|Машин",
+    heroAccent: "Для Замены И|OEM",
+  },
+  zh: {
+    heroKicker: "源头厂家 / 按图来样 / 外贸配合",
+    heroMain: "食品机械刀片定制制造",
+    heroAccent: "替换刀片 OEM 批量交付",
+  },
+}[lang];
+const heroMainLines = polish.heroMain.split("|");
+const heroAccentLines = polish.heroAccent.split("|");
+const homeFactory = {
+  en: {
+    title: "Chinese food machinery blade manufacturer since 1998",
+    lead:
+      "Maanshan Lijian is a Chinese direct manufacturer focused on food machinery blades, replacement knives and custom blade manufacturing. The factory covers about 6,000 square meters in Bowang, Maanshan, close to Nanjing Lukou International Airport, with convenient road and air logistics for samples, repeat orders and export shipments. CNC equipment is the main machining base, supporting sample development, drawing-based customization and repeat production.",
+    stats: [
+      ["1998", "Founded"],
+      ["6,000 m²", "Factory area"],
+      ["80%", "CNC machine tools"],
+      ["1M+", "Monthly capacity"],
+      ["7 Days", "Sampling"],
+      ["30 Days", "Delivery"],
+      ["Nanjing Lukou Airport", "Nearby logistics hub"],
+    ],
+    contactTitle: "Contact Maanshan Lijian",
+    contactLead: "Send the minimum information first. We can start from a blade photo, drawing, old sample, equipment model or key dimensions.",
+    contactDetail:
+      "For overseas buyers, the first step does not need to be a complete specification. Share the available information and we will help confirm fit, material, hardness, edge direction, hole position, sample schedule and batch delivery plan.",
+  },
+  ru: {
+    title: "Китайский производитель ножей для пищевого оборудования с 1998 года",
+    lead:
+      "Maanshan Lijian — китайский прямой завод-производитель ножей для пищевого оборудования, сменных ножей и нестандартного изготовления. Площадка около 6 000 м² расположена в Bowang, Maanshan, рядом с международным аэропортом Нанкин Лукоу, что удобно для отправки образцов, повторных партий и экспортных грузов. Основа производства — CNC оборудование, поддерживаются образцы, изготовление по чертежам и повторные партии.",
+    stats: [
+      ["1998", "Начало работы"],
+      ["6 000 м²", "Площадь"],
+      ["80%", "CNC станки"],
+      ["1 млн+", "Месячная мощность"],
+      ["7 дней", "Образец"],
+      ["30 дней", "Поставка"],
+      ["Аэропорт Нанкин Лукоу", "Логистика рядом"],
+    ],
+    contactTitle: "Связаться с Maanshan Lijian",
+    contactLead: "Сначала отправьте минимальные данные: фото ножа, чертеж, старый образец, модель оборудования или основные размеры.",
+    contactDetail:
+      "Для зарубежного покупателя не обязательно сразу иметь полную спецификацию. По доступным данным мы уточним посадку, материал, твердость, направление кромки, отверстия, срок образца и поставку партии.",
+  },
+  zh: {
+    title: "始于1998年的食品机械刀片源头厂家",
+    lead:
+      "马鞍山市利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，长期服务食品加工设备配套、替换刀片和非标定制需求。工厂占地约6000㎡，位于安徽马鞍山博望，靠近南京禄口机场，公路与航空物流衔接便利。车间以数控加工、磨削、热处理和刃口处理为主要生产基础，可根据图纸、旧刀样品、设备型号和实际切割工况确认方案，配合食品厂、设备厂和维修采购完成小批量打样与批量复购，重点控制装机尺寸、刃口稳定性、批次一致性和交付节奏。",
+    stats: [
+      ["1998", "始建时间"],
+      ["6000㎡", "厂区占地"],
+      ["80%", "数控机床占比"],
+      ["100万+", "月综合产能"],
+      ["7天", "打样周期"],
+      ["30天", "交货周期"],
+      ["南京禄口机场", "临近物流节点"],
+    ],
+    contactTitle: "联系利坚食品机械刀片厂",
+    contactLead: "不需要一开始就准备完整规格，可先提交刀片照片、图纸、旧刀样品、设备型号或关键尺寸。",
+    contactDetail:
+      "面向海外采购，前期沟通先把可获得的信息发来即可。我们会协助确认装机适配、材料硬度、刃口方向、孔位尺寸、打样周期、批量交付和后续复购记录。",
+  },
+}[lang];
+const contactLabels = {
+  en: { address: "Address", phone: "Phone" },
+  ru: { address: "Адрес", phone: "Телефон" },
+  zh: { address: "地址", phone: "电话" },
+}[lang];
+const contactTips = {
+  en: ["Blade drawing or old sample photo", "Equipment model and blade size", "Quantity, material and delivery request"],
+  ru: ["Чертеж или фото старого ножа", "Модель оборудования и размер ножа", "Количество, материал и срок поставки"],
+  zh: ["刀片图纸或旧刀样品照片", "设备型号和关键尺寸", "数量、材料要求和交付计划"],
+}[lang];
+const contactPanel = {
+  en: {
+    directLead: "Send drawings, old blade photos, equipment models or key dimensions. We will confirm blade fit, material, edge geometry and delivery plan.",
+    whatsapp: "WhatsApp direct chat",
+    email: "Email inbox",
+    departments: "Office and technical support",
+    prepare: "Useful information before contact",
+  },
+  ru: {
+    directLead: "Отправьте чертеж, фото старого ножа, модель оборудования или размеры. Мы уточним посадку, материал, кромку и поставку.",
+    whatsapp: "Чат WhatsApp",
+    email: "Email",
+    departments: "Офис и техническая поддержка",
+    prepare: "Что желательно подготовить",
+  },
+  zh: {
+    directLead: "可先发送图纸、旧刀照片、设备型号或关键尺寸，我们会配合确认装机适配、材料、刃口结构和交付计划。",
+    whatsapp: "WhatsApp 直接沟通",
+    email: "邮箱接收询盘",
+    departments: "外贸与技术支持",
+    prepare: "沟通前可准备",
+  },
+}[lang];
+const productSummary = {
+  en: {
+    title: "Core Blade Range",
+    lead: "For replacement knives and OEM equipment sourcing, start with the closest blade type. After receiving a drawing, old sample or machine model, we confirm profile, holes, thickness, material and edge geometry.",
+    cta: "Open Product Center",
+  },
+  ru: {
+    title: "Основной Ассортимент",
+    lead: "Для замены ножей и OEM оборудования начните с ближайшего типа ножа. По чертежу, образцу или модели машины мы уточним профиль, отверстия, толщину, материал и кромку.",
+    cta: "Открыть Продукцию",
+  },
+  zh: {
+    title: "核心产品范围",
+    lead: "面向替换刀片和 OEM 设备配套采购，可先按刀片形状或设备用途确认方向。客户提供图纸、旧刀样品或设备型号后，我们再确认外形、孔位、厚度、材料与刃口结构。",
+    cta: "进入完整产品中心",
+  },
+}[lang];
+const homeQualityReports = {
+  en: {
+    title: "Inspection Report Samples",
+    items: ["SEM edge", "EDS spectrum", "Metallography", "Hardness"],
+  },
+  ru: {
+    title: "Примеры Отчетов Контроля",
+    items: ["SEM кромки", "EDS спектр", "Металлография", "Твердость"],
+  },
+  zh: {
+    title: "检测报告摘录",
+    items: ["扫描电镜", "能谱成分", "金相组织", "硬度数据"],
+  },
+}[lang];
+const homeQualityReportImages = [
+  "/images/quality/report-sem-cropped.jpg",
+  "/images/quality/report-eds-cropped.jpg",
+  "/images/quality/report-metallography-cropped.jpg",
+  "/images/quality/report-hardness-cropped.jpg",
+];
+const homeManufacturingCapabilities = {
+  en: [
+    ["Drawing To Production", "Convert drawings, old samples or machine models into controlled profile, hole and thickness requirements."],
+    ["CNC Hole And Slot Control", "Focus on mounting holes, slots, bore size and replacement fit for easier installation."],
+    ["Heat Treatment And Hardness", "Match hardness target with cutting load, impact risk and edge retention requirement."],
+    ["Precision Grinding", "Control thickness, flatness, straightness and bevel consistency before final edge finishing."],
+    ["Edge Geometry", "Adjust single bevel, double bevel, serration or tooth pitch according to cutting material."],
+    ["Repeat Order Records", "Keep key dimensions and production details for follow-up replacement batches."],
+  ],
+  ru: [
+    ["От Чертежа К Производству", "Преобразование чертежа, образца или модели машины в контролируемые размеры."],
+    ["CNC Отверстия И Пазы", "Контроль отверстий, пазов, посадочного диаметра и монтажа сменного ножа."],
+    ["Термообработка И Твердость", "Подбор твердости под нагрузку резки, ударный риск и ресурс кромки."],
+    ["Точное Шлифование", "Контроль толщины, плоскостности, прямолинейности и фаски перед финишем."],
+    ["Геометрия Кромки", "Одинарная, двойная фаска, зуб или шаг под материал резки."],
+    ["Повторные Заказы", "Сохранение ключевых размеров и производственных данных для следующих партий."],
+  ],
+  zh: [
+    ["图纸转化生产", "把图纸、旧刀样品或设备型号转化为外形、孔位、厚度和刃口要求。"],
+    ["CNC 孔槽控制", "重点控制安装孔、槽位、内孔和关键装机尺寸，减少替换刀片现场调机。"],
+    ["热处理与硬度", "按切割负载、抗冲击和刃口保持要求确认硬度范围。"],
+    ["精密磨削", "控制厚度、平面度、直线度和刃口前的磨削一致性。"],
+    ["刃口几何", "按食品材料确认单面刃、双面刃、齿形、齿距或打孔间距。"],
+    ["复购批次记录", "沉淀关键尺寸和生产记录，便于后续替换刀片复购。"],
+  ],
+}[lang];
+const aboutHighlights = homeFactory.stats.slice(0, 4);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.seo.homeTitle}
+  description={t.seo.homeDescription}
+  path={path}
+  image={productImages.hero}
+  jsonLd={[pageJsonLd]}
+>
+  <section
+    class="relative overflow-hidden bg-[var(--color-ink)] text-white"
+    style={`background-image: linear-gradient(90deg, rgba(15,18,24,.98), rgba(15,18,24,.86) 44%, rgba(15,18,24,.34)), url('${productImages.hero}'); background-size: cover; background-position: center;`}
+  >
+    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.42))]"></div>
+    <div class="container-page relative grid min-h-[72vh] gap-10 py-16 lg:grid-cols-[1fr_.78fr] lg:items-center">
+      <div class="min-w-0 max-w-4xl">
+        <p class="max-w-full break-words text-sm font-semibold uppercase text-[var(--color-silver)]">{t.home.eyebrow}</p>
+        <p class="mt-4 inline-block max-w-full break-words rounded-[4px] border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-slate-100">{polish.heroKicker}</p>
+        <h1 class="mt-5 max-w-full break-words text-[2.35rem] font-semibold uppercase leading-[1.04] md:text-6xl">
+          <span class="block">
+            {heroMainLines.map((line) => <span class="block">{line}</span>)}
+          </span>
+          <span class="mt-2 block text-[var(--color-red)]">
+            {heroAccentLines.map((line) => <span class="block">{line}</span>)}
+          </span>
+        </h1>
+        <p class="mt-6 max-w-2xl break-words text-lg leading-8 text-slate-200 md:text-xl">{t.home.intro}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#products" class="rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-home-jump="products">
+            {t.actions.viewProducts}
+          </a>
+          <a href="#contact" class="rounded-[4px] border border-white/40 px-5 py-3 font-semibold text-white" data-home-jump="contact">
+            {t.actions.contactUs}
+          </a>
+        </div>
+      </div>
+
+      <img src={productImages.circular} alt={t.nav.products} class="hidden aspect-square w-full rounded-[6px] border border-white/12 bg-black/20 object-contain p-10 lg:block" loading="lazy" />
+    </div>
+    <div class="relative border-t border-white/10 bg-black/24">
+      <div class="container-page grid gap-2 py-5 sm:grid-cols-2 lg:grid-cols-4">
+        {t.home.trust.map((item) => (
+          <span class="rounded-[4px] border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100">{item}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="products" data-home-section="products" class="scroll-mt-24 border-b border-slate-200 bg-white py-12 md:py-14">
+    <div class="container-page">
+      <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <SectionHeading title={t.nav.products} lead={productSummary.lead} />
+        {/*
+        <a href={withLang(lang, "/products")} class="mt-6 inline-flex rounded-[4px] bg-[var(--color-ink)] px-4 py-3 text-sm font-semibold text-white">
+          {productSummary.cta}
+        </a>
+        */}
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {featuredProducts.map((product) => (
+          <ProductCard product={product} lang={lang} contactHref="#contact" useHomeJump />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="applications" data-home-section="applications" class="scroll-mt-24 bg-[var(--color-mist)] py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={t.nav.applications} lead={t.home.applicationsLead} />
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {featuredApplications.map((application) => (
+          <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+            <div class="relative overflow-hidden">
+              <img src={application.image} alt={localize(application.name, lang)} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+            </div>
+            <div class="p-5">
+              <h3 class="text-xl font-semibold text-[var(--color-ink)]">{localize(application.name, lang)}</h3>
+              <p class="mt-3 text-sm leading-7 text-slate-600">{localize(application.summary, lang)}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {application.focus[lang].slice(0, 3).map((item) => (
+                  <span class="rounded-[4px] bg-[var(--color-mist)] px-2.5 py-1 text-xs font-semibold text-slate-600">{item}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="manufacturing" data-home-section="manufacturing" class="scroll-mt-24 bg-white py-16 md:py-20">
+    <div class="container-page grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+      <div>
+        <SectionHeading title={t.nav.manufacturing} lead={t.home.manufacturingLead} />
+        <div class="mt-8 grid gap-3">
+          {homeManufacturingCapabilities.map(([title, text], index) => (
+            <article class="grid gap-3 border border-[var(--color-border)] bg-white p-4 sm:grid-cols-[44px_1fr]">
+              <span class="grid h-10 w-10 shrink-0 place-items-center bg-[var(--color-blue)] text-sm font-semibold text-white">{String(index + 1).padStart(2, "0")}</span>
+              <span>
+                <h3 class="text-base font-semibold text-[var(--color-ink)]">{title}</h3>
+                <p class="mt-1 text-sm leading-6 text-slate-600">{text}</p>
+              </span>
+            </article>
+          ))}
+        </div>
+      </div>
+      <img src={productImages.manufacturing} alt={t.nav.manufacturing} class="aspect-[4/3] w-full rounded-[6px] object-cover" loading="lazy" />
+    </div>
+  </section>
+
+  <section id="quality" data-home-section="quality" class="scroll-mt-24 bg-[var(--color-mist)] py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={t.nav.quality} lead={t.home.qualityLead} />
+      <div class="mt-10 grid gap-6 lg:grid-cols-[.92fr_1.08fr] lg:items-start">
+        <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+          <img src={productImages.quality} alt={t.nav.quality} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+          <div class="border-t border-slate-200 p-5">
+            <p class="text-sm leading-7 text-slate-600">{t.seo.qualityDescription}</p>
+          </div>
+        </article>
+
+        <div class="grid gap-5">
+          <div class="grid gap-3 sm:grid-cols-2">
+            {qualityChecks[lang].slice(0, 6).map((check) => (
+              <span class="rounded-[4px] border border-slate-200 bg-white px-4 py-3 text-sm font-semibold leading-6 text-[var(--color-ink)] shadow-sm">{check}</span>
+            ))}
+          </div>
+          <div class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between gap-4 border-b border-slate-200 pb-4">
+              <h3 class="text-base font-semibold text-[var(--color-ink)]">{homeQualityReports.title}</h3>
+              <span class="hidden rounded-[4px] bg-[var(--color-ink)] px-3 py-1.5 text-xs font-semibold text-white sm:inline-flex">{t.labels.inspection}</span>
+            </div>
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+              {homeQualityReportImages.map((image, index) => (
+                <figure class="rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-2">
+                  <img src={image} alt={homeQualityReports.items[index]} class="aspect-[16/9] w-full object-contain" loading="lazy" />
+                  <figcaption class="mt-2 text-xs font-semibold text-slate-600">{homeQualityReports.items[index]}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" data-home-section="about" class="scroll-mt-24 bg-white py-16 md:py-20">
+    <div class="container-page grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-center">
+      <div>
+        <SectionHeading title={t.nav.about} lead={homeFactory.lead} />
+        <div class="mt-6 grid gap-px overflow-hidden rounded-[6px] border border-slate-200 bg-slate-200 sm:grid-cols-2">
+          {aboutHighlights.map(([value, label]) => (
+            <div class="bg-[var(--color-mist)] p-4">
+              <p class="text-2xl font-semibold text-[var(--color-ink)]">{value}</p>
+              <p class="mt-1 text-sm font-semibold text-slate-600">{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <img src={productImages.factoryGate} alt={t.nav.about} class="aspect-[16/10] w-full rounded-[6px] object-cover shadow-sm" loading="lazy" />
+    </div>
+  </section>
+
+  <section id="contact" data-home-section="contact" class="scroll-mt-24 border-t border-slate-200 bg-[var(--color-mist)] py-14 md:py-16">
+    <div class="container-page">
+      <div class="grid gap-5 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+        <SectionHeading title={homeFactory.contactTitle} lead={homeFactory.contactLead} />
+        <p class="rounded-[6px] border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-600 shadow-sm">{homeFactory.contactDetail}</p>
+      </div>
+
+      <div class="mt-10 grid gap-5 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
+        <InquiryForm lang={lang} tone="light" />
+
+        <aside class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="grid gap-4 sm:grid-cols-[120px_1fr] sm:items-center">
+            <div class="rounded-[6px] border border-slate-200 bg-[var(--color-mist)] p-2">
+              <img src={contact.whatsappQr} alt={t.labels.whatsappQr} class="aspect-square w-full rounded-[4px] object-contain" loading="lazy" />
+            </div>
+            <div>
+              <h3 class="text-2xl font-semibold leading-snug text-[var(--color-ink)]">{contactPanel.whatsapp}</h3>
+              <p class="mt-3 text-sm leading-7 text-slate-600">{contactPanel.directLead}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <a href={channelLinks.whatsapp} class="rounded-[4px] bg-[#25d366] px-4 py-2.5 text-sm font-semibold text-[#06130b]" data-track="click_whatsapp">
+                  {t.labels.openWhatsapp}
+                </a>
+                <a href={channelLinks.email} class="rounded-[4px] border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[var(--color-ink)]" data-track="click_email">
+                  {contactPanel.email}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 grid gap-3 border-t border-slate-200 pt-5 sm:grid-cols-2">
+            <a href={channelLinks.whatsapp} class="rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-4" data-track="click_whatsapp">
+              <span class="block text-xs font-semibold uppercase text-slate-500">WhatsApp</span>
+              <span class="mt-2 block text-base font-semibold text-[var(--color-ink)]">{contact.whatsapp}</span>
+            </a>
+            <a href={channelLinks.email} class="rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-4" data-track="click_email">
+              <span class="block text-xs font-semibold uppercase text-slate-500">Email</span>
+              <span class="mt-2 block break-all text-base font-semibold text-[var(--color-ink)]">{contact.email}</span>
+            </a>
+          </div>
+
+          <div class="mt-5 border-t border-slate-200 pt-5">
+            <h3 class="text-sm font-semibold text-[var(--color-ink)]">{contactPanel.departments}</h3>
+            <div class="mt-3 grid gap-3">
+              {contact.departments.map((department) => (
+                <a
+                  href={`tel:${department.phone.replace(/\s/g, "")}`}
+                  class="grid gap-3 rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-4 sm:grid-cols-[1fr_auto]"
+                  data-track="click_phone"
+                  data-track-label={department.id}
+                >
+                  <span>
+                    <span class="block text-sm font-semibold text-[var(--color-ink)]">{department.name[lang]}</span>
+                    <span class="mt-1 block text-xs leading-5 text-slate-600">
+                      <span class="font-semibold text-slate-800">{contactLabels.address}: </span>{department.address[lang]}
+                    </span>
+                  </span>
+                  <span class="text-sm font-semibold text-[var(--color-blue)]">{department.phone}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-5 border-t border-slate-200 pt-5">
+            <h3 class="text-sm font-semibold text-[var(--color-ink)]">{contactPanel.prepare}</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {contactTips.map((item) => (
+                <span class="rounded-[4px] border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-600">{item}</span>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

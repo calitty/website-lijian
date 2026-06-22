@@ -1,0 +1,194 @@
+---
+import { type Lang } from "@/data/site";
+
+interface Props {
+  lang: Lang;
+  tone?: "dark" | "light";
+}
+
+const { lang, tone = "dark" } = Astro.props;
+const copy = {
+  en: {
+    title: "Send blade details",
+    lead: "Leave the key information first. We will reply by email or WhatsApp.",
+    name: "Name / Company",
+    country: "Country",
+    contact: "Email / WhatsApp / WeChat",
+    message: "Blade request",
+    namePlaceholder: "Company name or buyer name",
+    countryPlaceholder: "Russia, Indonesia, Thailand...",
+    contactPlaceholder: "Email, WhatsApp number or WeChat ID",
+    messagePlaceholder: "Blade type, machine model, size, material, quantity, drawing/sample status...",
+    submit: "Send Inquiry",
+    sending: "Sending...",
+    success: "Sent. We will contact you after checking the details.",
+    error: "Could not send. Please use WhatsApp or email directly.",
+    note: "You can include blade type, machine model, size, material, quantity and delivery request in one message.",
+  },
+  ru: {
+    title: "Отправить данные ножа",
+    lead: "Сначала оставьте ключевую информацию. Мы ответим по email или WhatsApp.",
+    name: "Имя / компания",
+    country: "Страна",
+    contact: "Email / WhatsApp / WeChat",
+    message: "Запрос по ножам",
+    namePlaceholder: "Название компании или имя покупателя",
+    countryPlaceholder: "Россия, Казахстан, Беларусь...",
+    contactPlaceholder: "Email, номер WhatsApp или WeChat ID",
+    messagePlaceholder: "Тип ножа, модель машины, размер, материал, количество, чертеж или образец...",
+    submit: "Отправить запрос",
+    sending: "Отправка...",
+    success: "Отправлено. Мы свяжемся с вами после проверки данных.",
+    error: "Не удалось отправить. Напишите напрямую в WhatsApp или email.",
+    note: "В одном сообщении можно указать тип ножа, модель оборудования, размер, материал, количество и срок.",
+  },
+  zh: {
+    title: "直接提交刀片需求",
+    lead: "先填写关键资料，系统会自动发送到邮箱，我们再通过邮件或 WhatsApp 回复。",
+    name: "姓名 / 公司",
+    country: "国家",
+    contact: "邮箱 / WhatsApp / 微信",
+    message: "需求说明",
+    namePlaceholder: "公司名称或采购联系人",
+    countryPlaceholder: "您所在的国家",
+    contactPlaceholder: "邮箱、WhatsApp 号码或微信号",
+    messagePlaceholder: "刀片类型、设备型号、尺寸、材料、数量、交期，是否有图纸或旧刀样品...",
+    submit: "发送需求",
+    sending: "发送中...",
+    success: "已发送，我们核对资料后会尽快联系。",
+    error: "发送失败，请直接使用 WhatsApp 或邮箱联系。",
+    note: "刀片类型、设备型号、尺寸、材料、数量和交期要求可统一写在需求说明里。",
+  },
+}[lang];
+
+const isDark = tone === "dark";
+const panelClass = isDark
+  ? "rounded-[6px] border border-white/10 bg-[#0b1520] p-4"
+  : "rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm";
+const labelClass = isDark ? "text-slate-300" : "text-slate-700";
+const inputClass = isDark
+  ? "mt-1 w-full rounded-[4px] border border-white/10 bg-[#07101a] px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-[var(--color-red)]"
+  : "mt-1 w-full rounded-[4px] border border-slate-200 bg-white px-3 py-2.5 text-sm text-[var(--color-ink)] outline-none placeholder:text-slate-400 focus:border-[var(--color-red)]";
+const titleClass = isDark ? "text-white" : "text-[var(--color-ink)]";
+const textClass = isDark ? "text-slate-400" : "text-slate-600";
+---
+
+<form
+  class={panelClass}
+  data-inquiry-form
+  data-track="submit_inquiry_form"
+  data-success={copy.success}
+  data-error={copy.error}
+  data-sending={copy.sending}
+  data-inquiry-tone={tone}
+>
+  <input type="hidden" name="lang" value={lang} />
+  <input type="hidden" name="source" value="" data-inquiry-source />
+  <label style="position:absolute;left:-5000px;top:auto;width:1px;height:1px;overflow:hidden;">
+    Website
+    <input type="text" name="website" tabindex="-1" autocomplete="off" />
+  </label>
+
+  <div>
+    <h3 class={`text-lg font-semibold ${titleClass}`}>{copy.title}</h3>
+    <p class={`mt-2 text-sm leading-6 ${textClass}`}>{copy.lead}</p>
+  </div>
+
+  <div class="mt-4 grid gap-3 sm:grid-cols-2">
+    <label class={`text-xs font-semibold ${labelClass}`}>
+      {copy.name}
+      <input class={inputClass} name="name" type="text" autocomplete="name" placeholder={copy.namePlaceholder} required />
+    </label>
+    <label class={`text-xs font-semibold ${labelClass}`}>
+      {copy.country}
+      <input class={inputClass} name="country" type="text" autocomplete="country-name" placeholder={copy.countryPlaceholder} required />
+    </label>
+    <label class={`text-xs font-semibold ${labelClass}`}>
+      {copy.contact}
+      <input class={inputClass} name="contact" type="text" autocomplete="email" placeholder={copy.contactPlaceholder} required />
+    </label>
+  </div>
+
+  <label class={`mt-3 block text-xs font-semibold ${labelClass}`}>
+    {copy.message}
+    <textarea class={`${inputClass} min-h-28 resize-y`} name="message" placeholder={copy.messagePlaceholder} required></textarea>
+  </label>
+
+  <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <p class={`text-xs leading-5 ${textClass}`}>{copy.note}</p>
+    <button type="submit" class="shrink-0 rounded-[4px] bg-[var(--color-red)] px-4 py-3 text-sm font-semibold text-white">
+      {copy.submit}
+    </button>
+  </div>
+  <p class="mt-3 hidden rounded-[4px] px-3 py-2 text-sm font-semibold" data-inquiry-status></p>
+</form>
+
+<script is:inline>
+  if (!window.__LIJIAN_INQUIRY_FORM__) {
+    window.__LIJIAN_INQUIRY_FORM__ = true;
+
+    const setStatus = (form, message, state) => {
+      const status = form.querySelector("[data-inquiry-status]");
+      if (!status) return;
+      const isLight = form.dataset.inquiryTone === "light";
+      status.textContent = message;
+      status.classList.remove(
+        "hidden",
+        "bg-red-500/15",
+        "text-red-100",
+        "bg-green-500/15",
+        "text-green-100",
+        "bg-red-50",
+        "text-red-700",
+        "bg-green-50",
+        "text-green-700",
+        "bg-slate-100",
+        "text-slate-700"
+      );
+      if (state === "success") {
+        status.classList.add(isLight ? "bg-green-50" : "bg-green-500/15", isLight ? "text-green-700" : "text-green-100");
+      } else if (state === "error") {
+        status.classList.add(isLight ? "bg-red-50" : "bg-red-500/15", isLight ? "text-red-700" : "text-red-100");
+      } else {
+        status.classList.add("bg-slate-100", "text-slate-700");
+      }
+    };
+
+    document.addEventListener("submit", async (event) => {
+      const form = event.target instanceof Element ? event.target.closest("[data-inquiry-form]") : null;
+      if (!form) return;
+      event.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton ? submitButton.textContent : "";
+      const source = form.querySelector("[data-inquiry-source]");
+      if (source) source.value = window.location.href;
+
+      const payload = Object.fromEntries(new FormData(form).entries());
+      submitButton && (submitButton.disabled = true);
+      submitButton && (submitButton.textContent = form.dataset.sending || "Sending...");
+      setStatus(form, form.dataset.sending || "Sending...", "pending");
+
+      try {
+        const response = await fetch("/api/inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!response.ok) throw new Error("Request failed");
+
+        form.reset();
+        if (source) source.value = window.location.href;
+        setStatus(form, form.dataset.success || "Sent.", "success");
+        if (typeof window.trackSiteEvent === "function") {
+          window.trackSiteEvent("inquiry_form_sent", { label: payload.name || "" });
+        }
+      } catch {
+        setStatus(form, form.dataset.error || "Could not send.", "error");
+      } finally {
+        submitButton && (submitButton.disabled = false);
+        submitButton && (submitButton.textContent = originalButtonText);
+      }
+    });
+  }
+</script>

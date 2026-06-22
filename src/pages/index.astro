@@ -1,0 +1,88 @@
+---
+import { defaultLang, langCodes, languages } from "@/data/site";
+
+const site = "https://lijianblades.com";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maanshan Lijian Food Machine Blades</title>
+    <meta
+      name="description"
+      content="Maanshan Lijian is a Chinese source manufacturer of custom and OEM replacement blades for food processing machinery."
+    />
+    <link rel="canonical" href={site} />
+    {langCodes.map((code) => <link rel="alternate" hreflang={languages[code].locale} href={`${site}/${code}/`} />)}
+    <link rel="alternate" hreflang="x-default" href={`${site}/${defaultLang}/`} />
+  </head>
+  <body>
+    <script is:inline define:vars={{ defaultLang, langCodes }}>
+      const supported = new Set(langCodes);
+      const getStoredLanguage = () => {
+        try {
+          const stored = localStorage.getItem("preferred_language");
+          return supported.has(stored) ? stored : "";
+        } catch {
+          return "";
+        }
+      };
+      const getCountry = (locale) => {
+        const match = String(locale || "").match(/[-_]([a-z]{2})$/i);
+        return match ? match[1].toUpperCase() : "";
+      };
+      const localeList = Array.from(new Set([navigator.language, ...(navigator.languages || [])].filter(Boolean)));
+      const languageCodes = localeList.map((locale) => String(locale).toLowerCase().split(/[-_]/)[0]);
+      const countryCodes = localeList.map(getCountry).filter(Boolean);
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      const hasAny = (items, values) => items.some((item) => values.has(item));
+
+      const zhCountries = new Set(["CN", "HK", "MO", "TW"]);
+      const ruCountries = new Set(["RU", "BY", "KZ", "KG"]);
+      const zhTimeZones = new Set(["Asia/Shanghai", "Asia/Hong_Kong", "Asia/Macau", "Asia/Taipei", "Asia/Urumqi"]);
+      const ruTimeZones = new Set([
+        "Europe/Moscow",
+        "Europe/Kaliningrad",
+        "Europe/Samara",
+        "Europe/Minsk",
+        "Asia/Yekaterinburg",
+        "Asia/Omsk",
+        "Asia/Novosibirsk",
+        "Asia/Barnaul",
+        "Asia/Tomsk",
+        "Asia/Krasnoyarsk",
+        "Asia/Irkutsk",
+        "Asia/Yakutsk",
+        "Asia/Vladivostok",
+        "Asia/Magadan",
+        "Asia/Sakhalin",
+        "Asia/Kamchatka",
+        "Asia/Almaty",
+        "Asia/Aqtau",
+        "Asia/Aqtobe",
+        "Asia/Oral",
+        "Asia/Qostanay",
+        "Asia/Qyzylorda",
+        "Asia/Bishkek",
+      ]);
+
+      const detectLanguage = () => {
+        if (languageCodes.includes("zh") || hasAny(countryCodes, zhCountries) || zhTimeZones.has(timeZone)) return "zh";
+        if (languageCodes.includes("ru") || hasAny(countryCodes, ruCountries) || ruTimeZones.has(timeZone)) return "ru";
+        return defaultLang;
+      };
+      const next = getStoredLanguage() || detectLanguage();
+      window.location.replace(`/${supported.has(next) ? next : defaultLang}/`);
+    </script>
+    <main>
+      <h1>Industrial Food Blades</h1>
+      <p>
+        <a href="/en/">English</a>
+        <a href="/ru/">Русский</a>
+        <a href="/zh/">简体中文</a>
+      </p>
+    </main>
+  </body>
+</html>

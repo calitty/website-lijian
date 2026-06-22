@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #171a1f;
+  --color-body: #2b2f36;
+  --color-blue: #1f4e79;
+  --color-silver: #c7cdd4;
+  --color-mist: #f5f7fa;
+  --color-green: #2e7d5b;
+  --color-red: #b3261e;
+  --color-border: #d9dee5;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--color-body);
+  font-family:
+    Inter, Roboto, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(31, 78, 121, 0.35);
+  outline-offset: 3px;
+}
+
+.container-page {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+}

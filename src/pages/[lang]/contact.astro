@@ -1,0 +1,106 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import InquiryForm from "@/components/InquiryForm.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { channelLinks, contact, langCodes, productImages, ui, type Lang } from "@/data/site";
+
+export function getStaticPaths() {
+  return langCodes.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = ui[lang];
+const path = "/contact";
+const copy = {
+  en: {
+    h1: "Contact Us for Custom Food Processing Blades",
+    lead: "Use email, WhatsApp or phone to discuss blade drawings, sample photos, equipment models or blade dimensions.",
+    direct: "Direct Contact",
+    note: "For faster confirmation, include the blade drawing, old sample photo, equipment model, material request and expected quantity when you contact us.",
+  },
+  ru: {
+    h1: "Связаться по изготовлению ножей для пищевого оборудования",
+    lead: "Свяжитесь по Email, WhatsApp или телефону, чтобы обсудить чертежи, образцы, модель оборудования или размеры ножа.",
+    direct: "Прямые контакты",
+    note: "Для быстрой проверки укажите чертеж ножа, фото старого образца, модель оборудования, материал и количество.",
+  },
+  zh: {
+    h1: "联系沟通食品机械刀片定制需求",
+    lead: "可通过邮箱、WhatsApp 或电话沟通刀片图纸、样品照片、设备型号和刀片尺寸。",
+    direct: "直接联系方式",
+    note: "可提供刀片图纸、旧刀样品照片、设备型号、材料要求和预计数量，用于确认刀片规格。",
+  },
+}[lang];
+const contactLabels = {
+  en: { address: "Address", phone: "Phone" },
+  ru: { address: "Адрес", phone: "Телефон" },
+  zh: { address: "地址", phone: "电话" },
+}[lang];
+type Channel = [string, string, string, string];
+const channels: Channel[] = [
+  ["Email", contact.email, channelLinks.email, "click_email"],
+  ["WhatsApp", contact.whatsapp, channelLinks.whatsapp, "click_whatsapp"],
+  contact.telegram ? ["Telegram", `@${contact.telegram}`, channelLinks.telegram, "click_telegram"] : null,
+  contact.linkedin ? ["LinkedIn", "Company page", channelLinks.linkedin, "click_linkedin"] : null,
+  contact.wechat ? ["WeChat", contact.wechat, channelLinks.wechat, "click_wechat"] : null,
+].filter((channel): channel is Channel => Boolean(channel));
+---
+
+<BaseLayout lang={lang} title={t.seo.contactTitle} description={t.seo.contactDescription} path={path} image={productImages.hero}>
+  <PageHero eyebrow={t.nav.contact} title={copy.h1} lead={copy.lead} image={productImages.workshop} imageAlt={t.nav.contact} />
+
+  <section class="bg-[var(--color-mist)] py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={copy.direct} lead={copy.note} />
+      <div class="mt-10 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
+        <InquiryForm lang={lang} tone="light" />
+
+        <aside class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="grid gap-4 sm:grid-cols-[130px_1fr] sm:items-center">
+            <div class="rounded-[6px] border border-slate-200 bg-[var(--color-mist)] p-2">
+              <img src={contact.whatsappQr} alt={t.labels.whatsappQr} class="aspect-square w-full rounded-[4px] object-contain" loading="lazy" />
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase text-[var(--color-red)]">{t.labels.whatsappQr}</p>
+              <h2 class="mt-2 text-2xl font-semibold leading-snug text-[var(--color-ink)]">{t.labels.scanWhatsapp}</h2>
+              <p class="mt-3 text-sm leading-7 text-slate-600">{t.contactPrompt}</p>
+              <a href={channelLinks.whatsapp} class="mt-4 inline-flex rounded-[4px] bg-[#25d366] px-4 py-3 text-sm font-semibold text-[#06130b]" data-track="click_whatsapp">
+                {t.labels.openWhatsapp}
+              </a>
+            </div>
+          </div>
+
+          <div class="mt-5 grid gap-3 border-t border-slate-200 pt-5 sm:grid-cols-2">
+            {channels.map(([label, value, href, event]) => (
+              <a href={href} class="rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-4" data-track={event}>
+                <span class="block text-xs font-semibold uppercase text-slate-500">{label}</span>
+                <span class="mt-2 block break-all text-sm font-semibold text-[var(--color-ink)]">{value}</span>
+              </a>
+            ))}
+          </div>
+
+          <div class="mt-5 grid gap-3 border-t border-slate-200 pt-5">
+            {contact.departments.map((department) => (
+              <a
+                href={`tel:${department.phone.replace(/\s/g, "")}`}
+                class="grid gap-3 rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-4 sm:grid-cols-[1fr_auto]"
+                data-track="click_phone"
+                data-track-label={department.id}
+                aria-label={`${contactLabels.phone}: ${department.phone}`}
+              >
+                <span>
+                  <span class="block text-sm font-semibold text-[var(--color-ink)]">{department.name[lang]}</span>
+                  <span class="mt-1 block text-xs leading-5 text-slate-600">
+                    <span class="font-semibold text-slate-800">{contactLabels.address}: </span>{department.address[lang]}
+                  </span>
+                </span>
+                <span class="text-sm font-semibold text-[var(--color-blue)]">{department.phone}</span>
+              </a>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

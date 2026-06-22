@@ -1,0 +1,240 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { langCodes, manufacturingSteps, productImages, ui, type Lang } from "@/data/site";
+
+export function getStaticPaths() {
+  return langCodes.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = ui[lang];
+const path = "/manufacturing";
+const copy = {
+  en: {
+    h1: "Manufacturing Capability for Custom Industrial Blades",
+    lead: "Manufacturing capability focuses on blade geometry, hole positions, heat treatment, thickness, edge finishing and repeat-order consistency for custom and replacement food machinery blades.",
+    note: "For an accurate quotation, send the blade drawing, old sample, material request and working application. Maanshan Lijian will use these details to confirm manufacturability and replacement fit.",
+  },
+  ru: {
+    h1: "Производственные возможности для промышленных ножей",
+    lead: "Раздел показывает контроль геометрии ножа, отверстий, термообработки и финишной обработки кромки при повторных заказах.",
+    note: "Для точного предложения отправьте чертеж, старый образец, запрос по материалу и рабочее применение. Maanshan Lijian уточнит возможность изготовления и посадку замены.",
+  },
+  zh: {
+    h1: "非标工业刀片制造能力",
+    lead: "面向食品机械替换刀片和非标刀片需求，重点控制外形、孔位、热处理、厚度、刃口和表面处理，让复购批次尽量保持稳定。",
+    note: "制造配合可依据刀片图纸、旧刀样品、设备型号、材料需求和使用工况，确认可制造性、装机尺寸和刃口方案。",
+  },
+}[lang];
+const capabilityCopy = {
+  en: {
+    title: "Manufacturing Control Points",
+    lead:
+      "For custom food machinery blades, buyers usually care less about a generic process list and more about whether the blade can be installed, cut steadily and be reordered with the same fit.",
+    processTitle: "Production Flow",
+    items: [
+      {
+        title: "Drawing And Sample Translation",
+        text: "Convert drawings, old blade photos, samples or equipment models into controlled dimensions before production.",
+        check: "Profile, hole pattern, thickness and bevel direction.",
+      },
+      {
+        title: "CNC Mounting Accuracy",
+        text: "Focus on holes, slots, bore size and mounting surfaces that decide replacement blade fit.",
+        check: "Hole position, slot width, bore size and key installation dimensions.",
+      },
+      {
+        title: "Material And Hardness Match",
+        text: "Select material and hardness range according to food contact, washdown, cutting load and impact risk.",
+        check: "Steel grade, heat treatment target and hardness verification.",
+      },
+      {
+        title: "Grinding And Flatness Control",
+        text: "Control thickness, flatness and straightness before final edge finishing to reduce vibration and unstable cutting.",
+        check: "Thickness tolerance, flatness, straightness and surface condition.",
+      },
+      {
+        title: "Edge Geometry Finishing",
+        text: "Finish bevel, tooth form, serration or perforation pitch according to the food material and equipment speed.",
+        check: "Single or double bevel, edge angle, burr condition and tooth pitch.",
+      },
+      {
+        title: "Repeat Batch And Packing",
+        text: "Keep key dimensions and production notes for replacement batches, then pack for rust protection and export delivery.",
+        check: "Batch record, anti-rust packing, label and delivery schedule.",
+      },
+    ],
+  },
+  ru: {
+    title: "Контрольные Точки Производства",
+    lead:
+      "Для нестандартных ножей покупателю важен не общий список процессов, а посадка, стабильный рез и возможность повторного заказа с тем же размером.",
+    processTitle: "Производственный Процесс",
+    items: [
+      {
+        title: "Чертеж И Образец",
+        text: "Преобразование чертежа, фото старого ножа, образца или модели оборудования в контролируемые размеры.",
+        check: "Профиль, отверстия, толщина и направление фаски.",
+      },
+      {
+        title: "Точность CNC Монтажа",
+        text: "Контроль отверстий, пазов, посадочного диаметра и монтажных поверхностей для сменного ножа.",
+        check: "Положение отверстий, ширина пазов, посадочный размер и ключевые размеры.",
+      },
+      {
+        title: "Материал И Твердость",
+        text: "Выбор материала и твердости по пищевому контакту, мойке, нагрузке резки и ударному риску.",
+        check: "Марка стали, цель термообработки и проверка твердости.",
+      },
+      {
+        title: "Шлифование И Плоскостность",
+        text: "Контроль толщины, плоскостности и прямолинейности перед финишем кромки.",
+        check: "Допуск толщины, плоскостность, прямолинейность и поверхность.",
+      },
+      {
+        title: "Геометрия Кромки",
+        text: "Финиш фаски, зуба, серрейтора или перфорации по материалу продукта и скорости оборудования.",
+        check: "Одинарная или двойная фаска, угол, заусенцы и шаг зуба.",
+      },
+      {
+        title: "Повторная Партия И Упаковка",
+        text: "Сохранение ключевых размеров для повторных партий и упаковка с защитой от коррозии.",
+        check: "Запись партии, антикоррозионная упаковка, маркировка и срок.",
+      },
+    ],
+  },
+  zh: {
+    title: "制造能力控制点",
+    lead:
+      "对非标食品机械刀片来说，客户真正关心的不是流程是否完整，而是到货能否装机、切割是否稳定、后续复购是否能保持同一规格。",
+    processTitle: "生产流程",
+    items: [
+      {
+        title: "图纸与样品转化",
+        text: "把刀片图纸、旧刀照片、样品或设备型号转化为可生产、可检查的尺寸要求。",
+        check: "外形轮廓、孔位、厚度和刃口方向。",
+      },
+      {
+        title: "CNC 装机尺寸控制",
+        text: "重点控制安装孔、槽位、内孔和装配面，解决替换刀片到货后无法安装的问题。",
+        check: "孔位、槽宽、内孔尺寸和关键装机尺寸。",
+      },
+      {
+        title: "材料与硬度匹配",
+        text: "按食品接触、清洗环境、切割负载和抗冲击要求确认材料及热处理硬度范围。",
+        check: "钢材牌号、热处理目标和硬度检测。",
+      },
+      {
+        title: "磨削与平面度控制",
+        text: "在刃口处理前控制厚度、平面度和直线度，减少装机振动和切割不稳定。",
+        check: "厚度公差、平面度、直线度和表面状态。",
+      },
+      {
+        title: "刃口几何处理",
+        text: "按食品材料和设备速度处理单面刃、双面刃、齿形、锯齿或打孔间距。",
+        check: "刃口角度、毛刺状态、齿距和刃口方向。",
+      },
+      {
+        title: "复购批次与包装",
+        text: "沉淀关键尺寸和生产记录，后续替换刀片复购时更容易保持同一装机体验。",
+        check: "批次记录、防锈包装、标签和交期。",
+      },
+    ],
+  },
+}[lang];
+const processIcons = [
+  {
+    paths: ["M4 15.5 12 19l8-3.5-8-3.5-8 3.5Z", "M4 11.5 12 15l8-3.5", "M4 8l8-3.5L20 8l-8 3.5L4 8Z", "M8.5 8 12 9.5 15.5 8"],
+    accent: ["M7 16.5l5-2.2 5 2.2", "M7 9l5-2.2 5 2.2"],
+  },
+  {
+    paths: ["M4 6h13l3 3v9H4V6Z", "M17 6v3h3", "M7 9h7", "M7 16h10", "M8 6l5 12"],
+    accent: ["M15.5 13.5 20 9", "M17.5 15.5l1.5 1.5", "M19 13.5h2", "M15.8 17.2l-1.4 1.4"],
+  },
+  {
+    paths: ["M4 6h16v5H4V6Z", "M6 11v8h12v-8", "M10 3h4v5", "M9 15h6", "M7 19h10"],
+    accent: ["M12 8v5", "M10 13h4", "M8 17h2", "M14 17h2"],
+  },
+  {
+    paths: ["M5 18h14", "M7 18V9h10v9", "M9 9V6h6v3", "M8 13h8", "M10 16h4"],
+    accent: ["M12 16c2-1.4 2.7-3.4 1-5.5", "M12 16c-2-1.4-2.7-3.4-1-5.5", "M12 5c2.6 3-.6 4.1 1.4 6"],
+  },
+  {
+    paths: ["M5 14a6 6 0 1 0 12 0a6 6 0 0 0-12 0", "M8 14h6", "M11 11v6", "M15.5 18.5 20 21", "M4 21h10"],
+    accent: ["M17 7l3-3", "M19 10h2", "M15 5l1-2", "M18.5 13l2 1"],
+  },
+  {
+    paths: ["M4 17 20 8", "M6 19h12", "M7 13l5 5", "M13.5 10.5l3 3", "M8 17l10-5"],
+    accent: ["M6 13h5", "M11 13v5", "M13 16c1.8-1.7 3.6-2.8 6-3.5"],
+  },
+  {
+    paths: ["M4 18h16", "M6 14h12l-2 4H8l-2-4Z", "M9 14c.5-2 1.7-3 3-3s2.5 1 3 3", "M11 8h2"],
+    accent: ["M12 3l.9 2.7L16 6.7l-3.1 1L12 10.5l-.9-2.8L8 6.7l3.1-1L12 3Z", "M6 9l1.4 1.4", "M18 9l-1.4 1.4"],
+  },
+  {
+    paths: ["M5 5h5v14H5V5Z", "M10 7h9", "M10 17h9", "M17 7v10", "M7.5 8.5h0", "M7.5 15.5h0"],
+    accent: ["M13 12l2 2 4-5", "M4 21h16"],
+  },
+  {
+    paths: ["M4 8l8-4 8 4v9l-8 4-8-4V8Z", "M4 8l8 4 8-4", "M12 12v9", "M8 10v4", "M16 10v4"],
+    accent: ["M9 6.5l6 3", "M17 15l2-2", "M19 13l1.2 1.2"],
+  },
+  {
+    paths: ["M3 16V7h11v9H3Z", "M14 10h4l3 3v3h-7v-6Z", "M7 19a2 2 0 1 0 0-4a2 2 0 0 0 0 4", "M18 19a2 2 0 1 0 0-4a2 2 0 0 0 0 4", "M5 10h5"],
+    accent: ["M6 5c3-2 8-2 11 0", "M17 5l-1.8-1.8", "M17 5l-1.8 1.8"],
+  },
+] as const;
+---
+
+<BaseLayout lang={lang} title={t.seo.manufacturingTitle} description={t.seo.manufacturingDescription} path={path} image={productImages.manufacturing}>
+  <PageHero eyebrow={t.labels.process} title={copy.h1} lead={copy.lead} image={productImages.manufacturing} imageAlt={t.nav.manufacturing} />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
+        <div>
+          <SectionHeading title={capabilityCopy.title} lead={capabilityCopy.lead} />
+          <div class="mt-8 overflow-hidden rounded-[6px] border border-slate-200 bg-[var(--color-mist)] shadow-sm">
+            <img src={productImages.workshop} alt={capabilityCopy.title} class="aspect-[16/10] w-full object-cover" loading="lazy" />
+            <p class="border-t border-slate-200 p-5 text-sm leading-7 text-slate-700">{copy.note}</p>
+          </div>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          {capabilityCopy.items.map((item, index) => (
+            <article class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+              <span class="text-sm font-semibold text-[var(--color-green)]">{String(index + 1).padStart(2, "0")}</span>
+              <h2 class="mt-3 text-xl font-semibold leading-snug text-[var(--color-ink)]">{item.title}</h2>
+              <p class="mt-3 text-sm leading-7 text-slate-600">{item.text}</p>
+              <p class="mt-4 border-l-2 border-[var(--color-blue)] pl-3 text-xs font-semibold leading-6 text-slate-500">{item.check}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-mist)] py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={capabilityCopy.processTitle} lead={t.seo.manufacturingDescription} />
+      <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        {manufacturingSteps[lang].map((step, index) => (
+          <div class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-start justify-between gap-4">
+              <span class="text-sm font-semibold text-[var(--color-green)]">{String(index + 1).padStart(2, "0")}</span>
+              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-[6px] border border-slate-200 bg-[linear-gradient(135deg,#f8fafc,#edf2f7)] text-[var(--color-blue)]">
+                <svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round">
+                  {processIcons[index].paths.map((path) => <path d={path}></path>)}
+                  {processIcons[index].accent.map((path) => <path d={path} stroke="var(--color-red)"></path>)}
+                </svg>
+              </span>
+            </div>
+            <h2 class="mt-5 text-lg font-semibold leading-snug text-[var(--color-ink)]">{step}</h2>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

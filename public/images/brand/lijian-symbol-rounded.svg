@@ -1,0 +1,44 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="purpleGrad" x1="220" y1="620" x2="620" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4B138D"/>
+      <stop offset="0.46" stop-color="#6C1DB0"/>
+      <stop offset="1" stop-color="#9B35D3"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="540" y1="900" x2="900" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E00010"/>
+      <stop offset="0.52" stop-color="#F20A12"/>
+      <stop offset="1" stop-color="#FF1D18"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Purple upper-left dynamic arrow shape -->
+  <path d="
+    M 170 590
+    Q 154 589 161 574
+    L 235 405
+    Q 239 394 248 386
+    L 602 92
+    Q 619 78 612 101
+    L 442 445
+    Q 437 456 447 463
+    L 604 556
+    Q 620 566 601 572
+    Z"
+    fill="url(#purpleGrad)"/>
+
+  <!-- Red lower-right dynamic arrow shape -->
+  <path d="
+    M 502 432
+    Q 486 421 506 421
+    L 902 421
+    Q 918 421 912 436
+    L 844 608
+    Q 841 616 834 622
+    L 511 902
+    Q 492 918 500 894
+    L 618 563
+    Q 621 553 612 547
+    Z"
+    fill="url(#redGrad)"/>
+</svg>

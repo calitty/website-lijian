@@ -1,0 +1,220 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { contact, langCodes, productImages, ui, withLang, type Lang } from "@/data/site";
+
+export function getStaticPaths() {
+  return langCodes.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = ui[lang];
+const path = "/about";
+const copy = {
+  en: {
+    h1: "Chinese Direct Food Machinery Blade Manufacturer",
+    lead:
+      "Founded in 1998, Maanshan Lijian is a Chinese source factory specializing in food machinery blades, replacement knives and custom blade manufacturing for food processing equipment, located near Nanjing Lukou International Airport for convenient logistics.",
+    chips: ["Chinese direct factory", "Founded in 1998", "1M+ monthly capacity", "7-day sampling / 30-day delivery"],
+    introTitle: "A Chinese source factory focused on food machinery blades since 1998",
+    intro:
+      "Maanshan Lijian started in 1998 and operates as a Chinese direct manufacturer rather than a trading-only supplier. The factory covers about 6,000 square meters in Bowang, Maanshan, close to Nanjing Lukou International Airport, which supports convenient sample delivery, batch shipment and export logistics. The factory focuses on food machinery blades, replacement knives and non-standard custom blades for meat, seafood, poultry, fruit and vegetable, bakery and food packaging equipment. Around 80% of the machine tools in the workshop are CNC equipment, supporting stable control of blade profile, mounting holes, thickness, heat treatment, edge geometry and surface finish. Monthly capacity exceeds 1 million pieces, with support for drawing-based customization, sample-based replacement, small-batch sampling and repeat production. Typical projects can be arranged around 7-day sampling and 30-day delivery.",
+    stats: [
+      { value: "1998", label: "Started" },
+      { value: "6,000 m²", label: "Factory Area" },
+      { value: "80%", label: "CNC Machine Tools" },
+      { value: "1M+", label: "Monthly Capacity" },
+      { value: "7 Days", label: "Sampling" },
+      { value: "30 Days", label: "Delivery" },
+      { value: "Nanjing Lukou Airport", label: "Nearby Logistics Hub" },
+    ],
+    workshopTitle: "Workshop And Working Environment",
+    workshopLead:
+      "Machining, edge work, inspection, packing and food equipment working environments are explained so food factories, OEM builders and maintenance buyers can evaluate whether the factory fits their blade requirement.",
+    sections: [
+      {
+        title: "Material And Blank Preparation",
+        text: "Blade work starts from matching material, thickness and blank shape to the cutting load, cleaning environment and expected service life.",
+        image: productImages.manufacturing,
+      },
+      {
+        title: "CNC Machining And Mounting Fit",
+        text: "Profiles, holes, slots and mounting details are treated as key control points because replacement food machine blades must fit existing equipment accurately.",
+        image: productImages.workshop,
+      },
+      {
+        title: "Grinding, Edge And Inspection",
+        text: "The content emphasizes flatness, thickness, bevel angle, edge consistency and basic inspection before packing.",
+        image: productImages.quality,
+      },
+      {
+        title: "Food Equipment Environment",
+        text: "Photos are used to show the kind of stainless, washable food equipment environment these blades are designed to serve.",
+        image: productImages.environment,
+      },
+    ],
+    cooperationTitle: "Custom Blade Information",
+    cooperation: ["Blade drawing", "Old sample photo", "Equipment model", "Material or hardness request", "Target food product", "Quantity and delivery plan"],
+  },
+  ru: {
+    h1: "Китайский прямой производитель ножей для пищевого оборудования",
+    lead:
+      "Фабрика начала работу в 1998 году. Maanshan Lijian — китайский завод-источник ножей для пищевого оборудования, расположенный рядом с международным аэропортом Нанкин Лукоу для удобной логистики.",
+    chips: ["Китайский прямой завод", "С 1998 года", "1 млн+ в месяц", "Образцы 7 дней / поставка 30 дней"],
+    introTitle: "Китайский завод-источник ножей для пищевого оборудования с 1998 года",
+    intro:
+      "Maanshan Lijian начала работу в 1998 году и работает как китайский прямой производитель, а не только торговый поставщик. Производственная площадка занимает около 6 000 м² в Bowang, Maanshan, рядом с международным аэропортом Нанкин Лукоу, что удобно для отправки образцов, партийных поставок и экспортной логистики. Фабрика выпускает ножи для пищевого оборудования, сменные ножи и нестандартные ножи для мясной, рыбной, овощной, хлебопекарной и упаковочной отрасли. Около 80% станочного парка составляют CNC станки, что помогает стабильнее контролировать профиль, отверстия, толщину, термообработку, геометрию кромки и поверхность. Месячная мощность превышает 1 млн штук. Поддерживаются изготовление по чертежам, по старому образцу, пробные партии и повторные заказы. Для типовых проектов возможны образцы примерно за 7 дней и поставка примерно за 30 дней.",
+    stats: [
+      { value: "1998", label: "Начало работы" },
+      { value: "6 000 м²", label: "Площадь" },
+      { value: "80%", label: "CNC станки" },
+      { value: "1 млн+", label: "Месячная мощность" },
+      { value: "7 дней", label: "Образец" },
+      { value: "30 дней", label: "Поставка" },
+      { value: "Аэропорт Нанкин Лукоу", label: "Логистика рядом" },
+    ],
+    workshopTitle: "Цех И Рабочая Среда",
+    workshopLead:
+      "Страница разделяет механообработку, кромку, контроль и упаковку, чтобы информация выглядела как полноценный профиль фабрики.",
+    sections: [
+      {
+        title: "Материал И Заготовка",
+        text: "Работа начинается с подбора материала, толщины и формы заготовки под нагрузку, мойку и ресурс.",
+        image: productImages.manufacturing,
+      },
+      {
+        title: "CNC Обработка И Посадка",
+        text: "Форма, отверстия, пазы и посадочные размеры важны, потому что нож должен точно подойти к оборудованию.",
+        image: productImages.workshop,
+      },
+      {
+        title: "Шлифование, Кромка И Контроль",
+        text: "Акцент на плоскостности, толщине, угле фаски, стабильности кромки и проверке перед упаковкой.",
+        image: productImages.quality,
+      },
+      {
+        title: "Среда Пищевого Оборудования",
+        text: "Фотографии показывают тип санитарной и нержавеющей среды, для которой предназначены такие ножи.",
+        image: productImages.environment,
+      },
+    ],
+    cooperationTitle: "Информация Для Изготовления",
+    cooperation: ["Чертеж ножа", "Фото старого образца", "Модель оборудования", "Материал или твердость", "Тип продукта", "Количество и срок"],
+  },
+  zh: {
+    h1: "中国食品机械刀片源头厂家",
+    lead:
+      "马鞍山市利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，长期服务食品加工设备配套、替换刀片和非标定制需求，靠近南京禄口机场，物流发货便利。",
+    chips: ["中国制造商", "源头厂家", "1998年始建", "月产能100万片以上", "7天打样 / 30天交货"],
+    introTitle: "始于1998年的中国食品机械刀片源头厂家",
+    intro:
+      "马鞍山市利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，非单纯贸易型供应商。工厂占地约6000㎡，位于安徽马鞍山博望，靠近南京禄口机场，公路与航空物流衔接便利，便于样品寄送、批量发货和外贸出运安排。生产围绕食品机械刀片、食品加工设备替换刀片和非标定制刀片展开，服务肉类、水产、禽类、果蔬、烘焙、冷冻食品及食品包装等加工场景。车间以数控加工设备为主，数控机床占比约80%，配合磨削、热处理、刃口处理、表面处理和包装检查，重点控制刀片外形、安装孔位、厚度、硬度、刃口角度和批次一致性。对于旧刀替换、设备改型和新项目开发，可根据图纸、样品、设备型号或现场切割问题沟通材料与工艺建议。工厂月综合产能超过100万片，支持小批量打样与批量复购，常规定制项目可按7天打样、30天交货节奏推进，欢迎食品加工企业、设备厂和维修采购联系咨询。",
+    stats: [
+      { value: "1998", label: "始建时间" },
+      { value: "6000㎡", label: "厂区占地" },
+      { value: "80%", label: "数控机床占比" },
+      { value: "100万+", label: "月综合产能" },
+      { value: "7天", label: "打样周期" },
+      { value: "30天", label: "交货周期" },
+      { value: "南京禄口机场", label: "临近物流节点" },
+    ],
+    workshopTitle: "车间与工作环境",
+    workshopLead:
+      "围绕机加工、刃口处理、检测、包装和食品设备使用环境介绍工厂配合方式，帮助客户判断刀片是否适合现有设备、食品接触环境和连续生产节奏。",
+    sections: [
+      {
+        title: "材料与刀坯准备",
+        text: "根据切割负载、清洗环境、食品接触要求和使用寿命目标，先确认材料、厚度和刀坯外形。",
+        image: productImages.manufacturing,
+      },
+      {
+        title: "CNC 加工与装机尺寸",
+        text: "外形、孔位、槽位和安装尺寸是替换刀片的关键。按旧刀样品或图纸加工时，会优先保证装机位置、孔距和刃口方向与设备匹配。",
+        image: productImages.workshop,
+      },
+      {
+        title: "磨削、刃口与检测",
+        text: "磨削和刃口处理直接影响切割效果。工厂会关注平面度、厚度、刃口角度、锋利度、批次一致性和包装前检查。",
+        image: productImages.quality,
+      },
+      {
+        title: "食品设备使用环境",
+        text: "食品机械刀片常面对潮湿、清洗和连续生产场景，材料、表面处理和防锈包装需要结合肉类、水产、果蔬、烘焙或包装工况选择。",
+        image: productImages.environment,
+      },
+    ],
+    cooperationTitle: "定制配合信息",
+    cooperation: ["刀片图纸", "旧刀样品照片", "设备型号", "材料或硬度要求", "切割食品类型", "数量和交付计划"],
+  },
+}[lang];
+---
+
+<BaseLayout lang={lang} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path} image={productImages.factoryGate}>
+  <PageHero eyebrow={t.nav.about} title={copy.h1} lead={copy.lead} image={productImages.factoryGate} imageAlt={t.nav.about}>
+    <div class="mt-8 flex flex-wrap gap-3">
+      {copy.chips.map((chip) => (
+        <span class="rounded-[4px] border border-white/15 bg-white/10 px-4 py-3 text-sm font-semibold">{chip}</span>
+      ))}
+    </div>
+  </PageHero>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="container-page grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+      <div>
+        <SectionHeading eyebrow={contact.company[lang]} title={copy.introTitle} lead={copy.intro} />
+        <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {copy.stats.map((item) => (
+            <div class="rounded-[6px] border border-slate-200 bg-[var(--color-mist)] p-4">
+              <p class="text-2xl font-semibold text-[var(--color-ink)]">{item.value}</p>
+              <p class="mt-1 text-sm font-semibold text-slate-600">{item.label}</p>
+            </div>
+          ))}
+        </div>
+        <a href={withLang(lang, "/contact")} class="mt-8 inline-flex rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_about">
+          {t.actions.contactUs}
+        </a>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-[.85fr_1.15fr]">
+        <img src={productImages.equipment} alt={copy.sections[3].title} class="aspect-[4/5] w-full rounded-[6px] object-cover shadow-sm" loading="lazy" />
+        <div class="grid gap-4">
+          <img src={productImages.manufacturing} alt={copy.sections[0].title} class="aspect-[4/3] w-full rounded-[6px] object-cover shadow-sm" loading="lazy" />
+          <img src={productImages.quality} alt={copy.sections[2].title} class="aspect-[4/3] w-full rounded-[6px] object-cover shadow-sm" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-mist)] py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={copy.workshopTitle} lead={copy.workshopLead} />
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {copy.sections.map((section, index) => (
+          <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+            <img src={section.image} alt={section.title} class="aspect-[16/10] w-full object-cover" loading="lazy" />
+            <div class="p-6">
+              <span class="text-sm font-semibold text-[var(--color-green)]">{String(index + 1).padStart(2, "0")}</span>
+              <h2 class="mt-3 text-2xl font-semibold leading-snug text-[var(--color-ink)]">{section.title}</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-600">{section.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-ink)] py-16 text-white md:py-20">
+    <div class="container-page grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+      <div>
+        <p class="text-sm font-semibold uppercase text-[var(--color-silver)]">{t.actions.contactUs}</p>
+        <h2 class="mt-3 text-3xl font-semibold leading-tight md:text-4xl">{copy.cooperationTitle}</h2>
+        <p class="mt-4 text-base leading-8 text-slate-300">{t.contactPrompt}</p>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {copy.cooperation.map((item) => (
+          <div class="rounded-[4px] border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100">{item}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

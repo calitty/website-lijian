@@ -1,0 +1,48 @@
+---
+import ProductCard from "@/components/ProductCard.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { langCodes, productImages, products, ui, type Lang } from "@/data/site";
+
+export function getStaticPaths() {
+  return langCodes.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = ui[lang];
+const path = "/products";
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.seo.productsTitle}
+  description={t.seo.productsDescription}
+  path={path}
+  image={productImages.hero}
+  pageEvent="view_product_category"
+  pageEventLabel="all-products"
+>
+  <PageHero eyebrow={t.labels.productRange} title={t.seo.productsTitle} lead={t.seo.productsDescription} image={productImages.hero} imageAlt={t.nav.products}>
+    <div class="mt-7 flex flex-wrap gap-2">
+      {products.slice(0, 5).map((product) => (
+        <a href={`#${product.slug}`} class="rounded-[4px] border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-slate-100">
+          {product.tags[0]}
+        </a>
+      ))}
+    </div>
+  </PageHero>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={t.nav.products} lead={t.home.productsLead} />
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {products.map((product) => (
+          <div id={product.slug} class="scroll-mt-24">
+            <ProductCard product={product} lang={lang} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

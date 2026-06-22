@@ -1,0 +1,177 @@
+---
+import { channelLinks, contact, ui, withLang, type Lang } from "@/data/site";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const year = new Date().getFullYear();
+const footerCopy = {
+  en: {
+    tagline: "Chinese source manufacturer for food machine blades",
+    summary:
+      "Custom and OEM replacement blades for food processing equipment. Send a drawing, old blade photo, machine model or key dimensions for technical confirmation.",
+    exportTitle: "Export Support",
+    productsTitle: "Blade Range",
+    applicationsTitle: "Applications",
+    buyerTitle: "Before Inquiry",
+    contactTitle: "Direct Contact",
+    officeTitle: "Office / Technical",
+    cta: "Discuss Blade Requirement",
+    whatsapp: "WhatsApp Chat",
+    email: "Email Inquiry",
+    inquiryHint: "Send drawing / sample / machine model",
+    copyright: "Chinese food machinery blade manufacturer and source factory.",
+    badges: ["Since 1998", "6,000 m² factory", "7-day sample support", "30-day batch delivery"],
+    buyerInfo: ["Drawing, sample or equipment model", "Blade size, hole position and thickness", "Material, quantity and delivery request"],
+  },
+  ru: {
+    tagline: "Китайский завод-производитель ножей для пищевого оборудования",
+    summary:
+      "Ножи на заказ и OEM сменные ножи для пищевого оборудования. Отправьте чертеж, фото старого ножа, модель машины или размеры для технического подтверждения.",
+    exportTitle: "Экспортная поддержка",
+    productsTitle: "Ассортимент",
+    applicationsTitle: "Применение",
+    buyerTitle: "Для запроса",
+    contactTitle: "Прямая связь",
+    officeTitle: "Офис / техника",
+    cta: "Обсудить нож",
+    whatsapp: "Чат WhatsApp",
+    email: "Запрос по Email",
+    inquiryHint: "Чертеж / образец / модель машины",
+    copyright: "Китайский производитель и завод-источник ножей для пищевого оборудования.",
+    badges: ["С 1998 года", "Завод 6 000 м²", "Образец от 7 дней", "Партия от 30 дней"],
+    buyerInfo: ["Чертеж, образец или модель машины", "Размер, отверстия и толщина ножа", "Материал, количество и срок поставки"],
+  },
+  zh: {
+    tagline: "中国食品机械刀片制造商与源头厂家",
+    summary:
+      "面向海外食品厂、设备厂和维修采购，提供食品机械刀片、替换刀片和 OEM 非标刀片制造。可先发送图纸、旧刀照片、设备型号或关键尺寸进行技术确认。",
+    exportTitle: "外贸配合",
+    productsTitle: "刀片范围",
+    applicationsTitle: "应用场景",
+    buyerTitle: "询盘前准备",
+    contactTitle: "直接联系",
+    officeTitle: "外贸 / 技术",
+    cta: "沟通刀片需求",
+    whatsapp: "WhatsApp 沟通",
+    email: "邮箱询盘",
+    inquiryHint: "图纸 / 样品 / 设备型号均可沟通",
+    copyright: "中国食品机械刀片制造商和源头厂家。",
+    badges: ["始于1998年", "6000㎡工厂", "7天打样支持", "30天批量交付"],
+    buyerInfo: ["图纸、样品或设备型号", "刀片尺寸、孔位和厚度", "材料、数量和交付要求"],
+  },
+}[lang];
+const footerProducts = {
+  en: [
+    ["Custom food processing blades", "/products/custom-food-processing-blades"],
+    ["Bowl cutter blades", "/products/bowl-cutter-blades"],
+    ["Meat processing blades", "/products/meat-processing-blades"],
+    ["Packaging blades", "/products/packaging-blades"],
+  ],
+  ru: [
+    ["Ножи по чертежу", "/products/custom-food-processing-blades"],
+    ["Ножи для куттера", "/products/bowl-cutter-blades"],
+    ["Ножи для мяса", "/products/meat-processing-blades"],
+    ["Упаковочные ножи", "/products/packaging-blades"],
+  ],
+  zh: [
+    ["非标食品加工刀片", "/products/custom-food-processing-blades"],
+    ["斩拌机刀片", "/products/bowl-cutter-blades"],
+    ["肉类加工刀片", "/products/meat-processing-blades"],
+    ["包装机械刀片", "/products/packaging-blades"],
+  ],
+}[lang];
+const footerApplications = {
+  en: [
+    ["Meat processing", "/applications/meat-processing"],
+    ["Poultry processing", "/applications/poultry-processing"],
+    ["Seafood processing", "/applications/fish-seafood-processing"],
+    ["Food packaging", "/applications/food-packaging"],
+  ],
+  ru: [
+    ["Переработка мяса", "/applications/meat-processing"],
+    ["Переработка птицы", "/applications/poultry-processing"],
+    ["Рыба и морепродукты", "/applications/fish-seafood-processing"],
+    ["Пищевая упаковка", "/applications/food-packaging"],
+  ],
+  zh: [
+    ["肉类加工", "/applications/meat-processing"],
+    ["禽类加工", "/applications/poultry-processing"],
+    ["水产加工", "/applications/fish-seafood-processing"],
+    ["食品包装", "/applications/food-packaging"],
+  ],
+}[lang];
+---
+
+<footer class="border-t border-white/10 bg-[#070b10] pb-24 text-white sm:pb-12">
+  <div class="container-page grid gap-9 py-12 lg:grid-cols-[1.35fr_.72fr_.72fr_1.05fr]">
+    <div>
+      <div class="flex items-center gap-3">
+        <span class="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-[4px] bg-white p-1.5">
+          <img src={contact.logo} alt="" class="h-full w-full object-contain" loading="lazy" />
+        </span>
+        <span>
+          <p class="text-lg font-semibold">{t.siteName}</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[.14em] text-slate-400">Food Machine Blades</p>
+        </span>
+      </div>
+      <p class="mt-4 text-sm font-semibold uppercase text-[var(--color-silver)]">{footerCopy.tagline}</p>
+      <p class="mt-4 max-w-md text-sm leading-7 text-slate-300">{footerCopy.summary}</p>
+      <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-slate-400">
+        {footerCopy.badges.map((item) => (
+          <span>{item}</span>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase text-slate-400">{footerCopy.productsTitle}</p>
+      <div class="mt-4 grid gap-2.5 text-sm text-slate-300">
+        {footerProducts.map(([label, href]) => (
+          <a href={withLang(lang, href)} class="hover:text-white">{label}</a>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase text-slate-400">{footerCopy.applicationsTitle}</p>
+      <div class="mt-4 grid gap-2.5 text-sm text-slate-300">
+        {footerApplications.map(([label, href]) => (
+          <a href={withLang(lang, href)} class="hover:text-white">{label}</a>
+        ))}
+      </div>
+      <p class="mt-6 text-sm font-semibold uppercase text-slate-400">{footerCopy.buyerTitle}</p>
+      <p class="mt-4 text-sm leading-7 text-slate-300">{footerCopy.inquiryHint}</p>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase text-slate-400">{footerCopy.contactTitle}</p>
+      <div class="mt-4 grid gap-2.5 text-sm text-slate-300">
+        <a href={channelLinks.whatsapp} class="font-semibold text-white hover:text-[var(--color-silver)]" data-track="click_whatsapp">
+          {footerCopy.whatsapp}: {contact.whatsapp}
+        </a>
+        <a href={channelLinks.email} class="break-all hover:text-white" data-track="click_email">
+          {contact.email}
+        </a>
+        <div class="mt-4 border-t border-white/10 pt-4">
+          <p class="text-xs font-semibold uppercase text-slate-500">{footerCopy.officeTitle}</p>
+          <div class="mt-3 grid gap-3">
+            {contact.departments.map((department) => (
+              <div class="grid gap-1">
+                <span class="font-semibold text-slate-100">{department.name[lang]}</span>
+                <a class="text-sm text-slate-300 hover:text-white" href={`tel:${department.phone.replace(/\s/g, "")}`} data-track="click_phone" data-track-label={department.id}>{department.phone}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-page flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+    <span>© {year} {contact.company[lang]}.</span>
+    <span>{footerCopy.copyright}</span>
+  </div>
+</footer>

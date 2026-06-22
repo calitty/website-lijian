@@ -1,0 +1,359 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { langCodes, productImages, ui, type Lang } from "@/data/site";
+
+export function getStaticPaths() {
+  return langCodes.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = ui[lang];
+const path = "/quality";
+const copy = {
+  en: {
+    h1: "Quality Control for Food Processing Blades",
+    lead:
+      "Quality control is built around the drawing, old sample or confirmed specification: material, hardness, thickness, hole position, bevel angle, edge condition and packing protection.",
+    principleTitle: "Inspection Principles",
+    principleLead:
+      "For custom and replacement blades, the important question is not only whether a blade looks sharp. It must fit the machine, cut consistently and survive cleaning and repeated production.",
+    workflowTitle: "Practical QC Workflow",
+    documentsTitle: "What Can Be Confirmed Before Production",
+    documentsLead:
+      "The final inspection standard should be agreed from the drawing, sample or equipment model before production starts.",
+    points: [
+      {
+        title: "Material And Order Requirement",
+        text: "Confirm steel type, thickness, surface request and food-contact working environment against the order requirement.",
+      },
+      {
+        title: "Heat Treatment And Hardness",
+        text: "Check hardness after heat treatment according to the target range confirmed for the blade type and cutting load.",
+      },
+      {
+        title: "Profile, Hole And Slot Position",
+        text: "Check outer profile, mounting holes, slots, bore size and key mounting dimensions against drawing or old blade sample.",
+      },
+      {
+        title: "Thickness, Flatness And Straightness",
+        text: "Review blade thickness, flatness, straightness and deformation risk before edge finishing and packing.",
+      },
+      {
+        title: "Bevel, Edge And Tooth Geometry",
+        text: "Inspect bevel direction, edge angle, burr condition, tooth pitch or perforation pitch according to blade function.",
+      },
+      {
+        title: "Surface Finish And Rust Protection",
+        text: "Check polishing, scratches, rust spots, cleaning marks and apply anti-rust packing suitable for transport.",
+      },
+    ],
+    workflow: ["Confirm drawing or sample", "Select material and thickness", "Machine key dimensions", "Heat treatment", "Precision grinding", "Edge finishing", "Inspection and packing"],
+    documents: ["Drawing dimensions", "Old blade sample", "Equipment model", "Material request", "Hardness target", "Packing requirement"],
+  },
+  ru: {
+    h1: "Контроль качества ножей для пищевого оборудования",
+    lead:
+      "Контроль строится вокруг чертежа, образца или согласованной спецификации: материал, твердость, толщина, отверстия, угол фаски, состояние кромки и упаковка.",
+    principleTitle: "Принципы Контроля",
+    principleLead:
+      "Для ножей на заказ важно не только, чтобы нож был острым. Он должен точно подойти к машине, стабильно резать и выдерживать мойку и повторную работу.",
+    workflowTitle: "Практический Процесс Контроля",
+    documentsTitle: "Что Нужно Согласовать До Производства",
+    documentsLead:
+      "Финальный стандарт контроля лучше согласовать по чертежу, образцу или модели оборудования до запуска партии.",
+    points: [
+      {
+        title: "Материал И Требование Заказа",
+        text: "Проверка марки стали, толщины, поверхности и рабочей среды по требованиям заказа.",
+      },
+      {
+        title: "Термообработка И Твердость",
+        text: "Контроль твердости после термообработки по целевому диапазону для типа ножа и нагрузки резки.",
+      },
+      {
+        title: "Профиль, Отверстия И Пазы",
+        text: "Проверка формы, отверстий, пазов, посадочного диаметра и важных монтажных размеров.",
+      },
+      {
+        title: "Толщина, Плоскостность И Прямолинейность",
+        text: "Контроль толщины, плоскостности, прямолинейности и риска деформации перед финишной кромкой.",
+      },
+      {
+        title: "Фаска, Кромка И Зуб",
+        text: "Проверка направления фаски, угла кромки, заусенцев, шага зуба или перфорации по функции ножа.",
+      },
+      {
+        title: "Поверхность И Защита От Ржавчины",
+        text: "Проверка полировки, царапин, следов ржавчины и антикоррозионной упаковки для перевозки.",
+      },
+    ],
+    workflow: ["Согласовать чертеж", "Выбрать материал", "Обработать размеры", "Термообработка", "Точное шлифование", "Финиш кромки", "Контроль и упаковка"],
+    documents: ["Размеры чертежа", "Старый образец", "Модель оборудования", "Материал", "Целевая твердость", "Упаковка"],
+  },
+  zh: {
+    h1: "食品机械刀片质量控制",
+    lead:
+      "食品机械刀片的质量控制不只看锋利度，更要保证到货后能装机、切割稳定、清洗后不易生锈，并且后续复购批次能保持一致。",
+    principleTitle: "质检原则",
+    principleLead:
+      "利坚会把图纸、旧刀样品或设备型号转化为可检查的尺寸和工艺要求，重点控制材料、硬度、孔位、厚度、刃口和表面状态。",
+    workflowTitle: "实际质检流程",
+    documentsTitle: "检验依据",
+    documentsLead: "图纸、旧刀样品或设备型号越明确，越容易把外形、孔位、厚度、刃口方向和包装要求转化为可复购的稳定规格。",
+    points: [
+      {
+        title: "材料与订单要求",
+        text: "根据肉类、水产、果蔬、烘焙或包装工况确认钢材类型、厚度和表面要求，避免材料与清洗环境或切割负载不匹配。",
+      },
+      {
+        title: "热处理与硬度",
+        text: "按刀片用途和切割负载控制硬度范围，兼顾耐磨、抗冲击和刃口保持，降低过软磨损快或过硬崩口的风险。",
+      },
+      {
+        title: "外形、孔位与槽位",
+        text: "检查外形轮廓、安装孔、槽位、内孔和关键装机尺寸，重点解决替换刀片到货后无法安装或需要长时间调机的问题。",
+      },
+      {
+        title: "厚度、平面度与直线度",
+        text: "检查厚度、平面度、直线度和变形风险，保证装机间隙、切割压力和长条刀/圆刀运行状态更稳定。",
+      },
+      {
+        title: "刃口、角度与齿形",
+        text: "根据食品和包装材料检查单面刃/双面刃、刃口角度、毛刺状态、齿距或打孔间距，直接影响切面、掉屑、毛刺和易撕效果。",
+      },
+      {
+        title: "表面处理与防锈包装",
+        text: "检查抛光、划痕、锈点和清洁状态，并按运输距离和仓储环境做防锈包装，降低到货锈蚀和磕碰风险。",
+      },
+    ],
+    workflow: ["确认图纸或样品", "选择材料和厚度", "加工关键尺寸", "热处理", "精密磨削", "刃口处理", "检测与包装"],
+    documents: ["图纸尺寸", "旧刀样品", "设备型号", "材料要求", "硬度目标", "包装要求"],
+  },
+}[lang];
+const zhQualityValue = lang === "zh"
+  ? {
+      title: "质量控制目标",
+      lead:
+        "质量控制围绕装机尺寸、切割稳定、清洗环境和批次一致性展开，服务食品机械刀片的长期使用。",
+      cards: [
+        { title: "到货能装", text: "孔位、槽位、内孔、厚度和外形按图纸或旧刀样品控制，减少现场二次修磨。" },
+        { title: "切割稳定", text: "刃口角度、齿距、锋利度和表面状态结合食品质地处理，兼顾切面和寿命。" },
+        { title: "适应清洗", text: "按潮湿、盐分、清洗剂和食品接触环境选择材料与表面处理，降低锈蚀风险。" },
+        { title: "便于复购", text: "把已确认规格沉淀为关键尺寸和工艺要求，后续补货更容易保持同一使用体验。" },
+      ],
+    }
+  : undefined;
+const qualityEvidence = {
+  en: {
+    title: "Inspection Report Excerpts",
+    lead:
+      "The report images are shown as examples of quality verification capability. For batch production, inspection items and report documents should follow the confirmed order requirement.",
+    note: "Original report screenshots are retained for credibility; translated captions explain the purpose for international buyers.",
+    chips: ["Edge morphology", "Element check", "Heat-treatment review", "Hardness range"],
+    items: [
+      {
+        title: "SEM Edge Observation",
+        text: "Scanning electron microscope images help review edge morphology, fracture trace, wear condition and abnormal surface features.",
+        image: "/images/quality/report-sem-cropped.jpg",
+      },
+      {
+        title: "EDS Composition Analysis",
+        text: "Element spectrum analysis checks whether abnormal elements appear around the inspected area and supports material review.",
+        image: "/images/quality/report-eds-cropped.jpg",
+      },
+      {
+        title: "Metallographic Structure",
+        text: "Microstructure observation helps review heat treatment condition, matrix uniformity and obvious carbide segregation.",
+        image: "/images/quality/report-metallography-cropped.jpg",
+      },
+      {
+        title: "Hardness Analysis",
+        text: "Hardness readings across different positions help judge heat treatment consistency and whether the target range is suitable.",
+        image: "/images/quality/report-hardness-cropped.jpg",
+      },
+    ],
+  },
+  ru: {
+    title: "Фрагменты Отчета Контроля",
+    lead:
+      "Изображения отчета показывают примеры возможностей контроля качества. Для партии список проверок и документы должны соответствовать согласованному заказу.",
+    note: "Оригинальные скриншоты сохранены для доверия; подписи объясняют смысл для иностранных покупателей.",
+    chips: ["Морфология кромки", "Проверка элементов", "Оценка термообработки", "Диапазон твердости"],
+    items: [
+      {
+        title: "SEM Наблюдение Кромки",
+        text: "Снимки электронного микроскопа помогают оценить морфологию кромки, следы разрушения, износ и поверхность.",
+        image: "/images/quality/report-sem-cropped.jpg",
+      },
+      {
+        title: "EDS Анализ Состава",
+        text: "Спектральный анализ проверяет наличие необычных элементов в зоне контроля и помогает оценить материал.",
+        image: "/images/quality/report-eds-cropped.jpg",
+      },
+      {
+        title: "Металлографическая Структура",
+        text: "Микроструктура помогает оценить термообработку, однородность матрицы и явную сегрегацию карбидов.",
+        image: "/images/quality/report-metallography-cropped.jpg",
+      },
+      {
+        title: "Анализ Твердости",
+        text: "Измерения твердости в разных точках помогают оценить стабильность термообработки и целевой диапазон.",
+        image: "/images/quality/report-hardness-cropped.jpg",
+      },
+    ],
+  },
+  zh: {
+    title: "检测报告摘录",
+    lead:
+      "这组图片适合放在质量控制页作为技术佐证，展示可围绕刃口形貌、元素成分、金相组织和硬度做分析判断。具体批次检测项目以订单要求、材料和刀片用途为准。",
+    note: "保留原始报告截图提升可信度，页面标题和说明负责解释每张图对采购客户的意义。",
+    chips: ["刃口形貌", "元素核对", "热处理组织", "硬度范围"],
+    items: [
+      {
+        title: "扫描电镜形貌观察",
+        text: "用于观察刃口、裂纹、磨损痕迹和异常表面特征，帮助判断失效原因和刃口状态。",
+        image: "/images/quality/report-sem-cropped.jpg",
+      },
+      {
+        title: "能谱成分分析",
+        text: "用于核对检测区域元素组成，判断裂纹或异常区域是否存在异常元素，辅助材料分析。",
+        image: "/images/quality/report-eds-cropped.jpg",
+      },
+      {
+        title: "金相组织分析",
+        text: "用于观察热处理后的基体组织、均匀性和明显碳化物偏析情况，辅助判断工艺稳定性。",
+        image: "/images/quality/report-metallography-cropped.jpg",
+      },
+      {
+        title: "硬度分析",
+        text: "通过不同位置硬度记录判断热处理一致性，确认硬度范围是否符合刀片用途和切割负载。",
+        image: "/images/quality/report-hardness-cropped.jpg",
+      },
+    ],
+  },
+}[lang];
+const evidenceFeatured = qualityEvidence.items[0];
+const evidenceSupporting = qualityEvidence.items.slice(1);
+---
+
+<BaseLayout lang={lang} title={t.seo.qualityTitle} description={t.seo.qualityDescription} path={path} image={productImages.quality}>
+  <PageHero eyebrow={t.labels.inspection} title={copy.h1} lead={copy.lead} image={productImages.quality} imageAlt={t.nav.quality} />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="container-page grid gap-10 lg:grid-cols-[.86fr_1.14fr] lg:items-start">
+      <div>
+        <SectionHeading title={copy.principleTitle} lead={copy.principleLead} />
+        <div class="mt-8 overflow-hidden rounded-[6px] border border-slate-200 bg-[var(--color-mist)] shadow-sm">
+          <img src={productImages.workshop} alt={copy.principleTitle} class="aspect-[16/10] w-full object-cover" loading="lazy" />
+          <div class="p-6">
+            <h2 class="text-xl font-semibold text-[var(--color-ink)]">{copy.documentsTitle}</h2>
+            <p class="mt-3 text-sm leading-7 text-slate-600">{copy.documentsLead}</p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              {copy.documents.map((item) => (
+                <span class="rounded-[4px] bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm">{item}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        {
+          zhQualityValue && (
+            <div class="mb-6 rounded-[6px] border border-slate-200 bg-[var(--color-mist)] p-6">
+              <h2 class="text-2xl font-semibold leading-snug text-[var(--color-ink)]">{zhQualityValue.title}</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-600">{zhQualityValue.lead}</p>
+              <div class="mt-6 grid gap-4 md:grid-cols-2">
+                {zhQualityValue.cards.map((card) => (
+                  <article class="rounded-[6px] border border-slate-100 bg-white p-5">
+                    <h3 class="text-lg font-semibold text-[var(--color-ink)]">{card.title}</h3>
+                    <p class="mt-3 text-sm leading-7 text-slate-600">{card.text}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          )
+        }
+        <div class="grid gap-4 md:grid-cols-2">
+          {copy.points.map((point, index) => (
+            <article class="rounded-[6px] border border-slate-200 bg-white p-6 shadow-sm">
+              <span class="text-sm font-semibold text-[var(--color-green)]">{String(index + 1).padStart(2, "0")}</span>
+              <h2 class="mt-3 text-xl font-semibold leading-snug text-[var(--color-ink)]">{point.title}</h2>
+              <p class="mt-3 text-sm leading-7 text-slate-600">{point.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inspection-reports" class="scroll-mt-24 bg-[var(--color-mist)] py-16 md:py-20">
+    <div class="container-page">
+      <div class="grid gap-6 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+        <div>
+          <p class="text-sm font-semibold uppercase text-[var(--color-red)]">{t.labels.inspection}</p>
+          <h2 class="mt-3 text-3xl font-semibold leading-tight text-[var(--color-ink)] md:text-4xl">{qualityEvidence.title}</h2>
+        </div>
+        <div>
+          <p class="text-base leading-8 text-slate-600">{qualityEvidence.lead}</p>
+          <p class="mt-3 rounded-[6px] border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-600 shadow-sm">{qualityEvidence.note}</p>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-2">
+        {qualityEvidence.chips.map((item) => (
+          <span class="rounded-[4px] border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 shadow-sm">{item}</span>
+        ))}
+      </div>
+
+      <div class="mt-10 grid gap-5 lg:grid-cols-[1.08fr_.92fr]">
+        <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white text-[var(--color-ink)] shadow-sm">
+          <div class="flex items-center justify-between gap-4 border-b border-slate-200 bg-[var(--color-mist)] px-5 py-4">
+            <div>
+              <span class="text-xs font-semibold uppercase text-[var(--color-red)]">01 / Report sample</span>
+              <h3 class="mt-1 text-xl font-semibold leading-snug">{evidenceFeatured.title}</h3>
+            </div>
+            <span class="hidden rounded-[4px] border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500 sm:inline-flex">{t.labels.inspection}</span>
+          </div>
+          <div class="bg-white p-3">
+            <img src={evidenceFeatured.image} alt={evidenceFeatured.title} class="aspect-[16/10] w-full rounded-[4px] object-contain" loading="lazy" />
+          </div>
+          <div class="border-t border-slate-200 p-5">
+            <p class="text-sm leading-7 text-slate-600">{evidenceFeatured.text}</p>
+          </div>
+        </article>
+
+        <div class="grid gap-4">
+          {evidenceSupporting.map((item, index) => (
+            <article class="grid overflow-hidden rounded-[6px] border border-slate-200 bg-white text-[var(--color-ink)] shadow-sm sm:grid-cols-[220px_1fr]">
+              <div class="bg-white p-2">
+                <img src={item.image} alt={item.title} class="aspect-[16/9] h-full w-full rounded-[4px] object-contain" loading="lazy" />
+              </div>
+              <div class="border-t border-slate-200 p-4 sm:border-l sm:border-t-0">
+                <span class="text-xs font-semibold uppercase text-[var(--color-red)]">0{index + 2} / Evidence</span>
+                <h3 class="mt-2 text-lg font-semibold leading-snug">{item.title}</h3>
+                <p class="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-mist)] py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={copy.workflowTitle} lead={t.seo.qualityDescription} />
+      <div class="mt-10 grid gap-3 md:grid-cols-7">
+        {copy.workflow.map((step, index) => (
+          <div class="relative rounded-[6px] border border-slate-200 bg-white p-4 shadow-sm">
+            <span class="grid h-8 w-8 place-items-center rounded-[4px] bg-[var(--color-blue)] text-sm font-semibold text-white">{index + 1}</span>
+            <h2 class="mt-4 text-sm font-semibold leading-6 text-[var(--color-ink)]">{step}</h2>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,233 @@
+---
+import { contact, languages, ui, withLang, type Lang } from "@/data/site";
+
+interface Props {
+  lang: Lang;
+  path?: string;
+}
+
+const { lang, path = "/" } = Astro.props;
+const t = ui[lang];
+const navItems = [
+  ["products", "/products"],
+  ["applications", "/applications"],
+  ["manufacturing", "/manufacturing"],
+  ["quality", "/quality"],
+  ["about", "/about"],
+  ["contact", "/contact"],
+] as const;
+
+const activePath = path === "/" ? "/" : path.replace(/\/$/, "");
+const isHome = activePath === "/";
+const addressLabel = lang === "zh" ? "地址" : lang === "ru" ? "Адрес" : "Address";
+const homeHref = withLang(lang);
+const contactHref = isHome ? "#contact" : `${homeHref}#contact`;
+const brandName = isHome && lang === "zh" ? contact.company.zh : t.siteName;
+const homeAnchorKeys = new Set(["products", "applications", "manufacturing", "quality", "about", "contact"]);
+const navSpacingClass = lang === "ru" ? "gap-0.5" : "gap-1";
+const navItemClass = lang === "ru" ? "px-2.5 text-[13px]" : "px-3 text-sm";
+const getNavHref = (key: string, href: string) => {
+  if (isHome && homeAnchorKeys.has(key)) return `#${key}`;
+  if (key === "contact") return contactHref;
+  return withLang(lang, href);
+};
+---
+
+<header class="sticky top-0 z-40 border-b border-white/10 bg-[#070b10] text-white">
+  <div class="container-page flex min-h-18 items-center justify-between gap-5">
+    <a href={homeHref} class="flex items-center gap-3 font-semibold text-white" aria-label={t.nav.home}>
+      <span class="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[4px] bg-white p-1.5">
+        <img src={contact.logo} alt="" class="h-full w-full object-contain" />
+      </span>
+      <span class="grid leading-tight">
+        <span class="whitespace-nowrap text-[15px] font-semibold sm:text-base">{brandName}</span>
+        <span class="hidden text-[10px] font-semibold uppercase tracking-[.14em] text-slate-400 sm:block">Food Machine Blades</span>
+      </span>
+    </a>
+
+    <nav class:list={["hidden items-center lg:flex", navSpacingClass]} aria-label="Primary navigation">
+      {navItems.map(([key, href]) => {
+        const isActive = activePath === href || activePath.startsWith(`${href}/`);
+        return (
+          <a
+            href={getNavHref(key, href)}
+            class:list={[
+              "home-nav-desktop whitespace-nowrap rounded-[4px] border-b-2 py-2 font-semibold",
+              navItemClass,
+              !isHome && isActive ? "border-[var(--color-red)] bg-white/6 text-white" : "border-transparent text-slate-300",
+            ]}
+            data-home-nav={isHome && homeAnchorKeys.has(key) ? key : undefined}
+          >
+            {t.nav[key]}
+          </a>
+        );
+      })}
+    </nav>
+
+    <div class="hidden items-center gap-2 lg:flex">
+      <div class="flex items-center gap-1 border-l border-white/15 pl-3" aria-label={t.labels.language}>
+        {Object.entries(languages).map(([code, language]) => (
+          <a
+            href={withLang(code as Lang, path)}
+            class:list={[
+              "min-w-9 whitespace-nowrap rounded-[4px] px-2 py-1 text-center text-xs font-semibold",
+              code === lang ? "bg-white text-[var(--color-ink)]" : "text-slate-300",
+            ]}
+            data-track="switch_language"
+            data-track-label={code}
+            data-language-option={code}
+          >
+            {language.shortLabel}
+          </a>
+        ))}
+      </div>
+      <a
+        href={contactHref}
+        class="rounded-[4px] bg-[var(--color-red)] px-4 py-2 text-sm font-semibold text-white"
+        data-track="click_contact_from_header"
+        data-home-jump={isHome ? "contact" : undefined}
+      >
+        {t.actions.contactUs}
+      </a>
+    </div>
+
+    <details class="relative lg:hidden">
+      <summary class="list-none rounded-[4px] border border-white/20 px-3 py-2 text-sm font-semibold text-white">
+        Menu
+      </summary>
+      <div class="absolute right-0 mt-3 w-72 rounded-[6px] border border-white/10 bg-[#0b1118] p-3 shadow-sm">
+        <nav class="grid gap-1" aria-label="Mobile navigation">
+          <a
+            href={withLang(lang)}
+            class:list={[
+              "rounded-[4px] border-l-2 px-3 py-2 text-sm font-medium",
+              "border-transparent text-slate-200",
+            ]}
+          >
+            {t.nav.home}
+          </a>
+          {navItems.map(([key, href]) => {
+            const isActive = activePath === href || activePath.startsWith(`${href}/`);
+            return (
+              <a
+                href={getNavHref(key, href)}
+                class:list={[
+                  "home-nav-mobile rounded-[4px] border-l-2 px-3 py-2 text-sm font-medium",
+                  !isHome && isActive ? "border-[var(--color-red)] bg-white/8 text-white" : "border-transparent text-slate-200",
+                ]}
+                data-home-nav={isHome && homeAnchorKeys.has(key) ? key : undefined}
+              >
+                {t.nav[key]}
+              </a>
+            );
+          })}
+        </nav>
+        <div class="mt-3 border-t border-white/10 pt-3 text-xs leading-6 text-slate-300">
+          <span class="font-semibold text-slate-100">{addressLabel}: </span>{contact.address[lang]}
+        </div>
+        <div class="mt-3 flex gap-1 border-t border-white/10 pt-3">
+          {Object.entries(languages).map(([code, language]) => (
+            <a
+              href={withLang(code as Lang, path)}
+              class:list={[
+                "flex-1 whitespace-nowrap rounded-[4px] px-2 py-2 text-center text-xs font-semibold",
+                code === lang ? "bg-white text-[var(--color-ink)]" : "bg-white/5 text-slate-200",
+              ]}
+              data-track="switch_language"
+              data-track-label={code}
+              data-language-option={code}
+            >
+              {language.shortLabel}
+            </a>
+          ))}
+        </div>
+      </div>
+    </details>
+  </div>
+  <script is:inline>
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target.closest("[data-language-option]") : null;
+      if (!target) return;
+      try {
+        localStorage.setItem("preferred_language", target.getAttribute("data-language-option"));
+      } catch {}
+    });
+
+    const setupHomeNavigation = () => {
+      const header = document.querySelector("header");
+      const homeLinks = Array.from(document.querySelectorAll("[data-home-nav]"));
+      const jumpLinks = Array.from(document.querySelectorAll("[data-home-jump]"));
+      const sections = Array.from(document.querySelectorAll("[data-home-section]"));
+
+      if (!homeLinks.length || !sections.length) return;
+
+      const getSectionKey = (section) => section.getAttribute("data-home-section") || "";
+      const findSection = (key) => sections.find((section) => getSectionKey(section) === key);
+      const getScrollTarget = (section) => section.querySelector("[data-home-scroll-target]") || section.querySelector("h2") || section;
+      const getHeaderOffset = () => ((header && header.offsetHeight) || 0) + 18;
+
+      const setActiveHomeNav = (key) => {
+        homeLinks.forEach((link) => {
+          const active = link.getAttribute("data-home-nav") === key;
+          link.toggleAttribute("data-home-active", active);
+        });
+      };
+      const scrollToHomeSection = (key) => {
+        const section = findSection(key);
+        if (!section) return;
+        const target = getScrollTarget(section);
+        const top = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+        window.scrollTo({ top, behavior: "smooth" });
+        setActiveHomeNav(key);
+        history.replaceState(null, "", `#${key}`);
+      };
+
+      [...homeLinks, ...jumpLinks].forEach((link) => {
+        link.addEventListener("click", (event) => {
+          const key = link.getAttribute("data-home-nav") || link.getAttribute("data-home-jump");
+          if (!key) return;
+          event.preventDefault();
+          scrollToHomeSection(key);
+          const menu = link.closest("details");
+          if (menu) menu.removeAttribute("open");
+        });
+      });
+
+      const updateFromScroll = () => {
+        const headerOffset = getHeaderOffset() + 24;
+        let current = "";
+        sections.forEach((section) => {
+          const target = getScrollTarget(section);
+          if (target.getBoundingClientRect().top <= headerOffset) {
+            current = getSectionKey(section) || current;
+          }
+        });
+        setActiveHomeNav(current);
+      };
+      window.addEventListener("scroll", updateFromScroll, { passive: true });
+      window.addEventListener("resize", updateFromScroll);
+      updateFromScroll();
+      const initialHash = window.location.hash.replace("#", "");
+      if (initialHash) requestAnimationFrame(() => scrollToHomeSection(initialHash));
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupHomeNavigation, { once: true });
+    } else {
+      setupHomeNavigation();
+    }
+  </script>
+  <style>
+    .home-nav-desktop[data-home-active] {
+      border-bottom-color: var(--color-red);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
+
+    .home-nav-mobile[data-home-active] {
+      border-left-color: var(--color-red);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+  </style>
+</header>

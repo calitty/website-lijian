@@ -1,0 +1,126 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  channelLinks,
+  contact,
+  getProduct,
+  langCodes,
+  localize,
+  products,
+  ui,
+  withLang,
+  type Lang,
+} from "@/data/site";
+
+export function getStaticPaths() {
+  return langCodes.flatMap((lang) =>
+    products.map((product) => ({
+      params: { lang, slug: product.slug },
+      props: { product },
+    })),
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug as string;
+const product = Astro.props.product ?? getProduct(slug);
+if (!product) {
+  throw new Error(`Unknown product slug: ${slug}`);
+}
+
+const t = ui[lang];
+const name = localize(product.name, lang);
+const summary = localize(product.summary, lang);
+const pageDescription = `${summary} ${t.seo.productsDescription}`;
+const detail = localize(product.detail, lang);
+const materialNote = localize(product.materialNote, lang);
+const edgeNote = localize(product.edgeNote, lang);
+const path = `/products/${product.slug}`;
+const title = `${name} | ${t.seo.productsTitle}`;
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name,
+  description: pageDescription,
+  brand: {
+    "@type": "Brand",
+    name: t.siteName,
+  },
+  manufacturer: {
+    "@type": "Organization",
+    name: contact.company[lang],
+  },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={pageDescription}
+  path={path}
+  image={product.image}
+  type="product"
+  jsonLd={[productJsonLd]}
+  pageEvent="view_product_detail"
+  pageEventLabel={product.slug}
+>
+  <PageHero eyebrow={t.nav.products} title={name} lead={summary} image={product.image} imageAlt={name}>
+    <div class="mt-7 flex flex-wrap gap-2">
+      {product.tags.map((tag) => (
+        <span class="rounded-[4px] border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-slate-100">{tag}</span>
+      ))}
+    </div>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={withLang(lang, "/contact")} class="rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_product" data-track-label={product.slug}>
+        {t.actions.discussBlade}
+      </a>
+      <a href={channelLinks.email} class="rounded-[4px] border border-white/30 px-5 py-3 font-semibold text-white" data-track="click_email" data-track-label={product.slug}>
+        Email
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="container-page grid gap-10 lg:grid-cols-[.8fr_1fr]">
+      <aside class="h-fit rounded-[6px] border border-slate-200 bg-slate-50 p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-[var(--color-ink)]">{t.labels.customOptions}</h2>
+        <div class="mt-5 flex flex-wrap gap-2">
+          {product.tags.map((tag) => <span class="rounded-[4px] bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm">{tag}</span>)}
+        </div>
+        <div class="mt-6 grid gap-3">
+          {product.customOptions[lang].map((item) => (
+            <span class="rounded-[4px] border border-white bg-white px-3 py-2 text-sm font-medium text-slate-700">{item}</span>
+          ))}
+        </div>
+      </aside>
+      <div class="grid gap-10">
+        <section>
+          <SectionHeading title={name} />
+          <p class="mt-5 text-base leading-8 text-slate-600">{detail}</p>
+        </section>
+        <section>
+          <SectionHeading title={t.labels.typicalApplications} />
+          <div class="mt-5 flex flex-wrap gap-3">
+            {product.applications.map((item) => <span class="rounded-[4px] border border-[var(--color-border)] px-4 py-3 text-sm font-semibold text-slate-700">{item}</span>)}
+          </div>
+        </section>
+        <section>
+          <SectionHeading title={t.labels.typicalEquipment} />
+          <div class="mt-5 grid gap-3 sm:grid-cols-2">
+            {product.equipment.map((item) => <div class="rounded-[4px] border border-[var(--color-border)] p-4 text-sm font-medium text-slate-700">{item}</div>)}
+          </div>
+        </section>
+        <section>
+          <SectionHeading title={t.labels.materials} />
+          <p class="mt-5 text-base leading-8 text-slate-600">{materialNote}</p>
+        </section>
+        <section>
+          <SectionHeading title={lang === "zh" ? "刃口说明" : lang === "ru" ? "Кромка" : "Edge Geometry"} />
+          <p class="mt-5 text-base leading-8 text-slate-600">{edgeNote}</p>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,66 @@
+---
+import { defaultLang, langCodes, languages, type Lang } from "@/data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  siteName: string;
+  path?: string;
+  image?: string;
+  type?: "website" | "article" | "product";
+  jsonLd?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang,
+  siteName,
+  path = "/",
+  image = "/images/hero-blades.png",
+  type = "website",
+  jsonLd = [],
+  noindex = false,
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://lijianblades.com");
+const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
+const currentPath = `/${lang}${normalizedPath}/`.replace(/\/+/g, "/");
+const canonical = new URL(noindex ? `/${lang}/` : currentPath, site).href;
+const imageUrl = new URL(image, site).href;
+const alternates = langCodes.map((code) => ({
+  code,
+  hreflang: languages[code].locale,
+  href: new URL(`/${code}${normalizedPath}/`.replace(/\/+/g, "/"), site).href,
+}));
+const fullTitle = `${title} | ${siteName}`;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+{!noindex && <link rel="canonical" href={canonical} />}
+{!noindex && alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
+{!noindex && (
+  <link
+    rel="alternate"
+    hreflang="x-default"
+    href={new URL(`/${defaultLang}${normalizedPath}/`.replace(/\/+/g, "/"), site).href}
+  />
+)}
+<meta property="og:type" content={type} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:locale" content={languages[lang].locale} />
+{alternates.filter((alternate) => alternate.code !== lang).map((alternate) => (
+  <meta property="og:locale:alternate" content={alternate.hreflang} />
+))}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+{jsonLd.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}

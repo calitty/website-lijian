@@ -1,0 +1,84 @@
+---
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import MobileContactBar from "@/components/MobileContactBar.astro";
+import SeoHead from "@/components/SeoHead.astro";
+import Tracking from "@/components/Tracking.astro";
+import { contact, ui, type Lang } from "@/data/site";
+import "@/styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  path?: string;
+  image?: string;
+  type?: "website" | "article" | "product";
+  jsonLd?: Record<string, unknown>[];
+  pageEvent?: string;
+  pageEventLabel?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang,
+  path = "/",
+  image = "/images/hero-blades.png",
+  type = "website",
+  jsonLd = [],
+  pageEvent,
+  pageEventLabel = "",
+  noindex = false,
+} = Astro.props;
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: contact.company[lang],
+  url: String(Astro.site ?? "https://lijianblades.com"),
+  email: contact.email,
+  telephone: contact.phone,
+  ...(contact.linkedin ? { sameAs: [contact.linkedin] } : {}),
+};
+---
+
+<!doctype html>
+<html lang={lang === "zh" ? "zh-CN" : lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={contact.logo} />
+    <SeoHead
+      title={title}
+      description={description}
+      lang={lang}
+      siteName={ui[lang].siteName}
+      path={path}
+      image={image}
+      type={type}
+      jsonLd={[organizationJsonLd, ...jsonLd]}
+      noindex={noindex}
+    />
+    <Tracking />
+  </head>
+  <body>
+    <Header lang={lang} path={path} />
+    {pageEvent && (
+      <script is:inline define:vars={{ pageEvent, pageEventLabel }}>
+        window.addEventListener("DOMContentLoaded", () => {
+          if (typeof window.trackSiteEvent === "function") {
+            window.trackSiteEvent(pageEvent, { label: pageEventLabel });
+          }
+        });
+      </script>
+    )}
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <MobileContactBar lang={lang} path={path} />
+  </body>
+</html>
