@@ -11,7 +11,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/about";
-const copy = {
+const copyByLang = {
   en: {
     h1: "Chinese Direct Food Machinery Blade Manufacturer",
     lead:
@@ -147,7 +147,8 @@ const copy = {
     cooperationTitle: "定制配合信息",
     cooperation: ["刀片图纸", "旧刀样品照片", "设备型号", "材料或硬度要求", "切割食品类型", "数量和交付计划"],
   },
-}[lang];
+} as const;
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
 ---
 
 <BaseLayout lang={lang} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path} image={productImages.factoryGate}>

@@ -11,7 +11,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/manufacturing";
-const copy = {
+const copyByLang = {
   en: {
     h1: "Manufacturing Capability for Custom Industrial Blades",
     lead: "Manufacturing capability focuses on blade geometry, hole positions, heat treatment, thickness, edge finishing and repeat-order consistency for custom and replacement food machinery blades.",
@@ -27,8 +27,9 @@ const copy = {
     lead: "面向食品机械替换刀片和非标刀片需求，重点控制外形、孔位、热处理、厚度、刃口和表面处理，让复购批次尽量保持稳定。",
     note: "制造配合可依据刀片图纸、旧刀样品、设备型号、材料需求和使用工况，确认可制造性、装机尺寸和刃口方案。",
   },
-}[lang];
-const capabilityCopy = {
+} as const;
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
+const capabilityCopyByLang = {
   en: {
     title: "Manufacturing Control Points",
     lead:
@@ -143,7 +144,8 @@ const capabilityCopy = {
       },
     ],
   },
-}[lang];
+} as const;
+const capabilityCopy = capabilityCopyByLang[lang as keyof typeof capabilityCopyByLang] ?? capabilityCopyByLang.en;
 const processIcons = [
   {
     paths: ["M4 15.5 12 19l8-3.5-8-3.5-8 3.5Z", "M4 11.5 12 15l8-3.5", "M4 8l8-3.5L20 8l-8 3.5L4 8Z", "M8.5 8 12 9.5 15.5 8"],

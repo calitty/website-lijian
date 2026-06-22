@@ -19,7 +19,15 @@ const navItems = [
 
 const activePath = path === "/" ? "/" : path.replace(/\/$/, "");
 const isHome = activePath === "/";
-const addressLabel = lang === "zh" ? "地址" : lang === "ru" ? "Адрес" : "Address";
+const addressLabel = {
+  en: "Address",
+  ru: "Адрес",
+  ar: "العنوان",
+  th: "ที่อยู่",
+  vi: "Địa chỉ",
+  id: "Alamat",
+  zh: "地址",
+}[lang];
 const homeHref = withLang(lang);
 const contactHref = isHome ? "#contact" : `${homeHref}#contact`;
 const brandName = isHome && lang === "zh" ? contact.company.zh : t.siteName;
@@ -65,22 +73,27 @@ const getNavHref = (key: string, href: string) => {
     </nav>
 
     <div class="hidden items-center gap-2 lg:flex">
-      <div class="flex items-center gap-1 border-l border-white/15 pl-3" aria-label={t.labels.language}>
-        {Object.entries(languages).map(([code, language]) => (
-          <a
-            href={withLang(code as Lang, path)}
-            class:list={[
-              "min-w-9 whitespace-nowrap rounded-[4px] px-2 py-1 text-center text-xs font-semibold",
-              code === lang ? "bg-white text-[var(--color-ink)]" : "text-slate-300",
-            ]}
-            data-track="switch_language"
-            data-track-label={code}
-            data-language-option={code}
-          >
-            {language.shortLabel}
-          </a>
-        ))}
-      </div>
+      <details class="relative border-l border-white/15 pl-3" aria-label={t.labels.language}>
+        <summary class="list-none rounded-[4px] bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)]">
+          {languages[lang].shortLabel}
+        </summary>
+        <div class="absolute right-0 mt-2 grid min-w-36 gap-1 rounded-[6px] border border-white/10 bg-[#0b1118] p-2 shadow-sm">
+          {Object.entries(languages).map(([code, language]) => (
+            <a
+              href={withLang(code as Lang, path)}
+              class:list={[
+                "whitespace-nowrap rounded-[4px] px-3 py-2 text-sm font-semibold",
+                code === lang ? "bg-white text-[var(--color-ink)]" : "text-slate-200 hover:bg-white/8",
+              ]}
+              data-track="switch_language"
+              data-track-label={code}
+              data-language-option={code}
+            >
+              {language.shortLabel}
+            </a>
+          ))}
+        </div>
+      </details>
       <a
         href={contactHref}
         class="rounded-[4px] bg-[var(--color-red)] px-4 py-2 text-sm font-semibold text-white"
@@ -125,7 +138,7 @@ const getNavHref = (key: string, href: string) => {
         <div class="mt-3 border-t border-white/10 pt-3 text-xs leading-6 text-slate-300">
           <span class="font-semibold text-slate-100">{addressLabel}: </span>{contact.address[lang]}
         </div>
-        <div class="mt-3 flex gap-1 border-t border-white/10 pt-3">
+        <div class="mt-3 grid grid-cols-4 gap-1 border-t border-white/10 pt-3">
           {Object.entries(languages).map(([code, language]) => (
             <a
               href={withLang(code as Lang, path)}

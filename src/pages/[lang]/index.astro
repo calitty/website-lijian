@@ -9,6 +9,7 @@ import {
   contact,
   langCodes,
   localize,
+  localizeList,
   productImages,
   products,
   qualityChecks,
@@ -41,6 +42,26 @@ const polish = {
     heroKicker: "Завод-источник / чертеж или образец / экспорт",
     heroMain: "Ножи Для Пищевых|Машин",
     heroAccent: "Для Замены И|OEM",
+  },
+  ar: {
+    heroKicker: "مصنع مصدر / رسم أو عينة / دعم تصدير",
+    heroMain: "شفرات آلات الأغذية|حسب الطلب",
+    heroAccent: "للاستبدال و|OEM",
+  },
+  th: {
+    heroKicker: "โรงงานต้นทาง / แบบหรือชิ้นตัวอย่าง / รองรับส่งออก",
+    heroMain: "ใบมีดเครื่องจักรอาหาร|สั่งผลิต",
+    heroAccent: "สำหรับทดแทนและ|OEM",
+  },
+  vi: {
+    heroKicker: "Nhà máy nguồn / bản vẽ hoặc mẫu / hỗ trợ xuất khẩu",
+    heroMain: "Dao máy thực phẩm|tùy chỉnh",
+    heroAccent: "Thay thế và|OEM",
+  },
+  id: {
+    heroKicker: "Pabrik sumber / gambar atau sampel / dukungan ekspor",
+    heroMain: "Pisau mesin makanan|kustom",
+    heroAccent: "Pengganti dan|OEM",
   },
   zh: {
     heroKicker: "源头厂家 / 按图来样 / 外贸配合",
@@ -87,6 +108,78 @@ const homeFactory = {
     contactDetail:
       "Для зарубежного покупателя не обязательно сразу иметь полную спецификацию. По доступным данным мы уточним посадку, материал, твердость, направление кромки, отверстия, срок образца и поставку партии.",
   },
+  ar: {
+    title: "مصنع صيني لشفرات آلات الأغذية منذ 1998",
+    lead:
+      "Maanshan Lijian مصنع صيني مباشر يركز على شفرات آلات الأغذية، الشفرات البديلة والتصنيع المخصص. يقع المصنع في Bowang، Maanshan على مساحة حوالي 6,000 م² وبالقرب من مطار نانجينغ لوكو، مما يسهل إرسال العينات والشحنات المتكررة والتصدير. يعتمد الإنتاج على معدات CNC ويدعم التطوير بالعينة والتصنيع حسب الرسم.",
+    stats: [
+      ["1998", "تأسيس"],
+      ["6,000 م²", "مساحة المصنع"],
+      ["80%", "معدات CNC"],
+      ["1M+", "قدرة شهرية"],
+      ["7 أيام", "عينة"],
+      ["30 يوما", "تسليم"],
+      ["مطار نانجينغ لوكو", "مركز لوجستي قريب"],
+    ],
+    contactTitle: "تواصل مع Maanshan Lijian",
+    contactLead: "أرسل المعلومات الأساسية أولا: صورة الشفرة، الرسم، العينة القديمة، موديل الجهاز أو الأبعاد الرئيسية.",
+    contactDetail:
+      "للمشترين في الخارج، لا يلزم تجهيز مواصفة كاملة في البداية. شارك المعلومات المتاحة وسنساعد في تأكيد الملاءمة، المادة، الصلابة، اتجاه الحافة، الفتحات، موعد العينة وخطة الدفعة.",
+  },
+  th: {
+    title: "ผู้ผลิตใบมีดเครื่องจักรอาหารจากจีนตั้งแต่ปี 1998",
+    lead:
+      "Maanshan Lijian เป็นโรงงานจีนโดยตรงที่มุ่งเน้นใบมีดเครื่องจักรอาหาร ใบมีดทดแทน และใบมีดสั่งทำ โรงงานตั้งอยู่ที่ Bowang, Maanshan พื้นที่ประมาณ 6,000 ตร.ม. ใกล้สนามบินนานาชาตินานจิงลู่โข่ว ช่วยให้การส่งตัวอย่าง การสั่งซ้ำ และการส่งออกสะดวกขึ้น ฐานการผลิตใช้เครื่อง CNC เป็นหลัก",
+    stats: [
+      ["1998", "เริ่มก่อตั้ง"],
+      ["6,000 ตร.ม.", "พื้นที่โรงงาน"],
+      ["80%", "เครื่อง CNC"],
+      ["1M+", "กำลังผลิตต่อเดือน"],
+      ["7 วัน", "ทำตัวอย่าง"],
+      ["30 วัน", "ส่งมอบ"],
+      ["สนามบินนานจิงลู่โข่ว", "โลจิสติกส์ใกล้เคียง"],
+    ],
+    contactTitle: "ติดต่อ Maanshan Lijian",
+    contactLead: "ส่งข้อมูลขั้นต่ำก่อน เช่น รูปใบมีด แบบวาด ตัวอย่างเก่า รุ่นเครื่อง หรือขนาดหลัก",
+    contactDetail:
+      "สำหรับผู้ซื้อต่างประเทศ ไม่จำเป็นต้องมีสเปกครบตั้งแต่แรก ส่งข้อมูลที่มีมาได้ เราจะช่วยยืนยันความพอดี วัสดุ ความแข็ง ทิศทางคม รูติดตั้ง ระยะเวลาตัวอย่าง และแผนส่งมอบล็อต",
+  },
+  vi: {
+    title: "Nhà sản xuất dao máy thực phẩm Trung Quốc từ năm 1998",
+    lead:
+      "Maanshan Lijian là nhà máy Trung Quốc trực tiếp tập trung vào dao máy thực phẩm, dao thay thế và dao tùy chỉnh. Nhà máy rộng khoảng 6.000 m² tại Bowang, Maanshan, gần sân bay quốc tế Nanjing Lukou, thuận tiện cho gửi mẫu, đơn hàng lặp lại và xuất khẩu. Sản xuất dựa trên thiết bị CNC và hỗ trợ phát triển theo mẫu, bản vẽ và sản xuất lặp.",
+    stats: [
+      ["1998", "Thành lập"],
+      ["6.000 m²", "Diện tích nhà máy"],
+      ["80%", "Máy CNC"],
+      ["1M+", "Công suất tháng"],
+      ["7 ngày", "Làm mẫu"],
+      ["30 ngày", "Giao hàng"],
+      ["Sân bay Nanjing Lukou", "Điểm logistics gần"],
+    ],
+    contactTitle: "Liên hệ Maanshan Lijian",
+    contactLead: "Gửi thông tin tối thiểu trước: ảnh dao, bản vẽ, mẫu cũ, model máy hoặc kích thước chính.",
+    contactDetail:
+      "Với khách hàng nước ngoài, chưa cần có thông số hoàn chỉnh ngay từ đầu. Hãy gửi thông tin hiện có, chúng tôi sẽ hỗ trợ xác nhận độ vừa lắp, vật liệu, độ cứng, hướng cạnh, vị trí lỗ, lịch mẫu và kế hoạch giao lô.",
+  },
+  id: {
+    title: "Produsen pisau mesin makanan China sejak 1998",
+    lead:
+      "Maanshan Lijian adalah pabrik China langsung yang fokus pada pisau mesin makanan, pisau pengganti dan pisau kustom. Pabrik seluas sekitar 6.000 m² berada di Bowang, Maanshan, dekat Bandara Internasional Nanjing Lukou, sehingga pengiriman sampel, repeat order dan ekspor lebih praktis. Produksi berbasis mesin CNC dan mendukung pengembangan sampel, kustom berdasarkan gambar dan produksi berulang.",
+    stats: [
+      ["1998", "Didirikan"],
+      ["6.000 m²", "Area pabrik"],
+      ["80%", "Mesin CNC"],
+      ["1M+", "Kapasitas bulanan"],
+      ["7 hari", "Sampel"],
+      ["30 hari", "Pengiriman"],
+      ["Bandara Nanjing Lukou", "Hub logistik dekat"],
+    ],
+    contactTitle: "Kontak Maanshan Lijian",
+    contactLead: "Kirim informasi minimum terlebih dahulu: foto pisau, gambar, sampel lama, model mesin atau ukuran utama.",
+    contactDetail:
+      "Untuk pembeli luar negeri, spesifikasi lengkap tidak wajib tersedia di awal. Bagikan informasi yang ada, lalu kami membantu mengonfirmasi kecocokan pemasangan, material, kekerasan, arah mata pisau, posisi lubang, jadwal sampel dan rencana pengiriman batch.",
+  },
   zh: {
     title: "始于1998年的食品机械刀片源头厂家",
     lead:
@@ -109,11 +202,19 @@ const homeFactory = {
 const contactLabels = {
   en: { address: "Address", phone: "Phone" },
   ru: { address: "Адрес", phone: "Телефон" },
+  ar: { address: "العنوان", phone: "الهاتف" },
+  th: { address: "ที่อยู่", phone: "โทรศัพท์" },
+  vi: { address: "Địa chỉ", phone: "Điện thoại" },
+  id: { address: "Alamat", phone: "Telepon" },
   zh: { address: "地址", phone: "电话" },
 }[lang];
 const contactTips = {
   en: ["Blade drawing or old sample photo", "Equipment model and blade size", "Quantity, material and delivery request"],
   ru: ["Чертеж или фото старого ножа", "Модель оборудования и размер ножа", "Количество, материал и срок поставки"],
+  ar: ["رسم الشفرة أو صورة العينة القديمة", "موديل الجهاز ومقاس الشفرة", "الكمية والمادة وموعد التسليم"],
+  th: ["แบบใบมีดหรือรูปตัวอย่างเก่า", "รุ่นเครื่องและขนาดใบมีด", "จำนวน วัสดุ และกำหนดส่ง"],
+  vi: ["Bản vẽ dao hoặc ảnh mẫu cũ", "Model thiết bị và kích thước dao", "Số lượng, vật liệu và yêu cầu giao hàng"],
+  id: ["Gambar pisau atau foto sampel lama", "Model mesin dan ukuran pisau", "Jumlah, material dan jadwal pengiriman"],
   zh: ["刀片图纸或旧刀样品照片", "设备型号和关键尺寸", "数量、材料要求和交付计划"],
 }[lang];
 const contactPanel = {
@@ -130,6 +231,34 @@ const contactPanel = {
     email: "Email",
     departments: "Офис и техническая поддержка",
     prepare: "Что желательно подготовить",
+  },
+  ar: {
+    directLead: "أرسل الرسم، صورة الشفرة القديمة، موديل الجهاز أو الأبعاد. سنؤكد الملاءمة، المادة، الحافة وخطة التسليم.",
+    whatsapp: "محادثة WhatsApp",
+    email: "البريد الإلكتروني",
+    departments: "المكتب والدعم الفني",
+    prepare: "معلومات مفيدة قبل التواصل",
+  },
+  th: {
+    directLead: "ส่งแบบ รูปใบมีดเก่า รุ่นเครื่อง หรือขนาดหลัก เราจะช่วยยืนยันความพอดี วัสดุ คม และแผนส่งมอบ",
+    whatsapp: "แชท WhatsApp",
+    email: "อีเมล",
+    departments: "สำนักงานและฝ่ายเทคนิค",
+    prepare: "ข้อมูลที่ควรเตรียม",
+  },
+  vi: {
+    directLead: "Gửi bản vẽ, ảnh dao cũ, model máy hoặc kích thước chính. Chúng tôi xác nhận độ vừa lắp, vật liệu, cạnh dao và kế hoạch giao hàng.",
+    whatsapp: "Chat WhatsApp",
+    email: "Email",
+    departments: "Văn phòng và kỹ thuật",
+    prepare: "Thông tin nên chuẩn bị",
+  },
+  id: {
+    directLead: "Kirim gambar, foto pisau lama, model mesin atau ukuran utama. Kami mengonfirmasi kecocokan, material, mata pisau dan rencana pengiriman.",
+    whatsapp: "Chat WhatsApp",
+    email: "Email",
+    departments: "Kantor dan dukungan teknis",
+    prepare: "Informasi yang sebaiknya disiapkan",
   },
   zh: {
     directLead: "可先发送图纸、旧刀照片、设备型号或关键尺寸，我们会配合确认装机适配、材料、刃口结构和交付计划。",
@@ -150,6 +279,26 @@ const productSummary = {
     lead: "Для замены ножей и OEM оборудования начните с ближайшего типа ножа. По чертежу, образцу или модели машины мы уточним профиль, отверстия, толщину, материал и кромку.",
     cta: "Открыть Продукцию",
   },
+  ar: {
+    title: "نطاق الشفرات الأساسي",
+    lead: "لطلب الشفرات البديلة أو OEM، ابدأ بأقرب نوع شفرة. بعد استلام الرسم أو العينة أو موديل الجهاز، نؤكد الشكل، الفتحات، السماكة، المادة وهندسة الحافة.",
+    cta: "فتح المنتجات",
+  },
+  th: {
+    title: "กลุ่มใบมีดหลัก",
+    lead: "สำหรับใบมีดทดแทนและงาน OEM เริ่มจากประเภทใบมีดที่ใกล้เคียง หลังได้รับแบบ ตัวอย่าง หรือรุ่นเครื่อง เราจะยืนยันรูปทรง รู ความหนา วัสดุ และคมตัด",
+    cta: "เปิดศูนย์สินค้า",
+  },
+  vi: {
+    title: "Dải dao chính",
+    lead: "Với dao thay thế và OEM, hãy bắt đầu từ loại dao gần nhất. Sau khi nhận bản vẽ, mẫu cũ hoặc model máy, chúng tôi xác nhận biên dạng, lỗ, độ dày, vật liệu và cạnh dao.",
+    cta: "Mở sản phẩm",
+  },
+  id: {
+    title: "Rentang Pisau Utama",
+    lead: "Untuk pisau pengganti dan OEM, mulai dari jenis pisau terdekat. Setelah menerima gambar, sampel lama atau model mesin, kami mengonfirmasi profil, lubang, ketebalan, material dan geometri mata pisau.",
+    cta: "Buka Produk",
+  },
   zh: {
     title: "核心产品范围",
     lead: "面向替换刀片和 OEM 设备配套采购，可先按刀片形状或设备用途确认方向。客户提供图纸、旧刀样品或设备型号后，我们再确认外形、孔位、厚度、材料与刃口结构。",
@@ -164,6 +313,22 @@ const homeQualityReports = {
   ru: {
     title: "Примеры Отчетов Контроля",
     items: ["SEM кромки", "EDS спектр", "Металлография", "Твердость"],
+  },
+  ar: {
+    title: "عينات تقارير الفحص",
+    items: ["SEM للحافة", "تحليل EDS", "الفحص المعدني", "الصلابة"],
+  },
+  th: {
+    title: "ตัวอย่างรายงานตรวจสอบ",
+    items: ["SEM คม", "สเปกตรัม EDS", "โครงสร้างโลหะ", "ความแข็ง"],
+  },
+  vi: {
+    title: "Mẫu báo cáo kiểm tra",
+    items: ["SEM cạnh", "Phổ EDS", "Tổ chức kim tương", "Độ cứng"],
+  },
+  id: {
+    title: "Contoh Laporan Inspeksi",
+    items: ["SEM mata pisau", "Spektrum EDS", "Metalografi", "Kekerasan"],
   },
   zh: {
     title: "检测报告摘录",
@@ -192,6 +357,38 @@ const homeManufacturingCapabilities = {
     ["Точное Шлифование", "Контроль толщины, плоскостности, прямолинейности и фаски перед финишем."],
     ["Геометрия Кромки", "Одинарная, двойная фаска, зуб или шаг под материал резки."],
     ["Повторные Заказы", "Сохранение ключевых размеров и производственных данных для следующих партий."],
+  ],
+  ar: [
+    ["من الرسم إلى الإنتاج", "تحويل الرسومات أو العينات أو موديلات الأجهزة إلى أبعاد يمكن التحكم بها."],
+    ["تحكم فتحات CNC", "التركيز على الفتحات، الشقوق، القطر الداخلي وملاءمة التركيب."],
+    ["المعالجة الحرارية", "مطابقة الصلابة مع حمل القطع وخطر الصدمات وعمر الحافة."],
+    ["جلخ دقيق", "التحكم في السماكة، الاستواء، الاستقامة وثبات الشطف."],
+    ["هندسة الحافة", "تعديل الحافة الواحدة أو المزدوجة أو الأسنان حسب مادة القطع."],
+    ["سجلات الطلبات المتكررة", "حفظ الأبعاد الرئيسية وتفاصيل الإنتاج للدفعات اللاحقة."],
+  ],
+  th: [
+    ["จากแบบสู่การผลิต", "แปลงแบบ ตัวอย่างเก่า หรือรุ่นเครื่องเป็นข้อกำหนดรูปทรง รู และความหนา"],
+    ["ควบคุมรูและร่อง CNC", "เน้นรูติดตั้ง ร่อง รูใน และความพอดีสำหรับการเปลี่ยนใบมีด"],
+    ["ชุบแข็งและความแข็ง", "จับคู่ความแข็งกับแรงตัด ความเสี่ยงกระแทก และอายุคม"],
+    ["เจียรละเอียด", "ควบคุมความหนา ความเรียบ ความตรง และความสม่ำเสมอก่อนแต่งคม"],
+    ["รูปทรงคม", "ปรับคมเดี่ยว คมคู่ ฟัน หรือระยะฟันตามวัสดุที่ตัด"],
+    ["บันทึกการสั่งซ้ำ", "เก็บขนาดหลักและรายละเอียดผลิตสำหรับล็อตทดแทนครั้งต่อไป"],
+  ],
+  vi: [
+    ["Từ bản vẽ đến sản xuất", "Chuyển bản vẽ, mẫu cũ hoặc model máy thành yêu cầu biên dạng, lỗ và độ dày."],
+    ["Kiểm soát lỗ và rãnh CNC", "Tập trung vào lỗ lắp, rãnh, đường kính trong và độ vừa lắp khi thay thế."],
+    ["Nhiệt luyện và độ cứng", "Khớp độ cứng với tải cắt, rủi ro va đập và yêu cầu giữ cạnh."],
+    ["Mài chính xác", "Kiểm soát độ dày, độ phẳng, độ thẳng và độ ổn định trước khi hoàn thiện cạnh."],
+    ["Hình học cạnh", "Điều chỉnh cạnh đơn, cạnh kép, răng hoặc bước răng theo vật liệu cắt."],
+    ["Hồ sơ đơn hàng lặp", "Lưu kích thước chính và dữ liệu sản xuất cho các lô thay thế sau."],
+  ],
+  id: [
+    ["Dari gambar ke produksi", "Mengubah gambar, sampel lama atau model mesin menjadi persyaratan profil, lubang dan ketebalan yang terkontrol."],
+    ["Kontrol lubang dan slot CNC", "Fokus pada lubang pemasangan, slot, diameter bore dan kecocokan penggantian untuk pemasangan lebih mudah."],
+    ["Heat treatment dan kekerasan", "Mencocokkan target kekerasan dengan beban potong, risiko benturan dan kebutuhan ketahanan mata pisau."],
+    ["Grinding presisi", "Mengontrol ketebalan, kerataan, kelurusan dan konsistensi bevel sebelum finishing akhir."],
+    ["Geometri mata pisau", "Menyesuaikan single bevel, double bevel, serration atau pitch gigi sesuai bahan yang dipotong."],
+    ["Catatan repeat order", "Menyimpan ukuran utama dan detail produksi untuk batch pengganti berikutnya."],
   ],
   zh: [
     ["图纸转化生产", "把图纸、旧刀样品或设备型号转化为外形、孔位、厚度和刃口要求。"],
@@ -284,7 +481,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
               <h3 class="text-xl font-semibold text-[var(--color-ink)]">{localize(application.name, lang)}</h3>
               <p class="mt-3 text-sm leading-7 text-slate-600">{localize(application.summary, lang)}</p>
               <div class="mt-4 flex flex-wrap gap-2">
-                {application.focus[lang].slice(0, 3).map((item) => (
+                {localizeList(application.focus, lang).slice(0, 3).map((item) => (
                   <span class="rounded-[4px] bg-[var(--color-mist)] px-2.5 py-1 text-xs font-semibold text-slate-600">{item}</span>
                 ))}
               </div>

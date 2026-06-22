@@ -11,7 +11,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/quality";
-const copy = {
+const copyByLang = {
   en: {
     h1: "Quality Control for Food Processing Blades",
     lead:
@@ -131,7 +131,8 @@ const copy = {
     workflow: ["确认图纸或样品", "选择材料和厚度", "加工关键尺寸", "热处理", "精密磨削", "刃口处理", "检测与包装"],
     documents: ["图纸尺寸", "旧刀样品", "设备型号", "材料要求", "硬度目标", "包装要求"],
   },
-}[lang];
+} as const;
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
 const zhQualityValue = lang === "zh"
   ? {
       title: "质量控制目标",
@@ -145,7 +146,7 @@ const zhQualityValue = lang === "zh"
       ],
     }
   : undefined;
-const qualityEvidence = {
+const qualityEvidenceByLang = {
   en: {
     title: "Inspection Report Excerpts",
     lead:
@@ -233,7 +234,8 @@ const qualityEvidence = {
       },
     ],
   },
-}[lang];
+} as const;
+const qualityEvidence = qualityEvidenceByLang[lang as keyof typeof qualityEvidenceByLang] ?? qualityEvidenceByLang.en;
 const evidenceFeatured = qualityEvidence.items[0];
 const evidenceSupporting = qualityEvidence.items.slice(1);
 ---

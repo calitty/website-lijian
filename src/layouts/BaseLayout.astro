@@ -1,6 +1,7 @@
 ---
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp.astro";
 import MobileContactBar from "@/components/MobileContactBar.astro";
 import SeoHead from "@/components/SeoHead.astro";
 import Tracking from "@/components/Tracking.astro";
@@ -36,7 +37,15 @@ const {
 const siteUrl = String(Astro.site ?? "https://lijianblades.com");
 const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
 const pageUrl = new URL(`/${lang}${normalizedPath}/`.replace(/\/+/g, "/"), siteUrl).href;
-const languageName = lang === "zh" ? "Chinese" : lang === "ru" ? "Russian" : "English";
+const languageName = {
+  en: "English",
+  ru: "Russian",
+  ar: "Arabic",
+  th: "Thai",
+  vi: "Vietnamese",
+  id: "Indonesian",
+  zh: "Chinese",
+}[lang];
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -58,10 +67,10 @@ const organizationJsonLd = {
       contactType: "sales",
       telephone: contact.phone,
       email: contact.email,
-      availableLanguage: ["English", "Russian", "Chinese"],
+      availableLanguage: ["English", "Russian", "Arabic", "Thai", "Vietnamese", "Indonesian", "Chinese"],
     },
   ],
-  areaServed: ["Russia", "Kazakhstan", "Belarus", "Southeast Asia", "China", "Global"],
+  areaServed: ["Russia", "Kazakhstan", "Belarus", "Middle East", "Gulf countries", "Indonesia", "Southeast Asia", "China", "Global"],
   ...(contact.linkedin ? { sameAs: [contact.linkedin] } : {}),
 };
 const webPageJsonLd = {
@@ -80,7 +89,7 @@ const webPageJsonLd = {
 ---
 
 <!doctype html>
-<html lang={lang === "zh" ? "zh-CN" : lang}>
+<html lang={lang === "zh" ? "zh-CN" : lang} dir={lang === "ar" ? "rtl" : "ltr"}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -114,6 +123,7 @@ const webPageJsonLd = {
       <slot />
     </main>
     <Footer lang={lang} />
+    <FloatingWhatsApp lang={lang} />
     <MobileContactBar lang={lang} path={path} />
   </body>
 </html>

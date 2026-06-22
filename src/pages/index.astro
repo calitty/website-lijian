@@ -41,6 +41,10 @@ const site = "https://lijianblades.com";
 
       const zhCountries = new Set(["CN", "HK", "MO", "TW"]);
       const ruCountries = new Set(["RU", "BY", "KZ", "KG"]);
+      const arCountries = new Set(["AE", "SA", "QA", "KW", "BH", "OM", "YE", "IQ", "JO", "LB", "SY", "PS", "EG", "MA", "DZ", "TN", "LY", "SD"]);
+      const thCountries = new Set(["TH"]);
+      const viCountries = new Set(["VN"]);
+      const idCountries = new Set(["ID"]);
       const zhTimeZones = new Set(["Asia/Shanghai", "Asia/Hong_Kong", "Asia/Macau", "Asia/Taipei", "Asia/Urumqi"]);
       const ruTimeZones = new Set([
         "Europe/Moscow",
@@ -67,10 +71,35 @@ const site = "https://lijianblades.com";
         "Asia/Qyzylorda",
         "Asia/Bishkek",
       ]);
+      const arTimeZones = new Set([
+        "Asia/Dubai",
+        "Asia/Riyadh",
+        "Asia/Qatar",
+        "Asia/Kuwait",
+        "Asia/Bahrain",
+        "Asia/Muscat",
+        "Asia/Baghdad",
+        "Asia/Amman",
+        "Asia/Beirut",
+        "Asia/Damascus",
+        "Asia/Gaza",
+        "Asia/Jerusalem",
+        "Africa/Cairo",
+        "Africa/Casablanca",
+        "Africa/Algiers",
+        "Africa/Tunis",
+      ]);
+      const thTimeZones = new Set(["Asia/Bangkok"]);
+      const viTimeZones = new Set(["Asia/Ho_Chi_Minh"]);
+      const idTimeZones = new Set(["Asia/Jakarta", "Asia/Makassar", "Asia/Jayapura", "Asia/Pontianak"]);
 
       const detectLanguage = () => {
         if (languageCodes.includes("zh") || hasAny(countryCodes, zhCountries) || zhTimeZones.has(timeZone)) return "zh";
         if (languageCodes.includes("ru") || hasAny(countryCodes, ruCountries) || ruTimeZones.has(timeZone)) return "ru";
+        if (languageCodes.includes("ar") || hasAny(countryCodes, arCountries) || arTimeZones.has(timeZone)) return "ar";
+        if (languageCodes.includes("th") || hasAny(countryCodes, thCountries) || thTimeZones.has(timeZone)) return "th";
+        if (languageCodes.includes("vi") || languageCodes.includes("vn") || hasAny(countryCodes, viCountries) || viTimeZones.has(timeZone)) return "vi";
+        if (languageCodes.includes("id") || hasAny(countryCodes, idCountries) || idTimeZones.has(timeZone)) return "id";
         return defaultLang;
       };
       const next = getStoredLanguage() || detectLanguage();
@@ -81,6 +110,10 @@ const site = "https://lijianblades.com";
       <p>
         <a href="/en/">English</a>
         <a href="/ru/">Русский</a>
+        <a href="/ar/">العربية</a>
+        <a href="/th/">ไทย</a>
+        <a href="/vi/">Tiếng Việt</a>
+        <a href="/id/">Bahasa Indonesia</a>
         <a href="/zh/">简体中文</a>
       </p>
     </main>

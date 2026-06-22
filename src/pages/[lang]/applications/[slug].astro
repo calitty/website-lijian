@@ -8,6 +8,7 @@ import {
   getApplication,
   langCodes,
   localize,
+  localizeList,
   products,
   ui,
   withLang,
@@ -41,6 +42,10 @@ const pageUrl = new URL(`/${lang}${path}/`, site).href;
 const copy = {
   en: { focus: "Blade Focus" },
   ru: { focus: "Фокус Ножа" },
+  ar: { focus: "تركيز الشفرة" },
+  th: { focus: "จุดสำคัญของใบมีด" },
+  vi: { focus: "Trọng tâm dao" },
+  id: { focus: "Fokus pisau" },
   zh: { focus: "刀片关注点" },
 }[lang];
 const breadcrumbJsonLd = {
@@ -78,7 +83,7 @@ const serviceJsonLd = {
     "@type": "Organization",
     name: t.siteName,
   },
-  areaServed: ["Russia", "Kazakhstan", "Belarus", "Southeast Asia", "China", "Global"],
+  areaServed: ["Russia", "Kazakhstan", "Belarus", "Indonesia", "Southeast Asia", "China", "Global"],
 };
 ---
 
@@ -94,7 +99,7 @@ const serviceJsonLd = {
 >
   <PageHero eyebrow={t.nav.applications} title={name} lead={summary} image={application.image} imageAlt={name}>
       <div class="mt-7 flex flex-wrap gap-2">
-        {application.focus[lang].map((item) => (
+        {localizeList(application.focus, lang).map((item) => (
           <span class="rounded-[4px] border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-slate-100">{item}</span>
         ))}
       </div>
@@ -110,7 +115,7 @@ const serviceJsonLd = {
         <div class="mt-8 rounded-[6px] border border-slate-200 bg-[var(--color-mist)] p-6">
           <h2 class="text-xl font-semibold text-[var(--color-ink)]">{copy.focus}</h2>
           <div class="mt-5 grid gap-3 sm:grid-cols-2">
-            {application.focus[lang].map((item) => (
+            {localizeList(application.focus, lang).map((item) => (
               <span class="rounded-[4px] bg-white px-3 py-3 text-sm font-semibold text-slate-700 shadow-sm">{item}</span>
             ))}
           </div>

@@ -3,6 +3,10 @@ export const defaultLang = "en" as const;
 export const languages = {
   en: { label: "English", shortLabel: "EN", locale: "en" },
   ru: { label: "Русский", shortLabel: "RU", locale: "ru" },
+  ar: { label: "العربية", shortLabel: "AR", locale: "ar" },
+  th: { label: "ไทย", shortLabel: "TH", locale: "th" },
+  vi: { label: "Tiếng Việt", shortLabel: "VI", locale: "vi" },
+  id: { label: "Bahasa Indonesia", shortLabel: "ID", locale: "id" },
   zh: { label: "简体中文", shortLabel: "中文", locale: "zh-CN" },
 } as const;
 
@@ -14,11 +18,19 @@ export const contact = {
   company: {
     en: "Maanshan Lijian Food Machinery Blade Factory",
     ru: "Maanshan Lijian Food Machinery Blade Factory",
+    ar: "مصنع ماانشان ليجيان لشفرات آلات الأغذية",
+    th: "โรงงานใบมีดเครื่องจักรอาหาร Maanshan Lijian",
+    vi: "Nhà máy dao máy thực phẩm Maanshan Lijian",
+    id: "Pabrik Pisau Mesin Makanan Maanshan Lijian",
     zh: "马鞍山市利坚食品机械刀片厂",
   },
   address: {
     en: "Shanghai Foreign Trade Office / Maanshan Factory Technical Department",
     ru: "Шанхайский внешнеторговый отдел / технический отдел завода в Мааньшане",
+    ar: "مكتب شنغهاي للتجارة الخارجية / القسم الفني في مصنع ماانشان",
+    th: "สำนักงานการค้าต่างประเทศเซี่ยงไฮ้ / ฝ่ายเทคนิคโรงงานหม่าอันซาน",
+    vi: "Văn phòng ngoại thương Thượng Hải / Bộ phận kỹ thuật nhà máy Maanshan",
+    id: "Kantor Perdagangan Luar Negeri Shanghai / Departemen Teknis Pabrik Maanshan",
     zh: "上海外贸部 / 马鞍山工厂技术部",
   },
   email: "sales@lijianblades.com",
@@ -35,11 +47,19 @@ export const contact = {
       name: {
         en: "Shanghai Foreign Trade Office",
         ru: "Шанхайский внешнеторговый отдел",
+        ar: "مكتب شنغهاي للتجارة الخارجية",
+        th: "สำนักงานการค้าต่างประเทศเซี่ยงไฮ้",
+        vi: "Văn phòng ngoại thương Thượng Hải",
+        id: "Kantor Perdagangan Luar Negeri Shanghai",
         zh: "上海外贸部",
       },
       address: {
         en: "Room 229, Building C, No. 888 Huanhu West 2nd Road, Lingang New Area, China (Shanghai) Pilot Free Trade Zone, Shanghai, China",
         ru: "Кабинет 229, корпус C, дом 888, Huanhu West 2nd Road, Lingang New Area, China (Shanghai) Pilot Free Trade Zone, Шанхай, Китай",
+        ar: "الغرفة 229، المبنى C، رقم 888 طريق Huanhu West 2nd، منطقة Lingang الجديدة، منطقة التجارة الحرة التجريبية في شنغهاي، الصين",
+        th: "ห้อง 229 อาคาร C เลขที่ 888 ถนน Huanhu West 2nd เขต Lingang New Area เขตการค้าเสรีนำร่องจีน (เซี่ยงไฮ้) เซี่ยงไฮ้ ประเทศจีน",
+        vi: "Phòng 229, Tòa C, Số 888 đường Huanhu West 2nd, Khu mới Lingang, Khu thương mại tự do thí điểm Trung Quốc (Thượng Hải), Thượng Hải, Trung Quốc",
+        id: "Ruang 229, Gedung C, No. 888 Huanhu West 2nd Road, Kawasan Baru Lingang, Zona Perdagangan Bebas Percontohan China (Shanghai), Shanghai, China",
         zh: "中国（上海）自由贸易试验区临港新片区环湖西二路888号C楼229室",
       },
       phone: "+86 188 0192 8860",
@@ -49,11 +69,19 @@ export const contact = {
       name: {
         en: "Maanshan Factory Technical Department",
         ru: "Технический отдел завода в Мааньшане",
+        ar: "القسم الفني في مصنع ماانشان",
+        th: "ฝ่ายเทคนิคโรงงานหม่าอันซาน",
+        vi: "Bộ phận kỹ thuật nhà máy Maanshan",
+        id: "Departemen Teknis Pabrik Maanshan",
         zh: "马鞍山工厂技术部",
       },
       address: {
         en: "Daxi Industrial Cluster, Sanyang Village, Bowang Town, Bowang District, Maanshan, Anhui, China",
         ru: "Промышленная зона Daxi, деревня Sanyang, поселок Bowang, район Bowang, Мааньшань, Аньхой, Китай",
+        ar: "منطقة Daxi الصناعية، قرية Sanyang، بلدة Bowang، مقاطعة Bowang، ماانشان، آنهوي، الصين",
+        th: "เขตอุตสาหกรรม Daxi หมู่บ้าน Sanyang เมือง Bowang เขต Bowang เมือง Maanshan มณฑล Anhui ประเทศจีน",
+        vi: "Cụm công nghiệp Daxi, làng Sanyang, thị trấn Bowang, quận Bowang, Maanshan, An Huy, Trung Quốc",
+        id: "Kawasan Industri Daxi, Desa Sanyang, Kota Bowang, Distrik Bowang, Maanshan, Anhui, China",
         zh: "安徽省马鞍山市博望区博望镇三杨村大溪工业集中区",
       },
       phone: "+86 138 5559 6398",
@@ -215,6 +243,294 @@ export const ui = {
     contactPrompt:
       "Свяжитесь напрямую с Maanshan Lijian, китайским заводом-источником. Отправьте чертеж, образец, модель оборудования или задачу резки, и мы уточним материал, твердость, геометрию кромки и поставку.",
   },
+  ar: {
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "الرئيسية",
+      products: "المنتجات",
+      applications: "التطبيقات",
+      manufacturing: "التصنيع",
+      quality: "الجودة",
+      about: "عن المصنع",
+      contact: "تواصل معنا",
+    },
+    actions: {
+      viewProducts: "عرض المنتجات",
+      contactUs: "تواصل معنا",
+      discussBlade: "ناقش هذه الشفرة",
+    },
+    labels: {
+      language: "اللغة",
+      typicalApplications: "تطبيقات شائعة",
+      typicalEquipment: "معدات مناسبة",
+      customOptions: "خيارات التخصيص",
+      materials: "المواد",
+      process: "العملية",
+      inspection: "الفحص",
+      productRange: "نطاق المنتجات",
+      applicationRange: "نطاق التطبيقات",
+      contactChannels: "قنوات التواصل",
+      whatsappQr: "رمز WhatsApp",
+      scanWhatsapp: "امسح لإضافة WhatsApp",
+      openWhatsapp: "افتح محادثة WhatsApp",
+    },
+    seo: {
+      homeTitle: "Maanshan Lijian - مصنع صيني لشفرات آلات الأغذية",
+      homeDescription:
+        "Maanshan Lijian مصنع صيني مباشر لشفرات آلات الأغذية، يقدم شفرات مخصصة وبديلة و OEM لمعدات اللحوم والأسماك والدواجن والخضار والمخابز والتغليف.",
+      productsTitle: "شفرات آلات الأغذية وشفرات معالجة الطعام المخصصة",
+      productsDescription:
+        "شفرات مخصصة وبديلة لمعدات معالجة الأغذية مع مطابقة الشكل، فتحات التركيب، المادة، الصلابة وتكرار التوريد للطلبات المتكررة.",
+      applicationsTitle: "تطبيقات شفرات معالجة الأغذية",
+      applicationsDescription:
+        "اختيار الشفرات حسب خط الإنتاج والمواد الغذائية: اللحوم، الدواجن، الأسماك، الأغذية المجمدة، الخضار، المخابز ومعدات التغليف.",
+      manufacturingTitle: "قدرات تصنيع الشفرات الصناعية",
+      manufacturingDescription:
+        "تصنيع مضبوط للملاءمة، ثبات الدفعات والتصدير: اختيار المادة، CNC، المعالجة الحرارية، الجلخ، تشطيب الحافة، الفحص والتغليف.",
+      qualityTitle: "مراقبة جودة شفرات آلات الأغذية",
+      qualityDescription:
+        "مراقبة جودة شفرات آلات الأغذية تغطي المادة، الصلابة، مواضع الفتحات، السماكة، زاوية الحافة، السطح، ثبات الدفعات والتغليف ضد الصدأ.",
+      aboutTitle: "عن مصنع Maanshan Lijian لشفرات آلات الأغذية",
+      aboutDescription:
+        "Maanshan Lijian مصنع صيني مباشر متخصص في شفرات آلات الأغذية، الشفرات المخصصة، شفرات OEM البديلة والتعاون في التصدير.",
+      contactTitle: "تواصل مع Maanshan Lijian",
+      contactDescription:
+        "تواصل عبر البريد الإلكتروني أو WhatsApp أو الهاتف لطلب شفرات آلات الأغذية والشفرات المخصصة والبديلة.",
+    },
+    home: {
+      eyebrow: "مصنع صيني مباشر لشفرات آلات الأغذية",
+      h1: "تصنيع شفرات مخصصة لمعدات الأغذية",
+      intro:
+        "أرسل الرسم، صورة الشفرة القديمة، موديل الجهاز أو الأبعاد الرئيسية. نصنع شفرات مخصصة وبديلة OEM لمعدات اللحوم والأسماك والدواجن والخضار والمخابز وتغليف الأغذية.",
+      trust: ["نقبل الرسم أو العينة أو موديل الجهاز", "دعم عينة خلال 7 أيام", "تسليم الدفعات خلال 30 يوما", "تواصل تصدير عبر WhatsApp"],
+      productsLead:
+        "ابدأ من نوع الشفرة أو موضع التركيب أو طلب الاستبدال. بعد استلام الرسم أو العينة أو موديل الجهاز، نؤكد الشكل، الفتحات، السماكة، المادة وتفاصيل الحافة.",
+      applicationsLead:
+        "اختر حسب نوع الغذاء وخط الإنتاج. نساعد في مطابقة شكل الشفرة، المادة، الصلابة وهندسة الحافة لطلبات الاستبدال و OEM والطلبات المتكررة.",
+      manufacturingLead:
+        "للطلبات الخارجية، يركز التصنيع على ملاءمة التركيب، عمر القطع وتكرار الجودة. نراجع الرسومات، نتحكم في فتحات CNC، نطابق الصلابة، نجلخ الأسطح الحرجة ونغلف للتصدير.",
+      qualityLead:
+        "توضح مراقبة الجودة ما يتم فحصه قبل الشحن لتقليل مخاطر عدم الملاءمة، القطع غير المستقر، قصر عمر الشفرة أو الصدأ أثناء النقل.",
+    },
+    contactPrompt:
+      "تواصل مباشرة مع Maanshan Lijian، مصنع صيني مصدر. أرسل الرسم، العينة، موديل الجهاز أو مشكلة القطع، وسنؤكد المادة، الصلابة، شكل الحافة وخيارات التسليم.",
+  },
+  th: {
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "หน้าแรก",
+      products: "สินค้า",
+      applications: "การใช้งาน",
+      manufacturing: "การผลิต",
+      quality: "คุณภาพ",
+      about: "เกี่ยวกับโรงงาน",
+      contact: "ติดต่อเรา",
+    },
+    actions: {
+      viewProducts: "ดูสินค้า",
+      contactUs: "ติดต่อเรา",
+      discussBlade: "สอบถามใบมีดนี้",
+    },
+    labels: {
+      language: "ภาษา",
+      typicalApplications: "การใช้งานทั่วไป",
+      typicalEquipment: "อุปกรณ์ที่ใช้",
+      customOptions: "ตัวเลือกสั่งผลิต",
+      materials: "วัสดุ",
+      process: "กระบวนการ",
+      inspection: "การตรวจสอบ",
+      productRange: "กลุ่มสินค้า",
+      applicationRange: "กลุ่มการใช้งาน",
+      contactChannels: "ช่องทางติดต่อ",
+      whatsappQr: "QR Code WhatsApp",
+      scanWhatsapp: "สแกนเพื่อเพิ่ม WhatsApp",
+      openWhatsapp: "เปิดแชท WhatsApp",
+    },
+    seo: {
+      homeTitle: "Maanshan Lijian - ผู้ผลิตใบมีดเครื่องจักรอาหารจากจีน",
+      homeDescription:
+        "Maanshan Lijian เป็นโรงงานจีนผู้ผลิตใบมีดเครื่องจักรอาหาร ใบมีดสั่งทำ ใบมีดทดแทน และใบมีด OEM สำหรับเครื่องจักรแปรรูปอาหารและบรรจุภัณฑ์",
+      productsTitle: "ใบมีดเครื่องจักรอาหารและใบมีดแปรรูปอาหารสั่งทำ",
+      productsDescription:
+        "ใบมีดเครื่องจักรอาหารแบบสั่งทำและใบมีดทดแทน OEM พร้อมการยืนยันรูปทรง รูติดตั้ง วัสดุ ความแข็ง และการผลิตซ้ำเป็นล็อต",
+      applicationsTitle: "การใช้งานใบมีดแปรรูปอาหาร",
+      applicationsDescription:
+        "เลือกใบมีดตามวัตถุดิบอาหารและไลน์การผลิต เช่น เนื้อสัตว์ สัตว์ปีก อาหารทะเล อาหารแช่แข็ง ผักผลไม้ เบเกอรี่ และบรรจุภัณฑ์",
+      manufacturingTitle: "ความสามารถในการผลิตใบมีดอุตสาหกรรม",
+      manufacturingDescription:
+        "ควบคุมการผลิตสำหรับความพอดีในการติดตั้ง ความสม่ำเสมอของล็อต และการส่งออก: วัสดุ CNC ชุบแข็ง เจียร แต่งคม ตรวจสอบ และบรรจุ",
+      qualityTitle: "การควบคุมคุณภาพใบมีดเครื่องจักรอาหาร",
+      qualityDescription:
+        "ตรวจสอบวัสดุ ความแข็ง รูติดตั้ง ความหนา มุมคม ผิวงาน ความสม่ำเสมอของล็อต และบรรจุป้องกันสนิมสำหรับใบมีดเครื่องจักรอาหาร",
+      aboutTitle: "เกี่ยวกับโรงงานใบมีดเครื่องจักรอาหาร Maanshan Lijian",
+      aboutDescription:
+        "Maanshan Lijian เป็นโรงงานจีนที่ผลิตใบมีดเครื่องจักรอาหาร ใบมีดสั่งทำ ใบมีดทดแทน OEM และรองรับงานส่งออก",
+      contactTitle: "ติดต่อ Maanshan Lijian",
+      contactDescription:
+        "ติดต่อผ่านอีเมล WhatsApp หรือโทรศัพท์สำหรับใบมีดเครื่องจักรอาหาร ใบมีดสั่งทำ และใบมีดทดแทน",
+    },
+    home: {
+      eyebrow: "โรงงานจีนผลิตใบมีดเครื่องจักรอาหารโดยตรง",
+      h1: "ใบมีดเครื่องจักรอาหารสั่งผลิต",
+      intro:
+        "ส่งแบบวาด รูปใบมีดเก่า รุ่นเครื่องจักร หรือขนาดหลักมาให้เรา เราผลิตใบมีดสั่งทำและใบมีดทดแทน OEM สำหรับเครื่องจักรเนื้อสัตว์ อาหารทะเล สัตว์ปีก ผักผลไม้ เบเกอรี่ และบรรจุภัณฑ์อาหาร",
+      trust: ["รับแบบวาด ตัวอย่าง หรือรุ่นเครื่องจักร", "รองรับตัวอย่าง 7 วัน", "ส่งมอบล็อต 30 วัน", "ติดต่อส่งออกผ่าน WhatsApp"],
+      productsLead:
+        "เริ่มจากประเภทใบมีด ตำแหน่งติดตั้ง หรือความต้องการทดแทน หลังได้รับแบบ ตัวอย่าง หรือรุ่นเครื่องจักร เราจะช่วยยืนยันรูปทรง รูติดตั้ง ความหนา วัสดุ และรายละเอียดคม",
+      applicationsLead:
+        "เลือกตามประเภทอาหารและไลน์ผลิต เราช่วยจับคู่รูปทรงใบมีด วัสดุ ความแข็ง และคมตัดสำหรับงานทดแทน OEM และการสั่งซ้ำ",
+      manufacturingLead:
+        "สำหรับคำสั่งซื้อส่งออก เราเน้นความพอดีในการติดตั้ง อายุการตัด และความสม่ำเสมอของล็อต โดยตรวจแบบ ควบคุมรู CNC เลือกความแข็ง เจียรผิวสำคัญ และบรรจุสำหรับขนส่ง",
+      qualityLead:
+        "การควบคุมคุณภาพแสดงสิ่งที่ตรวจสอบก่อนส่ง เพื่อช่วยลดความเสี่ยงเรื่องติดตั้งไม่ได้ การตัดไม่เสถียร อายุสั้น หรือเกิดสนิมระหว่างขนส่ง",
+    },
+    contactPrompt:
+      "ติดต่อ Maanshan Lijian โรงงานต้นทางจากจีนโดยตรง ส่งแบบ ตัวอย่าง รุ่นเครื่องจักร หรือปัญหาการตัด เราจะช่วยยืนยันวัสดุ ความแข็ง รูปทรงคม และตัวเลือกการส่งมอบ",
+  },
+  vi: {
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Trang chủ",
+      products: "Sản phẩm",
+      applications: "Ứng dụng",
+      manufacturing: "Sản xuất",
+      quality: "Chất lượng",
+      about: "Về nhà máy",
+      contact: "Liên hệ",
+    },
+    actions: {
+      viewProducts: "Xem sản phẩm",
+      contactUs: "Liên hệ",
+      discussBlade: "Trao đổi dao này",
+    },
+    labels: {
+      language: "Ngôn ngữ",
+      typicalApplications: "Ứng dụng phổ biến",
+      typicalEquipment: "Thiết bị phù hợp",
+      customOptions: "Tùy chỉnh",
+      materials: "Vật liệu",
+      process: "Quy trình",
+      inspection: "Kiểm tra",
+      productRange: "Dải sản phẩm",
+      applicationRange: "Dải ứng dụng",
+      contactChannels: "Kênh liên hệ",
+      whatsappQr: "Mã QR WhatsApp",
+      scanWhatsapp: "Quét để thêm WhatsApp",
+      openWhatsapp: "Mở trò chuyện WhatsApp",
+    },
+    seo: {
+      homeTitle: "Maanshan Lijian - nhà sản xuất dao máy thực phẩm tại Trung Quốc",
+      homeDescription:
+        "Maanshan Lijian là nhà máy Trung Quốc sản xuất dao máy thực phẩm, dao tùy chỉnh, dao thay thế OEM cho thiết bị chế biến thực phẩm và đóng gói.",
+      productsTitle: "Dao máy thực phẩm và dao chế biến thực phẩm tùy chỉnh",
+      productsDescription:
+        "Dao máy thực phẩm tùy chỉnh và dao thay thế OEM theo bản vẽ, mẫu cũ hoặc model thiết bị, kiểm soát hình dạng, lỗ lắp, vật liệu, độ cứng và lô sản xuất.",
+      applicationsTitle: "Ứng dụng dao chế biến thực phẩm",
+      applicationsDescription:
+        "Chọn dao theo nguyên liệu và dây chuyền: thịt, gia cầm, thủy sản, thực phẩm đông lạnh, rau quả, bánh mì và thiết bị đóng gói.",
+      manufacturingTitle: "Năng lực sản xuất dao công nghiệp",
+      manufacturingDescription:
+        "Kiểm soát sản xuất cho độ vừa lắp, ổn định lô và xuất khẩu: vật liệu, CNC, nhiệt luyện, mài, hoàn thiện cạnh, kiểm tra và đóng gói.",
+      qualityTitle: "Kiểm soát chất lượng dao máy thực phẩm",
+      qualityDescription:
+        "Kiểm soát vật liệu, độ cứng, vị trí lỗ, độ dày, góc cạnh, bề mặt, ổn định lô và đóng gói chống gỉ cho dao máy thực phẩm.",
+      aboutTitle: "Về nhà máy dao máy thực phẩm Maanshan Lijian",
+      aboutDescription:
+        "Maanshan Lijian là nhà máy Trung Quốc chuyên dao máy thực phẩm, dao tùy chỉnh, dao thay thế OEM và hợp tác xuất khẩu.",
+      contactTitle: "Liên hệ Maanshan Lijian",
+      contactDescription:
+        "Liên hệ qua email, WhatsApp hoặc điện thoại để trao đổi dao máy thực phẩm, dao tùy chỉnh và dao thay thế.",
+    },
+    home: {
+      eyebrow: "Nhà máy Trung Quốc sản xuất dao máy thực phẩm",
+      h1: "Dao máy thực phẩm tùy chỉnh",
+      intro:
+        "Gửi bản vẽ, ảnh dao cũ, model máy hoặc kích thước chính. Chúng tôi sản xuất dao tùy chỉnh và dao thay thế OEM cho máy thịt, thủy sản, gia cầm, rau quả, bánh mì và đóng gói thực phẩm.",
+      trust: ["Nhận bản vẽ, mẫu hoặc model máy", "Hỗ trợ mẫu 7 ngày", "Giao lô hàng 30 ngày", "Hỗ trợ xuất khẩu qua WhatsApp"],
+      productsLead:
+        "Bắt đầu từ loại dao, vị trí lắp hoặc nhu cầu thay thế. Sau khi nhận bản vẽ, mẫu cũ hoặc model máy, chúng tôi xác nhận hình dạng, lỗ, độ dày, vật liệu và cạnh dao.",
+      applicationsLead:
+        "Chọn theo loại thực phẩm và dây chuyền. Chúng tôi hỗ trợ khớp hình dạng dao, vật liệu, độ cứng và cạnh cắt cho thay thế, OEM và đơn hàng lặp lại.",
+      manufacturingLead:
+        "Với đơn hàng xuất khẩu, sản xuất tập trung vào độ vừa lắp, tuổi thọ cắt và tính lặp lại. Chúng tôi xem bản vẽ, kiểm soát lỗ CNC, chọn độ cứng, mài bề mặt quan trọng và đóng gói xuất khẩu.",
+      qualityLead:
+        "Kiểm soát chất lượng cho biết những gì được kiểm trước khi giao, giúp giảm rủi ro không lắp được, cắt không ổn định, tuổi thọ ngắn hoặc gỉ trong vận chuyển.",
+    },
+    contactPrompt:
+      "Liên hệ trực tiếp Maanshan Lijian, nhà máy nguồn tại Trung Quốc. Gửi bản vẽ, mẫu, model thiết bị hoặc vấn đề cắt, chúng tôi sẽ xác nhận vật liệu, độ cứng, hình học cạnh và phương án giao hàng.",
+  },
+  id: {
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Beranda",
+      products: "Produk",
+      applications: "Aplikasi",
+      manufacturing: "Produksi",
+      quality: "Kualitas",
+      about: "Tentang Pabrik",
+      contact: "Kontak",
+    },
+    actions: {
+      viewProducts: "Lihat Produk",
+      contactUs: "Hubungi Kami",
+      discussBlade: "Diskusikan Pisau Ini",
+    },
+    labels: {
+      language: "Bahasa",
+      typicalApplications: "Aplikasi Umum",
+      typicalEquipment: "Peralatan Terkait",
+      customOptions: "Opsi Kustom",
+      materials: "Material",
+      process: "Proses",
+      inspection: "Inspeksi",
+      productRange: "Rentang Produk",
+      applicationRange: "Aplikasi",
+      contactChannels: "Kanal Kontak",
+      whatsappQr: "Kode QR WhatsApp",
+      scanWhatsapp: "Pindai untuk menambahkan WhatsApp",
+      openWhatsapp: "Buka chat WhatsApp",
+    },
+    seo: {
+      homeTitle: "Maanshan Lijian - Produsen Pisau Mesin Makanan China",
+      homeDescription:
+        "Maanshan Lijian adalah pabrik China untuk pisau mesin makanan, pisau kustom, dan pisau pengganti OEM bagi mesin pengolahan makanan dan kemasan.",
+      productsTitle: "Pisau Mesin Makanan dan Pisau Pengolahan Makanan Kustom",
+      productsDescription:
+        "Pisau mesin makanan kustom dan pisau pengganti OEM berdasarkan gambar, sampel lama atau model mesin, dengan kontrol profil, lubang pemasangan, material, kekerasan dan produksi berulang.",
+      applicationsTitle: "Aplikasi Pisau Pengolahan Makanan",
+      applicationsDescription:
+        "Pilih pisau berdasarkan bahan makanan dan lini produksi: daging, unggas, seafood, makanan beku, sayur buah, bakery dan mesin kemasan makanan.",
+      manufacturingTitle: "Kemampuan Produksi Pisau Industri",
+      manufacturingDescription:
+        "Kontrol produksi untuk kecocokan pemasangan, konsistensi batch dan pengiriman ekspor: material, CNC, heat treatment, grinding, finishing mata pisau, inspeksi dan packing.",
+      qualityTitle: "Kontrol Kualitas Pisau Mesin Makanan",
+      qualityDescription:
+        "Kontrol material, kekerasan, posisi lubang, ketebalan, sudut mata pisau, permukaan, konsistensi batch dan packing anti karat untuk pisau mesin makanan.",
+      aboutTitle: "Tentang Pabrik Pisau Mesin Makanan Maanshan Lijian",
+      aboutDescription:
+        "Maanshan Lijian adalah pabrik China untuk pisau mesin makanan, pisau kustom, pisau pengganti OEM dan kerja sama ekspor.",
+      contactTitle: "Kontak Maanshan Lijian",
+      contactDescription:
+        "Hubungi melalui email, WhatsApp atau telepon untuk pisau mesin makanan, pisau kustom dan pisau pengganti.",
+    },
+    home: {
+      eyebrow: "Pabrik China untuk Pisau Mesin Makanan",
+      h1: "Pisau Mesin Makanan Kustom",
+      intro:
+        "Kirim gambar, foto pisau lama, model mesin atau ukuran utama. Kami memproduksi pisau kustom dan pisau pengganti OEM untuk mesin daging, seafood, unggas, sayur buah, bakery dan kemasan makanan.",
+      trust: ["Menerima gambar, sampel atau model mesin", "Dukungan sampel 7 hari", "Pengiriman batch 30 hari", "Komunikasi ekspor via WhatsApp"],
+      productsLead:
+        "Mulai dari jenis pisau, posisi pemasangan atau kebutuhan penggantian. Setelah menerima gambar, sampel lama atau model mesin, kami membantu mengonfirmasi profil, lubang, ketebalan, material dan detail mata pisau.",
+      applicationsLead:
+        "Pilih berdasarkan jenis makanan dan lini produksi. Kami membantu mencocokkan profil pisau, material, kekerasan dan geometri mata pisau untuk penggantian, OEM dan repeat order.",
+      manufacturingLead:
+        "Untuk pesanan ekspor, produksi difokuskan pada kecocokan pemasangan, umur potong dan konsistensi batch. Kami meninjau gambar, mengontrol lubang CNC, mencocokkan kekerasan, menggiling permukaan penting dan packing untuk ekspor.",
+      qualityLead:
+        "Kontrol kualitas menjelaskan apa yang diperiksa sebelum pengiriman untuk mengurangi risiko pisau tidak cocok, potongan tidak stabil, umur pendek atau karat selama transportasi.",
+    },
+    contactPrompt:
+      "Hubungi langsung Maanshan Lijian, pabrik sumber dari China. Kirim gambar, sampel, model mesin atau masalah pemotongan, lalu kami akan mengonfirmasi material, kekerasan, geometri mata pisau dan opsi pengiriman.",
+  },
   zh: {
     siteName: "利坚食品刀片",
     nav: {
@@ -328,11 +644,13 @@ export const products = [
     name: {
       en: "Custom Food Processing Blades",
       ru: "Ножи для пищевого оборудования на заказ",
+      id: "Pisau Pengolahan Makanan Kustom",
       zh: "非标食品加工刀片",
     },
     summary: {
       en: "Non-standard blade profiles made by drawing, sample or equipment model for food processing machines.",
       ru: "Нестандартные профили по чертежу, образцу или модели оборудования для пищевых машин.",
+      id: "Profil pisau non-standar dibuat berdasarkan gambar, sampel atau model mesin untuk mesin pengolahan makanan.",
       zh: "按图纸、样品或设备型号定制非标食品机械刀片，重点匹配外形、孔位、厚度和刃口。",
     },
     detail: {
@@ -362,10 +680,11 @@ export const products = [
     slug: "curved-food-processing-blades",
     image: productImages.curved,
     tags: ["Curved", "Precision", "Stainless Steel"],
-    name: { en: "Curved Blades", ru: "Изогнутые ножи", zh: "弧形刀片" },
+    name: { en: "Curved Blades", ru: "Изогнутые ножи", id: "Pisau Lengkung", zh: "弧形刀片" },
     summary: {
       en: "Curved and profile blades for bowl cutters, portioning machines and special cutting modules.",
       ru: "Изогнутые и профильные ножи для куттеров, порционирования и специальных режущих узлов.",
+      id: "Pisau lengkung dan profil untuk bowl cutter, mesin portioning dan modul pemotongan khusus.",
       zh: "用于斩拌、分份、切割模块和特殊工位的弧形及异形刀片。",
     },
     detail: {
@@ -395,10 +714,11 @@ export const products = [
     slug: "bowl-cutter-blades",
     image: productImages.bowlCutter,
     tags: ["Bowl Cutter", "Meat", "Replacement"],
-    name: { en: "Bowl Cutter Blades", ru: "Ножи для куттера", zh: "斩拌机刀片" },
+    name: { en: "Bowl Cutter Blades", ru: "Ножи для куттера", id: "Pisau Bowl Cutter", zh: "斩拌机刀片" },
     summary: {
       en: "Replacement and OEM blades for meat bowl cutters, choppers and prepared-food mixing lines.",
       ru: "Сменные и OEM ножи для мясных куттеров, измельчителей и линий готовых продуктов.",
+      id: "Pisau pengganti dan OEM untuk meat bowl cutter, chopper dan lini pencampuran makanan siap olah.",
       zh: "适配肉类斩拌机、斩拌锅和预制食品搅切设备的替换及 OEM 刀片。",
     },
     detail: {
@@ -428,10 +748,11 @@ export const products = [
     slug: "meat-processing-blades",
     image: productImages.meat,
     tags: ["Meat", "Durable", "Food Contact"],
-    name: { en: "Meat Processing Blades", ru: "Ножи для мясопереработки", zh: "肉类加工刀片" },
+    name: { en: "Meat Processing Blades", ru: "Ножи для мясопереработки", id: "Pisau Pengolahan Daging", zh: "肉类加工刀片" },
     summary: {
       en: "Blades for meat slicing, trimming, dicing, portioning and high-frequency processing lines.",
       ru: "Ножи для нарезки мяса, жиловки, кубиков, порционирования и интенсивных линий.",
+      id: "Pisau untuk slicing, trimming, dicing, portioning dan lini pengolahan daging frekuensi tinggi.",
       zh: "用于肉类切片、修整、切丁、分份和高频加工产线的食品机械刀片。",
     },
     detail: {
@@ -461,10 +782,11 @@ export const products = [
     slug: "poultry-processing-knives",
     image: productImages.poultry,
     tags: ["Poultry", "OEM", "Stable Batch"],
-    name: { en: "Poultry Processing Knives", ru: "Ножи для переработки птицы", zh: "禽类加工刀片" },
+    name: { en: "Poultry Processing Knives", ru: "Ножи для переработки птицы", id: "Pisau Pengolahan Unggas", zh: "禽类加工刀片" },
     summary: {
       en: "Knives for poultry deboning, trimming, dividing and automated processing equipment.",
       ru: "Ножи для обвалки, жиловки, разделки и автоматизированного оборудования птицы.",
+      id: "Pisau untuk deboning, trimming, dividing dan peralatan pengolahan unggas otomatis.",
       zh: "用于禽类剔骨、修整、分割和自动化加工设备的食品刀片。",
     },
     detail: {
@@ -494,10 +816,11 @@ export const products = [
     slug: "seafood-processing-blades",
     image: productImages.seafood,
     tags: ["Seafood", "Stainless Steel", "Corrosion Control"],
-    name: { en: "Seafood Processing Blades", ru: "Ножи для переработки рыбы", zh: "水产加工刀片" },
+    name: { en: "Seafood Processing Blades", ru: "Ножи для переработки рыбы", id: "Pisau Pengolahan Seafood", zh: "水产加工刀片" },
     summary: {
       en: "Stainless blades for fish, shrimp and seafood cutting where corrosion resistance is important.",
       ru: "Нержавеющие ножи для рыбы, креветок и морепродуктов, где важна коррозионная стойкость.",
+      id: "Pisau stainless untuk pemotongan ikan, udang dan seafood ketika ketahanan korosi penting.",
       zh: "面向鱼类、虾类和水产切割，重点考虑耐腐蚀、清洗环境和刃口稳定性。",
     },
     detail: {
@@ -527,10 +850,11 @@ export const products = [
     slug: "vegetable-fruit-cutting-blades",
     image: productImages.vegetable,
     tags: ["Vegetable", "Clean Cut", "Sharp Edge"],
-    name: { en: "Vegetable & Fruit Cutting Blades", ru: "Ножи для овощей и фруктов", zh: "果蔬切割刀片" },
+    name: { en: "Vegetable & Fruit Cutting Blades", ru: "Ножи для овощей и фруктов", id: "Pisau Potong Sayur dan Buah", zh: "果蔬切割刀片" },
     summary: {
       en: "Cutting, slicing, shredding and dicing blades for vegetable and fruit processing machinery.",
       ru: "Ножи для резки, шинковки, соломки и кубиков в оборудовании для овощей и фруктов.",
+      id: "Pisau cutting, slicing, shredding dan dicing untuk mesin pengolahan sayur dan buah.",
       zh: "适用于果蔬切片、切丝、切条、切丁和去皮等加工设备。",
     },
     detail: {
@@ -560,10 +884,11 @@ export const products = [
     slug: "bakery-bread-blades",
     image: productImages.bakery,
     tags: ["Bakery", "Serrated", "Clean Slice"],
-    name: { en: "Bakery & Bread Blades", ru: "Ножи для хлеба и выпечки", zh: "烘焙和面包刀片" },
+    name: { en: "Bakery & Bread Blades", ru: "Ножи для хлеба и выпечки", id: "Pisau Bakery dan Roti", zh: "烘焙和面包刀片" },
     summary: {
       en: "Serrated and straight blades for bread slicing, bakery cutting and snack processing lines.",
       ru: "Зубчатые и прямые ножи для нарезки хлеба, выпечки и снековых линий.",
+      id: "Pisau bergerigi dan lurus untuk slicing roti, pemotongan bakery dan lini snack.",
       zh: "用于面包切片、烘焙切割和零食加工产线的齿刀及直刀。",
     },
     detail: {
@@ -593,10 +918,11 @@ export const products = [
     slug: "packaging-blades",
     image: productImages.packaging,
     tags: ["Packaging", "Serrated", "Wear Control"],
-    name: { en: "Packaging Blades", ru: "Упаковочные ножи", zh: "包装机械刀片" },
+    name: { en: "Packaging Blades", ru: "Упаковочные ножи", id: "Pisau Kemasan", zh: "包装机械刀片" },
     summary: {
       en: "Cut-off, perforation, sealing and film cutting blades for food packaging machinery.",
       ru: "Ножи для отрезки, перфорации, запайки и резки пленки в пищевой упаковке.",
+      id: "Pisau cut-off, perforasi, sealing dan film cutting untuk mesin kemasan makanan.",
       zh: "用于食品包装机械的切断、打孔、封切、薄膜分切和易撕线刀片。",
     },
     detail: {
@@ -626,10 +952,11 @@ export const products = [
     slug: "circular-blades",
     image: productImages.circular,
     tags: ["Circular", "Slitting", "Precision Bore"],
-    name: { en: "Circular Blades", ru: "Дисковые ножи", zh: "圆刀" },
+    name: { en: "Circular Blades", ru: "Дисковые ножи", id: "Pisau Bulat", zh: "圆刀" },
     summary: {
       en: "Circular knives with controlled bore, bevel and surface finish for slicing, slitting and rotary cutting.",
       ru: "Дисковые ножи с контролем отверстия, фаски и поверхности для резки, продольной резки и ротационного реза.",
+      id: "Pisau bulat dengan kontrol bore, bevel dan finishing permukaan untuk slicing, slitting dan rotary cutting.",
       zh: "控制内孔、刃口和表面处理的圆刀，适用于切片、分切和旋转切割。",
     },
     detail: {
@@ -659,10 +986,11 @@ export const products = [
     slug: "straight-blades",
     image: productImages.straight,
     tags: ["Straight", "Guillotine", "OEM"],
-    name: { en: "Straight Blades", ru: "Прямые ножи", zh: "直刀" },
+    name: { en: "Straight Blades", ru: "Прямые ножи", id: "Pisau Lurus", zh: "直刀" },
     summary: {
       en: "Straight knives for guillotine cutting, chopping, scraping and replacement in food machinery.",
       ru: "Прямые ножи для гильотинной резки, рубки, скребков и замены в пищевом оборудовании.",
+      id: "Pisau lurus untuk guillotine cutting, chopping, scraping dan penggantian pada mesin makanan.",
       zh: "用于切断、剁切、刮刀和设备替换的直线型食品机械刀片。",
     },
     detail: {
@@ -692,10 +1020,11 @@ export const products = [
     slug: "serrated-blades",
     image: productImages.serrated,
     tags: ["Serrated", "Tooth Profile", "Packaging"],
-    name: { en: "Serrated Blades", ru: "Зубчатые ножи", zh: "齿刀" },
+    name: { en: "Serrated Blades", ru: "Зубчатые ножи", id: "Pisau Bergerigi", zh: "齿刀" },
     summary: {
       en: "Serrated tooth profiles for bread, film, packaging and textured food cutting.",
       ru: "Зубчатые профили для хлеба, пленки, упаковки и продуктов со сложной текстурой.",
+      id: "Profil gigi bergerigi untuk memotong roti, film, kemasan dan makanan bertekstur.",
       zh: "用于面包、薄膜、包装和复杂质地食品切割的齿形刀片。",
     },
     detail: {
@@ -727,15 +1056,17 @@ export const applications = [
   {
     slug: "meat-processing",
     image: applicationImages.meat,
-    name: { en: "Meat Processing", ru: "Мясопереработка", zh: "肉类加工" },
+    name: { en: "Meat Processing", ru: "Мясопереработка", id: "Pengolahan daging", zh: "肉类加工" },
     summary: {
       en: "Slicing, trimming, dicing, bowl cutting and portioning blades for high-frequency meat production.",
       ru: "Ножи для нарезки, жиловки, кубиков, куттера и порционирования на мясных линиях.",
+      id: "Pisau slicing, trimming, dicing, bowl cutting dan portioning untuk produksi daging frekuensi tinggi.",
       zh: "用于切片、修整、切丁、斩拌和分份的高频肉类加工刀片。",
     },
     focus: {
       en: ["Clean cut surface", "Edge retention", "Sanitation cleaning", "Fast replacement fit"],
       ru: ["Чистая поверхность реза", "Сохранение кромки", "Санитарная мойка", "Быстрая замена"],
+      id: ["Permukaan potong bersih", "Ketahanan mata pisau", "Pembersihan higienis", "Penggantian cepat"],
       zh: ["切面整洁", "刃口耐用", "清洗卫生", "替换装机稳定"],
     },
     blades: ["meat-processing-blades", "bowl-cutter-blades", "curved-food-processing-blades"],
@@ -743,15 +1074,17 @@ export const applications = [
   {
     slug: "poultry-processing",
     image: applicationImages.poultry,
-    name: { en: "Poultry Processing", ru: "Переработка птицы", zh: "禽类加工" },
+    name: { en: "Poultry Processing", ru: "Переработка птицы", id: "Pengolahan unggas", zh: "禽类加工" },
     summary: {
       en: "Deboning, dividing and trimming knives for poultry processing equipment.",
       ru: "Ножи для обвалки, разделки и жиловки птицы.",
+      id: "Pisau deboning, dividing dan trimming untuk peralatan pengolahan unggas.",
       zh: "用于禽类剔骨、分割和修整设备的刀片。",
     },
     focus: {
       en: ["Compact profile", "Reduced tearing", "Slot accuracy", "Stable batch fit"],
       ru: ["Компактный профиль", "Меньше разрыва", "Точность пазов", "Стабильная посадка"],
+      id: ["Profil ringkas", "Sobekan lebih rendah", "Akurasi slot", "Kecocokan batch stabil"],
       zh: ["外形紧凑", "减少撕裂", "槽位准确", "批量装机一致"],
     },
     blades: ["poultry-processing-knives", "custom-food-processing-blades"],
@@ -759,15 +1092,17 @@ export const applications = [
   {
     slug: "fish-seafood-processing",
     image: applicationImages.seafood,
-    name: { en: "Fish & Seafood Processing", ru: "Рыба и морепродукты", zh: "水产加工" },
+    name: { en: "Fish & Seafood Processing", ru: "Рыба и морепродукты", id: "Pengolahan ikan dan seafood", zh: "水产加工" },
     summary: {
       en: "Corrosion-aware stainless blades for fish, shrimp, seafood and frozen seafood lines.",
       ru: "Нержавеющие ножи для рыбы, креветок, морепродуктов и замороженных линий.",
+      id: "Pisau stainless tahan korosi untuk lini ikan, udang, seafood dan seafood beku.",
       zh: "面向鱼类、虾类、水产和冷冻水产线的耐腐蚀刀片。",
     },
     focus: {
       en: ["Corrosion resistance", "Smooth finish", "Thin edge", "Washdown environment"],
       ru: ["Коррозионная стойкость", "Гладкая поверхность", "Тонкая кромка", "Влажная мойка"],
+      id: ["Tahan korosi", "Finishing halus", "Mata tipis", "Lingkungan washdown"],
       zh: ["耐腐蚀", "表面光洁", "薄刃口", "潮湿清洗环境"],
     },
     blades: ["seafood-processing-blades", "circular-blades", "straight-blades"],
@@ -775,15 +1110,17 @@ export const applications = [
   {
     slug: "frozen-food-processing",
     image: applicationImages.frozen,
-    name: { en: "Frozen Food Processing", ru: "Замороженные продукты", zh: "冷冻食品加工" },
+    name: { en: "Frozen Food Processing", ru: "Замороженные продукты", id: "Pengolahan makanan beku", zh: "冷冻食品加工" },
     summary: {
       en: "Durable blades for cutting, portioning and packaging frozen food products.",
       ru: "Прочные ножи для резки, порционирования и упаковки замороженных продуктов.",
+      id: "Pisau tahan lama untuk memotong, portioning dan mengemas produk makanan beku.",
       zh: "用于冷冻食品切割、分份和包装的耐用刀片。",
     },
     focus: {
       en: ["Impact resistance", "Chipping control", "Stable thickness", "Anti-rust packing"],
       ru: ["Ударная стойкость", "Контроль сколов", "Стабильная толщина", "Антикоррозионная упаковка"],
+      id: ["Tahan benturan", "Kontrol chipping", "Ketebalan stabil", "Packing anti karat"],
       zh: ["抗冲击", "减少崩口", "厚度稳定", "防锈包装"],
     },
     blades: ["straight-blades", "curved-food-processing-blades", "packaging-blades"],
@@ -791,15 +1128,17 @@ export const applications = [
   {
     slug: "vegetable-fruit-processing",
     image: applicationImages.vegetable,
-    name: { en: "Vegetable & Fruit Processing", ru: "Овощи и фрукты", zh: "果蔬加工" },
+    name: { en: "Vegetable & Fruit Processing", ru: "Овощи и фрукты", id: "Pengolahan sayur dan buah", zh: "果蔬加工" },
     summary: {
       en: "Sharp cutting edges for slicing, dicing, peeling and clean product presentation.",
       ru: "Острые кромки для нарезки, кубиков, очистки и аккуратного вида продукта.",
+      id: "Mata pisau tajam untuk slicing, dicing, peeling dan tampilan produk yang bersih.",
       zh: "用于切片、切丁、去皮和保持切面整洁的果蔬刀片。",
     },
     focus: {
       en: ["Sharpness", "Low bruising", "Slice consistency", "Easy cleaning"],
       ru: ["Острота", "Меньше смятия", "Стабильная нарезка", "Легкая мойка"],
+      id: ["Ketajaman", "Mengurangi memar", "Irisan konsisten", "Mudah dibersihkan"],
       zh: ["锋利度", "减少压伤", "切片一致", "易清洗"],
     },
     blades: ["vegetable-fruit-cutting-blades", "circular-blades"],
@@ -807,15 +1146,17 @@ export const applications = [
   {
     slug: "bakery-snack-processing",
     image: applicationImages.bakery,
-    name: { en: "Bakery & Snack Processing", ru: "Хлеб и снеки", zh: "烘焙和零食加工" },
+    name: { en: "Bakery & Snack Processing", ru: "Хлеб и снеки", id: "Pengolahan bakery dan snack", zh: "烘焙和零食加工" },
     summary: {
       en: "Serrated and straight blades for bread, pastry, snack and bakery production lines.",
       ru: "Зубчатые и прямые ножи для хлеба, выпечки, снеков и производственных линий.",
+      id: "Pisau bergerigi dan lurus untuk lini roti, pastry, snack dan bakery.",
       zh: "用于面包、糕点、零食和烘焙产线的齿刀及直刀。",
     },
     focus: {
       en: ["Tooth pitch", "Low crumb tearing", "Clean entry", "Blade length matching"],
       ru: ["Шаг зуба", "Меньше крошки", "Чистый вход", "Подбор длины"],
+      id: ["Pitch gigi", "Remah lebih sedikit", "Awal potong bersih", "Panjang pisau sesuai"],
       zh: ["齿距", "减少掉屑", "起切干净", "刀长匹配"],
     },
     blades: ["bakery-bread-blades", "serrated-blades", "straight-blades"],
@@ -823,15 +1164,17 @@ export const applications = [
   {
     slug: "food-packaging",
     image: applicationImages.packaging,
-    name: { en: "Food Packaging", ru: "Пищевая упаковка", zh: "食品包装" },
+    name: { en: "Food Packaging", ru: "Пищевая упаковка", id: "Kemasan makanan", zh: "食品包装" },
     summary: {
       en: "Cut-off, perforation, film and sealing knives for packaging lines.",
       ru: "Ножи для отрезки, перфорации, пленки и запайки на упаковочных линиях.",
+      id: "Pisau cut-off, perforasi, film cutting dan sealing untuk lini kemasan.",
       zh: "用于包装线切断、打孔、薄膜和封切的刀片。",
     },
     focus: {
       en: ["Burr control", "Perforation pitch", "Film cutting", "Line speed stability"],
       ru: ["Контроль заусенцев", "Шаг перфорации", "Резка пленки", "Стабильность скорости"],
+      id: ["Kontrol burr", "Pitch perforasi", "Film cutting", "Stabilitas kecepatan lini"],
       zh: ["毛刺控制", "打孔间距", "薄膜切断", "高速稳定"],
     },
     blades: ["packaging-blades", "serrated-blades", "circular-blades"],
@@ -862,6 +1205,54 @@ export const manufacturingSteps = {
     "Инспекция",
     "Антикоррозионная упаковка",
     "Международная доставка",
+  ],
+  ar: [
+    "اختيار المادة",
+    "القطع / تحضير الخام",
+    "تشغيل CNC",
+    "المعالجة الحرارية",
+    "الجلخ الدقيق",
+    "تشطيب الحافة",
+    "التلميع",
+    "الفحص",
+    "تغليف ضد الصدأ",
+    "تسليم دولي",
+  ],
+  th: [
+    "เลือกวัสดุ",
+    "ตัดและเตรียมชิ้นงาน",
+    "กลึง/กัด CNC",
+    "ชุบแข็ง",
+    "เจียรละเอียด",
+    "แต่งคม",
+    "ขัดผิว",
+    "ตรวจสอบ",
+    "บรรจุป้องกันสนิม",
+    "ส่งออกระหว่างประเทศ",
+  ],
+  vi: [
+    "Chọn vật liệu",
+    "Cắt phôi",
+    "Gia công CNC",
+    "Nhiệt luyện",
+    "Mài chính xác",
+    "Hoàn thiện cạnh",
+    "Đánh bóng",
+    "Kiểm tra",
+    "Đóng gói chống gỉ",
+    "Giao hàng quốc tế",
+  ],
+  id: [
+    "Pemilihan material",
+    "Pemotongan blank",
+    "Pemesinan CNC",
+    "Heat treatment",
+    "Grinding presisi",
+    "Finishing mata pisau",
+    "Polishing",
+    "Inspeksi",
+    "Packing anti karat",
+    "Pengiriman internasional",
   ],
   zh: [
     "材料选择",
@@ -900,6 +1291,50 @@ export const qualityChecks = {
     "Контроль стабильности партии",
     "Проверка антикоррозионной упаковки",
   ],
+  ar: [
+    "التحقق من المادة",
+    "اختبار الصلابة",
+    "فحص الأبعاد",
+    "فحص مواضع الفتحات",
+    "فحص السماكة",
+    "مراجعة زاوية الحافة",
+    "فحص تشطيب السطح",
+    "ثبات الدفعة",
+    "مراجعة التغليف ضد الصدأ",
+  ],
+  th: [
+    "ตรวจสอบวัสดุ",
+    "ทดสอบความแข็ง",
+    "ตรวจสอบขนาด",
+    "ตรวจสอบตำแหน่งรู",
+    "ตรวจสอบความหนา",
+    "ตรวจสอบมุมคม",
+    "ตรวจสอบผิวงาน",
+    "ควบคุมความสม่ำเสมอของล็อต",
+    "ตรวจสอบบรรจุป้องกันสนิม",
+  ],
+  vi: [
+    "Xác nhận vật liệu",
+    "Kiểm tra độ cứng",
+    "Kiểm tra kích thước",
+    "Kiểm tra vị trí lỗ",
+    "Kiểm tra độ dày",
+    "Kiểm tra góc cạnh",
+    "Kiểm tra bề mặt",
+    "Kiểm soát ổn định lô",
+    "Kiểm tra đóng gói chống gỉ",
+  ],
+  id: [
+    "Verifikasi material",
+    "Uji kekerasan",
+    "Inspeksi dimensi",
+    "Inspeksi posisi lubang",
+    "Inspeksi ketebalan",
+    "Review sudut mata pisau",
+    "Cek finishing permukaan",
+    "Kontrol konsistensi batch",
+    "Review packing anti karat",
+  ],
   zh: [
     "材料检验",
     "硬度检测",
@@ -913,7 +1348,19 @@ export const qualityChecks = {
   ],
 } as const;
 
-export function localize<T extends { readonly [K in Lang]: string }>(value: T, lang: Lang) {
+type LocalizedString = { readonly [K in typeof defaultLang]: string } & Partial<Record<Lang, string>>;
+type LocalizedList<T> = { readonly [K in typeof defaultLang]: readonly T[] } & Partial<Record<Lang, readonly T[]>>;
+type LocalizedValue<T> = { readonly [K in typeof defaultLang]: T } & Partial<Record<Lang, T>>;
+
+export function localize<T extends LocalizedString>(value: T, lang: Lang) {
+  return value[lang] || value[defaultLang];
+}
+
+export function localizeList<T>(value: LocalizedList<T>, lang: Lang) {
+  return value[lang] || value[defaultLang];
+}
+
+export function pickLang<T>(value: LocalizedValue<T>, lang: Lang) {
   return value[lang] || value[defaultLang];
 }
 

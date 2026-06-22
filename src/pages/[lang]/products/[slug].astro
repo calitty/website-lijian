@@ -8,6 +8,7 @@ import {
   getProduct,
   langCodes,
   localize,
+  localizeList,
   products,
   ui,
   withLang,
@@ -61,7 +62,7 @@ const productJsonLd = {
     { "@type": "PropertyValue", name: "Blade category", value: product.tags.join(", ") },
     { "@type": "PropertyValue", name: "Applications", value: product.applications.join(", ") },
     { "@type": "PropertyValue", name: "Equipment", value: product.equipment.join(", ") },
-    { "@type": "PropertyValue", name: "Custom options", value: product.customOptions[lang].join(", ") },
+    { "@type": "PropertyValue", name: "Custom options", value: localizeList(product.customOptions, lang).join(", ") },
   ],
 };
 const breadcrumbJsonLd = {
@@ -125,7 +126,7 @@ const breadcrumbJsonLd = {
           {product.tags.map((tag) => <span class="rounded-[4px] bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm">{tag}</span>)}
         </div>
         <div class="mt-6 grid gap-3">
-          {product.customOptions[lang].map((item) => (
+          {localizeList(product.customOptions, lang).map((item) => (
             <span class="rounded-[4px] border border-white bg-white px-3 py-2 text-sm font-medium text-slate-700">{item}</span>
           ))}
         </div>

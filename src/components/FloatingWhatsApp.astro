@@ -1,0 +1,36 @@
+---
+import { channelLinks, contact, type Lang } from "@/data/site";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = {
+  en: { title: "WhatsApp", text: "Send drawing or sample" },
+  ru: { title: "WhatsApp", text: "Чертеж или образец" },
+  ar: { title: "WhatsApp", text: "أرسل الرسم أو العينة" },
+  th: { title: "WhatsApp", text: "ส่งแบบหรือชิ้นตัวอย่าง" },
+  vi: { title: "WhatsApp", text: "Gửi bản vẽ hoặc mẫu" },
+  id: { title: "WhatsApp", text: "Kirim gambar atau sampel" },
+  zh: { title: "WhatsApp", text: "发送图纸或样品" },
+}[lang];
+---
+
+<a
+  href={channelLinks.whatsapp}
+  class="fixed bottom-[4.75rem] right-4 z-50 flex items-center gap-3 rounded-full border border-white/15 bg-[#25d366] px-4 py-3 text-[#06130b] shadow-[0_14px_30px_rgba(0,0,0,.22)] sm:bottom-6"
+  data-track="click_whatsapp"
+  data-track-label="floating_whatsapp"
+  aria-label={`${copy.title}: ${contact.whatsapp}`}
+>
+  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white">
+    <svg viewBox="0 0 32 32" class="h-5 w-5" aria-hidden="true" fill="currentColor">
+      <path d="M16.03 4.5A11.33 11.33 0 0 0 6.4 21.8L5 27.5l5.82-1.36A11.33 11.33 0 1 0 16.03 4.5Zm0 2.22a9.1 9.1 0 0 1 7.8 13.78 9.08 9.08 0 0 1-11.7 3.34l-.4-.2-3.5.82.84-3.4-.24-.41a9.1 9.1 0 0 1 7.2-13.93Zm-3.35 4.55c-.2 0-.52.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.08 3.33 5.15 4.54 2.56 1.01 3.08.8 3.64.75.56-.05 1.8-.73 2.05-1.43.25-.7.25-1.3.18-1.43-.08-.13-.28-.2-.58-.35-.3-.15-1.8-.9-2.08-1-.28-.1-.48-.15-.68.15-.2.3-.78 1-1 1.2-.18.2-.37.22-.67.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.6.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.07-.15-.67-1.62-.92-2.22-.24-.58-.5-.5-.68-.5h-.72Z" />
+    </svg>
+  </span>
+  <span class="hidden leading-tight sm:grid">
+    <span class="text-sm font-semibold">{copy.title}</span>
+    <span class="text-xs font-semibold opacity-75">{copy.text}</span>
+  </span>
+</a>
