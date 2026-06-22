@@ -30,6 +30,11 @@ const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
 const currentPath = `/${lang}${normalizedPath}/`.replace(/\/+/g, "/");
 const canonical = new URL(noindex ? `/${lang}/` : currentPath, site).href;
 const imageUrl = new URL(image, site).href;
+const ogLocales = {
+  en: "en_US",
+  ru: "ru_RU",
+  zh: "zh_CN",
+} as const;
 const alternates = langCodes.map((code) => ({
   code,
   hreflang: languages[code].locale,
@@ -40,7 +45,9 @@ const fullTitle = `${title} | ${siteName}`;
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
+<meta name="theme-color" content="#07101a" />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
+{!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
 {!noindex && <link rel="canonical" href={canonical} />}
 {!noindex && alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
 {!noindex && (
@@ -55,9 +62,9 @@ const fullTitle = `${title} | ${siteName}`;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageUrl} />
-<meta property="og:locale" content={languages[lang].locale} />
+<meta property="og:locale" content={ogLocales[lang]} />
 {alternates.filter((alternate) => alternate.code !== lang).map((alternate) => (
-  <meta property="og:locale:alternate" content={alternate.hreflang} />
+  <meta property="og:locale:alternate" content={ogLocales[alternate.code]} />
 ))}
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />

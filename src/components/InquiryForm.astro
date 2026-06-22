@@ -181,7 +181,19 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
         if (source) source.value = window.location.href;
         setStatus(form, form.dataset.success || "Sent.", "success");
         if (typeof window.trackSiteEvent === "function") {
-          window.trackSiteEvent("inquiry_form_sent", { label: payload.name || "" });
+          window.trackSiteEvent("inquiry_form_sent", {
+            event_category: "lead",
+            label: payload.name || "",
+            country: payload.country || "",
+            language: payload.lang || document.documentElement.lang || "",
+            source: payload.source || window.location.href,
+          });
+          window.trackSiteEvent("generate_lead", {
+            event_category: "conversion",
+            method: "inquiry_form",
+            country: payload.country || "",
+            language: payload.lang || document.documentElement.lang || "",
+          });
         }
       } catch {
         setStatus(form, form.dataset.error || "Could not send.", "error");

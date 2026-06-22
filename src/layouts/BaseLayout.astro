@@ -33,14 +33,49 @@ const {
   noindex = false,
 } = Astro.props;
 
+const siteUrl = String(Astro.site ?? "https://lijianblades.com");
+const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
+const pageUrl = new URL(`/${lang}${normalizedPath}/`.replace(/\/+/g, "/"), siteUrl).href;
+const languageName = lang === "zh" ? "Chinese" : lang === "ru" ? "Russian" : "English";
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: contact.company[lang],
-  url: String(Astro.site ?? "https://lijianblades.com"),
+  url: siteUrl,
+  logo: new URL(contact.logo, siteUrl).href,
   email: contact.email,
   telephone: contact.phone,
+  foundingDate: "1998",
+  address: contact.departments.map((department) => ({
+    "@type": "PostalAddress",
+    name: department.name[lang],
+    streetAddress: department.address[lang],
+    addressCountry: "CN",
+  })),
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      telephone: contact.phone,
+      email: contact.email,
+      availableLanguage: ["English", "Russian", "Chinese"],
+    },
+  ],
+  areaServed: ["Russia", "Kazakhstan", "Belarus", "Southeast Asia", "China", "Global"],
   ...(contact.linkedin ? { sameAs: [contact.linkedin] } : {}),
+};
+const webPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": type === "product" ? "ItemPage" : "WebPage",
+  name: title,
+  description,
+  url: pageUrl,
+  inLanguage: languageName,
+  isPartOf: {
+    "@type": "WebSite",
+    name: ui[lang].siteName,
+    url: siteUrl,
+  },
 };
 ---
 
@@ -59,7 +94,7 @@ const organizationJsonLd = {
       path={path}
       image={image}
       type={type}
-      jsonLd={[organizationJsonLd, ...jsonLd]}
+      jsonLd={[organizationJsonLd, webPageJsonLd, ...jsonLd]}
       noindex={noindex}
     />
     <Tracking />

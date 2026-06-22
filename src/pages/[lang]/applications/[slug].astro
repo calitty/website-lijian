@@ -36,11 +36,50 @@ const summary = localize(application.summary, lang);
 const pageDescription = `${summary} ${t.seo.applicationsDescription}`;
 const relatedProducts = products.filter((product) => (application.blades as readonly string[]).includes(product.slug));
 const path = `/applications/${application.slug}`;
+const site = Astro.site ?? new URL("https://lijianblades.com");
+const pageUrl = new URL(`/${lang}${path}/`, site).href;
 const copy = {
   en: { focus: "Blade Focus" },
   ru: { focus: "Фокус Ножа" },
   zh: { focus: "刀片关注点" },
 }[lang];
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: t.nav.home,
+      item: new URL(`/${lang}/`, site).href,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: t.nav.applications,
+      item: new URL(`/${lang}/applications/`, site).href,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name,
+      item: pageUrl,
+    },
+  ],
+};
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: `${name} blade matching`,
+  serviceType: "Custom food processing blade manufacturing",
+  description: pageDescription,
+  url: pageUrl,
+  provider: {
+    "@type": "Organization",
+    name: t.siteName,
+  },
+  areaServed: ["Russia", "Kazakhstan", "Belarus", "Southeast Asia", "China", "Global"],
+};
 ---
 
 <BaseLayout
@@ -49,6 +88,7 @@ const copy = {
   description={pageDescription}
   path={path}
   image={application.image}
+  jsonLd={[breadcrumbJsonLd, serviceJsonLd]}
   pageEvent="view_application_page"
   pageEventLabel={application.slug}
 >

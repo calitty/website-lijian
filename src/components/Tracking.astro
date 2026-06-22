@@ -1,6 +1,7 @@
 ---
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 const yandexId = import.meta.env.PUBLIC_YANDEX_METRICA_ID;
+const clarityId = import.meta.env.PUBLIC_CLARITY_PROJECT_ID;
 ---
 
 {gaId && (
@@ -27,16 +28,35 @@ const yandexId = import.meta.env.PUBLIC_YANDEX_METRICA_ID;
   </script>
 )}
 
+{clarityId && (
+  <script is:inline define:vars={{ clarityId }}>
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", clarityId);
+  </script>
+)}
+
 <script is:inline>
+  const getPageContext = () => ({
+    page_location: window.location.href,
+    page_path: window.location.pathname,
+    page_title: document.title,
+    page_language: document.documentElement.lang || "",
+    hostname: window.location.hostname,
+  });
+
   const sendTrackedEvent = (name, params = {}) => {
     if (!name) return;
+    const payload = { ...getPageContext(), ...params };
     if (typeof window.gtag === "function") {
-      window.gtag("event", name, params);
+      window.gtag("event", name, payload);
     }
     if (typeof window.ym === "function" && window.__YANDEX_METRICA_ID__) {
-      window.ym(window.__YANDEX_METRICA_ID__, "reachGoal", name, params);
+      window.ym(window.__YANDEX_METRICA_ID__, "reachGoal", name, payload);
     }
-    window.dispatchEvent(new CustomEvent("site:analytics", { detail: { name, params } }));
+    window.dispatchEvent(new CustomEvent("site:analytics", { detail: { name, params: payload } }));
   };
   window.trackSiteEvent = sendTrackedEvent;
 
@@ -44,8 +64,10 @@ const yandexId = import.meta.env.PUBLIC_YANDEX_METRICA_ID;
     const target = event.target instanceof Element ? event.target.closest("[data-track]") : null;
     if (!target) return;
     sendTrackedEvent(target.getAttribute("data-track"), {
+      event_category: "engagement",
       label: target.getAttribute("data-track-label") || target.textContent?.trim() || "",
-      href: target.getAttribute("href") || "",
+      link_url: target.getAttribute("href") || "",
+      link_text: target.textContent?.trim() || "",
     });
   });
 
@@ -53,6 +75,7 @@ const yandexId = import.meta.env.PUBLIC_YANDEX_METRICA_ID;
     const form = event.target instanceof Element ? event.target.closest("form[data-track]") : null;
     if (!form) return;
     sendTrackedEvent(form.getAttribute("data-track"), {
+      event_category: "lead",
       label: form.getAttribute("data-track-label") || "",
     });
   });
@@ -65,7 +88,7 @@ const yandexId = import.meta.env.PUBLIC_YANDEX_METRICA_ID;
     const progress = (window.scrollY / scrollable) * 100;
     if (progress >= 90) {
       scrolled90 = true;
-      sendTrackedEvent("scroll_90_percent");
+      sendTrackedEvent("scroll_90_percent", { event_category: "engagement" });
       window.removeEventListener("scroll", onScroll);
     }
   };

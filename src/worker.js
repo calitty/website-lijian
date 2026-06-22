@@ -13,6 +13,11 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.hostname === "www.lijianblades.com" && request.method === "GET" && !url.pathname.startsWith("/api/")) {
+      url.hostname = "lijianblades.com";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === "/api/inquiry") {
       if (request.method === "OPTIONS") {
         return onRequestOptions({ request, env });
