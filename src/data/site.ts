@@ -21,7 +21,7 @@ export const contact = {
     ru: "Шанхайский внешнеторговый отдел / технический отдел завода в Мааньшане",
     zh: "上海外贸部 / 马鞍山工厂技术部",
   },
-  email: "yijiangyaoqu@gmail.com",
+  email: "sales@lijianblades.com",
   phone: "+86 188 0192 8860",
   whatsapp: "+8618801928860",
   whatsappQr: "/images/contact/whatsapp-qr.jpeg",
