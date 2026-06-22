@@ -3,6 +3,10 @@
   "name": "website-lijian",
   "main": "src/worker.js",
   "compatibility_date": "2025-12-01",
+  "vars": {
+    "INQUIRY_TO_EMAIL": "yijiangyaoqu@gmail.com",
+    "INQUIRY_FROM_EMAIL": "Website Inquiry <inquiry@send.lijianblades.com>"
+  },
   "assets": {
     "directory": "dist",
     "binding": "ASSETS",

@@ -1,4 +1,5 @@
 const TO_EMAIL = "yijiangyaoqu@gmail.com";
+const FROM_EMAIL = "Website Inquiry <inquiry@send.lijianblades.com>";
 const MAX_FIELD_LENGTH = 1200;
 const MAX_BODY_LENGTH = 20000;
 
@@ -68,7 +69,7 @@ export async function onRequestPost({ request, env }) {
     }
 
     const apiKey = env.RESEND_API_KEY;
-    const from = env.INQUIRY_FROM_EMAIL;
+    const from = env.INQUIRY_FROM_EMAIL || FROM_EMAIL;
     const to = env.INQUIRY_TO_EMAIL || TO_EMAIL;
     if (!apiKey || !from) {
       return json({ ok: false, error: "Email service is not configured" }, 500);
