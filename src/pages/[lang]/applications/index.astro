@@ -11,7 +11,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/applications";
-const solutionCopy = {
+const solutionCopyByLang = {
   en: {
     problem: "Production Focus",
     items: {
@@ -96,7 +96,8 @@ const solutionCopy = {
       "food-packaging": "用于薄膜切断、打孔、封切和易撕线，重点控制毛刺和高速稳定。",
     },
   },
-}[lang];
+} as const;
+const solutionCopy = solutionCopyByLang[lang as keyof typeof solutionCopyByLang] ?? solutionCopyByLang.en;
 ---
 
 <BaseLayout

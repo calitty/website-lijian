@@ -8,7 +8,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 const year = new Date().getFullYear();
-const footerCopy = {
+const footerCopyByLang = {
   en: {
     tagline: "Chinese source manufacturer for food machine blades",
     summary:
@@ -62,6 +62,114 @@ const footerCopy = {
     copyright: "مصنع صيني ومصدر لشفرات آلات الأغذية.",
     badges: ["منذ 1998", "مصنع 6,000 م²", "دعم عينة 7 أيام", "دفعة 30 يوما"],
     buyerInfo: ["رسم أو عينة أو موديل جهاز", "مقاس الشفرة والفتحات والسماكة", "المادة والكمية وموعد التسليم"],
+  },
+  es: {
+    tagline: "Fabricante chino directo de cuchillas para maquinaria alimentaria",
+    summary:
+      "Cuchillas personalizadas y recambios OEM para equipos de procesamiento de alimentos. Envíe plano, foto de cuchilla usada, modelo de máquina o medidas clave.",
+    exportTitle: "Soporte exportación",
+    productsTitle: "Gama de cuchillas",
+    applicationsTitle: "Aplicaciones",
+    buyerTitle: "Antes de consultar",
+    contactTitle: "Contacto directo",
+    officeTitle: "Oficina / Técnico",
+    cta: "Consultar cuchilla",
+    whatsapp: "Chat WhatsApp",
+    email: "Consulta por email",
+    inquiryHint: "Plano / muestra / modelo de máquina",
+    copyright: "Fabricante chino y fábrica de origen de cuchillas para maquinaria alimentaria.",
+    badges: ["Desde 1998", "Fábrica 6.000 m²", "Muestra en 7 días", "Lote en 30 días"],
+    buyerInfo: ["Plano, muestra o modelo", "Medida, agujeros y espesor", "Material, cantidad y entrega"],
+  },
+  pt: {
+    tagline: "Fabricante chinês de origem para lâminas de máquinas alimentícias",
+    summary:
+      "Lâminas sob medida e reposições OEM para equipamentos de processamento de alimentos. Envie desenho, foto da lâmina antiga, modelo da máquina ou medidas-chave.",
+    exportTitle: "Suporte exportação",
+    productsTitle: "Linha de lâminas",
+    applicationsTitle: "Aplicações",
+    buyerTitle: "Antes da consulta",
+    contactTitle: "Contato direto",
+    officeTitle: "Escritório / Técnico",
+    cta: "Consultar lâmina",
+    whatsapp: "Chat WhatsApp",
+    email: "Consulta por email",
+    inquiryHint: "Desenho / amostra / modelo da máquina",
+    copyright: "Fabricante e fábrica fonte na China para lâminas de máquinas alimentícias.",
+    badges: ["Desde 1998", "Fábrica 6.000 m²", "Amostra em 7 dias", "Lote em 30 dias"],
+    buyerInfo: ["Desenho, amostra ou modelo", "Medida, furos e espessura", "Material, quantidade e entrega"],
+  },
+  tr: {
+    tagline: "Gıda makinesi bıçakları için Çin kaynak üretici",
+    summary:
+      "Gıda işleme ekipmanları için özel ve OEM yedek bıçaklar. Çizim, eski bıçak fotoğrafı, makine modeli veya ana ölçüleri gönderin.",
+    exportTitle: "İhracat desteği",
+    productsTitle: "Bıçak aralığı",
+    applicationsTitle: "Uygulamalar",
+    buyerTitle: "Talep öncesi",
+    contactTitle: "Doğrudan iletişim",
+    officeTitle: "Ofis / Teknik",
+    cta: "Bıçak talebi görüş",
+    whatsapp: "WhatsApp sohbet",
+    email: "Email talebi",
+    inquiryHint: "Çizim / numune / makine modeli",
+    copyright: "Çin gıda makinesi bıçağı üreticisi ve kaynak fabrika.",
+    badges: ["1998'den beri", "6.000 m² fabrika", "7 gün numune", "30 gün parti"],
+    buyerInfo: ["Çizim, numune veya model", "Ölçü, delik ve kalınlık", "Malzeme, adet ve teslimat"],
+  },
+  de: {
+    tagline: "Chinesischer Quellenhersteller für Messer von Lebensmittelmaschinen",
+    summary:
+      "Kundenspezifische und OEM-Ersatzmesser für Lebensmittelanlagen. Senden Sie Zeichnung, Foto des alten Messers, Maschinenmodell oder Hauptmaße.",
+    exportTitle: "Exportunterstützung",
+    productsTitle: "Messerprogramm",
+    applicationsTitle: "Anwendungen",
+    buyerTitle: "Vor der Anfrage",
+    contactTitle: "Direktkontakt",
+    officeTitle: "Büro / Technik",
+    cta: "Messerbedarf besprechen",
+    whatsapp: "WhatsApp Chat",
+    email: "Email Anfrage",
+    inquiryHint: "Zeichnung / Muster / Maschinenmodell",
+    copyright: "Chinesischer Hersteller und Quellenfabrik für Messer von Lebensmittelmaschinen.",
+    badges: ["Seit 1998", "6.000 m² Fabrik", "7 Tage Muster", "30 Tage Charge"],
+    buyerInfo: ["Zeichnung, Muster oder Modell", "Maße, Bohrungen und Dicke", "Material, Menge und Liefertermin"],
+  },
+  fr: {
+    tagline: "Fabricant chinois source de lames pour machines alimentaires",
+    summary:
+      "Lames sur mesure et rechanges OEM pour équipements alimentaires. Envoyez plan, photo de lame usée, modèle de machine ou dimensions clés.",
+    exportTitle: "Support export",
+    productsTitle: "Gamme de lames",
+    applicationsTitle: "Applications",
+    buyerTitle: "Avant demande",
+    contactTitle: "Contact direct",
+    officeTitle: "Bureau / Technique",
+    cta: "Discuter du besoin",
+    whatsapp: "Chat WhatsApp",
+    email: "Demande email",
+    inquiryHint: "Plan / échantillon / modèle machine",
+    copyright: "Fabricant chinois et usine source de lames pour machines alimentaires.",
+    badges: ["Depuis 1998", "Usine 6 000 m²", "Échantillon 7 jours", "Lot 30 jours"],
+    buyerInfo: ["Plan, échantillon ou modèle", "Dimensions, trous et épaisseur", "Matériau, quantité et délai"],
+  },
+  it: {
+    tagline: "Produttore cinese fonte di lame per macchine alimentari",
+    summary:
+      "Lame su misura e ricambi OEM per macchine alimentari. Invia disegno, foto lama usata, modello macchina o misure chiave.",
+    exportTitle: "Supporto export",
+    productsTitle: "Gamma lame",
+    applicationsTitle: "Applicazioni",
+    buyerTitle: "Prima della richiesta",
+    contactTitle: "Contatto diretto",
+    officeTitle: "Ufficio / Tecnico",
+    cta: "Discuti richiesta lama",
+    whatsapp: "Chat WhatsApp",
+    email: "Richiesta email",
+    inquiryHint: "Disegno / campione / modello macchina",
+    copyright: "Produttore cinese e fabbrica fonte di lame per macchine alimentari.",
+    badges: ["Dal 1998", "Fabbrica 6.000 m²", "Campione 7 giorni", "Lotto 30 giorni"],
+    buyerInfo: ["Disegno, campione o modello", "Misure, fori e spessore", "Materiale, quantità e consegna"],
   },
   th: {
     tagline: "โรงงานจีนผลิตใบมีดเครื่องจักรอาหาร",
@@ -135,8 +243,9 @@ const footerCopy = {
     badges: ["始于1998年", "6000㎡工厂", "7天打样支持", "30天批量交付"],
     buyerInfo: ["图纸、样品或设备型号", "刀片尺寸、孔位和厚度", "材料、数量和交付要求"],
   },
-}[lang];
-const footerProducts = {
+} as const;
+const footerCopy = footerCopyByLang[lang as keyof typeof footerCopyByLang] ?? footerCopyByLang.en;
+const footerProductsByLang = {
   en: [
     ["Custom food processing blades", "/products/custom-food-processing-blades"],
     ["Bowl cutter blades", "/products/bowl-cutter-blades"],
@@ -179,8 +288,9 @@ const footerProducts = {
     ["肉类加工刀片", "/products/meat-processing-blades"],
     ["包装机械刀片", "/products/packaging-blades"],
   ],
-}[lang];
-const footerApplications = {
+} as const;
+const footerProducts = footerProductsByLang[lang as keyof typeof footerProductsByLang] ?? footerProductsByLang.en;
+const footerApplicationsByLang = {
   en: [
     ["Meat processing", "/applications/meat-processing"],
     ["Poultry processing", "/applications/poultry-processing"],
@@ -223,7 +333,8 @@ const footerApplications = {
     ["水产加工", "/applications/fish-seafood-processing"],
     ["食品包装", "/applications/food-packaging"],
   ],
-}[lang];
+} as const;
+const footerApplications = footerApplicationsByLang[lang as keyof typeof footerApplicationsByLang] ?? footerApplicationsByLang.en;
 ---
 
 <footer class="border-t border-white/10 bg-[#070b10] pb-24 text-white sm:pb-12">

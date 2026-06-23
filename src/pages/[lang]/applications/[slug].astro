@@ -39,15 +39,22 @@ const relatedProducts = products.filter((product) => (application.blades as read
 const path = `/applications/${application.slug}`;
 const site = Astro.site ?? new URL("https://lijianblades.com");
 const pageUrl = new URL(`/${lang}${path}/`, site).href;
-const copy = {
+const copyByLang = {
   en: { focus: "Blade Focus" },
   ru: { focus: "Фокус Ножа" },
   ar: { focus: "تركيز الشفرة" },
+  es: { focus: "Enfoque de cuchilla" },
+  pt: { focus: "Foco da lâmina" },
+  tr: { focus: "Bıçak odağı" },
+  de: { focus: "Messerfokus" },
+  fr: { focus: "Focus lame" },
+  it: { focus: "Focus lama" },
   th: { focus: "จุดสำคัญของใบมีด" },
   vi: { focus: "Trọng tâm dao" },
   id: { focus: "Fokus pisau" },
   zh: { focus: "刀片关注点" },
-}[lang];
+} as const;
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",

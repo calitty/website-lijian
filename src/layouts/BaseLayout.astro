@@ -37,15 +37,22 @@ const {
 const siteUrl = String(Astro.site ?? "https://lijianblades.com");
 const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
 const pageUrl = new URL(`/${lang}${normalizedPath}/`.replace(/\/+/g, "/"), siteUrl).href;
-const languageName = {
+const languageNames = {
   en: "English",
   ru: "Russian",
   ar: "Arabic",
+  es: "Spanish",
+  pt: "Portuguese",
+  tr: "Turkish",
+  de: "German",
+  fr: "French",
+  it: "Italian",
   th: "Thai",
   vi: "Vietnamese",
   id: "Indonesian",
   zh: "Chinese",
-}[lang];
+} as const;
+const languageName = languageNames[lang as keyof typeof languageNames] ?? languageNames.en;
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -67,10 +74,39 @@ const organizationJsonLd = {
       contactType: "sales",
       telephone: contact.phone,
       email: contact.email,
-      availableLanguage: ["English", "Russian", "Arabic", "Thai", "Vietnamese", "Indonesian", "Chinese"],
+      availableLanguage: [
+        "English",
+        "Russian",
+        "Arabic",
+        "Spanish",
+        "Portuguese",
+        "Turkish",
+        "German",
+        "French",
+        "Italian",
+        "Thai",
+        "Vietnamese",
+        "Indonesian",
+        "Chinese",
+      ],
     },
   ],
-  areaServed: ["Russia", "Kazakhstan", "Belarus", "Middle East", "Gulf countries", "Indonesia", "Southeast Asia", "China", "Global"],
+  areaServed: [
+    "Russia",
+    "Kazakhstan",
+    "Belarus",
+    "Middle East",
+    "Gulf countries",
+    "European Union",
+    "United Kingdom",
+    "Turkey",
+    "Brazil",
+    "Latin America",
+    "Indonesia",
+    "Southeast Asia",
+    "China",
+    "Global",
+  ],
   ...(contact.linkedin ? { sameAs: [contact.linkedin] } : {}),
 };
 const webPageJsonLd = {

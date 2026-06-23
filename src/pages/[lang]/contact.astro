@@ -12,7 +12,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/contact";
-const copy = {
+const copyByLang = {
   en: {
     h1: "Contact Us for Custom Food Processing Blades",
     lead: "Use email, WhatsApp or phone to discuss blade drawings, sample photos, equipment models or blade dimensions.",
@@ -30,6 +30,42 @@ const copy = {
     lead: "استخدم البريد الإلكتروني أو WhatsApp أو الهاتف لمناقشة الرسومات، صور العينات، موديل الجهاز أو أبعاد الشفرة.",
     direct: "تواصل مباشر",
     note: "للتأكيد بشكل أسرع، أرسل الرسم، صورة الشفرة القديمة، موديل الجهاز، المادة المطلوبة والكمية المتوقعة.",
+  },
+  es: {
+    h1: "Contacto para cuchillas alimentarias a medida",
+    lead: "Use email, WhatsApp o teléfono para hablar de planos, fotos de muestras, modelos de equipo o dimensiones.",
+    direct: "Contacto directo",
+    note: "Para una confirmación más rápida, incluya plano, foto de cuchilla usada, modelo de equipo, material y cantidad estimada.",
+  },
+  pt: {
+    h1: "Contato para lâminas alimentícias sob medida",
+    lead: "Use email, WhatsApp ou telefone para falar sobre desenhos, fotos de amostras, modelos de equipamento ou medidas.",
+    direct: "Contato direto",
+    note: "Para confirmar mais rápido, envie desenho, foto da lâmina antiga, modelo do equipamento, material e quantidade estimada.",
+  },
+  tr: {
+    h1: "Özel gıda makinesi bıçakları için iletişim",
+    lead: "Çizim, numune fotoğrafı, ekipman modeli veya ölçüleri email, WhatsApp ya da telefonla paylaşın.",
+    direct: "Doğrudan iletişim",
+    note: "Daha hızlı onay için çizim, eski bıçak fotoğrafı, ekipman modeli, malzeme ve tahmini adedi gönderin.",
+  },
+  de: {
+    h1: "Kontakt für kundenspezifische Lebensmittelmaschinenmesser",
+    lead: "Nutzen Sie Email, WhatsApp oder Telefon für Zeichnungen, Musterfotos, Maschinenmodelle oder Messermaße.",
+    direct: "Direktkontakt",
+    note: "Für schnellere Klärung senden Sie Zeichnung, Foto des alten Messers, Maschinenmodell, Materialwunsch und geschätzte Menge.",
+  },
+  fr: {
+    h1: "Contact pour lames alimentaires sur mesure",
+    lead: "Utilisez email, WhatsApp ou téléphone pour discuter plans, photos d'échantillons, modèles de machine ou dimensions.",
+    direct: "Contact direct",
+    note: "Pour confirmer plus vite, envoyez plan, photo de lame usée, modèle de machine, matériau demandé et quantité prévue.",
+  },
+  it: {
+    h1: "Contatti per lame alimentari su misura",
+    lead: "Usa email, WhatsApp o telefono per discutere disegni, foto campioni, modelli macchina o dimensioni lama.",
+    direct: "Contatto diretto",
+    note: "Per conferma più rapida, invia disegno, foto della lama usata, modello macchina, materiale e quantità prevista.",
   },
   th: {
     h1: "ติดต่อเราเรื่องใบมีดเครื่องจักรอาหารสั่งทำ",
@@ -55,16 +91,24 @@ const copy = {
     direct: "直接联系方式",
     note: "可提供刀片图纸、旧刀样品照片、设备型号、材料要求和预计数量，用于确认刀片规格。",
   },
-}[lang];
-const contactLabels = {
+} as const;
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
+const contactLabelsByLang = {
   en: { address: "Address", phone: "Phone" },
   ru: { address: "Адрес", phone: "Телефон" },
   ar: { address: "العنوان", phone: "الهاتف" },
+  es: { address: "Dirección", phone: "Teléfono" },
+  pt: { address: "Endereço", phone: "Telefone" },
+  tr: { address: "Adres", phone: "Telefon" },
+  de: { address: "Adresse", phone: "Telefon" },
+  fr: { address: "Adresse", phone: "Téléphone" },
+  it: { address: "Indirizzo", phone: "Telefono" },
   th: { address: "ที่อยู่", phone: "โทรศัพท์" },
   vi: { address: "Địa chỉ", phone: "Điện thoại" },
   id: { address: "Alamat", phone: "Telepon" },
   zh: { address: "地址", phone: "电话" },
-}[lang];
+} as const;
+const contactLabels = contactLabelsByLang[lang as keyof typeof contactLabelsByLang] ?? contactLabelsByLang.en;
 type Channel = [string, string, string, string];
 const channels: Channel[] = [
   ["Email", contact.email, channelLinks.email, "click_email"],

@@ -19,21 +19,29 @@ const navItems = [
 
 const activePath = path === "/" ? "/" : path.replace(/\/$/, "");
 const isHome = activePath === "/";
-const addressLabel = {
+const addressLabels = {
   en: "Address",
   ru: "Адрес",
   ar: "العنوان",
+  es: "Dirección",
+  pt: "Endereço",
+  tr: "Adres",
+  de: "Adresse",
+  fr: "Adresse",
+  it: "Indirizzo",
   th: "ที่อยู่",
   vi: "Địa chỉ",
   id: "Alamat",
   zh: "地址",
-}[lang];
+} as const;
+const addressLabel = addressLabels[lang as keyof typeof addressLabels] ?? addressLabels.en;
 const homeHref = withLang(lang);
 const contactHref = isHome ? "#contact" : `${homeHref}#contact`;
 const brandName = isHome && lang === "zh" ? contact.company.zh : t.siteName;
 const homeAnchorKeys = new Set(["products", "applications", "manufacturing", "quality", "about", "contact"]);
-const navSpacingClass = lang === "ru" ? "gap-0.5" : "gap-1";
-const navItemClass = lang === "ru" ? "px-2.5 text-[13px]" : "px-3 text-sm";
+const compactNavLangs = new Set(["ru", "es", "pt", "tr", "de", "fr", "it"]);
+const navSpacingClass = compactNavLangs.has(lang) ? "gap-0.5" : "gap-1";
+const navItemClass = compactNavLangs.has(lang) ? "px-2.5 text-[13px]" : "px-3 text-sm";
 const getNavHref = (key: string, href: string) => {
   if (isHome && homeAnchorKeys.has(key)) return `#${key}`;
   if (key === "contact") return contactHref;

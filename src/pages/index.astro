@@ -42,6 +42,12 @@ const site = "https://lijianblades.com";
       const zhCountries = new Set(["CN", "HK", "MO", "TW"]);
       const ruCountries = new Set(["RU", "BY", "KZ", "KG"]);
       const arCountries = new Set(["AE", "SA", "QA", "KW", "BH", "OM", "YE", "IQ", "JO", "LB", "SY", "PS", "EG", "MA", "DZ", "TN", "LY", "SD"]);
+      const esCountries = new Set(["ES", "MX", "EC", "AR", "CL", "CO", "PE", "VE", "UY", "PY", "BO", "CR", "PA", "GT", "DO", "HN", "SV", "NI", "CU"]);
+      const ptCountries = new Set(["BR", "PT", "AO", "MZ"]);
+      const trCountries = new Set(["TR"]);
+      const deCountries = new Set(["DE", "AT", "CH", "LI"]);
+      const frCountries = new Set(["FR", "BE", "CH", "LU", "DZ", "MA", "TN", "CA"]);
+      const itCountries = new Set(["IT", "SM", "VA", "CH"]);
       const thCountries = new Set(["TH"]);
       const viCountries = new Set(["VN"]);
       const idCountries = new Set(["ID"]);
@@ -89,6 +95,24 @@ const site = "https://lijianblades.com";
         "Africa/Algiers",
         "Africa/Tunis",
       ]);
+      const esTimeZones = new Set([
+        "Europe/Madrid",
+        "America/Mexico_City",
+        "America/Guayaquil",
+        "America/Argentina/Buenos_Aires",
+        "America/Santiago",
+        "America/Bogota",
+        "America/Lima",
+        "America/Caracas",
+        "America/Montevideo",
+        "America/Asuncion",
+        "America/La_Paz",
+      ]);
+      const ptTimeZones = new Set(["America/Sao_Paulo", "Europe/Lisbon", "Africa/Luanda", "Africa/Maputo"]);
+      const trTimeZones = new Set(["Europe/Istanbul"]);
+      const deTimeZones = new Set(["Europe/Berlin", "Europe/Vienna", "Europe/Zurich"]);
+      const frTimeZones = new Set(["Europe/Paris", "Europe/Brussels", "Europe/Zurich", "Africa/Algiers", "Africa/Casablanca", "Africa/Tunis"]);
+      const itTimeZones = new Set(["Europe/Rome", "Europe/Zurich"]);
       const thTimeZones = new Set(["Asia/Bangkok"]);
       const viTimeZones = new Set(["Asia/Ho_Chi_Minh"]);
       const idTimeZones = new Set(["Asia/Jakarta", "Asia/Makassar", "Asia/Jayapura", "Asia/Pontianak"]);
@@ -97,6 +121,12 @@ const site = "https://lijianblades.com";
         if (languageCodes.includes("zh") || hasAny(countryCodes, zhCountries) || zhTimeZones.has(timeZone)) return "zh";
         if (languageCodes.includes("ru") || hasAny(countryCodes, ruCountries) || ruTimeZones.has(timeZone)) return "ru";
         if (languageCodes.includes("ar") || hasAny(countryCodes, arCountries) || arTimeZones.has(timeZone)) return "ar";
+        if (languageCodes.includes("es") || hasAny(countryCodes, esCountries) || esTimeZones.has(timeZone)) return "es";
+        if (languageCodes.includes("pt") || hasAny(countryCodes, ptCountries) || ptTimeZones.has(timeZone)) return "pt";
+        if (languageCodes.includes("tr") || hasAny(countryCodes, trCountries) || trTimeZones.has(timeZone)) return "tr";
+        if (languageCodes.includes("de") || hasAny(countryCodes, deCountries) || deTimeZones.has(timeZone)) return "de";
+        if (languageCodes.includes("fr") || hasAny(countryCodes, frCountries) || frTimeZones.has(timeZone)) return "fr";
+        if (languageCodes.includes("it") || hasAny(countryCodes, itCountries) || itTimeZones.has(timeZone)) return "it";
         if (languageCodes.includes("th") || hasAny(countryCodes, thCountries) || thTimeZones.has(timeZone)) return "th";
         if (languageCodes.includes("vi") || languageCodes.includes("vn") || hasAny(countryCodes, viCountries) || viTimeZones.has(timeZone)) return "vi";
         if (languageCodes.includes("id") || hasAny(countryCodes, idCountries) || idTimeZones.has(timeZone)) return "id";
@@ -111,6 +141,12 @@ const site = "https://lijianblades.com";
         <a href="/en/">English</a>
         <a href="/ru/">Русский</a>
         <a href="/ar/">العربية</a>
+        <a href="/es/">Español</a>
+        <a href="/pt/">Português</a>
+        <a href="/tr/">Türkçe</a>
+        <a href="/de/">Deutsch</a>
+        <a href="/fr/">Français</a>
+        <a href="/it/">Italiano</a>
         <a href="/th/">ไทย</a>
         <a href="/vi/">Tiếng Việt</a>
         <a href="/id/">Bahasa Indonesia</a>

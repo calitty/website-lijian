@@ -6,15 +6,22 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const copy = {
+const copyByLang = {
   en: { title: "WhatsApp", text: "Send drawing or sample" },
   ru: { title: "WhatsApp", text: "Чертеж или образец" },
   ar: { title: "WhatsApp", text: "أرسل الرسم أو العينة" },
+  es: { title: "WhatsApp", text: "Envíe plano o muestra" },
+  pt: { title: "WhatsApp", text: "Envie desenho ou amostra" },
+  tr: { title: "WhatsApp", text: "Çizim veya numune gönderin" },
+  de: { title: "WhatsApp", text: "Zeichnung oder Muster senden" },
+  fr: { title: "WhatsApp", text: "Envoyer plan ou échantillon" },
+  it: { title: "WhatsApp", text: "Invia disegno o campione" },
   th: { title: "WhatsApp", text: "ส่งแบบหรือชิ้นตัวอย่าง" },
   vi: { title: "WhatsApp", text: "Gửi bản vẽ hoặc mẫu" },
   id: { title: "WhatsApp", text: "Kirim gambar atau sampel" },
   zh: { title: "WhatsApp", text: "发送图纸或样品" },
-}[lang];
+} as const;
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
 ---
 
 <a

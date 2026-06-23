@@ -77,15 +77,22 @@ const zhEquipmentLabels: Record<string, string> = {
 };
 const formatApplication = (item: string) => (lang === "zh" ? zhApplicationLabels[item] ?? item : item);
 const formatEquipment = (item: string) => (lang === "zh" ? zhEquipmentLabels[item] ?? item : item);
-const cardCopy = {
+const cardCopyByLang = {
   en: { equipment: "Equipment", custom: "Custom" },
   ru: { equipment: "Оборудование", custom: "Параметры" },
   ar: { equipment: "المعدات", custom: "تخصيص" },
+  es: { equipment: "Equipo", custom: "A medida" },
+  pt: { equipment: "Equipamento", custom: "Sob medida" },
+  tr: { equipment: "Ekipman", custom: "Özel" },
+  de: { equipment: "Maschine", custom: "Anpassung" },
+  fr: { equipment: "Équipement", custom: "Sur mesure" },
+  it: { equipment: "Macchina", custom: "Su misura" },
   th: { equipment: "อุปกรณ์", custom: "สั่งผลิต" },
   vi: { equipment: "Thiết bị", custom: "Tùy chỉnh" },
   id: { equipment: "Peralatan", custom: "Kustom" },
   zh: { equipment: "适配设备", custom: "可定制" },
-}[lang];
+} as const;
+const cardCopy = cardCopyByLang[lang as keyof typeof cardCopyByLang] ?? cardCopyByLang.en;
 ---
 
 <article class="flex h-full flex-col overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">

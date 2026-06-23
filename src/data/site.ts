@@ -4,6 +4,12 @@ export const languages = {
   en: { label: "English", shortLabel: "EN", locale: "en" },
   ru: { label: "Русский", shortLabel: "RU", locale: "ru" },
   ar: { label: "العربية", shortLabel: "AR", locale: "ar" },
+  es: { label: "Español", shortLabel: "ES", locale: "es" },
+  pt: { label: "Português", shortLabel: "PT", locale: "pt-BR" },
+  tr: { label: "Türkçe", shortLabel: "TR", locale: "tr" },
+  de: { label: "Deutsch", shortLabel: "DE", locale: "de" },
+  fr: { label: "Français", shortLabel: "FR", locale: "fr" },
+  it: { label: "Italiano", shortLabel: "IT", locale: "it" },
   th: { label: "ไทย", shortLabel: "TH", locale: "th" },
   vi: { label: "Tiếng Việt", shortLabel: "VI", locale: "vi" },
   id: { label: "Bahasa Indonesia", shortLabel: "ID", locale: "id" },
@@ -19,6 +25,12 @@ export const contact = {
     en: "Maanshan Lijian Food Machinery Blade Factory",
     ru: "Maanshan Lijian Food Machinery Blade Factory",
     ar: "مصنع ماانشان ليجيان لشفرات آلات الأغذية",
+    es: "Fábrica de Cuchillas para Maquinaria Alimentaria Maanshan Lijian",
+    pt: "Fábrica de Lâminas para Máquinas Alimentícias Maanshan Lijian",
+    tr: "Maanshan Lijian Gıda Makinesi Bıçak Fabrikası",
+    de: "Maanshan Lijian Fabrik für Messer für Lebensmittelmaschinen",
+    fr: "Usine de lames pour machines alimentaires Maanshan Lijian",
+    it: "Fabbrica di lame per macchine alimentari Maanshan Lijian",
     th: "โรงงานใบมีดเครื่องจักรอาหาร Maanshan Lijian",
     vi: "Nhà máy dao máy thực phẩm Maanshan Lijian",
     id: "Pabrik Pisau Mesin Makanan Maanshan Lijian",
@@ -28,6 +40,12 @@ export const contact = {
     en: "Shanghai Foreign Trade Office / Maanshan Factory Technical Department",
     ru: "Шанхайский внешнеторговый отдел / технический отдел завода в Мааньшане",
     ar: "مكتب شنغهاي للتجارة الخارجية / القسم الفني في مصنع ماانشان",
+    es: "Oficina de comercio exterior en Shanghái / Departamento técnico de la fábrica de Maanshan",
+    pt: "Escritório de comércio exterior de Xangai / Departamento técnico da fábrica de Maanshan",
+    tr: "Şanghay dış ticaret ofisi / Maanshan fabrika teknik departmanı",
+    de: "Außenhandelsbüro Shanghai / Technische Abteilung Werk Maanshan",
+    fr: "Bureau export de Shanghai / Département technique de l'usine de Maanshan",
+    it: "Ufficio export di Shanghai / Reparto tecnico dello stabilimento di Maanshan",
     th: "สำนักงานการค้าต่างประเทศเซี่ยงไฮ้ / ฝ่ายเทคนิคโรงงานหม่าอันซาน",
     vi: "Văn phòng ngoại thương Thượng Hải / Bộ phận kỹ thuật nhà máy Maanshan",
     id: "Kantor Perdagangan Luar Negeri Shanghai / Departemen Teknis Pabrik Maanshan",
@@ -48,6 +66,12 @@ export const contact = {
         en: "Shanghai Foreign Trade Office",
         ru: "Шанхайский внешнеторговый отдел",
         ar: "مكتب شنغهاي للتجارة الخارجية",
+        es: "Oficina de comercio exterior en Shanghái",
+        pt: "Escritório de comércio exterior de Xangai",
+        tr: "Şanghay dış ticaret ofisi",
+        de: "Außenhandelsbüro Shanghai",
+        fr: "Bureau export de Shanghai",
+        it: "Ufficio export di Shanghai",
         th: "สำนักงานการค้าต่างประเทศเซี่ยงไฮ้",
         vi: "Văn phòng ngoại thương Thượng Hải",
         id: "Kantor Perdagangan Luar Negeri Shanghai",
@@ -57,6 +81,12 @@ export const contact = {
         en: "Room 229, Building C, No. 888 Huanhu West 2nd Road, Lingang New Area, China (Shanghai) Pilot Free Trade Zone, Shanghai, China",
         ru: "Кабинет 229, корпус C, дом 888, Huanhu West 2nd Road, Lingang New Area, China (Shanghai) Pilot Free Trade Zone, Шанхай, Китай",
         ar: "الغرفة 229، المبنى C، رقم 888 طريق Huanhu West 2nd، منطقة Lingang الجديدة، منطقة التجارة الحرة التجريبية في شنغهاي، الصين",
+        es: "Sala 229, Edificio C, No. 888 Huanhu West 2nd Road, Nueva Área de Lingang, Zona Piloto de Libre Comercio de China (Shanghái), Shanghái, China",
+        pt: "Sala 229, Edifício C, No. 888 Huanhu West 2nd Road, Nova Área de Lingang, Zona Piloto de Livre Comércio da China (Xangai), Xangai, China",
+        tr: "Oda 229, C Binası, No. 888 Huanhu West 2nd Road, Lingang Yeni Bölgesi, Çin (Şanghay) Pilot Serbest Ticaret Bölgesi, Şanghay, Çin",
+        de: "Raum 229, Gebäude C, Nr. 888 Huanhu West 2nd Road, Lingang New Area, China (Shanghai) Pilot Free Trade Zone, Shanghai, China",
+        fr: "Bureau 229, bâtiment C, No. 888 Huanhu West 2nd Road, nouvelle zone de Lingang, zone pilote de libre-échange de Chine (Shanghai), Shanghai, Chine",
+        it: "Stanza 229, Edificio C, No. 888 Huanhu West 2nd Road, Nuova Area di Lingang, Zona pilota di libero scambio della Cina (Shanghai), Shanghai, Cina",
         th: "ห้อง 229 อาคาร C เลขที่ 888 ถนน Huanhu West 2nd เขต Lingang New Area เขตการค้าเสรีนำร่องจีน (เซี่ยงไฮ้) เซี่ยงไฮ้ ประเทศจีน",
         vi: "Phòng 229, Tòa C, Số 888 đường Huanhu West 2nd, Khu mới Lingang, Khu thương mại tự do thí điểm Trung Quốc (Thượng Hải), Thượng Hải, Trung Quốc",
         id: "Ruang 229, Gedung C, No. 888 Huanhu West 2nd Road, Kawasan Baru Lingang, Zona Perdagangan Bebas Percontohan China (Shanghai), Shanghai, China",
@@ -70,6 +100,12 @@ export const contact = {
         en: "Maanshan Factory Technical Department",
         ru: "Технический отдел завода в Мааньшане",
         ar: "القسم الفني في مصنع ماانشان",
+        es: "Departamento técnico de la fábrica de Maanshan",
+        pt: "Departamento técnico da fábrica de Maanshan",
+        tr: "Maanshan fabrika teknik departmanı",
+        de: "Technische Abteilung Werk Maanshan",
+        fr: "Département technique de l'usine de Maanshan",
+        it: "Reparto tecnico dello stabilimento di Maanshan",
         th: "ฝ่ายเทคนิคโรงงานหม่าอันซาน",
         vi: "Bộ phận kỹ thuật nhà máy Maanshan",
         id: "Departemen Teknis Pabrik Maanshan",
@@ -79,6 +115,12 @@ export const contact = {
         en: "Daxi Industrial Cluster, Sanyang Village, Bowang Town, Bowang District, Maanshan, Anhui, China",
         ru: "Промышленная зона Daxi, деревня Sanyang, поселок Bowang, район Bowang, Мааньшань, Аньхой, Китай",
         ar: "منطقة Daxi الصناعية، قرية Sanyang، بلدة Bowang، مقاطعة Bowang، ماانشان، آنهوي، الصين",
+        es: "Zona industrial Daxi, aldea Sanyang, ciudad de Bowang, distrito de Bowang, Maanshan, Anhui, China",
+        pt: "Cluster Industrial Daxi, vila Sanyang, cidade Bowang, distrito Bowang, Maanshan, Anhui, China",
+        tr: "Daxi Sanayi Bölgesi, Sanyang Köyü, Bowang Kasabası, Bowang Bölgesi, Maanshan, Anhui, Çin",
+        de: "Daxi Industriecluster, Dorf Sanyang, Stadt Bowang, Bezirk Bowang, Maanshan, Anhui, China",
+        fr: "Zone industrielle de Daxi, village de Sanyang, ville de Bowang, district de Bowang, Maanshan, Anhui, Chine",
+        it: "Area industriale Daxi, villaggio Sanyang, città di Bowang, distretto di Bowang, Maanshan, Anhui, Cina",
         th: "เขตอุตสาหกรรม Daxi หมู่บ้าน Sanyang เมือง Bowang เขต Bowang เมือง Maanshan มณฑล Anhui ประเทศจีน",
         vi: "Cụm công nghiệp Daxi, làng Sanyang, thị trấn Bowang, quận Bowang, Maanshan, An Huy, Trung Quốc",
         id: "Kawasan Industri Daxi, Desa Sanyang, Kota Bowang, Distrik Bowang, Maanshan, Anhui, China",
@@ -98,7 +140,7 @@ export const channelLinks = {
   linkedin: contact.linkedin,
 };
 
-export const ui = {
+const uiBase = {
   en: {
     siteName: "Lijian Food Blades",
     nav: {
@@ -602,6 +644,452 @@ export const ui = {
     contactPrompt:
       "马鞍山利坚是中国食品机械刀片源头厂家，可依据刀片图纸、样品、设备型号或切割工况确认材料、硬度、刃口结构和交付方式。",
   },
+} as const;
+
+const marketUi = {
+  es: {
+    ...uiBase.en,
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Inicio",
+      products: "Productos",
+      applications: "Aplicaciones",
+      manufacturing: "Fabricación",
+      quality: "Calidad",
+      about: "Fábrica",
+      contact: "Contacto",
+    },
+    actions: {
+      viewProducts: "Ver productos",
+      contactUs: "Contactar",
+      discussBlade: "Consultar esta cuchilla",
+    },
+    labels: {
+      language: "Idioma",
+      typicalApplications: "Aplicaciones típicas",
+      typicalEquipment: "Equipos típicos",
+      customOptions: "Opciones a medida",
+      materials: "Materiales",
+      process: "Proceso",
+      inspection: "Inspección",
+      productRange: "Gama de productos",
+      applicationRange: "Aplicaciones",
+      contactChannels: "Canales de contacto",
+      whatsappQr: "Código QR de WhatsApp",
+      scanWhatsapp: "Escanee para añadir WhatsApp",
+      openWhatsapp: "Abrir chat de WhatsApp",
+    },
+    seo: {
+      homeTitle: "Fabricante chino de cuchillas para maquinaria alimentaria",
+      homeDescription:
+        "Maanshan Lijian fabrica cuchillas personalizadas y recambios OEM para maquinaria de carne, pescado, aves, vegetales, panadería y empaque alimentario.",
+      productsTitle: "Cuchillas para maquinaria alimentaria y cuchillas a medida",
+      productsDescription:
+        "Cuchillas personalizadas y recambios OEM para compradores que necesitan perfil, agujeros, material, dureza y suministro repetible.",
+      applicationsTitle: "Aplicaciones de cuchillas para procesamiento de alimentos",
+      applicationsDescription:
+        "Seleccione cuchillas por alimento, línea de producción y condición de corte: carne, aves, pescado, congelados, vegetales, panadería y empaque.",
+      manufacturingTitle: "Capacidad de fabricación de cuchillas industriales",
+      manufacturingDescription:
+        "Control de material, CNC, tratamiento térmico, rectificado, filo, inspección y embalaje para pedidos de exportación.",
+      qualityTitle: "Control de calidad de cuchillas para maquinaria alimentaria",
+      qualityDescription:
+        "Control de material, dureza, posición de agujeros, espesor, ángulo de filo, superficie, lote y empaque antioxidante.",
+      aboutTitle: "Sobre Maanshan Lijian Food Machinery Blade Factory",
+      aboutDescription:
+        "Maanshan Lijian es una fábrica china especializada en cuchillas para maquinaria alimentaria, recambios OEM y cooperación de exportación.",
+      contactTitle: "Contacto Maanshan Lijian",
+      contactDescription:
+        "Contacte por email, WhatsApp o teléfono para cuchillas personalizadas y recambios para maquinaria alimentaria.",
+    },
+    home: {
+      eyebrow: "Fábrica china directa de cuchillas alimentarias",
+      h1: "Cuchillas industriales a medida para alimentos",
+      intro:
+        "Envíe plano, foto de cuchilla usada, modelo de máquina o dimensiones clave. Fabricamos cuchillas personalizadas y recambios OEM para líneas de carne, pescado, aves, vegetales, panadería y empaque.",
+      trust: ["Plano, muestra o modelo aceptado", "Muestra en 7 días", "Lote en 30 días", "Soporte de exportación"],
+      productsLead:
+        "Busque por tipo de cuchilla, posición de montaje o necesidad de recambio. Confirmamos dimensiones, agujeros, material, dureza y filo antes de fabricar.",
+      applicationsLead:
+        "Seleccione primero por alimento y línea de producción. Ayudamos a ajustar perfil, material, dureza y geometría de filo para recambios y pedidos repetidos.",
+      manufacturingLead:
+        "Para pedidos de exportación controlamos ajuste de instalación, vida de corte y repetibilidad mediante revisión de planos, CNC, dureza, rectificado y empaque.",
+      qualityLead:
+        "El control de calidad reduce riesgos de montaje incorrecto, corte inestable, vida corta o corrosión durante el transporte.",
+    },
+    contactPrompt:
+      "Trabaje directamente con Maanshan Lijian, fábrica china de origen. Envíe plano, muestra, modelo de equipo o problema de corte para confirmar material, dureza, filo y entrega.",
+  },
+  pt: {
+    ...uiBase.en,
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Início",
+      products: "Produtos",
+      applications: "Aplicações",
+      manufacturing: "Fabricação",
+      quality: "Qualidade",
+      about: "Fábrica",
+      contact: "Contato",
+    },
+    actions: {
+      viewProducts: "Ver produtos",
+      contactUs: "Contato",
+      discussBlade: "Consultar esta lâmina",
+    },
+    labels: {
+      language: "Idioma",
+      typicalApplications: "Aplicações típicas",
+      typicalEquipment: "Equipamentos típicos",
+      customOptions: "Opções sob medida",
+      materials: "Materiais",
+      process: "Processo",
+      inspection: "Inspeção",
+      productRange: "Linha de produtos",
+      applicationRange: "Aplicações",
+      contactChannels: "Canais de contato",
+      whatsappQr: "QR Code WhatsApp",
+      scanWhatsapp: "Escaneie para adicionar WhatsApp",
+      openWhatsapp: "Abrir conversa no WhatsApp",
+    },
+    seo: {
+      homeTitle: "Fabricante chinês de lâminas para máquinas alimentícias",
+      homeDescription:
+        "Maanshan Lijian fabrica lâminas sob medida e reposições OEM para máquinas de carne, pescado, aves, vegetais, panificação e embalagem de alimentos.",
+      productsTitle: "Lâminas para máquinas alimentícias e facas sob medida",
+      productsDescription:
+        "Lâminas customizadas e reposições OEM com controle de perfil, furos, material, dureza e fornecimento repetível.",
+      applicationsTitle: "Aplicações de lâminas para processamento de alimentos",
+      applicationsDescription:
+        "Selecione por alimento, linha de produção e condição de corte: carne, aves, pescado, congelados, vegetais, panificação e embalagem.",
+      manufacturingTitle: "Capacidade de fabricação de lâminas industriais",
+      manufacturingDescription:
+        "Controle de material, CNC, tratamento térmico, retífica, fio, inspeção e embalagem para exportação.",
+      qualityTitle: "Controle de qualidade de lâminas para máquinas alimentícias",
+      qualityDescription:
+        "Controle de material, dureza, furos, espessura, ângulo do fio, superfície, lote e embalagem anticorrosiva.",
+      aboutTitle: "Sobre a Maanshan Lijian Food Machinery Blade Factory",
+      aboutDescription:
+        "Maanshan Lijian é uma fábrica chinesa de lâminas para máquinas alimentícias, reposições OEM e cooperação de exportação.",
+      contactTitle: "Contato Maanshan Lijian",
+      contactDescription:
+        "Contato por email, WhatsApp ou telefone para lâminas sob medida e reposições de máquinas alimentícias.",
+    },
+    home: {
+      eyebrow: "Fábrica chinesa direta de lâminas alimentícias",
+      h1: "Lâminas industriais sob medida para alimentos",
+      intro:
+        "Envie desenho, foto da lâmina antiga, modelo da máquina ou dimensões principais. Fabricamos lâminas sob medida e reposições OEM para linhas de carne, pescado, aves, vegetais, panificação e embalagem.",
+      trust: ["Desenho, amostra ou modelo aceitos", "Amostra em 7 dias", "Lote em 30 dias", "Suporte de exportação"],
+      productsLead:
+        "Procure por tipo de lâmina, posição de montagem ou necessidade de reposição. Confirmamos medidas, furos, material, dureza e fio antes da produção.",
+      applicationsLead:
+        "Comece pelo alimento e pela linha. Ajudamos a ajustar perfil, material, dureza e geometria do fio para reposição, OEM e pedidos recorrentes.",
+      manufacturingLead:
+        "Para exportação, controlamos encaixe, vida de corte e repetibilidade com revisão de desenho, CNC, dureza, retífica e embalagem.",
+      qualityLead:
+        "O controle de qualidade reduz risco de falha de montagem, corte instável, baixa vida útil ou corrosão no transporte.",
+    },
+    contactPrompt:
+      "Fale diretamente com a Maanshan Lijian, fábrica de origem na China. Envie desenho, amostra, modelo do equipamento ou problema de corte para confirmar material, dureza, fio e entrega.",
+  },
+  tr: {
+    ...uiBase.en,
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Ana sayfa",
+      products: "Ürünler",
+      applications: "Uygulamalar",
+      manufacturing: "Üretim",
+      quality: "Kalite",
+      about: "Fabrika",
+      contact: "İletişim",
+    },
+    actions: {
+      viewProducts: "Ürünleri gör",
+      contactUs: "İletişim",
+      discussBlade: "Bu bıçağı görüş",
+    },
+    labels: {
+      language: "Dil",
+      typicalApplications: "Tipik uygulamalar",
+      typicalEquipment: "Tipik ekipman",
+      customOptions: "Özel seçenekler",
+      materials: "Malzemeler",
+      process: "Süreç",
+      inspection: "Kontrol",
+      productRange: "Ürün aralığı",
+      applicationRange: "Uygulamalar",
+      contactChannels: "İletişim kanalları",
+      whatsappQr: "WhatsApp QR kodu",
+      scanWhatsapp: "WhatsApp eklemek için tarayın",
+      openWhatsapp: "WhatsApp sohbetini aç",
+    },
+    seo: {
+      homeTitle: "Çin gıda makinesi bıçakları üreticisi",
+      homeDescription:
+        "Maanshan Lijian; et, balık, tavuk, sebze, fırın ve gıda ambalaj makineleri için özel ve OEM yedek bıçaklar üretir.",
+      productsTitle: "Gıda makinesi bıçakları ve özel kesme bıçakları",
+      productsDescription:
+        "Profil, montaj delikleri, malzeme, sertlik ve tekrarlı tedarik gerektiren özel ve OEM yedek gıda makinesi bıçakları.",
+      applicationsTitle: "Gıda işleme bıçağı uygulamaları",
+      applicationsDescription:
+        "Gıda türü, üretim hattı ve kesim koşuluna göre bıçak seçimi: et, tavuk, deniz ürünleri, dondurulmuş gıda, sebze, fırın ve paketleme.",
+      manufacturingTitle: "Endüstriyel bıçak üretim kapasitesi",
+      manufacturingDescription:
+        "Malzeme, CNC, ısıl işlem, taşlama, ağız bitirme, kontrol ve ihracat ambalajı.",
+      qualityTitle: "Gıda makinesi bıçakları kalite kontrolü",
+      qualityDescription:
+        "Malzeme, sertlik, delik konumu, kalınlık, ağız açısı, yüzey, parti tutarlılığı ve pas önleyici ambalaj kontrolü.",
+      aboutTitle: "Maanshan Lijian Food Machinery Blade Factory hakkında",
+      aboutDescription:
+        "Maanshan Lijian, gıda makinesi bıçakları, OEM yedek bıçaklar ve ihracat iş birliği için Çin kaynak fabrikasıdır.",
+      contactTitle: "Maanshan Lijian iletişim",
+      contactDescription:
+        "Özel gıda makinesi bıçakları ve yedek bıçaklar için email, WhatsApp veya telefonla iletişime geçin.",
+    },
+    home: {
+      eyebrow: "Çin doğrudan gıda makinesi bıçağı fabrikası",
+      h1: "Özel endüstriyel gıda işleme bıçakları",
+      intro:
+        "Çizim, eski bıçak fotoğrafı, makine modeli veya ana ölçüleri gönderin. Et, deniz ürünleri, tavuk, sebze, fırın ve paketleme makineleri için özel ve OEM yedek bıçak üretiriz.",
+      trust: ["Çizim, numune veya model kabul edilir", "7 günde numune desteği", "30 günde parti teslimi", "İhracat iletişim desteği"],
+      productsLead:
+        "Bıçak tipi, montaj yeri veya yedek ihtiyacına göre arayın. Üretimden önce ölçü, delik, malzeme, sertlik ve ağız detaylarını onaylarız.",
+      applicationsLead:
+        "Önce gıda türü ve hattı seçin. Profil, malzeme, sertlik ve ağız geometrisini yedek ve tekrarlı siparişler için eşleştiririz.",
+      manufacturingLead:
+        "İhracat siparişlerinde montaj uyumu, kesim ömrü ve tekrar edilebilir kalite için çizim, CNC, sertlik, taşlama ve ambalajı kontrol ederiz.",
+      qualityLead:
+        "Kalite kontrol; montaj hatası, dengesiz kesim, kısa ömür ve taşıma sırasında pas riskini azaltır.",
+    },
+    contactPrompt:
+      "Çin kaynak fabrikası Maanshan Lijian ile doğrudan çalışın. Çizim, numune, ekipman modeli veya kesim sorunu göndererek malzeme, sertlik, ağız ve teslimatı netleştirin.",
+  },
+  de: {
+    ...uiBase.en,
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Start",
+      products: "Produkte",
+      applications: "Anwendungen",
+      manufacturing: "Fertigung",
+      quality: "Qualität",
+      about: "Fabrik",
+      contact: "Kontakt",
+    },
+    actions: {
+      viewProducts: "Produkte ansehen",
+      contactUs: "Kontakt",
+      discussBlade: "Messer anfragen",
+    },
+    labels: {
+      language: "Sprache",
+      typicalApplications: "Typische Anwendungen",
+      typicalEquipment: "Typische Maschinen",
+      customOptions: "Anpassungen",
+      materials: "Materialien",
+      process: "Prozess",
+      inspection: "Prüfung",
+      productRange: "Produktspektrum",
+      applicationRange: "Anwendungen",
+      contactChannels: "Kontaktkanäle",
+      whatsappQr: "WhatsApp QR-Code",
+      scanWhatsapp: "WhatsApp per QR hinzufügen",
+      openWhatsapp: "WhatsApp Chat öffnen",
+    },
+    seo: {
+      homeTitle: "Chinesischer Hersteller von Messern für Lebensmittelmaschinen",
+      homeDescription:
+        "Maanshan Lijian fertigt kundenspezifische und OEM-Ersatzmesser für Fleisch-, Fisch-, Geflügel-, Gemüse-, Backwaren- und Verpackungsmaschinen.",
+      productsTitle: "Messer für Lebensmittelmaschinen und Sondermesser",
+      productsDescription:
+        "Kundenspezifische und OEM-Ersatzmesser mit abgestimmtem Profil, Bohrungen, Material, Härte und wiederholbarer Lieferung.",
+      applicationsTitle: "Anwendungen für Messer in der Lebensmittelverarbeitung",
+      applicationsDescription:
+        "Messer nach Produkt, Linie und Schneidbedingung auswählen: Fleisch, Geflügel, Fisch, Tiefkühlkost, Gemüse, Backwaren und Verpackung.",
+      manufacturingTitle: "Fertigungskapazität für Industriemesser",
+      manufacturingDescription:
+        "Materialauswahl, CNC, Wärmebehandlung, Schleifen, Schneidenfinish, Prüfung und Exportverpackung.",
+      qualityTitle: "Qualitätskontrolle für Messer von Lebensmittelmaschinen",
+      qualityDescription:
+        "Kontrolle von Material, Härte, Bohrungen, Dicke, Schneidenwinkel, Oberfläche, Chargenkonstanz und Rostschutzverpackung.",
+      aboutTitle: "Über Maanshan Lijian Food Machinery Blade Factory",
+      aboutDescription:
+        "Maanshan Lijian ist eine chinesische Quellenfabrik für Messer von Lebensmittelmaschinen, OEM-Ersatzmesser und Exportkooperation.",
+      contactTitle: "Kontakt Maanshan Lijian",
+      contactDescription:
+        "Kontakt per Email, WhatsApp oder Telefon für kundenspezifische Messer und Ersatzmesser für Lebensmittelmaschinen.",
+    },
+    home: {
+      eyebrow: "Chinesische Direktfabrik für Lebensmittelmaschinenmesser",
+      h1: "Kundenspezifische Industriemesser für Lebensmittel",
+      intro:
+        "Senden Sie Zeichnung, Foto des alten Messers, Maschinenmodell oder Hauptmaße. Wir fertigen Sondermesser und OEM-Ersatzmesser für Fleisch, Fisch, Geflügel, Gemüse, Backwaren und Verpackung.",
+      trust: ["Zeichnung, Muster oder Modell möglich", "7 Tage Musterunterstützung", "30 Tage Chargenlieferung", "Exportkommunikation"],
+      productsLead:
+        "Suchen Sie nach Messertyp, Montageposition oder Ersatzbedarf. Vor der Fertigung bestätigen wir Maße, Bohrungen, Material, Härte und Schneidendetails.",
+      applicationsLead:
+        "Starten Sie mit Produkt und Produktionslinie. Wir stimmen Profil, Material, Härte und Schneidengeometrie für Ersatz, OEM und Wiederholaufträge ab.",
+      manufacturingLead:
+        "Für Exportaufträge kontrollieren wir Passform, Standzeit und Wiederholbarkeit über Zeichnungsprüfung, CNC, Härte, Schleifen und Verpackung.",
+      qualityLead:
+        "Qualitätskontrolle reduziert Risiken bei Montage, instabilem Schnitt, kurzer Lebensdauer oder Korrosion beim Transport.",
+    },
+    contactPrompt:
+      "Arbeiten Sie direkt mit Maanshan Lijian, einer chinesischen Quellenfabrik. Senden Sie Zeichnung, Muster, Maschinenmodell oder Schneidproblem zur Klärung von Material, Härte, Schneide und Lieferung.",
+  },
+  fr: {
+    ...uiBase.en,
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Accueil",
+      products: "Produits",
+      applications: "Applications",
+      manufacturing: "Fabrication",
+      quality: "Qualité",
+      about: "Usine",
+      contact: "Contact",
+    },
+    actions: {
+      viewProducts: "Voir produits",
+      contactUs: "Contact",
+      discussBlade: "Demander cette lame",
+    },
+    labels: {
+      language: "Langue",
+      typicalApplications: "Applications typiques",
+      typicalEquipment: "Équipements typiques",
+      customOptions: "Options sur mesure",
+      materials: "Matériaux",
+      process: "Processus",
+      inspection: "Contrôle",
+      productRange: "Gamme de produits",
+      applicationRange: "Applications",
+      contactChannels: "Canaux de contact",
+      whatsappQr: "QR code WhatsApp",
+      scanWhatsapp: "Scanner pour ajouter WhatsApp",
+      openWhatsapp: "Ouvrir le chat WhatsApp",
+    },
+    seo: {
+      homeTitle: "Fabricant chinois de lames pour machines alimentaires",
+      homeDescription:
+        "Maanshan Lijian fabrique des lames sur mesure et des lames de rechange OEM pour machines de viande, poisson, volaille, légumes, boulangerie et emballage alimentaire.",
+      productsTitle: "Lames pour machines alimentaires et lames sur mesure",
+      productsDescription:
+        "Lames personnalisées et rechanges OEM avec profil, trous, matériau, dureté et approvisionnement répétable.",
+      applicationsTitle: "Applications des lames de transformation alimentaire",
+      applicationsDescription:
+        "Choisissez les lames par aliment, ligne de production et condition de coupe: viande, volaille, poisson, surgelés, légumes, boulangerie et emballage.",
+      manufacturingTitle: "Capacité de fabrication de lames industrielles",
+      manufacturingDescription:
+        "Contrôle du matériau, CNC, traitement thermique, rectification, finition du tranchant, inspection et emballage export.",
+      qualityTitle: "Contrôle qualité des lames pour machines alimentaires",
+      qualityDescription:
+        "Contrôle du matériau, dureté, trous, épaisseur, angle de coupe, surface, cohérence de lot et emballage antirouille.",
+      aboutTitle: "À propos de Maanshan Lijian Food Machinery Blade Factory",
+      aboutDescription:
+        "Maanshan Lijian est une usine chinoise spécialisée dans les lames de machines alimentaires, les rechanges OEM et l'export.",
+      contactTitle: "Contact Maanshan Lijian",
+      contactDescription:
+        "Contactez-nous par email, WhatsApp ou téléphone pour des lames sur mesure et des lames de rechange pour machines alimentaires.",
+    },
+    home: {
+      eyebrow: "Usine chinoise directe de lames alimentaires",
+      h1: "Lames industrielles alimentaires sur mesure",
+      intro:
+        "Envoyez un plan, une photo de lame usée, un modèle de machine ou les dimensions clés. Nous fabriquons des lames sur mesure et rechanges OEM pour lignes viande, poisson, volaille, légumes, boulangerie et emballage.",
+      trust: ["Plan, échantillon ou modèle acceptés", "Échantillon en 7 jours", "Lot en 30 jours", "Support export"],
+      productsLead:
+        "Recherchez par type de lame, position de montage ou besoin de remplacement. Nous confirmons dimensions, trous, matériau, dureté et tranchant avant production.",
+      applicationsLead:
+        "Commencez par l'aliment et la ligne. Nous ajustons profil, matériau, dureté et géométrie de tranchant pour remplacement, OEM et commandes répétées.",
+      manufacturingLead:
+        "Pour l'export, nous contrôlons l'ajustement, la durée de coupe et la répétabilité avec revue de plan, CNC, dureté, rectification et emballage.",
+      qualityLead:
+        "Le contrôle qualité réduit les risques de mauvais montage, coupe instable, durée de vie courte ou corrosion au transport.",
+    },
+    contactPrompt:
+      "Travaillez directement avec Maanshan Lijian, usine source en Chine. Envoyez plan, échantillon, modèle de machine ou problème de coupe pour confirmer matériau, dureté, tranchant et livraison.",
+  },
+  it: {
+    ...uiBase.en,
+    siteName: "Lijian Food Blades",
+    nav: {
+      home: "Home",
+      products: "Prodotti",
+      applications: "Applicazioni",
+      manufacturing: "Produzione",
+      quality: "Qualità",
+      about: "Fabbrica",
+      contact: "Contatti",
+    },
+    actions: {
+      viewProducts: "Vedi prodotti",
+      contactUs: "Contatti",
+      discussBlade: "Richiedi questa lama",
+    },
+    labels: {
+      language: "Lingua",
+      typicalApplications: "Applicazioni tipiche",
+      typicalEquipment: "Macchine tipiche",
+      customOptions: "Opzioni su misura",
+      materials: "Materiali",
+      process: "Processo",
+      inspection: "Ispezione",
+      productRange: "Gamma prodotti",
+      applicationRange: "Applicazioni",
+      contactChannels: "Canali di contatto",
+      whatsappQr: "QR WhatsApp",
+      scanWhatsapp: "Scansiona per aggiungere WhatsApp",
+      openWhatsapp: "Apri chat WhatsApp",
+    },
+    seo: {
+      homeTitle: "Produttore cinese di lame per macchine alimentari",
+      homeDescription:
+        "Maanshan Lijian produce lame su misura e ricambi OEM per macchine carne, pesce, pollame, verdure, bakery e imballaggio alimentare.",
+      productsTitle: "Lame per macchine alimentari e lame su misura",
+      productsDescription:
+        "Lame custom e ricambi OEM con profilo, fori, materiale, durezza e fornitura ripetibile.",
+      applicationsTitle: "Applicazioni delle lame per lavorazione alimentare",
+      applicationsDescription:
+        "Scegli le lame per alimento, linea e condizione di taglio: carne, pollame, pesce, surgelati, verdure, bakery e packaging.",
+      manufacturingTitle: "Capacità produttiva di lame industriali",
+      manufacturingDescription:
+        "Controllo di materiale, CNC, trattamento termico, rettifica, finitura del filo, ispezione e imballo export.",
+      qualityTitle: "Controllo qualità lame per macchine alimentari",
+      qualityDescription:
+        "Controllo materiale, durezza, fori, spessore, angolo del filo, superficie, coerenza lotto e imballo antiruggine.",
+      aboutTitle: "Informazioni su Maanshan Lijian Food Machinery Blade Factory",
+      aboutDescription:
+        "Maanshan Lijian è una fabbrica cinese specializzata in lame per macchine alimentari, ricambi OEM e cooperazione export.",
+      contactTitle: "Contatti Maanshan Lijian",
+      contactDescription:
+        "Contattaci via email, WhatsApp o telefono per lame su misura e ricambi per macchine alimentari.",
+    },
+    home: {
+      eyebrow: "Fabbrica cinese diretta di lame alimentari",
+      h1: "Lame industriali alimentari su misura",
+      intro:
+        "Invia disegno, foto della lama usata, modello macchina o misure chiave. Produciamo lame su misura e ricambi OEM per linee carne, pesce, pollame, verdure, bakery e packaging.",
+      trust: ["Disegno, campione o modello accettati", "Campione in 7 giorni", "Lotto in 30 giorni", "Supporto export"],
+      productsLead:
+        "Cerca per tipo di lama, posizione di montaggio o ricambio. Confermiamo misure, fori, materiale, durezza e filo prima della produzione.",
+      applicationsLead:
+        "Parti dall'alimento e dalla linea. Aiutiamo ad abbinare profilo, materiale, durezza e geometria del filo per ricambi, OEM e riordini.",
+      manufacturingLead:
+        "Per ordini export controlliamo montaggio, durata di taglio e ripetibilità con revisione disegno, CNC, durezza, rettifica e imballo.",
+      qualityLead:
+        "Il controllo qualità riduce rischi di montaggio errato, taglio instabile, vita breve o corrosione durante il trasporto.",
+    },
+    contactPrompt:
+      "Lavora direttamente con Maanshan Lijian, fabbrica fonte in Cina. Invia disegno, campione, modello macchina o problema di taglio per confermare materiale, durezza, filo e consegna.",
+  },
+} as const;
+
+export const ui = {
+  ...uiBase,
+  ...marketUi,
 } as const;
 
 export const productImages = {
@@ -1181,7 +1669,7 @@ export const applications = [
   },
 ] as const;
 
-export const manufacturingSteps = {
+const manufacturingStepsBase = {
   en: [
     "Material Selection",
     "Cutting / Blanking",
@@ -1268,7 +1756,87 @@ export const manufacturingSteps = {
   ],
 } as const;
 
-export const qualityChecks = {
+const marketManufacturingSteps = {
+  es: [
+    "Selección de material",
+    "Corte / blanking",
+    "Mecanizado CNC",
+    "Tratamiento térmico",
+    "Rectificado de precisión",
+    "Acabado del filo",
+    "Pulido",
+    "Inspección",
+    "Embalaje antioxidante",
+    "Entrega internacional",
+  ],
+  pt: [
+    "Seleção de material",
+    "Corte do blank",
+    "Usinagem CNC",
+    "Tratamento térmico",
+    "Retífica de precisão",
+    "Acabamento do fio",
+    "Polimento",
+    "Inspeção",
+    "Embalagem anticorrosiva",
+    "Entrega internacional",
+  ],
+  tr: [
+    "Malzeme seçimi",
+    "Kesim / blank hazırlığı",
+    "CNC işleme",
+    "Isıl işlem",
+    "Hassas taşlama",
+    "Ağız bitirme",
+    "Parlatma",
+    "Kontrol",
+    "Pas önleyici ambalaj",
+    "Uluslararası teslimat",
+  ],
+  de: [
+    "Materialauswahl",
+    "Zuschnitt / Rohling",
+    "CNC-Bearbeitung",
+    "Wärmebehandlung",
+    "Präzisionsschleifen",
+    "Schneidenfinish",
+    "Polieren",
+    "Prüfung",
+    "Rostschutzverpackung",
+    "Internationale Lieferung",
+  ],
+  fr: [
+    "Sélection du matériau",
+    "Découpe / ébauche",
+    "Usinage CNC",
+    "Traitement thermique",
+    "Rectification de précision",
+    "Finition du tranchant",
+    "Polissage",
+    "Inspection",
+    "Emballage antirouille",
+    "Livraison internationale",
+  ],
+  it: [
+    "Selezione materiale",
+    "Taglio / blanking",
+    "Lavorazione CNC",
+    "Trattamento termico",
+    "Rettifica di precisione",
+    "Finitura del filo",
+    "Lucidatura",
+    "Ispezione",
+    "Imballo antiruggine",
+    "Consegna internazionale",
+  ],
+} as const;
+
+export const manufacturingSteps = {
+  ...manufacturingStepsBase,
+  ...marketManufacturingSteps,
+} as const;
+
+const qualityChecksBase = {
   en: [
     "Material verification",
     "Hardness testing",
@@ -1346,6 +1914,80 @@ export const qualityChecks = {
     "批次一致性控制",
     "包装防锈检查",
   ],
+} as const;
+
+const marketQualityChecks = {
+  es: [
+    "Verificación de material",
+    "Prueba de dureza",
+    "Inspección dimensional",
+    "Inspección de agujeros",
+    "Inspección de espesor",
+    "Revisión del ángulo de filo",
+    "Control de acabado superficial",
+    "Control de consistencia del lote",
+    "Revisión de embalaje antioxidante",
+  ],
+  pt: [
+    "Verificação de material",
+    "Teste de dureza",
+    "Inspeção dimensional",
+    "Inspeção de furos",
+    "Inspeção de espessura",
+    "Revisão do ângulo do fio",
+    "Controle do acabamento superficial",
+    "Controle de consistência do lote",
+    "Revisão da embalagem anticorrosiva",
+  ],
+  tr: [
+    "Malzeme doğrulama",
+    "Sertlik testi",
+    "Ölçü kontrolü",
+    "Delik konumu kontrolü",
+    "Kalınlık kontrolü",
+    "Ağız açısı incelemesi",
+    "Yüzey bitirme kontrolü",
+    "Parti tutarlılığı kontrolü",
+    "Pas önleyici ambalaj kontrolü",
+  ],
+  de: [
+    "Materialprüfung",
+    "Härteprüfung",
+    "Maßprüfung",
+    "Bohrungsprüfung",
+    "Dickenprüfung",
+    "Prüfung des Schneidenwinkels",
+    "Oberflächenprüfung",
+    "Chargenkonstanz",
+    "Prüfung der Rostschutzverpackung",
+  ],
+  fr: [
+    "Vérification du matériau",
+    "Test de dureté",
+    "Contrôle dimensionnel",
+    "Contrôle des trous",
+    "Contrôle de l'épaisseur",
+    "Revue de l'angle du tranchant",
+    "Contrôle de finition de surface",
+    "Contrôle de cohérence du lot",
+    "Revue de l'emballage antirouille",
+  ],
+  it: [
+    "Verifica del materiale",
+    "Test di durezza",
+    "Controllo dimensionale",
+    "Controllo posizione fori",
+    "Controllo spessore",
+    "Revisione angolo del filo",
+    "Controllo finitura superficiale",
+    "Controllo coerenza lotto",
+    "Revisione imballo antiruggine",
+  ],
+} as const;
+
+export const qualityChecks = {
+  ...qualityChecksBase,
+  ...marketQualityChecks,
 } as const;
 
 type LocalizedString = { readonly [K in typeof defaultLang]: string } & Partial<Record<Lang, string>>;

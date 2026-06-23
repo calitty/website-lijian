@@ -32,7 +32,7 @@ const pageJsonLd = {
   name: t.siteName,
   url: String(Astro.site ?? "https://lijianblades.com"),
 };
-const polish = {
+const polishByLang = {
   en: {
     heroKicker: "Source factory / drawing or sample / export support",
     heroMain: "Custom Food Machine Blades",
@@ -47,6 +47,36 @@ const polish = {
     heroKicker: "مصنع مصدر / رسم أو عينة / دعم تصدير",
     heroMain: "شفرات آلات الأغذية|حسب الطلب",
     heroAccent: "للاستبدال و|OEM",
+  },
+  es: {
+    heroKicker: "Fábrica de origen / plano o muestra / exportación",
+    heroMain: "Cuchillas a medida|para alimentos",
+    heroAccent: "Recambio y|OEM",
+  },
+  pt: {
+    heroKicker: "Fábrica de origem / desenho ou amostra / exportação",
+    heroMain: "Lâminas sob medida|para alimentos",
+    heroAccent: "Reposição e|OEM",
+  },
+  tr: {
+    heroKicker: "Kaynak fabrika / çizim veya numune / ihracat desteği",
+    heroMain: "Özel gıda makinesi|bıçakları",
+    heroAccent: "Yedek ve|OEM",
+  },
+  de: {
+    heroKicker: "Quellenfabrik / Zeichnung oder Muster / Export",
+    heroMain: "Sondermesser für|Lebensmittelmaschinen",
+    heroAccent: "Ersatz und|OEM",
+  },
+  fr: {
+    heroKicker: "Usine source / plan ou échantillon / export",
+    heroMain: "Lames alimentaires|sur mesure",
+    heroAccent: "Rechange et|OEM",
+  },
+  it: {
+    heroKicker: "Fabbrica fonte / disegno o campione / export",
+    heroMain: "Lame alimentari|su misura",
+    heroAccent: "Ricambi e|OEM",
   },
   th: {
     heroKicker: "โรงงานต้นทาง / แบบหรือชิ้นตัวอย่าง / รองรับส่งออก",
@@ -68,10 +98,11 @@ const polish = {
     heroMain: "食品机械刀片定制制造",
     heroAccent: "替换刀片 OEM 批量交付",
   },
-}[lang];
+} as const;
+const polish = polishByLang[lang as keyof typeof polishByLang] ?? polishByLang.en;
 const heroMainLines = polish.heroMain.split("|");
 const heroAccentLines = polish.heroAccent.split("|");
-const homeFactory = {
+const homeFactoryByLang = {
   en: {
     title: "Chinese food machinery blade manufacturer since 1998",
     lead:
@@ -198,8 +229,16 @@ const homeFactory = {
     contactDetail:
       "面向海外采购，前期沟通先把可获得的信息发来即可。我们会协助确认装机适配、材料硬度、刃口方向、孔位尺寸、打样周期、批量交付和后续复购记录。",
   },
-}[lang];
-const contactLabels = {
+} as const;
+const homeFactory = homeFactoryByLang[lang as keyof typeof homeFactoryByLang] ?? {
+  ...homeFactoryByLang.en,
+  title: t.seo.aboutTitle,
+  lead: t.seo.aboutDescription,
+  contactTitle: t.seo.contactTitle,
+  contactLead: t.contactPrompt,
+  contactDetail: t.home.productsLead,
+};
+const contactLabelsByLang = {
   en: { address: "Address", phone: "Phone" },
   ru: { address: "Адрес", phone: "Телефон" },
   ar: { address: "العنوان", phone: "الهاتف" },
@@ -207,8 +246,9 @@ const contactLabels = {
   vi: { address: "Địa chỉ", phone: "Điện thoại" },
   id: { address: "Alamat", phone: "Telepon" },
   zh: { address: "地址", phone: "电话" },
-}[lang];
-const contactTips = {
+} as const;
+const contactLabels = contactLabelsByLang[lang as keyof typeof contactLabelsByLang] ?? contactLabelsByLang.en;
+const contactTipsByLang = {
   en: ["Blade drawing or old sample photo", "Equipment model and blade size", "Quantity, material and delivery request"],
   ru: ["Чертеж или фото старого ножа", "Модель оборудования и размер ножа", "Количество, материал и срок поставки"],
   ar: ["رسم الشفرة أو صورة العينة القديمة", "موديل الجهاز ومقاس الشفرة", "الكمية والمادة وموعد التسليم"],
@@ -216,8 +256,9 @@ const contactTips = {
   vi: ["Bản vẽ dao hoặc ảnh mẫu cũ", "Model thiết bị và kích thước dao", "Số lượng, vật liệu và yêu cầu giao hàng"],
   id: ["Gambar pisau atau foto sampel lama", "Model mesin dan ukuran pisau", "Jumlah, material dan jadwal pengiriman"],
   zh: ["刀片图纸或旧刀样品照片", "设备型号和关键尺寸", "数量、材料要求和交付计划"],
-}[lang];
-const contactPanel = {
+} as const;
+const contactTips = contactTipsByLang[lang as keyof typeof contactTipsByLang] ?? contactTipsByLang.en;
+const contactPanelByLang = {
   en: {
     directLead: "Send drawings, old blade photos, equipment models or key dimensions. We will confirm blade fit, material, edge geometry and delivery plan.",
     whatsapp: "WhatsApp direct chat",
@@ -267,8 +308,9 @@ const contactPanel = {
     departments: "外贸与技术支持",
     prepare: "沟通前可准备",
   },
-}[lang];
-const productSummary = {
+} as const;
+const contactPanel = contactPanelByLang[lang as keyof typeof contactPanelByLang] ?? contactPanelByLang.en;
+const productSummaryByLang = {
   en: {
     title: "Core Blade Range",
     lead: "For replacement knives and OEM equipment sourcing, start with the closest blade type. After receiving a drawing, old sample or machine model, we confirm profile, holes, thickness, material and edge geometry.",
@@ -304,8 +346,14 @@ const productSummary = {
     lead: "面向替换刀片和 OEM 设备配套采购，可先按刀片形状或设备用途确认方向。客户提供图纸、旧刀样品或设备型号后，我们再确认外形、孔位、厚度、材料与刃口结构。",
     cta: "进入完整产品中心",
   },
-}[lang];
-const homeQualityReports = {
+} as const;
+const productSummary = productSummaryByLang[lang as keyof typeof productSummaryByLang] ?? {
+  ...productSummaryByLang.en,
+  title: t.nav.products,
+  lead: t.home.productsLead,
+  cta: t.actions.viewProducts,
+};
+const homeQualityReportsByLang = {
   en: {
     title: "Inspection Report Samples",
     items: ["SEM edge", "EDS spectrum", "Metallography", "Hardness"],
@@ -334,14 +382,15 @@ const homeQualityReports = {
     title: "检测报告摘录",
     items: ["扫描电镜", "能谱成分", "金相组织", "硬度数据"],
   },
-}[lang];
+} as const;
+const homeQualityReports = homeQualityReportsByLang[lang as keyof typeof homeQualityReportsByLang] ?? homeQualityReportsByLang.en;
 const homeQualityReportImages = [
   "/images/quality/report-sem-cropped.jpg",
   "/images/quality/report-eds-cropped.jpg",
   "/images/quality/report-metallography-cropped.jpg",
   "/images/quality/report-hardness-cropped.jpg",
 ];
-const homeManufacturingCapabilities = {
+const homeManufacturingCapabilitiesByLang = {
   en: [
     ["Drawing To Production", "Convert drawings, old samples or machine models into controlled profile, hole and thickness requirements."],
     ["CNC Hole And Slot Control", "Focus on mounting holes, slots, bore size and replacement fit for easier installation."],
@@ -398,7 +447,9 @@ const homeManufacturingCapabilities = {
     ["刃口几何", "按食品材料确认单面刃、双面刃、齿形、齿距或打孔间距。"],
     ["复购批次记录", "沉淀关键尺寸和生产记录，便于后续替换刀片复购。"],
   ],
-}[lang];
+} as const;
+const homeManufacturingCapabilities =
+  homeManufacturingCapabilitiesByLang[lang as keyof typeof homeManufacturingCapabilitiesByLang] ?? homeManufacturingCapabilitiesByLang.en;
 const aboutHighlights = homeFactory.stats.slice(0, 4);
 ---
 
