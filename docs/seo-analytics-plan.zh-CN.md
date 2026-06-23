@@ -286,7 +286,47 @@ PUBLIC_YANDEX_METRICA_ID=12345678
 PUBLIC_CLARITY_PROJECT_ID=xxxxxxxxxx
 ```
 
-这些 `PUBLIC_` 变量属于前端构建变量，需要在 Cloudflare 的构建变量中配置后重新部署，不能只当作普通运行时 secret 使用。
+### 搜索引擎站点验证
+
+用途：
+
+- 让 Google Search Console、Bing Webmaster、Yandex Webmaster 能验证网站所有权。
+- 验证后可以提交 sitemap、查看搜索词、曝光、点击、国家和页面索引状态。
+
+需要变量：
+
+```text
+PUBLIC_GOOGLE_SITE_VERIFICATION=Google 提供的 content 值
+PUBLIC_BING_SITE_VERIFICATION=Bing 提供的 content 值
+PUBLIC_YANDEX_SITE_VERIFICATION=Yandex 提供的 content 值
+```
+
+注意：
+
+- 这些 `PUBLIC_` 变量属于前端构建变量，需要在 Cloudflare 的构建变量中配置后重新部署，不能只当作普通运行时 secret 使用。
+- `RESEND_API_KEY` 这类密钥才放在 runtime secret，不要放到 `PUBLIC_` 变量。
+- Search Console / Webmaster 验证成功后，提交 sitemap：`https://lijianblades.com/sitemap-index.xml`。
+
+### Cloudflare 填写位置
+
+前端统计和搜索验证变量：
+
+```text
+Workers & Pages
+website-lijian
+Settings
+Build
+Variables and secrets / Build variables
+```
+
+运行时密钥和邮件变量：
+
+```text
+Workers & Pages
+website-lijian
+Settings
+Variables and Secrets
+```
 
 ## 9. 30 天执行节奏
 
