@@ -2041,6 +2041,93 @@ export function buildBreadcrumb(
   };
 }
 
+export const faqItems = [
+  {
+    q: {
+      en: "Can you make blades from my drawing, sample or machine model?",
+      ru: "Вы изготавливаете ножи по чертежу, образцу или модели оборудования?",
+      zh: "可以按我的图纸、样品或设备型号制作刀片吗？",
+      id: "Apakah Anda bisa membuat pisau dari gambar, sampel, atau model mesin saya?",
+    },
+    a: {
+      en: "Yes. Send a drawing, an old blade photo or sample, or the machine model with key dimensions, and we confirm the profile, mounting holes, thickness, material and edge before production.",
+      ru: "Да. Пришлите чертеж, фото или образец старого ножа либо модель оборудования с основными размерами — перед производством мы согласуем профиль, отверстия, толщину, материал и кромку.",
+      zh: "可以。提供图纸、旧刀照片或样品，或设备型号和关键尺寸，我们会在生产前确认外形、安装孔、厚度、材料和刃口。",
+      id: "Bisa. Kirim gambar, foto atau sampel pisau lama, atau model mesin dengan ukuran utama; kami konfirmasi profil, lubang pemasangan, ketebalan, material, dan mata pisau sebelum produksi.",
+    },
+  },
+  {
+    q: {
+      en: "What is the minimum order quantity?",
+      ru: "Какой минимальный объем заказа?",
+      zh: "最小起订量是多少？",
+      id: "Berapa minimum order quantity (MOQ)?",
+    },
+    a: {
+      en: "MOQ is flexible and depends on the blade type and material. We support small trial batches and repeat orders — tell us your target quantity and we will advise.",
+      ru: "Минимальный заказ гибкий и зависит от типа ножа и материала. Мы поддерживаем небольшие пробные партии и повторные заказы — сообщите желаемое количество, и мы подскажем.",
+      zh: "起订量灵活，取决于刀片类型和材料。我们支持小批量打样和批量复购，告知预计数量我们会给出建议。",
+      id: "MOQ fleksibel, tergantung jenis pisau dan material. Kami mendukung batch percobaan kecil dan repeat order — beri tahu jumlah Anda dan kami akan menyarankan.",
+    },
+  },
+  {
+    q: {
+      en: "How long do samples and batch production take?",
+      ru: "Сколько времени занимают образцы и серийное производство?",
+      zh: "打样和批量生产需要多久？",
+      id: "Berapa lama pembuatan sampel dan produksi batch?",
+    },
+    a: {
+      en: "Samples are usually about 7 days and batch delivery about 30 days, depending on profile complexity, material and quantity.",
+      ru: "Образцы обычно около 7 дней, серийная поставка — около 30 дней, в зависимости от сложности профиля, материала и количества.",
+      zh: "打样通常约 7 天，批量交付约 30 天，具体取决于外形复杂度、材料和数量。",
+      id: "Sampel biasanya sekitar 7 hari dan pengiriman batch sekitar 30 hari, tergantung kompleksitas profil, material, dan jumlah.",
+    },
+  },
+  {
+    q: {
+      en: "Which materials and hardness can you provide?",
+      ru: "Какие материалы и твердость вы предлагаете?",
+      zh: "可以提供哪些材料和硬度？",
+      id: "Material dan kekerasan apa yang bisa Anda sediakan?",
+    },
+    a: {
+      en: "We select stainless and wear-resistant tool steels according to food contact, corrosion, cutting load and target service life, with heat treatment to the required hardness range.",
+      ru: "Мы подбираем нержавеющие и износостойкие инструментальные стали по контакту с пищей, коррозии, нагрузке резки и ресурсу, с термообработкой до нужной твердости.",
+      zh: "我们根据食品接触、腐蚀环境、切割负载和预期寿命选择不锈钢或耐磨工具钢，并通过热处理达到所需硬度范围。",
+      id: "Kami memilih baja tahan karat dan baja perkakas tahan aus sesuai kontak makanan, korosi, beban potong, dan umur pakai, dengan heat treatment ke rentang kekerasan yang dibutuhkan.",
+    },
+  },
+  {
+    q: {
+      en: "Do you make replacement and OEM blades for existing machines?",
+      ru: "Делаете ли вы сменные и OEM ножи для существующего оборудования?",
+      zh: "可以做现有设备的替换刀片和 OEM 刀片吗？",
+      id: "Apakah Anda membuat pisau pengganti dan OEM untuk mesin yang sudah ada?",
+    },
+    a: {
+      en: "Yes. We produce replacement and OEM blades matched to your machine's fit, hole pattern and cutting performance, and keep records for consistent reordering.",
+      ru: "Да. Мы изготавливаем сменные и OEM ножи под посадку, расположение отверстий и рабочие характеристики вашего оборудования и сохраняем данные для стабильных повторных заказов.",
+      zh: "可以。我们按设备装机尺寸、孔位和切割性能制作替换刀片和 OEM 刀片，并保留记录便于一致复购。",
+      id: "Ya. Kami membuat pisau pengganti dan OEM yang sesuai dengan pemasangan, pola lubang, dan performa potong mesin Anda, serta menyimpan catatan untuk repeat order yang konsisten.",
+    },
+  },
+  {
+    q: {
+      en: "How are blades packed for export?",
+      ru: "Как ножи упаковываются для экспорта?",
+      zh: "出口刀片如何包装？",
+      id: "Bagaimana pisau dikemas untuk ekspor?",
+    },
+    a: {
+      en: "Blades receive anti-rust treatment and protective packing for international transport, arranged for safe shipping and customs clearance.",
+      ru: "Ножи проходят антикоррозийную обработку и защитную упаковку для международной перевозки, с учетом безопасной доставки и таможенного оформления.",
+      zh: "刀片做防锈处理并采用保护性包装以适应国际运输，按安全运输和清关要求安排。",
+      id: "Pisau diberi perlakuan anti karat dan kemasan pelindung untuk transportasi internasional, diatur untuk pengiriman aman dan proses bea cukai.",
+    },
+  },
+] as const;
+
 // Shared labels for product tags / applications / equipment so the same English
 // source term renders localized on cards, detail pages and structured data.
 // en is the dictionary key itself; missing languages fall back to English.
