@@ -32,6 +32,7 @@ const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
 const currentPath = `/${lang}${normalizedPath}/`.replace(/\/+/g, "/");
 const canonical = new URL(currentPath, site).href;
 const imageUrl = new URL(image, site).href;
+const preloadType = preloadImage?.endsWith(".webp") ? "image/webp" : undefined;
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const bingSiteVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 const yandexSiteVerification = import.meta.env.PUBLIC_YANDEX_SITE_VERIFICATION;
@@ -67,7 +68,7 @@ const fullTitle = brandInTitle || title.length > 50 ? title : `${title} | ${site
 {yandexSiteVerification && <meta name="yandex-verification" content={yandexSiteVerification} />}
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 {!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
-{preloadImage && <link rel="preload" as="image" href={new URL(preloadImage, site).href} fetchpriority="high" />}
+{preloadImage && <link rel="preload" as="image" href={new URL(preloadImage, site).href} type={preloadType} fetchpriority="high" />}
 {!noindex && <link rel="canonical" href={canonical} />}
 {!noindex && alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
 {!noindex && (

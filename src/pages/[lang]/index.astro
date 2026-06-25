@@ -28,6 +28,7 @@ const t = ui[lang];
 const featuredProducts = products.slice(0, 3);
 const featuredApplications = applications.slice(0, 4);
 const path = "/";
+const heroWebp = productImages.hero.replace(/\.(jpe?g|png)$/i, ".webp");
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -461,12 +462,12 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
   description={t.seo.homeDescription}
   path={path}
   image={productImages.hero}
-  preloadImage={productImages.hero}
+  preloadImage={heroWebp}
   jsonLd={[pageJsonLd]}
 >
   <section
     class="relative overflow-hidden bg-[var(--color-ink)] text-white"
-    style={`background-image: linear-gradient(90deg, rgba(15,18,24,.98), rgba(15,18,24,.86) 44%, rgba(15,18,24,.34)), url('${productImages.hero}'); background-size: cover; background-position: center;`}
+    style={`background-image: linear-gradient(90deg, rgba(15,18,24,.98), rgba(15,18,24,.86) 44%, rgba(15,18,24,.34)), url('${productImages.hero}'); background-image: linear-gradient(90deg, rgba(15,18,24,.98), rgba(15,18,24,.86) 44%, rgba(15,18,24,.34)), image-set(url('${heroWebp}') type('image/webp'), url('${productImages.hero}')); background-size: cover; background-position: center;`}
   >
     <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.42))]"></div>
     <div class="container-page relative grid min-h-[72vh] gap-10 py-16 lg:grid-cols-[1fr_.78fr] lg:items-center">
