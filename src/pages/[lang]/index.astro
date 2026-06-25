@@ -1,5 +1,6 @@
 ---
 import ProductCard from "@/components/ProductCard.astro";
+import Img from "@/components/Img.astro";
 import InquiryForm from "@/components/InquiryForm.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -491,7 +492,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
         </div>
       </div>
 
-      <img src={productImages.circular} alt={t.nav.products} class="hidden aspect-square w-full rounded-[6px] border border-white/12 bg-black/20 object-contain p-10 lg:block" loading="lazy" />
+      <Img src={productImages.circular} alt={t.nav.products} class="hidden aspect-square w-full rounded-[6px] border border-white/12 bg-black/20 object-contain p-10 lg:block" loading="lazy" />
     </div>
     <div class="relative border-t border-white/10 bg-black/24">
       <div class="container-page grid gap-2 py-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -526,7 +527,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
         {featuredApplications.map((application) => (
           <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
             <div class="relative overflow-hidden">
-              <img src={application.image} alt={localize(application.name, lang)} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+              <Img src={application.image} alt={localize(application.name, lang)} class="aspect-[4/3] w-full object-cover" loading="lazy" />
             </div>
             <div class="p-5">
               <h3 class="text-xl font-semibold text-[var(--color-ink)]">{localize(application.name, lang)}</h3>
@@ -559,7 +560,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
           ))}
         </div>
       </div>
-      <img src={productImages.manufacturing} alt={t.nav.manufacturing} class="aspect-[4/3] w-full rounded-[6px] object-cover" loading="lazy" />
+      <Img src={productImages.manufacturing} alt={t.nav.manufacturing} class="aspect-[4/3] w-full rounded-[6px] object-cover" loading="lazy" />
     </div>
   </section>
 
@@ -568,7 +569,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
       <SectionHeading title={t.nav.quality} lead={t.home.qualityLead} />
       <div class="mt-10 grid gap-6 lg:grid-cols-[.92fr_1.08fr] lg:items-start">
         <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
-          <img src={productImages.quality} alt={t.nav.quality} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+          <Img src={productImages.quality} alt={t.nav.quality} class="aspect-[4/3] w-full object-cover" loading="lazy" />
           <div class="border-t border-slate-200 p-5">
             <p class="text-sm leading-7 text-slate-600">{t.seo.qualityDescription}</p>
           </div>
@@ -588,7 +589,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {homeQualityReportImages.map((image, index) => (
                 <figure class="rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-2">
-                  <img src={image} alt={homeQualityReports.items[index]} class="aspect-[16/9] w-full object-contain" loading="lazy" />
+                  <Img src={image} alt={homeQualityReports.items[index]} class="aspect-[16/9] w-full object-contain" loading="lazy" />
                   <figcaption class="mt-2 text-xs font-semibold text-slate-600">{homeQualityReports.items[index]}</figcaption>
                 </figure>
               ))}
@@ -612,7 +613,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
           ))}
         </div>
       </div>
-      <img src={productImages.factoryGate} alt={t.nav.about} class="aspect-[16/10] w-full rounded-[6px] object-cover shadow-sm" loading="lazy" />
+      <Img src={productImages.factoryGate} alt={t.nav.about} class="aspect-[16/10] w-full rounded-[6px] object-cover shadow-sm" loading="lazy" />
     </div>
   </section>
 

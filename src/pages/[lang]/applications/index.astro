@@ -1,4 +1,5 @@
 ---
+import Img from "@/components/Img.astro";
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -124,7 +125,7 @@ const solutionCopy = solutionCopyByLang[lang as keyof typeof solutionCopyByLang]
         {applications.map((application) => (
           <article class="grid overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm md:grid-cols-[.92fr_1.08fr]">
             <div class="relative min-h-[260px] overflow-hidden bg-slate-100">
-              <img src={application.image} alt={localize(application.name, lang)} class="h-full min-h-[260px] w-full object-cover" loading="lazy" />
+              <Img src={application.image} alt={localize(application.name, lang)} class="h-full min-h-[260px] w-full object-cover" loading="lazy" />
             </div>
             <div class="flex flex-col p-6">
               <p class="text-xs font-semibold uppercase text-[var(--color-green)]">{solutionCopy.problem}</p>

@@ -1,4 +1,5 @@
 ---
+import Img from "@/components/Img.astro";
 import { localize, localizeList, localizeTerm, ui, withLang, type Lang } from "@/data/site";
 
 interface Product {
@@ -43,7 +44,7 @@ const cardCopy = cardCopyByLang[lang as keyof typeof cardCopyByLang] ?? cardCopy
 
 <article class="flex h-full flex-col overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
   <div class="relative overflow-hidden bg-slate-100">
-    <img
+    <Img
       src={product.image}
       alt={localize(product.name, lang)}
       class="aspect-[4/3] w-full object-cover"
