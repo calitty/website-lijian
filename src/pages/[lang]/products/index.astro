@@ -3,7 +3,7 @@ import ProductCard from "@/components/ProductCard.astro";
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { langCodes, productImages, products, ui, type Lang } from "@/data/site";
+import { buildBreadcrumb, langCodes, productImages, products, ui, type Lang } from "@/data/site";
 
 export function getStaticPaths() {
   return langCodes.map((lang) => ({ params: { lang } }));
@@ -12,6 +12,11 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/products";
+const site = Astro.site ?? new URL("https://lijianblades.com");
+const breadcrumb = buildBreadcrumb(lang, site, [
+  { name: t.nav.home, path: "/" },
+  { name: t.nav.products, path },
+]);
 ---
 
 <BaseLayout
@@ -22,6 +27,7 @@ const path = "/products";
   image={productImages.hero}
   pageEvent="view_product_category"
   pageEventLabel="all-products"
+  jsonLd={[breadcrumb]}
 >
   <PageHero eyebrow={t.labels.productRange} title={t.seo.productsTitle} lead={t.seo.productsDescription} image={productImages.hero} imageAlt={t.nav.products}>
     <div class="mt-7 flex flex-wrap gap-2">

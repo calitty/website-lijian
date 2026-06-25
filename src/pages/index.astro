@@ -14,7 +14,7 @@ const site = "https://lijianblades.com";
       name="description"
       content="Maanshan Lijian is a Chinese source manufacturer of custom and OEM replacement blades for food processing machinery."
     />
-    <link rel="canonical" href={site} />
+    <meta name="robots" content="noindex, follow" />
     {langCodes.map((code) => <link rel="alternate" hreflang={languages[code].locale} href={`${site}/${code}/`} />)}
     <link rel="alternate" hreflang="x-default" href={`${site}/${defaultLang}/`} />
   </head>

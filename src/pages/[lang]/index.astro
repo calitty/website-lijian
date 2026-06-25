@@ -14,6 +14,7 @@ import {
   products,
   qualityChecks,
   ui,
+  withLang,
   type Lang,
 } from "@/data/site";
 
@@ -459,6 +460,7 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
   description={t.seo.homeDescription}
   path={path}
   image={productImages.hero}
+  preloadImage={productImages.hero}
   jsonLd={[pageJsonLd]}
 >
   <section
@@ -504,11 +506,9 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
     <div class="container-page">
       <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <SectionHeading title={t.nav.products} lead={productSummary.lead} />
-        {/*
         <a href={withLang(lang, "/products")} class="mt-6 inline-flex rounded-[4px] bg-[var(--color-ink)] px-4 py-3 text-sm font-semibold text-white">
           {productSummary.cta}
         </a>
-        */}
       </div>
 
       <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

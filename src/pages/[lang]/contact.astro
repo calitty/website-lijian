@@ -3,7 +3,7 @@ import PageHero from "@/components/PageHero.astro";
 import InquiryForm from "@/components/InquiryForm.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { channelLinks, contact, langCodes, productImages, ui, type Lang } from "@/data/site";
+import { buildBreadcrumb, channelLinks, contact, langCodes, productImages, ui, type Lang } from "@/data/site";
 
 export function getStaticPaths() {
   return langCodes.map((lang) => ({ params: { lang } }));
@@ -12,6 +12,11 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/contact";
+const site = Astro.site ?? new URL("https://lijianblades.com");
+const breadcrumb = buildBreadcrumb(lang, site, [
+  { name: t.nav.home, path: "/" },
+  { name: t.nav.contact, path },
+]);
 const copyByLang = {
   en: {
     h1: "Contact Us for Custom Food Processing Blades",
@@ -119,7 +124,7 @@ const channels: Channel[] = [
 ].filter((channel): channel is Channel => Boolean(channel));
 ---
 
-<BaseLayout lang={lang} title={t.seo.contactTitle} description={t.seo.contactDescription} path={path} image={productImages.hero}>
+<BaseLayout lang={lang} title={t.seo.contactTitle} description={t.seo.contactDescription} path={path} image={productImages.hero} jsonLd={[breadcrumb]}>
   <PageHero eyebrow={t.nav.contact} title={copy.h1} lead={copy.lead} image={productImages.workshop} imageAlt={t.nav.contact} />
 
   <section class="bg-[var(--color-mist)] py-16 md:py-20">

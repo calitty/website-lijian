@@ -1,5 +1,5 @@
 ---
-import { localize, localizeList, ui, withLang, type Lang } from "@/data/site";
+import { localize, localizeList, localizeTerm, ui, withLang, type Lang } from "@/data/site";
 
 interface Product {
   slug: string;
@@ -21,62 +21,8 @@ interface Props {
 
 const { product, lang, contactHref = `${withLang(lang)}#contact`, useHomeJump = contactHref.startsWith("#") } = Astro.props;
 const t = ui[lang];
-const zhApplicationLabels: Record<string, string> = {
-  Meat: "肉类",
-  Seafood: "水产",
-  Vegetable: "果蔬",
-  Packaging: "包装",
-  Poultry: "禽类",
-  "Frozen food": "冷冻食品",
-  Sausage: "香肠",
-  "Prepared food": "预制食品",
-  "Frozen meat": "冻肉",
-  Fish: "鱼类",
-  Fruit: "水果",
-  "Ready meals": "预制菜",
-  Bakery: "烘焙",
-  Snack: "零食",
-  Bread: "面包",
-  "Food packaging": "食品包装",
-  Film: "薄膜",
-  "Frozen seafood": "冷冻水产",
-};
-const zhEquipmentLabels: Record<string, string> = {
-  Slicers: "切片机",
-  Cutters: "切割机",
-  "Portioning machines": "分份设备",
-  "Packaging lines": "包装线",
-  "Bowl cutters": "斩拌机",
-  "Bowl choppers": "斩拌锅",
-  "Custom cutting modules": "定制切割模块",
-  "Sausage processing lines": "香肠加工线",
-  "Chopper machines": "斩切设备",
-  Dicers: "切丁机",
-  Trimmers: "修整设备",
-  "Portion cutters": "分份切割机",
-  "Deboning machines": "剔骨设备",
-  "Cut-up lines": "分割线",
-  "Trimming stations": "修整工位",
-  "Filleting machines": "鱼片机",
-  "Fish cutters": "鱼类切割机",
-  "Peeling lines": "去皮线",
-  Peelers: "去皮机",
-  "Cutting discs": "切割圆盘",
-  "Bread slicers": "面包切片机",
-  "Snack cutters": "零食切割机",
-  "Bakery lines": "烘焙产线",
-  "Flow wrappers": "枕式包装机",
-  "Tray sealers": "托盒封口机",
-  "Form-fill-seal lines": "成型填充封口线",
-  Slitters: "分切机",
-  "Rotary cutters": "旋转切割机",
-  "Guillotine cutters": "闸刀切断机",
-  Choppers: "剁切设备",
-  "Packaging machines": "包装机械",
-  "Film cutters": "薄膜切割机",
-};
-const formatApplication = (item: string) => (lang === "zh" ? zhApplicationLabels[item] ?? item : item);
-const formatEquipment = (item: string) => (lang === "zh" ? zhEquipmentLabels[item] ?? item : item);
+const formatApplication = (item: string) => localizeTerm(item, lang);
+const formatEquipment = (item: string) => localizeTerm(item, lang);
 const cardCopyByLang = {
   en: { equipment: "Equipment", custom: "Custom" },
   ru: { equipment: "Оборудование", custom: "Параметры" },
@@ -106,7 +52,7 @@ const cardCopy = cardCopyByLang[lang as keyof typeof cardCopyByLang] ?? cardCopy
     <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/58 to-transparent"></div>
     <div class="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
       {product.tags.slice(0, 2).map((tag) => (
-        <span class="rounded-[4px] border border-white/20 bg-white/90 px-2.5 py-1 text-xs font-semibold text-slate-800 shadow-sm">{tag}</span>
+        <span class="rounded-[4px] border border-white/20 bg-white/90 px-2.5 py-1 text-xs font-semibold text-slate-800 shadow-sm">{localizeTerm(tag, lang)}</span>
       ))}
     </div>
   </div>

@@ -2,7 +2,7 @@
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { contact, langCodes, productImages, ui, withLang, type Lang } from "@/data/site";
+import { buildBreadcrumb, contact, langCodes, productImages, ui, withLang, type Lang } from "@/data/site";
 
 export function getStaticPaths() {
   return langCodes.map((lang) => ({ params: { lang } }));
@@ -11,6 +11,11 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
 const path = "/about";
+const site = Astro.site ?? new URL("https://lijianblades.com");
+const breadcrumb = buildBreadcrumb(lang, site, [
+  { name: t.nav.home, path: "/" },
+  { name: t.nav.about, path },
+]);
 const copyByLang = {
   en: {
     h1: "Chinese Direct Food Machinery Blade Manufacturer",
@@ -151,7 +156,7 @@ const copyByLang = {
 const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
 ---
 
-<BaseLayout lang={lang} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path} image={productImages.factoryGate}>
+<BaseLayout lang={lang} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path} image={productImages.factoryGate} jsonLd={[breadcrumb]}>
   <PageHero eyebrow={t.nav.about} title={copy.h1} lead={copy.lead} image={productImages.factoryGate} imageAlt={t.nav.about}>
     <div class="mt-8 flex flex-wrap gap-3">
       {copy.chips.map((chip) => (

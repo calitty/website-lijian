@@ -25,10 +25,21 @@
 - `view_application_page`：查看应用场景页面。
 - `click_contact_from_product`：从产品卡片或产品详情进入联系。
 - `click_contact_from_header`：从导航联系按钮进入联系。
-- `submit_inquiry_form`：用户尝试提交表单。
+- `submit_inquiry_form`：用户尝试提交主询盘表单。
+- `submit_floating_inquiry_form`：提交浮动询盘表单。
+- `open_floating_inquiry`：展开浮动询盘表单。
 - `inquiry_form_sent`：表单发送成功。
+- `view_product_category`：查看产品列表页（产品中心）。
+- `click_contact_from_mobile_bar`：从移动端底部联系栏进入联系。
+- `click_contact_from_about`：从关于页进入联系。
 - `scroll_90_percent`：用户深度阅读页面。
 - `switch_language`：切换语言。
+
+> 实现说明：
+>
+> - 表单成功时会同时触发 `inquiry_form_sent`（漏斗中间指标）与 `generate_lead`（主转化）。建议在 GA4 中仅将 `generate_lead` 标记为 Key event，避免重复统计转化。
+> - `download_catalog` 为可选功能事件，目前站点未提供目录下载，暂未实现；如后续上线目录 PDF，再在下载按钮上补 `data-track="download_catalog"`。
+> - `click_telegram` / `click_wechat` / `click_linkedin` 仅在 `src/data/site.ts` 中配置了对应渠道后才会出现（当前为空，已自动隐藏，不会产生空点击数据）。
 
 ### 转化漏斗
 

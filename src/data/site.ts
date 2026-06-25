@@ -173,7 +173,7 @@ const uiBase = {
       openWhatsapp: "Click to chat on WhatsApp",
     },
     seo: {
-      homeTitle: "Maanshan Lijian Chinese Direct Food Processing Blades Manufacturer",
+      homeTitle: "Maanshan Lijian Food Machinery Blade Manufacturer",
       homeDescription:
         "Maanshan Lijian is a Chinese direct manufacturer of custom and replacement blades for meat, seafood, poultry, vegetable, bakery and packaging machinery.",
       productsTitle: "Custom Food Processing Blades and Food Machine Knives",
@@ -245,7 +245,7 @@ const uiBase = {
       openWhatsapp: "Открыть чат WhatsApp",
     },
     seo: {
-      homeTitle: "Maanshan Lijian - китайский прямой производитель ножей для пищевого оборудования",
+      homeTitle: "Maanshan Lijian - ножи для пищевого оборудования",
       homeDescription:
         "Maanshan Lijian Food Machinery Blade Factory — китайский прямой завод-производитель стандартных и нестандартных ножей для мясного, рыбного, овощного, хлебопекарного и упаковочного оборудования.",
       productsTitle: "Промышленные ножи для пищевой промышленности",
@@ -461,7 +461,7 @@ const uiBase = {
       openWhatsapp: "Mở trò chuyện WhatsApp",
     },
     seo: {
-      homeTitle: "Maanshan Lijian - nhà sản xuất dao máy thực phẩm tại Trung Quốc",
+      homeTitle: "Maanshan Lijian - dao máy thực phẩm (Trung Quốc)",
       homeDescription:
         "Maanshan Lijian là nhà máy Trung Quốc sản xuất dao máy thực phẩm, dao tùy chỉnh, dao thay thế OEM cho thiết bị chế biến thực phẩm và đóng gói.",
       productsTitle: "Dao máy thực phẩm và dao chế biến thực phẩm tùy chỉnh",
@@ -899,7 +899,7 @@ const marketUi = {
       openWhatsapp: "WhatsApp Chat öffnen",
     },
     seo: {
-      homeTitle: "Chinesischer Hersteller von Messern für Lebensmittelmaschinen",
+      homeTitle: "Maanshan Lijian - Messer für Lebensmittelmaschinen",
       homeDescription:
         "Maanshan Lijian fertigt kundenspezifische und OEM-Ersatzmesser für Fleisch-, Fisch-, Geflügel-, Gemüse-, Backwaren- und Verpackungsmaschinen.",
       productsTitle: "Messer für Lebensmittelmaschinen und Sondermesser",
@@ -1045,7 +1045,7 @@ const marketUi = {
       openWhatsapp: "Apri chat WhatsApp",
     },
     seo: {
-      homeTitle: "Produttore cinese di lame per macchine alimentari",
+      homeTitle: "Maanshan Lijian - lame per macchine alimentari",
       homeDescription:
         "Maanshan Lijian produce lame su misura e ricambi OEM per macchine carne, pesce, pollame, verdure, bakery e imballaggio alimentare.",
       productsTitle: "Lame per macchine alimentari e lame su misura",
@@ -2021,4 +2021,104 @@ export function getProduct(slug: string) {
 
 export function getApplication(slug: string) {
   return applications.find((application) => application.slug === slug);
+}
+
+export function buildBreadcrumb(
+  lang: Lang,
+  siteUrl: string | URL,
+  trail: { name: string; path: string }[],
+) {
+  const base = typeof siteUrl === "string" ? siteUrl : siteUrl.href;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: new URL(withLang(lang, item.path), base).href,
+    })),
+  };
+}
+
+// Shared labels for product tags / applications / equipment so the same English
+// source term renders localized on cards, detail pages and structured data.
+// en is the dictionary key itself; missing languages fall back to English.
+const productTermLabels: Record<string, Partial<Record<Lang, string>>> = {
+  Bakery: { ru: "Выпечка", zh: "烘焙", id: "Bakery" },
+  "Bowl Cutter": { ru: "Куттер", zh: "斩拌机", id: "Bowl Cutter" },
+  Circular: { ru: "Дисковый", zh: "圆形", id: "Sirkular" },
+  "Clean Cut": { ru: "Чистый рез", zh: "切口整洁", id: "Potongan Bersih" },
+  "Clean Slice": { ru: "Чистый срез", zh: "切片整洁", id: "Irisan Bersih" },
+  "Corrosion Control": { ru: "Антикоррозия", zh: "防腐控制", id: "Kontrol Korosi" },
+  Curved: { ru: "Изогнутый", zh: "弧形", id: "Lengkung" },
+  Custom: { ru: "На заказ", zh: "定制", id: "Kustom" },
+  Durable: { ru: "Износостойкий", zh: "耐用", id: "Tahan Lama" },
+  "Food Contact": { ru: "Пищевой контакт", zh: "食品接触", id: "Kontak Makanan" },
+  Guillotine: { ru: "Гильотина", zh: "闸刀", id: "Guillotine" },
+  Meat: { ru: "Мясо", zh: "肉类", id: "Daging" },
+  OEM: { ru: "OEM", zh: "OEM", id: "OEM" },
+  Packaging: { ru: "Упаковка", zh: "包装", id: "Kemasan" },
+  Poultry: { ru: "Птица", zh: "禽类", id: "Unggas" },
+  Precision: { ru: "Точность", zh: "精密", id: "Presisi" },
+  "Precision Bore": { ru: "Точное отверстие", zh: "精密内孔", id: "Bore Presisi" },
+  Replacement: { ru: "Замена", zh: "替换", id: "Pengganti" },
+  Seafood: { ru: "Морепродукты", zh: "水产", id: "Seafood" },
+  Serrated: { ru: "Зубчатый", zh: "齿刃", id: "Bergerigi" },
+  "Sharp Edge": { ru: "Острая кромка", zh: "锋利刃口", id: "Mata Tajam" },
+  Slitting: { ru: "Продольная резка", zh: "分切", id: "Slitting" },
+  "Stable Batch": { ru: "Стабильная партия", zh: "批次稳定", id: "Batch Stabil" },
+  "Stainless Steel": { ru: "Нержавеющая сталь", zh: "不锈钢", id: "Baja Nirkarat" },
+  Straight: { ru: "Прямой", zh: "直刃", id: "Lurus" },
+  "Tooth Profile": { ru: "Профиль зуба", zh: "齿形", id: "Profil Gigi" },
+  Vegetable: { ru: "Овощи", zh: "果蔬", id: "Sayuran" },
+  "Wear Control": { ru: "Износостойкость", zh: "耐磨控制", id: "Kontrol Aus" },
+  Bread: { ru: "Хлеб", zh: "面包", id: "Roti" },
+  Film: { ru: "Плёнка", zh: "薄膜", id: "Film" },
+  Fish: { ru: "Рыба", zh: "鱼类", id: "Ikan" },
+  "Food packaging": { ru: "Пищевая упаковка", zh: "食品包装", id: "Kemasan Makanan" },
+  "Frozen food": { ru: "Заморозка", zh: "冷冻食品", id: "Makanan Beku" },
+  "Frozen meat": { ru: "Замороженное мясо", zh: "冻肉", id: "Daging Beku" },
+  "Frozen seafood": { ru: "Замороженные морепродукты", zh: "冷冻水产", id: "Seafood Beku" },
+  Fruit: { ru: "Фрукты", zh: "水果", id: "Buah" },
+  "Prepared food": { ru: "Готовая еда", zh: "预制食品", id: "Makanan Olahan" },
+  "Ready meals": { ru: "Готовые блюда", zh: "预制菜", id: "Makanan Siap Saji" },
+  Sausage: { ru: "Колбаса", zh: "香肠", id: "Sosis" },
+  Snack: { ru: "Снеки", zh: "零食", id: "Makanan Ringan" },
+  "Bakery lines": { ru: "Хлебопекарные линии", zh: "烘焙产线", id: "Lini Bakery" },
+  "Bowl choppers": { ru: "Чаши-измельчители", zh: "斩拌锅", id: "Bowl Chopper" },
+  "Bowl cutters": { ru: "Куттеры", zh: "斩拌机", id: "Bowl Cutter" },
+  "Bread slicers": { ru: "Хлеборезки", zh: "面包切片机", id: "Pengiris Roti" },
+  "Chopper machines": { ru: "Измельчители", zh: "斩切设备", id: "Mesin Chopper" },
+  Choppers: { ru: "Чопперы", zh: "剁切设备", id: "Chopper" },
+  "Custom cutting modules": { ru: "Спецрежущие модули", zh: "定制切割模块", id: "Modul Potong Kustom" },
+  "Cut-up lines": { ru: "Линии разделки", zh: "分割线", id: "Lini Pemotongan" },
+  Cutters: { ru: "Резательные машины", zh: "切割机", id: "Mesin Potong" },
+  "Cutting discs": { ru: "Режущие диски", zh: "切割圆盘", id: "Cakram Potong" },
+  "Deboning machines": { ru: "Обвалочные машины", zh: "剔骨设备", id: "Mesin Deboning" },
+  Dicers: { ru: "Кубикорезки", zh: "切丁机", id: "Mesin Dadu" },
+  "Filleting machines": { ru: "Филетировочные машины", zh: "鱼片机", id: "Mesin Fillet" },
+  "Film cutters": { ru: "Плёнкорезы", zh: "薄膜切割机", id: "Pemotong Film" },
+  "Fish cutters": { ru: "Рыборезки", zh: "鱼类切割机", id: "Pemotong Ikan" },
+  "Flow wrappers": { ru: "Флоу-пак упаковщики", zh: "枕式包装机", id: "Flow Wrapper" },
+  "Form-fill-seal lines": { ru: "Линии ФФС", zh: "成型填充封口线", id: "Lini Form-Fill-Seal" },
+  "Guillotine cutters": { ru: "Гильотинные ножи", zh: "闸刀切断机", id: "Pemotong Guillotine" },
+  "Packaging lines": { ru: "Упаковочные линии", zh: "包装线", id: "Lini Kemasan" },
+  "Packaging machines": { ru: "Упаковочные машины", zh: "包装机械", id: "Mesin Kemasan" },
+  Peelers: { ru: "Очистители", zh: "去皮机", id: "Pengupas" },
+  "Peeling lines": { ru: "Линии очистки", zh: "去皮线", id: "Lini Pengupasan" },
+  "Portion cutters": { ru: "Порционеры", zh: "分份切割机", id: "Pemotong Porsi" },
+  "Portioning machines": { ru: "Порционные машины", zh: "分份设备", id: "Mesin Porsi" },
+  "Rotary cutters": { ru: "Ротационные ножи", zh: "旋转切割机", id: "Pemotong Rotary" },
+  "Sausage processing lines": { ru: "Линии для колбас", zh: "香肠加工线", id: "Lini Sosis" },
+  Slicers: { ru: "Слайсеры", zh: "切片机", id: "Pengiris" },
+  Slitters: { ru: "Слиттеры", zh: "分切机", id: "Slitter" },
+  "Snack cutters": { ru: "Резаки для снеков", zh: "零食切割机", id: "Pemotong Snack" },
+  "Tray sealers": { ru: "Трейзилеры", zh: "托盒封口机", id: "Penyegel Tray" },
+  Trimmers: { ru: "Триммеры", zh: "修整设备", id: "Trimmer" },
+  "Trimming stations": { ru: "Станции зачистки", zh: "修整工位", id: "Stasiun Trimming" },
+};
+
+export function localizeTerm(term: string, lang: Lang): string {
+  return productTermLabels[term]?.[lang] || term;
 }

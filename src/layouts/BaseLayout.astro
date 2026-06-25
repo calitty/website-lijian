@@ -19,6 +19,7 @@ interface Props {
   pageEvent?: string;
   pageEventLabel?: string;
   noindex?: boolean;
+  preloadImage?: string;
 }
 
 const {
@@ -32,6 +33,7 @@ const {
   pageEvent,
   pageEventLabel = "",
   noindex = false,
+  preloadImage,
 } = Astro.props;
 
 const siteUrl = String(Astro.site ?? "https://lijianblades.com");
@@ -141,6 +143,7 @@ const webPageJsonLd = {
       type={type}
       jsonLd={[organizationJsonLd, webPageJsonLd, ...jsonLd]}
       noindex={noindex}
+      preloadImage={preloadImage}
     />
     <Tracking />
   </head>

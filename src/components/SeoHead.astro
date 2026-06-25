@@ -11,6 +11,7 @@ interface Props {
   type?: "website" | "article" | "product";
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
+  preloadImage?: string;
 }
 
 const {
@@ -23,12 +24,13 @@ const {
   type = "website",
   jsonLd = [],
   noindex = false,
+  preloadImage,
 } = Astro.props;
 
 const site = Astro.site ?? new URL("https://lijianblades.com");
 const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
 const currentPath = `/${lang}${normalizedPath}/`.replace(/\/+/g, "/");
-const canonical = new URL(noindex ? `/${lang}/` : currentPath, site).href;
+const canonical = new URL(currentPath, site).href;
 const imageUrl = new URL(image, site).href;
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const bingSiteVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
@@ -53,7 +55,8 @@ const alternates = langCodes.map((code) => ({
   hreflang: languages[code].locale,
   href: new URL(`/${code}${normalizedPath}/`.replace(/\/+/g, "/"), site).href,
 }));
-const fullTitle = `${title} | ${siteName}`;
+const brandInTitle = /lijian|利坚/i.test(title);
+const fullTitle = brandInTitle || title.length > 50 ? title : `${title} | ${siteName}`;
 ---
 
 <title>{fullTitle}</title>
@@ -64,6 +67,7 @@ const fullTitle = `${title} | ${siteName}`;
 {yandexSiteVerification && <meta name="yandex-verification" content={yandexSiteVerification} />}
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 {!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
+{preloadImage && <link rel="preload" as="image" href={new URL(preloadImage, site).href} fetchpriority="high" />}
 {!noindex && <link rel="canonical" href={canonical} />}
 {!noindex && alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
 {!noindex && (
@@ -78,6 +82,7 @@ const fullTitle = `${title} | ${siteName}`;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:site_name" content={siteName} />
 <meta property="og:locale" content={ogLocales[lang]} />
 {alternates.filter((alternate) => alternate.code !== lang).map((alternate) => (
   <meta property="og:locale:alternate" content={ogLocales[alternate.code]} />

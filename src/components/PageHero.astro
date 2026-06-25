@@ -23,6 +23,6 @@ const { eyebrow, title, lead, image, imageAlt } = Astro.props;
       <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-300">{lead}</p>
       <slot />
     </div>
-    <img src={image} alt={imageAlt} class="aspect-[4/3] w-full rounded-[6px] border border-white/12 object-cover" />
+    <img src={image} alt={imageAlt} class="aspect-[4/3] w-full rounded-[6px] border border-white/12 object-cover" loading="eager" fetchpriority="high" />
   </div>
 </section>
