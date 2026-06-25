@@ -4,7 +4,6 @@ import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import {
   channelLinks,
-  contact,
   getProduct,
   langCodes,
   localize,
@@ -43,29 +42,10 @@ const path = `/products/${product.slug}`;
 const title = name;
 const site = Astro.site ?? new URL("https://lijianblades.com");
 const pageUrl = new URL(`/${lang}${path}/`, site).href;
-const productJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name,
-  description: pageDescription,
-  image: new URL(product.image, site).href,
-  url: pageUrl,
-  category: t.seo.productsTitle,
-  brand: {
-    "@type": "Brand",
-    name: t.siteName,
-  },
-  manufacturer: {
-    "@type": "Organization",
-    name: contact.company[lang],
-  },
-  additionalProperty: [
-    { "@type": "PropertyValue", name: "Blade category", value: product.tags.join(", ") },
-    { "@type": "PropertyValue", name: "Applications", value: product.applications.join(", ") },
-    { "@type": "PropertyValue", name: "Equipment", value: product.equipment.join(", ") },
-    { "@type": "PropertyValue", name: "Custom options", value: localizeList(product.customOptions, lang).join(", ") },
-  ],
-};
+// Intentionally no `@type: Product` structured data. This is a quote-based B2B
+// catalog with no fixed price, reviews or ratings; emitting Product without
+// offers / review / aggregateRating triggers a critical Product-snippet error
+// in Google Search Console. Specs are conveyed via page content + Organization.
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -99,7 +79,7 @@ const breadcrumbJsonLd = {
   path={path}
   image={product.image}
   type="product"
-  jsonLd={[breadcrumbJsonLd, productJsonLd]}
+  jsonLd={[breadcrumbJsonLd]}
   pageEvent="view_product_detail"
   pageEventLabel={product.slug}
 >
