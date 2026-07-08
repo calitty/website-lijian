@@ -1118,11 +1118,11 @@ export const productImages = {
 };
 
 export const applicationImages = {
-  meat: "/images/placeholders/applications/application-meat-processing.jpg",
-  poultry: "/images/placeholders/applications/application-frozen-food-processing.jpg",
-  seafood: "/images/placeholders/applications/application-seafood-processing.jpg",
-  frozen: "/images/lijian/food-line.jpg",
-  vegetable: "/images/lijian/hero-food-processing-line.jpg",
+  meat: "/images/lijian/batch-serrated-edge-stack.jpg",
+  poultry: "/images/lijian/custom-dicing-grid-knife-set.jpg",
+  seafood: "/images/lijian/assorted-food-machinery-blades.jpg",
+  frozen: "/images/lijian/straight-cutoff-knives.jpg",
+  vegetable: "/images/lijian/toothed-strip-knives.jpg",
   bakery: "/images/placeholders/applications/application-bakery-snack-processing.jpg",
   packaging: "/images/placeholders/applications/application-food-packaging.jpg",
 };

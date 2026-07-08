@@ -86,7 +86,7 @@ const cardCopy = cardCopyByLang[lang as keyof typeof cardCopyByLang] ?? cardCopy
           data-track="click_product_detail"
           data-track-label={product.slug}
         >
-          <span aria-hidden="true">→</span>
+          <span aria-hidden="true" class="inline-block rtl:rotate-180">→</span>
         </a>
       </div>
     </div>
@@ -136,7 +136,7 @@ const cardCopy = cardCopyByLang[lang as keyof typeof cardCopyByLang] ?? cardCopy
           data-track-label={product.slug}
         >
           {cardCopy.details}
-          <span aria-hidden="true">→</span>
+          <span aria-hidden="true" class="inline-block rtl:rotate-180">→</span>
         </a>
         <a
           href={contactHref}

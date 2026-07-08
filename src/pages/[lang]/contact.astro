@@ -117,7 +117,7 @@ const contactLabels = contactLabelsByLang[lang as keyof typeof contactLabelsByLa
 type Channel = [string, string, string, string];
 const channels: Channel[] = [
   ["Email", contact.email, channelLinks.email, "click_email"],
-  ["WhatsApp", contact.whatsapp, channelLinks.whatsapp, "click_whatsapp"],
+  ["WhatsApp / WeChat", contact.whatsapp, channelLinks.whatsapp, "click_whatsapp"],
   contact.telegram ? ["Telegram", `@${contact.telegram}`, channelLinks.telegram, "click_telegram"] : null,
   contact.linkedin ? ["LinkedIn", "Company page", channelLinks.linkedin, "click_linkedin"] : null,
   contact.wechat ? ["WeChat", contact.wechat, channelLinks.wechat, "click_wechat"] : null,

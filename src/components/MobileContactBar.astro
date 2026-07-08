@@ -20,6 +20,7 @@ const items = lang === "ru"
     ? [
         ["电话", channelLinks.phone, "click_phone"],
         ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"],
+        ["邮箱", channelLinks.email, "click_email"],
       ]
     : [
         ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"],
@@ -27,7 +28,7 @@ const items = lang === "ru"
       ];
 ---
 
-<nav class="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-2 overflow-hidden border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_28px_rgba(15,23,42,.08)] sm:hidden">
+<nav class="fixed bottom-0 left-0 right-0 z-50 grid grid-flow-col auto-cols-fr overflow-hidden border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_28px_rgba(15,23,42,.08)] sm:hidden">
   {items.map(([label, href, event], index) => (
     <a
       href={href}
