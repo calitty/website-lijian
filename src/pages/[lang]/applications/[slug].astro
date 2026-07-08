@@ -3,8 +3,10 @@ import ProductCard from "@/components/ProductCard.astro";
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getGeoIndustryProfile } from "@/data/geo";
 import {
   applications,
+  contact,
   getApplication,
   langCodes,
   localize,
@@ -39,6 +41,7 @@ const relatedProducts = products.filter((product) => (application.blades as read
 const path = `/applications/${application.slug}`;
 const site = Astro.site ?? new URL("https://lijianblades.com");
 const pageUrl = new URL(`/${lang}${path}/`, site).href;
+const geoProfile = getGeoIndustryProfile(lang);
 const copyByLang = {
   en: { focus: "Blade Focus" },
   ru: { focus: "Фокус Ножа" },
@@ -82,15 +85,19 @@ const breadcrumbJsonLd = {
 const serviceJsonLd = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: `${name} blade matching`,
-  serviceType: "Custom food processing blade manufacturing",
+  name,
+  serviceType: t.seo.applicationsTitle,
   description: pageDescription,
   url: pageUrl,
   provider: {
     "@type": "Organization",
-    name: t.siteName,
+    name: contact.company[lang],
   },
   areaServed: ["Russia", "Kazakhstan", "Belarus", "Indonesia", "Southeast Asia", "China", "Global"],
+  audience: geoProfile.buyerTypes.slice(0, 3).map((buyer) => ({
+    "@type": "Audience",
+    audienceType: buyer,
+  })),
 };
 ---
 
@@ -127,7 +134,7 @@ const serviceJsonLd = {
             ))}
           </div>
         </div>
-        <a href={withLang(lang, "/contact")} class="mt-8 inline-flex rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_product" data-track-label={application.slug}>
+        <a href={withLang(lang, "/contact")} class="mt-8 inline-flex rounded-[4px] bg-[var(--color-blue)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_product" data-track-label={application.slug}>
           {t.actions.contactUs}
         </a>
       </div>

@@ -2,7 +2,7 @@
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { buildBreadcrumb, langCodes, productImages, ui, type Lang } from "@/data/site";
+import { buildBreadcrumb, langCodes, productImages, qualityChecks, ui, type Lang } from "@/data/site";
 
 export function getStaticPaths() {
   return langCodes.map((lang) => ({ params: { lang } }));
@@ -137,7 +137,210 @@ const copyByLang = {
     documents: ["图纸尺寸", "旧刀样品", "设备型号", "材料要求", "硬度目标", "包装要求"],
   },
 } as const;
-const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
+const qualityFallbackByLang = {
+  ar: {
+    h1: "مراقبة جودة شفرات معالجة الأغذية",
+    lead: "تبدأ مراقبة الجودة من الرسم أو العينة أو المواصفة المؤكدة: المادة، الصلادة، السماكة، مواضع الفتحات، زاوية الحافة، حالة السطح والتغليف.",
+    principleTitle: "مبادئ الفحص",
+    principleLead: "الشفرة المخصصة لا يجب أن تبدو حادة فقط؛ يجب أن تركب في الجهاز، تقطع بثبات وتتحمل التنظيف والإنتاج المتكرر.",
+    workflowTitle: "مسار فحص عملي",
+    documentsTitle: "ما يجب تأكيده قبل الإنتاج",
+    documentsLead: "كلما كان الرسم أو العينة أو موديل الجهاز أوضح، أصبح تحويل المتطلبات إلى نقاط فحص قابلة للتكرار أسهل.",
+    pointTexts: [
+      "مطابقة نوع الفولاذ، السماكة، السطح وبيئة ملامسة الطعام مع متطلبات الطلب.",
+      "فحص الصلادة بعد المعالجة الحرارية حسب المجال المتفق عليه لنوع الشفرة وحمل القطع.",
+      "فحص الشكل الخارجي، الفتحات، الشقوق، الثقب الداخلي والأبعاد المهمة للتركيب.",
+      "مراجعة السماكة والاستواء والاستقامة ومخاطر التشوه قبل تشطيب الحافة.",
+      "فحص اتجاه الحافة، الزاوية، الزوائد، الأسنان أو التثقيب حسب وظيفة الشفرة.",
+      "فحص التلميع والخدوش والصدأ وتطبيق تغليف مناسب للنقل.",
+    ],
+    workflow: ["تأكيد الرسم أو العينة", "اختيار المادة والسماكة", "تشغيل الأبعاد المهمة", "المعالجة الحرارية", "الجلخ الدقيق", "تشطيب الحافة", "الفحص والتغليف"],
+    documents: ["أبعاد الرسم", "عينة الشفرة القديمة", "موديل الجهاز", "طلب المادة", "هدف الصلادة", "متطلبات التغليف"],
+  },
+  es: {
+    h1: "Control de calidad para cuchillas alimentarias",
+    lead: "El control parte del plano, muestra o especificación confirmada: material, dureza, espesor, agujeros, ángulo del filo, superficie y protección de empaque.",
+    principleTitle: "Principios de inspección",
+    principleLead: "Una cuchilla a medida no solo debe verse afilada; debe encajar en la máquina, cortar de forma consistente y soportar limpieza y producción repetida.",
+    workflowTitle: "Flujo práctico de QC",
+    documentsTitle: "Qué confirmar antes de producir",
+    documentsLead: "El estándar final debe acordarse desde el plano, la muestra o el modelo de equipo antes de iniciar el lote.",
+    pointTexts: [
+      "Confirmar acero, espesor, superficie y entorno de contacto alimentario contra el pedido.",
+      "Comprobar dureza después del tratamiento térmico según el rango objetivo.",
+      "Verificar perfil, agujeros, ranuras, diámetro interior y medidas de montaje.",
+      "Revisar espesor, planitud, rectitud y riesgo de deformación antes del filo.",
+      "Inspeccionar dirección de bisel, ángulo, rebaba, paso de diente o perforación.",
+      "Revisar pulido, rayas, óxido y empaque antioxidante para transporte.",
+    ],
+    workflow: ["Confirmar plano o muestra", "Seleccionar material y espesor", "Mecanizar medidas clave", "Tratamiento térmico", "Rectificado de precisión", "Acabado del filo", "Inspección y empaque"],
+    documents: ["Dimensiones del plano", "Muestra usada", "Modelo de equipo", "Material requerido", "Dureza objetivo", "Requisito de empaque"],
+  },
+  pt: {
+    h1: "Controle de qualidade para lâminas alimentícias",
+    lead: "O controle parte do desenho, amostra ou especificação confirmada: material, dureza, espessura, furos, ângulo do fio, superfície e proteção da embalagem.",
+    principleTitle: "Princípios de inspeção",
+    principleLead: "Uma lâmina sob medida não deve apenas parecer afiada; ela precisa encaixar na máquina, cortar de forma consistente e suportar limpeza e produção repetida.",
+    workflowTitle: "Fluxo prático de QC",
+    documentsTitle: "O que confirmar antes da produção",
+    documentsLead: "O padrão final de inspeção deve ser combinado a partir do desenho, amostra ou modelo do equipamento antes do lote.",
+    pointTexts: [
+      "Confirmar aço, espessura, superfície e ambiente de contato alimentar conforme o pedido.",
+      "Verificar dureza após tratamento térmico de acordo com o intervalo alvo.",
+      "Checar perfil, furos, ranhuras, furo interno e medidas de montagem.",
+      "Revisar espessura, planicidade, retidão e risco de deformação antes do fio.",
+      "Inspecionar bisel, ângulo, rebarba, passo do dente ou perfuração.",
+      "Checar polimento, riscos, pontos de ferrugem e embalagem anticorrosiva.",
+    ],
+    workflow: ["Confirmar desenho ou amostra", "Selecionar material e espessura", "Usinar medidas chave", "Tratamento térmico", "Retífica de precisão", "Acabamento do fio", "Inspeção e embalagem"],
+    documents: ["Dimensões do desenho", "Amostra antiga", "Modelo do equipamento", "Material solicitado", "Dureza alvo", "Exigência de embalagem"],
+  },
+  tr: {
+    h1: "Gıda işleme bıçakları kalite kontrolü",
+    lead: "Kalite kontrol; çizim, numune veya onaylı spesifikasyon üzerinden malzeme, sertlik, kalınlık, delikler, ağız açısı, yüzey ve ambalaj korumasını kapsar.",
+    principleTitle: "Kontrol ilkeleri",
+    principleLead: "Özel bıçak sadece keskin görünmemelidir; makineye uymalı, tutarlı kesmeli ve temizlik ile tekrarlı üretime dayanmalıdır.",
+    workflowTitle: "Pratik QC akışı",
+    documentsTitle: "Üretim öncesi onaylanacaklar",
+    documentsLead: "Son kontrol standardı, üretim başlamadan önce çizim, numune veya makine modeli üzerinden netleştirilmelidir.",
+    pointTexts: [
+      "Çelik tipi, kalınlık, yüzey ve gıda teması ortamını sipariş gereğiyle karşılaştırma.",
+      "Isıl işlem sonrası sertliği hedef aralığa göre kontrol etme.",
+      "Profil, delik, kanal, iç delik ve montaj ölçülerini kontrol etme.",
+      "Ağız bitirmeden önce kalınlık, düzlük, doğruluk ve deformasyon riskini inceleme.",
+      "Bisel yönü, ağız açısı, çapak, diş veya perforasyon aralığını inceleme.",
+      "Parlatma, çizik, pas izi ve taşıma için pas önleyici ambalajı kontrol etme.",
+    ],
+    workflow: ["Çizim veya numune onayı", "Malzeme ve kalınlık seçimi", "Ana ölçü işleme", "Isıl işlem", "Hassas taşlama", "Ağız bitirme", "Kontrol ve ambalaj"],
+    documents: ["Çizim ölçüleri", "Eski bıçak numunesi", "Ekipman modeli", "Malzeme talebi", "Hedef sertlik", "Ambalaj şartı"],
+  },
+  de: {
+    h1: "Qualitätskontrolle für Lebensmittelmesser",
+    lead: "Die Kontrolle basiert auf Zeichnung, Muster oder bestätigter Spezifikation: Material, Härte, Dicke, Bohrungen, Schneidenwinkel, Oberfläche und Verpackungsschutz.",
+    principleTitle: "Prüfprinzipien",
+    principleLead: "Ein Sondermesser muss nicht nur scharf aussehen; es muss in die Maschine passen, konstant schneiden und Reinigung sowie Wiederholproduktion überstehen.",
+    workflowTitle: "Praktischer QC-Ablauf",
+    documentsTitle: "Vor Produktion zu bestätigen",
+    documentsLead: "Der finale Prüfstandard sollte vor Produktionsstart anhand von Zeichnung, Muster oder Maschinenmodell vereinbart werden.",
+    pointTexts: [
+      "Stahlsorte, Dicke, Oberfläche und Lebensmittelkontaktumgebung gegen den Auftrag prüfen.",
+      "Härte nach Wärmebehandlung gemäß Zielbereich kontrollieren.",
+      "Profil, Bohrungen, Schlitze, Innenbohrung und Montageabmessungen prüfen.",
+      "Dicke, Planheit, Geradheit und Verformungsrisiko vor dem Schneidenfinish prüfen.",
+      "Fasenrichtung, Schneidenwinkel, Grat, Zahnteilung oder Perforation inspizieren.",
+      "Politur, Kratzer, Roststellen und Rostschutzverpackung für Transport prüfen.",
+    ],
+    workflow: ["Zeichnung oder Muster bestätigen", "Material und Dicke wählen", "Schlüsselmaße bearbeiten", "Wärmebehandlung", "Präzisionsschleifen", "Schneidenfinish", "Prüfung und Verpackung"],
+    documents: ["Zeichnungsmaße", "Altes Muster", "Maschinenmodell", "Materialanforderung", "Zielhärte", "Verpackungsanforderung"],
+  },
+  fr: {
+    h1: "Contrôle qualité des lames alimentaires",
+    lead: "Le contrôle part du plan, de l'échantillon ou de la spécification confirmée : matériau, dureté, épaisseur, trous, angle du tranchant, surface et protection d'emballage.",
+    principleTitle: "Principes d'inspection",
+    principleLead: "Une lame sur mesure ne doit pas seulement paraître affûtée ; elle doit s'installer, couper régulièrement et supporter nettoyage et production répétée.",
+    workflowTitle: "Flux QC pratique",
+    documentsTitle: "À confirmer avant production",
+    documentsLead: "Le standard final d'inspection doit être convenu à partir du plan, de l'échantillon ou du modèle de machine avant le lot.",
+    pointTexts: [
+      "Confirmer acier, épaisseur, surface et environnement de contact alimentaire selon la commande.",
+      "Contrôler la dureté après traitement thermique selon la plage cible.",
+      "Vérifier profil, trous, rainures, alésage et dimensions de montage.",
+      "Revoir épaisseur, planéité, rectitude et risque de déformation avant finition.",
+      "Inspecter sens du biseau, angle, bavure, pas de dent ou perforation.",
+      "Contrôler polissage, rayures, rouille et emballage antirouille pour transport.",
+    ],
+    workflow: ["Confirmer plan ou échantillon", "Choisir matériau et épaisseur", "Usiner les cotes clés", "Traitement thermique", "Rectification de précision", "Finition du tranchant", "Inspection et emballage"],
+    documents: ["Dimensions du plan", "Ancien échantillon", "Modèle de machine", "Matériau demandé", "Dureté cible", "Exigence d'emballage"],
+  },
+  it: {
+    h1: "Controllo qualità per lame alimentari",
+    lead: "Il controllo parte da disegno, campione o specifica confermata: materiale, durezza, spessore, fori, angolo del filo, superficie e protezione imballo.",
+    principleTitle: "Principi di ispezione",
+    principleLead: "Una lama su misura non deve solo sembrare affilata; deve montare sulla macchina, tagliare in modo costante e resistere a lavaggio e produzione ripetuta.",
+    workflowTitle: "Flusso QC pratico",
+    documentsTitle: "Cosa confermare prima della produzione",
+    documentsLead: "Lo standard finale di controllo va concordato da disegno, campione o modello macchina prima del lotto.",
+    pointTexts: [
+      "Confermare acciaio, spessore, superficie e ambiente di contatto alimentare rispetto all'ordine.",
+      "Controllare la durezza dopo trattamento termico secondo il range target.",
+      "Verificare profilo, fori, asole, foro interno e dimensioni di montaggio.",
+      "Rivedere spessore, planarità, rettilineità e rischio deformazione prima del filo.",
+      "Ispezionare direzione bisello, angolo filo, bava, passo dente o perforazione.",
+      "Controllare lucidatura, graffi, ruggine e imballo antiruggine per trasporto.",
+    ],
+    workflow: ["Confermare disegno o campione", "Selezionare materiale e spessore", "Lavorare quote chiave", "Trattamento termico", "Rettifica di precisione", "Finitura del filo", "Ispezione e imballo"],
+    documents: ["Dimensioni disegno", "Vecchio campione", "Modello macchina", "Richiesta materiale", "Durezza target", "Requisito imballo"],
+  },
+  th: {
+    h1: "การควบคุมคุณภาพใบมีดแปรรูปอาหาร",
+    lead: "การควบคุมเริ่มจากแบบ ตัวอย่าง หรือสเปกที่ยืนยันแล้ว ครอบคลุมวัสดุ ความแข็ง ความหนา รูติดตั้ง มุมคม ผิวงาน และการป้องกันในบรรจุภัณฑ์",
+    principleTitle: "หลักการตรวจสอบ",
+    principleLead: "ใบมีดสั่งทำไม่ควรดูคมอย่างเดียว แต่ต้องติดตั้งได้ ตัดสม่ำเสมอ และทนต่อการล้างกับการผลิตซ้ำ",
+    workflowTitle: "ขั้นตอน QC ที่ใช้งานจริง",
+    documentsTitle: "สิ่งที่ต้องยืนยันก่อนผลิต",
+    documentsLead: "มาตรฐานตรวจสุดท้ายควรกำหนดจากแบบ ตัวอย่าง หรือรุ่นเครื่องก่อนเริ่มผลิตล็อต",
+    pointTexts: [
+      "ยืนยันวัสดุ ความหนา ผิวงาน และสภาพแวดล้อมสัมผัสอาหารตามคำสั่งซื้อ",
+      "ตรวจความแข็งหลังชุบแข็งตามช่วงเป้าหมายของชนิดใบมีดและแรงตัด",
+      "ตรวจรูปทรง รู ร่อง รูใน และขนาดติดตั้งสำคัญ",
+      "ตรวจความหนา ความเรียบ ความตรง และความเสี่ยงบิดงอก่อนแต่งคม",
+      "ตรวจทิศทางคม มุมคม ครีบ ระยะฟัน หรือระยะรูปรุตามหน้าที่ใบมีด",
+      "ตรวจขัดผิว รอยขีด จุดสนิม และบรรจุป้องกันสนิมสำหรับขนส่ง",
+    ],
+    workflow: ["ยืนยันแบบหรือตัวอย่าง", "เลือกวัสดุและความหนา", "ขึ้นรูปขนาดสำคัญ", "ชุบแข็ง", "เจียรละเอียด", "แต่งคม", "ตรวจสอบและบรรจุ"],
+    documents: ["ขนาดในแบบ", "ตัวอย่างใบมีดเก่า", "รุ่นเครื่องจักร", "วัสดุที่ต้องการ", "ความแข็งเป้าหมาย", "ข้อกำหนดบรรจุ"],
+  },
+  vi: {
+    h1: "Kiểm soát chất lượng dao chế biến thực phẩm",
+    lead: "Kiểm soát dựa trên bản vẽ, mẫu hoặc thông số đã xác nhận: vật liệu, độ cứng, độ dày, vị trí lỗ, góc cạnh, bề mặt và bảo vệ đóng gói.",
+    principleTitle: "Nguyên tắc kiểm tra",
+    principleLead: "Dao tùy chỉnh không chỉ cần sắc; dao phải lắp đúng máy, cắt ổn định và chịu được vệ sinh cùng sản xuất lặp lại.",
+    workflowTitle: "Quy trình QC thực tế",
+    documentsTitle: "Cần xác nhận trước sản xuất",
+    documentsLead: "Tiêu chuẩn kiểm cuối nên được thống nhất từ bản vẽ, mẫu hoặc model thiết bị trước khi chạy lô.",
+    pointTexts: [
+      "Xác nhận mác thép, độ dày, bề mặt và môi trường tiếp xúc thực phẩm theo đơn hàng.",
+      "Kiểm tra độ cứng sau nhiệt luyện theo dải mục tiêu đã xác nhận.",
+      "Kiểm tra biên dạng, lỗ, rãnh, lỗ trong và kích thước lắp quan trọng.",
+      "Rà soát độ dày, độ phẳng, độ thẳng và nguy cơ biến dạng trước khi hoàn thiện cạnh.",
+      "Kiểm tra hướng vát, góc cạnh, ba via, bước răng hoặc bước đục lỗ.",
+      "Kiểm tra đánh bóng, vết xước, điểm gỉ và đóng gói chống gỉ cho vận chuyển.",
+    ],
+    workflow: ["Xác nhận bản vẽ hoặc mẫu", "Chọn vật liệu và độ dày", "Gia công kích thước chính", "Nhiệt luyện", "Mài chính xác", "Hoàn thiện cạnh", "Kiểm tra và đóng gói"],
+    documents: ["Kích thước bản vẽ", "Mẫu dao cũ", "Model thiết bị", "Yêu cầu vật liệu", "Mục tiêu độ cứng", "Yêu cầu đóng gói"],
+  },
+  id: {
+    h1: "Kontrol kualitas pisau pengolahan makanan",
+    lead: "Kontrol kualitas mengikuti gambar, sampel, atau spesifikasi yang disetujui: material, kekerasan, ketebalan, lubang, sudut mata, kondisi permukaan, dan perlindungan packing.",
+    principleTitle: "Prinsip inspeksi",
+    principleLead: "Pisau kustom bukan hanya harus tajam; pisau harus cocok di mesin, memotong konsisten, dan tahan pembersihan serta produksi berulang.",
+    workflowTitle: "Alur QC praktis",
+    documentsTitle: "Yang dikonfirmasi sebelum produksi",
+    documentsLead: "Standar inspeksi akhir sebaiknya disepakati dari gambar, sampel, atau model mesin sebelum produksi dimulai.",
+    pointTexts: [
+      "Konfirmasi jenis baja, ketebalan, permukaan, dan lingkungan kontak makanan terhadap pesanan.",
+      "Cek kekerasan setelah heat treatment sesuai rentang target.",
+      "Cek profil, lubang, slot, bore, dan ukuran pemasangan penting.",
+      "Tinjau ketebalan, kerataan, kelurusan, dan risiko deformasi sebelum finishing mata.",
+      "Inspeksi arah bevel, sudut mata, burr, pitch gigi atau perforasi sesuai fungsi.",
+      "Cek polishing, goresan, titik karat, dan packing anti karat untuk transportasi.",
+    ],
+    workflow: ["Konfirmasi gambar atau sampel", "Pilih material dan ketebalan", "Machining ukuran kunci", "Heat treatment", "Grinding presisi", "Finishing mata pisau", "Inspeksi dan packing"],
+    documents: ["Dimensi gambar", "Sampel lama", "Model peralatan", "Permintaan material", "Target kekerasan", "Syarat packing"],
+  },
+} as const;
+const qualityFallback = qualityFallbackByLang[lang as keyof typeof qualityFallbackByLang];
+const copy =
+  copyByLang[lang as keyof typeof copyByLang] ??
+  (qualityFallback
+    ? {
+        ...qualityFallback,
+        points: qualityChecks[lang].slice(0, 6).map((title, index) => ({
+          title,
+          text: qualityFallback.pointTexts[index],
+        })),
+      }
+    : copyByLang.en);
 const zhQualityValue = lang === "zh"
   ? {
       title: "质量控制目标",
@@ -240,7 +443,147 @@ const qualityEvidenceByLang = {
     ],
   },
 } as const;
-const qualityEvidence = qualityEvidenceByLang[lang as keyof typeof qualityEvidenceByLang] ?? qualityEvidenceByLang.en;
+const qualityEvidenceFallbackByLang = {
+  ar: {
+    title: "مقتطفات من تقارير الفحص",
+    lead: "تعرض صور التقارير أمثلة على قدرة التحقق الفني. في الإنتاج الفعلي، تتبع بنود الفحص والوثائق متطلبات الطلب المؤكدة.",
+    note: "تظل لقطات التقرير الأصلية للثقة، بينما توضح العناوين المترجمة معنى كل صورة للمشتري الدولي.",
+    chips: ["شكل الحافة", "تحليل العناصر", "مراجعة المعالجة الحرارية", "مجال الصلادة"],
+    items: [
+      ["ملاحظة SEM للحافة", "تساعد صور المجهر الإلكتروني على مراجعة شكل الحافة، آثار الكسر، التآكل وملامح السطح غير الطبيعية."],
+      ["تحليل EDS للعناصر", "يفحص التحليل الطيفي العناصر حول منطقة الفحص ويدعم مراجعة المادة."],
+      ["البنية المعدنية", "تساعد الملاحظة المجهرية على تقييم حالة المعالجة الحرارية وتجانس البنية."],
+      ["تحليل الصلادة", "تساعد قراءات الصلادة في نقاط مختلفة على تقييم ثبات المعالجة الحرارية ومدى مناسبة المجال المستهدف."],
+    ],
+  },
+  es: {
+    title: "Extractos de informes de inspección",
+    lead: "Las imágenes muestran ejemplos de verificación técnica. Para producción por lote, los ítems y documentos siguen el requisito confirmado.",
+    note: "Se conservan capturas originales para credibilidad; los textos traducidos explican el propósito para compradores internacionales.",
+    chips: ["Morfología del filo", "Control de elementos", "Revisión térmica", "Rango de dureza"],
+    items: [
+      ["Observación SEM del filo", "Las imágenes de microscopio ayudan a revisar morfología del filo, fractura, desgaste y rasgos anormales."],
+      ["Análisis EDS de composición", "El espectro de elementos comprueba la zona inspeccionada y apoya la revisión del material."],
+      ["Estructura metalográfica", "La microestructura ayuda a evaluar tratamiento térmico, uniformidad de matriz y segregación evidente."],
+      ["Análisis de dureza", "Las lecturas en distintas posiciones ayudan a juzgar consistencia térmica y rango objetivo."],
+    ],
+  },
+  pt: {
+    title: "Trechos de relatórios de inspeção",
+    lead: "As imagens mostram exemplos de verificação técnica. Na produção em lote, itens e documentos seguem a exigência confirmada.",
+    note: "As capturas originais são mantidas para credibilidade; as legendas traduzidas explicam o propósito ao comprador internacional.",
+    chips: ["Morfologia do fio", "Checagem de elementos", "Revisão térmica", "Faixa de dureza"],
+    items: [
+      ["Observação SEM do fio", "Imagens de microscópio ajudam a revisar morfologia do fio, fratura, desgaste e superfície anormal."],
+      ["Análise EDS de composição", "O espectro de elementos verifica a área inspecionada e apoia a revisão do material."],
+      ["Estrutura metalográfica", "A microestrutura ajuda a avaliar tratamento térmico, uniformidade da matriz e segregação evidente."],
+      ["Análise de dureza", "Leituras em posições diferentes ajudam a julgar consistência térmica e faixa alvo."],
+    ],
+  },
+  tr: {
+    title: "Kontrol raporu örnekleri",
+    lead: "Rapor görselleri teknik doğrulama kapasitesini gösterir. Seri üretimde kontrol kalemleri ve belgeler onaylı sipariş şartına göre belirlenir.",
+    note: "Orijinal rapor ekranları güven için korunur; çevrilmiş açıklamalar uluslararası alıcıya amacı anlatır.",
+    chips: ["Ağız morfolojisi", "Element kontrolü", "Isıl işlem incelemesi", "Sertlik aralığı"],
+    items: [
+      ["SEM ağız gözlemi", "Elektron mikroskobu görüntüleri ağız morfolojisi, kırık izi, aşınma ve anormal yüzeyi incelemeye yardımcı olur."],
+      ["EDS bileşim analizi", "Element spektrumu kontrol edilen bölgedeki elementleri doğrular ve malzeme incelemesini destekler."],
+      ["Metalografik yapı", "Mikroyapı, ısıl işlem durumu, matris homojenliği ve belirgin karbür ayrışmasını değerlendirmeye yardım eder."],
+      ["Sertlik analizi", "Farklı konumlardaki sertlik okumaları ısıl işlem tutarlılığını ve hedef aralığı değerlendirmeye yardım eder."],
+    ],
+  },
+  de: {
+    title: "Auszüge aus Prüfberichten",
+    lead: "Die Berichtsbilder zeigen Beispiele technischer Verifizierung. Bei Serienfertigung folgen Prüfpunkte und Dokumente der bestätigten Bestellung.",
+    note: "Original-Screenshots bleiben aus Glaubwürdigkeitsgründen erhalten; übersetzte Texte erklären den Zweck für internationale Käufer.",
+    chips: ["Schneidenmorphologie", "Elementprüfung", "Wärmebehandlung", "Härtebereich"],
+    items: [
+      ["SEM-Beobachtung der Schneide", "Elektronenmikroskopbilder helfen, Schneidenform, Bruchspuren, Verschleiß und anormale Oberflächen zu prüfen."],
+      ["EDS-Zusammensetzungsanalyse", "Das Elementspektrum prüft die untersuchte Zone und unterstützt die Materialbewertung."],
+      ["Metallografische Struktur", "Die Mikrostruktur hilft, Wärmebehandlung, Matrixgleichmäßigkeit und deutliche Karbidsegregation zu bewerten."],
+      ["Härteanalyse", "Härtewerte an verschiedenen Positionen zeigen Wärmebehandlungskonstanz und Eignung des Zielbereichs."],
+    ],
+  },
+  fr: {
+    title: "Extraits de rapports d'inspection",
+    lead: "Les images de rapport montrent des exemples de vérification technique. En production, les contrôles et documents suivent l'exigence confirmée.",
+    note: "Les captures originales sont conservées pour la crédibilité ; les légendes traduites expliquent le rôle pour les acheteurs internationaux.",
+    chips: ["Morphologie du tranchant", "Contrôle éléments", "Revue thermique", "Plage de dureté"],
+    items: [
+      ["Observation SEM du tranchant", "Les images au microscope électronique aident à revoir morphologie, traces de rupture, usure et surface anormale."],
+      ["Analyse EDS de composition", "Le spectre élémentaire vérifie la zone inspectée et soutient la revue du matériau."],
+      ["Structure métallographique", "La microstructure aide à évaluer traitement thermique, uniformité de matrice et ségrégation visible."],
+      ["Analyse de dureté", "Les mesures à différentes positions aident à juger la cohérence thermique et la plage cible."],
+    ],
+  },
+  it: {
+    title: "Estratti dei rapporti di ispezione",
+    lead: "Le immagini del rapporto mostrano esempi di verifica tecnica. Per la produzione in lotto, controlli e documenti seguono il requisito confermato.",
+    note: "Gli screenshot originali restano per credibilità; le didascalie tradotte spiegano lo scopo agli acquirenti internazionali.",
+    chips: ["Morfologia del filo", "Controllo elementi", "Revisione termica", "Range durezza"],
+    items: [
+      ["Osservazione SEM del filo", "Le immagini al microscopio aiutano a rivedere morfologia del filo, frattura, usura e superfici anomale."],
+      ["Analisi EDS composizione", "Lo spettro elementi verifica l'area controllata e supporta la revisione del materiale."],
+      ["Struttura metallografica", "La microstruttura aiuta a valutare trattamento termico, uniformità della matrice e segregazione evidente."],
+      ["Analisi durezza", "Le letture in punti diversi aiutano a giudicare coerenza termica e range target."],
+    ],
+  },
+  th: {
+    title: "ตัวอย่างรายงานการตรวจสอบ",
+    lead: "ภาพรายงานแสดงตัวอย่างความสามารถตรวจยืนยันทางเทคนิค สำหรับการผลิตเป็นล็อต รายการตรวจและเอกสารจะอ้างอิงตามคำสั่งซื้อที่ยืนยัน",
+    note: "เก็บภาพรายงานต้นฉบับไว้เพื่อความน่าเชื่อถือ และใช้คำอธิบายแปลเพื่ออธิบายความหมายให้ผู้ซื้อต่างประเทศ",
+    chips: ["รูปทรงคม", "ตรวจองค์ประกอบ", "ทบทวนชุบแข็ง", "ช่วงความแข็ง"],
+    items: [
+      ["การสังเกตคมด้วย SEM", "ภาพกล้องจุลทรรศน์ช่วยดูรูปทรงคม รอยแตก การสึก และลักษณะผิวผิดปกติ"],
+      ["วิเคราะห์องค์ประกอบ EDS", "สเปกตรัมองค์ประกอบช่วยตรวจพื้นที่ที่วิเคราะห์และสนับสนุนการทบทวนวัสดุ"],
+      ["โครงสร้างโลหะวิทยา", "โครงสร้างจุลภาคช่วยประเมินสภาพชุบแข็ง ความสม่ำเสมอ และการแยกตัวที่เห็นชัด"],
+      ["วิเคราะห์ความแข็ง", "ค่าความแข็งหลายตำแหน่งช่วยประเมินความสม่ำเสมอของการชุบแข็งและช่วงเป้าหมาย"],
+    ],
+  },
+  vi: {
+    title: "Trích đoạn báo cáo kiểm tra",
+    lead: "Hình ảnh báo cáo thể hiện ví dụ về năng lực xác minh kỹ thuật. Với sản xuất lô, hạng mục kiểm và tài liệu theo yêu cầu đã xác nhận.",
+    note: "Ảnh báo cáo gốc được giữ để tăng độ tin cậy; chú thích dịch giải thích mục đích cho người mua quốc tế.",
+    chips: ["Hình thái cạnh", "Kiểm tra nguyên tố", "Rà soát nhiệt luyện", "Dải độ cứng"],
+    items: [
+      ["Quan sát cạnh bằng SEM", "Ảnh kính hiển vi điện tử giúp xem hình thái cạnh, dấu vết nứt, mài mòn và đặc điểm bề mặt bất thường."],
+      ["Phân tích thành phần EDS", "Phổ nguyên tố kiểm tra khu vực được phân tích và hỗ trợ rà soát vật liệu."],
+      ["Tổ chức kim tương", "Vi cấu trúc giúp đánh giá nhiệt luyện, độ đồng đều nền và phân tách carbide rõ ràng."],
+      ["Phân tích độ cứng", "Kết quả nhiều vị trí giúp đánh giá tính nhất quán của nhiệt luyện và dải mục tiêu."],
+    ],
+  },
+  id: {
+    title: "Cuplikan laporan inspeksi",
+    lead: "Gambar laporan menunjukkan contoh kemampuan verifikasi teknis. Untuk produksi batch, item inspeksi dan dokumen mengikuti persyaratan pesanan.",
+    note: "Screenshot laporan asli dipertahankan untuk kredibilitas; keterangan terjemahan menjelaskan tujuan bagi pembeli internasional.",
+    chips: ["Morfologi mata", "Cek elemen", "Review heat treatment", "Rentang kekerasan"],
+    items: [
+      ["Observasi SEM mata pisau", "Gambar mikroskop elektron membantu meninjau morfologi mata, jejak patah, aus, dan fitur permukaan abnormal."],
+      ["Analisis komposisi EDS", "Spektrum elemen memeriksa area yang dianalisis dan mendukung review material."],
+      ["Struktur metalografi", "Mikrostruktur membantu menilai kondisi heat treatment, keseragaman matriks, dan segregasi karbida yang jelas."],
+      ["Analisis kekerasan", "Pembacaan kekerasan di beberapa posisi membantu menilai konsistensi heat treatment dan rentang target."],
+    ],
+  },
+} as const;
+const qualityEvidenceFallback = qualityEvidenceFallbackByLang[lang as keyof typeof qualityEvidenceFallbackByLang];
+const evidenceImages = [
+  "/images/quality/report-sem-cropped.jpg",
+  "/images/quality/report-eds-cropped.jpg",
+  "/images/quality/report-metallography-cropped.jpg",
+  "/images/quality/report-hardness-cropped.jpg",
+];
+const qualityEvidence =
+  qualityEvidenceByLang[lang as keyof typeof qualityEvidenceByLang] ??
+  (qualityEvidenceFallback
+    ? {
+        ...qualityEvidenceFallback,
+        items: qualityEvidenceFallback.items.map(([title, text], index) => ({
+          title,
+          text,
+          image: evidenceImages[index],
+        })),
+      }
+    : qualityEvidenceByLang.en);
 const evidenceFeatured = qualityEvidence.items[0];
 const evidenceSupporting = qualityEvidence.items.slice(1);
 ---
@@ -300,7 +643,7 @@ const evidenceSupporting = qualityEvidence.items.slice(1);
     <div class="container-page">
       <div class="grid gap-6 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
         <div>
-          <p class="text-sm font-semibold uppercase text-[var(--color-red)]">{t.labels.inspection}</p>
+          <p class="text-sm font-semibold uppercase text-[var(--color-blue)]">{t.labels.inspection}</p>
           <h2 class="mt-3 text-3xl font-semibold leading-tight text-[var(--color-ink)] md:text-4xl">{qualityEvidence.title}</h2>
         </div>
         <div>
@@ -319,7 +662,7 @@ const evidenceSupporting = qualityEvidence.items.slice(1);
         <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white text-[var(--color-ink)] shadow-sm">
           <div class="flex items-center justify-between gap-4 border-b border-slate-200 bg-[var(--color-mist)] px-5 py-4">
             <div>
-              <span class="text-xs font-semibold uppercase text-[var(--color-red)]">01 / Report sample</span>
+              <span class="text-xs font-semibold uppercase text-[var(--color-blue)]">01 / Report sample</span>
               <h3 class="mt-1 text-xl font-semibold leading-snug">{evidenceFeatured.title}</h3>
             </div>
             <span class="hidden rounded-[4px] border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500 sm:inline-flex">{t.labels.inspection}</span>
@@ -339,7 +682,7 @@ const evidenceSupporting = qualityEvidence.items.slice(1);
                 <img src={item.image} alt={item.title} class="aspect-[16/9] h-full w-full rounded-[4px] object-contain" loading="lazy" />
               </div>
               <div class="border-t border-slate-200 p-4 sm:border-l sm:border-t-0">
-                <span class="text-xs font-semibold uppercase text-[var(--color-red)]">0{index + 2} / Evidence</span>
+                <span class="text-xs font-semibold uppercase text-[var(--color-blue)]">0{index + 2} / Evidence</span>
                 <h3 class="mt-2 text-lg font-semibold leading-snug">{item.title}</h3>
                 <p class="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
               </div>

@@ -1,5 +1,4 @@
 ---
-import Img from "@/components/Img.astro";
 interface Props {
   eyebrow: string;
   title: string;
@@ -8,23 +7,23 @@ interface Props {
   imageAlt: string;
 }
 
-const { eyebrow, title, lead, image, imageAlt } = Astro.props;
+const { eyebrow, title, lead, image } = Astro.props;
 const imageWebp = image.replace(/\.(jpe?g|png)$/i, ".webp");
 ---
 
 <section
-  class="relative overflow-hidden bg-[var(--color-ink)] py-16 text-white md:py-20"
-  style={`background-image: linear-gradient(90deg, rgba(7,11,16,.98), rgba(7,11,16,.86) 48%, rgba(7,11,16,.44)), url('${image}'); background-image: linear-gradient(90deg, rgba(7,11,16,.98), rgba(7,11,16,.86) 48%, rgba(7,11,16,.44)), image-set(url('${imageWebp}') type('image/webp'), url('${image}')); background-size: cover; background-position: center;`}
+  class="relative overflow-hidden bg-[#102333] py-16 text-white md:py-20"
+  style={`background-image: linear-gradient(90deg, rgba(10,22,34,.92), rgba(27,57,75,.72) 52%, rgba(15,23,42,.2)), url('${image}'); background-image: linear-gradient(90deg, rgba(10,22,34,.92), rgba(27,57,75,.72) 52%, rgba(15,23,42,.2)), image-set(url('${imageWebp}') type('image/webp'), url('${image}')); background-size: cover; background-position: center;`}
 >
-  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.36))]"></div>
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,.02),rgba(15,23,42,.28))]"></div>
+  <div class="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.07)_1px,transparent_1px)] [background-size:56px_56px]"></div>
   <div class="absolute inset-x-0 bottom-0 h-px bg-white/15"></div>
-  <div class="container-page relative grid gap-10 lg:grid-cols-[1fr_.82fr] lg:items-center">
-    <div>
-      <p class="text-sm font-semibold uppercase text-[var(--color-silver)]">{eyebrow}</p>
-      <h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight md:text-5xl">{title}</h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-300">{lead}</p>
+  <div class="container-page relative">
+    <div class="min-w-0 max-w-4xl">
+      <p class="max-w-full break-words text-sm font-semibold uppercase text-[var(--color-silver)] [overflow-wrap:anywhere]">{eyebrow}</p>
+      <h1 class="mt-4 max-w-4xl break-words text-4xl font-semibold leading-tight [overflow-wrap:anywhere] md:text-5xl">{title}</h1>
+      <p class="mt-5 max-w-3xl break-words text-lg leading-8 text-slate-300 [overflow-wrap:anywhere]">{lead}</p>
       <slot />
     </div>
-    <Img src={image} alt={imageAlt} class="aspect-[4/3] w-full rounded-[6px] border border-white/12 object-cover" loading="eager" fetchpriority="high" />
   </div>
 </section>

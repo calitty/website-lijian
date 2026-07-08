@@ -110,11 +110,11 @@ const copyByLang = {
   zh: {
     h1: "中国食品机械刀片源头厂家",
     lead:
-      "马鞍山市利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，长期服务食品加工设备配套、替换刀片和非标定制需求，靠近南京禄口机场，物流发货便利。",
+      "利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，长期服务食品加工设备配套、替换刀片和非标定制需求，靠近南京禄口机场，物流发货便利。",
     chips: ["中国制造商", "源头厂家", "1998年始建", "月产能100万片以上", "7天打样 / 30天交货"],
     introTitle: "始于1998年的中国食品机械刀片源头厂家",
     intro:
-      "马鞍山市利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，非单纯贸易型供应商。工厂占地约6000㎡，位于安徽马鞍山博望，靠近南京禄口机场，公路与航空物流衔接便利，便于样品寄送、批量发货和外贸出运安排。生产围绕食品机械刀片、食品加工设备替换刀片和非标定制刀片展开，服务肉类、水产、禽类、果蔬、烘焙、冷冻食品及食品包装等加工场景。车间以数控加工设备为主，数控机床占比约80%，配合磨削、热处理、刃口处理、表面处理和包装检查，重点控制刀片外形、安装孔位、厚度、硬度、刃口角度和批次一致性。对于旧刀替换、设备改型和新项目开发，可根据图纸、样品、设备型号或现场切割问题沟通材料与工艺建议。工厂月综合产能超过100万片，支持小批量打样与批量复购，常规定制项目可按7天打样、30天交货节奏推进，欢迎食品加工企业、设备厂和维修采购联系咨询。",
+      "利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，非单纯贸易型供应商。工厂占地约6000㎡，位于安徽马鞍山博望，靠近南京禄口机场，公路与航空物流衔接便利，便于样品寄送、批量发货和外贸出运安排。生产围绕食品机械刀片、食品加工设备替换刀片和非标定制刀片展开，服务肉类、水产、禽类、果蔬、烘焙、冷冻食品及食品包装等加工场景。车间以数控加工设备为主，数控机床占比约80%，配合磨削、热处理、刃口处理、表面处理和包装检查，重点控制刀片外形、安装孔位、厚度、硬度、刃口角度和批次一致性。对于旧刀替换、设备改型和新项目开发，可根据图纸、样品、设备型号或现场切割问题沟通材料与工艺建议。工厂月综合产能超过100万片，支持小批量打样与批量复购，常规定制项目可按7天打样、30天交货节奏推进，欢迎食品加工企业、设备厂和维修采购联系咨询。",
     stats: [
       { value: "1998", label: "始建时间" },
       { value: "6000㎡", label: "厂区占地" },
@@ -153,7 +153,211 @@ const copyByLang = {
     cooperation: ["刀片图纸", "旧刀样品照片", "设备型号", "材料或硬度要求", "切割食品类型", "数量和交付计划"],
   },
 } as const;
-const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
+const aboutFallbackByLang = {
+  ar: {
+    h1: "مصنع صيني مباشر لشفرات آلات الأغذية",
+    lead: "تأسست Maanshan Lijian عام 1998 كمصنع مصدر صيني لشفرات آلات الأغذية، شفرات الاستبدال والشفرات المخصصة لمعدات معالجة الأغذية، مع موقع قريب من مطار نانجينغ لوكو لتسهيل الشحن.",
+    chips: ["مصنع صيني مباشر", "منذ عام 1998", "أكثر من مليون قطعة شهريا", "عينات 7 أيام / تسليم 30 يوما"],
+    introTitle: "مصنع مصدر يركز على شفرات آلات الأغذية منذ 1998",
+    intro: "تخدم Maanshan Lijian مصانع الأغذية، مصنعي المعدات ومشتريات الصيانة التي تحتاج إلى شفرات بديلة أو مخصصة. يركز العمل على مطابقة الشكل، الفتحات، السماكة، المادة، الصلادة والحافة حتى تكون الشفرة قابلة للتركيب والطلب المتكرر.",
+    stats: ["بداية العمل", "مساحة المصنع", "معدات CNC", "القدرة الشهرية", "العينة", "التسليم", "مركز لوجستي قريب"],
+    workshopTitle: "الورشة وبيئة العمل",
+    workshopLead: "توضح هذه الصفحة المعالجة، تشطيب الحافة، الفحص، التغليف وبيئة معدات الأغذية لمساعدة المشتري على تقييم قدرة المصنع.",
+    sections: [
+      ["المادة وتحضير الخام", "يبدأ العمل بتأكيد المادة والسماكة وشكل الخام حسب حمل القطع وبيئة التنظيف والعمر المتوقع."],
+      ["CNC وملاءمة التركيب", "تعد الأشكال والفتحات والشقوق والأبعاد نقاط تحكم رئيسية لأن شفرة الاستبدال يجب أن تلائم الجهاز بدقة."],
+      ["الجلخ والحافة والفحص", "يركز العمل على الاستواء، السماكة، زاوية الحافة، ثبات الحافة والفحص الأساسي قبل التغليف."],
+      ["بيئة معدات الأغذية", "توضح الصور نوع البيئة الستانلس والقابلة للغسل التي صممت هذه الشفرات للعمل داخلها."],
+    ],
+    cooperationTitle: "معلومات الشفرة المخصصة",
+    cooperation: ["رسم الشفرة", "صورة العينة القديمة", "موديل الجهاز", "طلب المادة أو الصلادة", "نوع المنتج الغذائي", "الكمية وخطة التسليم"],
+  },
+  es: {
+    h1: "Fabricante chino directo de cuchillas para maquinaria alimentaria",
+    lead: "Fundada en 1998, Maanshan Lijian es una fábrica fuente china especializada en cuchillas para maquinaria alimentaria, recambios y fabricación a medida, con logística conveniente cerca del aeropuerto de Nanjing Lukou.",
+    chips: ["Fábrica china directa", "Desde 1998", "1M+ piezas al mes", "Muestra 7 días / entrega 30 días"],
+    introTitle: "Fábrica fuente enfocada en cuchillas alimentarias desde 1998",
+    intro: "Maanshan Lijian trabaja con plantas de alimentos, fabricantes OEM y compradores de mantenimiento que necesitan cuchillas de recambio o a medida. El control se centra en perfil, agujeros, espesor, material, dureza y filo para que la cuchilla pueda instalarse, cortar de forma estable y repetirse en pedidos futuros.",
+    stats: ["Inicio", "Área de fábrica", "Máquinas CNC", "Capacidad mensual", "Muestra", "Entrega", "Nodo logístico cercano"],
+    workshopTitle: "Taller y entorno de trabajo",
+    workshopLead: "La página muestra mecanizado, trabajo de filo, inspección, empaque y entorno de equipos alimentarios para evaluar si la fábrica encaja con el requisito.",
+    sections: [
+      ["Material y preparación del blank", "El trabajo parte de ajustar material, espesor y forma del blank a la carga de corte, limpieza y vida útil esperada."],
+      ["Mecanizado CNC y ajuste", "Perfiles, agujeros, ranuras y detalles de montaje son puntos críticos para que la cuchilla de recambio encaje con precisión."],
+      ["Rectificado, filo e inspección", "Se enfatizan planitud, espesor, ángulo de bisel, consistencia del filo e inspección antes del empaque."],
+      ["Entorno de equipos alimentarios", "Las fotos muestran el tipo de entorno inoxidable y lavable al que sirven estas cuchillas."],
+    ],
+    cooperationTitle: "Información para cuchilla a medida",
+    cooperation: ["Plano de cuchilla", "Foto de muestra usada", "Modelo de equipo", "Material o dureza", "Producto a cortar", "Cantidad y plan de entrega"],
+  },
+  pt: {
+    h1: "Fabricante chinês direto de lâminas para máquinas alimentícias",
+    lead: "Fundada em 1998, a Maanshan Lijian é uma fábrica fonte chinesa de lâminas para máquinas alimentícias, reposições e fabricação sob medida, com logística conveniente próxima ao aeroporto de Nanjing Lukou.",
+    chips: ["Fábrica chinesa direta", "Desde 1998", "1M+ peças por mês", "Amostra 7 dias / entrega 30 dias"],
+    introTitle: "Fábrica fonte focada em lâminas alimentícias desde 1998",
+    intro: "A Maanshan Lijian atende fábricas de alimentos, fabricantes OEM e compradores de manutenção que precisam de lâminas de reposição ou sob medida. O controle cobre perfil, furos, espessura, material, dureza e fio para permitir montagem estável e pedidos repetidos.",
+    stats: ["Início", "Área da fábrica", "Máquinas CNC", "Capacidade mensal", "Amostra", "Entrega", "Hub logístico próximo"],
+    workshopTitle: "Oficina e ambiente de trabalho",
+    workshopLead: "A página mostra usinagem, acabamento do fio, inspeção, embalagem e ambiente de equipamentos alimentícios para avaliar a adequação da fábrica.",
+    sections: [
+      ["Material e preparação do blank", "O trabalho começa alinhando material, espessura e formato do blank à carga de corte, limpeza e vida útil esperada."],
+      ["CNC e encaixe de montagem", "Perfis, furos, ranhuras e medidas de montagem são pontos críticos para a lâmina de reposição encaixar com precisão."],
+      ["Retífica, fio e inspeção", "O foco está em planicidade, espessura, ângulo do fio, consistência do fio e inspeção antes da embalagem."],
+      ["Ambiente de equipamentos alimentícios", "As fotos mostram o tipo de ambiente inoxidável e lavável que essas lâminas atendem."],
+    ],
+    cooperationTitle: "Informações para lâmina sob medida",
+    cooperation: ["Desenho da lâmina", "Foto da amostra antiga", "Modelo do equipamento", "Material ou dureza", "Produto alimentício", "Quantidade e plano de entrega"],
+  },
+  tr: {
+    h1: "Çin doğrudan gıda makinesi bıçak üreticisi",
+    lead: "1998'de kurulan Maanshan Lijian, gıda makinesi bıçakları, yedek bıçaklar ve özel üretim için Çin kaynak fabrikasıdır; Nanjing Lukou Havalimanı'na yakın konum lojistiği kolaylaştırır.",
+    chips: ["Çin doğrudan fabrika", "1998'den beri", "Aylık 1M+ kapasite", "7 gün numune / 30 gün teslim"],
+    introTitle: "1998'den beri gıda makinesi bıçaklarına odaklanan kaynak fabrika",
+    intro: "Maanshan Lijian; yedek veya özel bıçak isteyen gıda fabrikaları, OEM üreticiler ve bakım satın almacılarıyla çalışır. Profil, delik, kalınlık, malzeme, sertlik ve ağız kontrolü kurulum uyumu ve tekrar sipariş için yönetilir.",
+    stats: ["Başlangıç", "Fabrika alanı", "CNC tezgahlar", "Aylık kapasite", "Numune", "Teslim", "Yakın lojistik noktası"],
+    workshopTitle: "Atölye ve çalışma ortamı",
+    workshopLead: "Sayfa; işleme, ağız işlemi, kontrol, ambalaj ve gıda ekipmanı ortamını göstererek fabrikanın ihtiyaca uyumunu değerlendirmeye yardımcı olur.",
+    sections: [
+      ["Malzeme ve blank hazırlığı", "Çalışma; kesme yükü, temizlik ortamı ve hedef ömre göre malzeme, kalınlık ve blank şekliyle başlar."],
+      ["CNC işleme ve montaj uyumu", "Profil, delik, kanal ve montaj ölçüleri yedek bıçağın makineye doğru uyması için kritik kontrol noktalarıdır."],
+      ["Taşlama, ağız ve kontrol", "Düzlemsellik, kalınlık, ağız açısı, ağız tutarlılığı ve paket öncesi temel kontrol öne çıkar."],
+      ["Gıda ekipmanı ortamı", "Fotoğraflar, bıçakların hizmet ettiği paslanmaz ve yıkanabilir gıda ekipmanı ortamını gösterir."],
+    ],
+    cooperationTitle: "Özel bıçak bilgileri",
+    cooperation: ["Bıçak çizimi", "Eski numune fotoğrafı", "Ekipman modeli", "Malzeme veya sertlik isteği", "Hedef gıda ürünü", "Adet ve teslim planı"],
+  },
+  de: {
+    h1: "Chinesischer Direkthersteller für Messer von Lebensmittelmaschinen",
+    lead: "Maanshan Lijian wurde 1998 gegründet und ist eine chinesische Quellenfabrik für Messer von Lebensmittelmaschinen, Ersatzmesser und Sonderfertigung mit günstiger Logistik nahe dem Flughafen Nanjing Lukou.",
+    chips: ["Chinesische Direktfabrik", "Seit 1998", "1M+ monatliche Kapazität", "7 Tage Muster / 30 Tage Lieferung"],
+    introTitle: "Quellenfabrik für Lebensmittelmaschinenmesser seit 1998",
+    intro: "Maanshan Lijian arbeitet mit Lebensmittelwerken, OEM-Herstellern und Wartungseinkäufern, die Ersatz- oder Sondermesser benötigen. Kontrolliert werden Profil, Bohrungen, Dicke, Material, Härte und Schneide für stabile Montage und Wiederholaufträge.",
+    stats: ["Start", "Fabrikfläche", "CNC-Maschinen", "Monatskapazität", "Muster", "Lieferung", "Naher Logistikknoten"],
+    workshopTitle: "Werkstatt und Arbeitsumgebung",
+    workshopLead: "Die Seite zeigt Bearbeitung, Schneidenarbeit, Prüfung, Verpackung und Lebensmittelmaschinenumgebung zur Bewertung der Fabrikeignung.",
+    sections: [
+      ["Material und Rohling", "Die Arbeit beginnt mit Material, Dicke und Rohling passend zu Schneidlast, Reinigung und Zielstandzeit."],
+      ["CNC-Bearbeitung und Passung", "Profile, Bohrungen, Schlitze und Montagedetails sind kritisch, damit Ersatzmesser exakt passen."],
+      ["Schleifen, Schneide und Prüfung", "Planheit, Dicke, Fasenwinkel, Schneidenkonstanz und Grundprüfung vor dem Verpacken stehen im Fokus."],
+      ["Umgebung von Lebensmittelmaschinen", "Fotos zeigen die rostfreie, waschbare Umgebung, für die diese Messer ausgelegt sind."],
+    ],
+    cooperationTitle: "Informationen für Sondermesser",
+    cooperation: ["Messerzeichnung", "Foto des alten Musters", "Maschinenmodell", "Material oder Härte", "Zielprodukt", "Menge und Lieferplan"],
+  },
+  fr: {
+    h1: "Fabricant chinois direct de lames pour machines alimentaires",
+    lead: "Fondée en 1998, Maanshan Lijian est une usine source chinoise spécialisée dans les lames de machines alimentaires, les rechanges et la fabrication sur mesure, avec une logistique pratique près de l'aéroport de Nanjing Lukou.",
+    chips: ["Usine chinoise directe", "Depuis 1998", "1M+ pièces par mois", "Échantillon 7 jours / livraison 30 jours"],
+    introTitle: "Usine source dédiée aux lames alimentaires depuis 1998",
+    intro: "Maanshan Lijian travaille avec des usines alimentaires, des constructeurs OEM et des acheteurs maintenance qui ont besoin de lames de rechange ou sur mesure. Le contrôle porte sur profil, trous, épaisseur, matériau, dureté et tranchant pour l'installation et les commandes répétées.",
+    stats: ["Début", "Surface usine", "Machines CNC", "Capacité mensuelle", "Échantillon", "Livraison", "Hub logistique proche"],
+    workshopTitle: "Atelier et environnement de travail",
+    workshopLead: "La page présente usinage, finition du tranchant, inspection, emballage et environnement d'équipements alimentaires pour évaluer l'adéquation de l'usine.",
+    sections: [
+      ["Matériau et préparation du blank", "Le travail commence par le matériau, l'épaisseur et la forme du blank selon la charge de coupe, le nettoyage et la durée de vie."],
+      ["CNC et ajustement de montage", "Profils, trous, rainures et dimensions de montage sont critiques pour une lame de rechange précise."],
+      ["Rectification, tranchant et inspection", "Planéité, épaisseur, angle de biseau, régularité du tranchant et inspection avant emballage sont mis en avant."],
+      ["Environnement d'équipements alimentaires", "Les photos montrent l'environnement inox et lavable auquel ces lames sont destinées."],
+    ],
+    cooperationTitle: "Informations pour lame sur mesure",
+    cooperation: ["Plan de lame", "Photo de l'ancien échantillon", "Modèle d'équipement", "Matériau ou dureté", "Produit alimentaire", "Quantité et livraison"],
+  },
+  it: {
+    h1: "Produttore cinese diretto di lame per macchine alimentari",
+    lead: "Fondata nel 1998, Maanshan Lijian è una fabbrica fonte cinese per lame di macchine alimentari, ricambi e produzione su misura, con logistica comoda vicino all'aeroporto di Nanjing Lukou.",
+    chips: ["Fabbrica cinese diretta", "Dal 1998", "1M+ pezzi al mese", "Campione 7 giorni / consegna 30 giorni"],
+    introTitle: "Fabbrica fonte focalizzata su lame alimentari dal 1998",
+    intro: "Maanshan Lijian lavora con stabilimenti alimentari, costruttori OEM e acquisti manutenzione che richiedono lame di ricambio o su misura. Profilo, fori, spessore, materiale, durezza e filo vengono controllati per montaggio stabile e riordini.",
+    stats: ["Avvio", "Area fabbrica", "Macchine CNC", "Capacità mensile", "Campione", "Consegna", "Hub logistico vicino"],
+    workshopTitle: "Officina e ambiente di lavoro",
+    workshopLead: "La pagina mostra lavorazione, finitura del filo, ispezione, imballo e ambiente macchine alimentari per valutare l'idoneità della fabbrica.",
+    sections: [
+      ["Materiale e preparazione blank", "Il lavoro parte da materiale, spessore e forma del blank in base a carico di taglio, lavaggio e vita utile."],
+      ["CNC e montaggio", "Profili, fori, asole e dettagli di montaggio sono punti critici per l'adattamento della lama di ricambio."],
+      ["Rettifica, filo e ispezione", "Planarità, spessore, angolo del filo, coerenza del filo e controllo prima dell'imballo sono prioritari."],
+      ["Ambiente macchine alimentari", "Le foto mostrano l'ambiente inox e lavabile per cui queste lame sono progettate."],
+    ],
+    cooperationTitle: "Informazioni per lama su misura",
+    cooperation: ["Disegno lama", "Foto vecchio campione", "Modello macchina", "Materiale o durezza", "Prodotto alimentare", "Quantità e consegna"],
+  },
+  th: {
+    h1: "ผู้ผลิตใบมีดเครื่องจักรอาหารโดยตรงจากจีน",
+    lead: "Maanshan Lijian ก่อตั้งในปี 1998 เป็นโรงงานต้นทางจากจีนสำหรับใบมีดเครื่องจักรอาหาร ใบมีดทดแทน และงานสั่งผลิต ใกล้สนามบิน Nanjing Lukou เพื่อการขนส่งที่สะดวก",
+    chips: ["โรงงานจีนโดยตรง", "ตั้งแต่ปี 1998", "กำลังผลิต 1M+ ต่อเดือน", "ตัวอย่าง 7 วัน / ส่งมอบ 30 วัน"],
+    introTitle: "โรงงานต้นทางที่เน้นใบมีดเครื่องจักรอาหารตั้งแต่ปี 1998",
+    intro: "Maanshan Lijian รองรับโรงงานอาหาร ผู้ผลิต OEM และฝ่ายซ่อมบำรุงที่ต้องการใบมีดทดแทนหรือใบมีดสั่งทำ โดยควบคุมรูปทรง รู ความหนา วัสดุ ความแข็ง และคม เพื่อให้ติดตั้งได้และสั่งซ้ำได้สม่ำเสมอ",
+    stats: ["เริ่มต้น", "พื้นที่โรงงาน", "เครื่อง CNC", "กำลังผลิตรายเดือน", "ตัวอย่าง", "ส่งมอบ", "จุดโลจิสติกส์ใกล้เคียง"],
+    workshopTitle: "เวิร์กช็อปและสภาพแวดล้อมงาน",
+    workshopLead: "หน้านี้แสดงการแปรรูป คมตัด การตรวจสอบ บรรจุภัณฑ์ และสภาพแวดล้อมเครื่องจักรอาหารเพื่อช่วยประเมินความเหมาะสมของโรงงาน",
+    sections: [
+      ["วัสดุและการเตรียมชิ้นงาน", "เริ่มจากการเลือกวัสดุ ความหนา และรูปทรงชิ้นงานให้เข้ากับแรงตัด การล้าง และอายุใช้งาน"],
+      ["CNC และขนาดติดตั้ง", "รูปทรง รู ร่อง และรายละเอียดติดตั้งเป็นจุดควบคุมสำคัญเพื่อให้ใบมีดทดแทนพอดีกับเครื่อง"],
+      ["เจียร คม และตรวจสอบ", "เน้นความเรียบ ความหนา มุมคม ความสม่ำเสมอของคม และการตรวจสอบก่อนบรรจุ"],
+      ["สภาพแวดล้อมเครื่องจักรอาหาร", "รูปภาพแสดงสภาพแวดล้อมสแตนเลสที่ล้างได้ซึ่งใบมีดเหล่านี้ออกแบบมาใช้งาน"],
+    ],
+    cooperationTitle: "ข้อมูลสำหรับใบมีดสั่งทำ",
+    cooperation: ["แบบใบมีด", "รูปตัวอย่างเก่า", "รุ่นเครื่องจักร", "วัสดุหรือความแข็ง", "ผลิตภัณฑ์อาหาร", "จำนวนและแผนส่งมอบ"],
+  },
+  vi: {
+    h1: "Nhà sản xuất trực tiếp dao máy thực phẩm tại Trung Quốc",
+    lead: "Thành lập năm 1998, Maanshan Lijian là nhà máy nguồn Trung Quốc về dao máy thực phẩm, dao thay thế và dao tùy chỉnh, gần sân bay Nanjing Lukou để thuận tiện logistics.",
+    chips: ["Nhà máy Trung Quốc trực tiếp", "Từ năm 1998", "1M+ chiếc mỗi tháng", "Mẫu 7 ngày / giao 30 ngày"],
+    introTitle: "Nhà máy nguồn tập trung vào dao máy thực phẩm từ 1998",
+    intro: "Maanshan Lijian phục vụ nhà máy thực phẩm, nhà sản xuất OEM và khách bảo trì cần dao thay thế hoặc tùy chỉnh. Kiểm soát biên dạng, lỗ, độ dày, vật liệu, độ cứng và cạnh dao giúp lắp ổn định và đặt lại nhất quán.",
+    stats: ["Bắt đầu", "Diện tích nhà máy", "Máy CNC", "Công suất tháng", "Mẫu", "Giao hàng", "Điểm logistics gần"],
+    workshopTitle: "Xưởng và môi trường làm việc",
+    workshopLead: "Trang trình bày gia công, hoàn thiện cạnh, kiểm tra, đóng gói và môi trường thiết bị thực phẩm để đánh giá năng lực nhà máy.",
+    sections: [
+      ["Vật liệu và chuẩn bị phôi", "Công việc bắt đầu từ vật liệu, độ dày và hình dạng phôi theo tải cắt, vệ sinh và tuổi thọ mục tiêu."],
+      ["CNC và độ khớp lắp", "Biên dạng, lỗ, rãnh và kích thước lắp là điểm kiểm soát chính để dao thay thế khớp chính xác."],
+      ["Mài, cạnh dao và kiểm tra", "Tập trung vào độ phẳng, độ dày, góc vát, độ ổn định cạnh và kiểm tra trước đóng gói."],
+      ["Môi trường thiết bị thực phẩm", "Ảnh thể hiện môi trường inox, có thể rửa mà các dao này được thiết kế để phục vụ."],
+    ],
+    cooperationTitle: "Thông tin dao tùy chỉnh",
+    cooperation: ["Bản vẽ dao", "Ảnh mẫu cũ", "Model thiết bị", "Yêu cầu vật liệu hoặc độ cứng", "Sản phẩm thực phẩm", "Số lượng và kế hoạch giao"],
+  },
+  id: {
+    h1: "Produsen langsung pisau mesin makanan dari China",
+    lead: "Didirikan pada 1998, Maanshan Lijian adalah pabrik sumber China untuk pisau mesin makanan, pisau pengganti, dan produksi kustom, dengan logistik mudah dekat Bandara Nanjing Lukou.",
+    chips: ["Pabrik China langsung", "Sejak 1998", "Kapasitas 1M+ per bulan", "Sampel 7 hari / pengiriman 30 hari"],
+    introTitle: "Pabrik sumber fokus pada pisau mesin makanan sejak 1998",
+    intro: "Maanshan Lijian melayani pabrik makanan, produsen OEM, dan pembeli maintenance yang membutuhkan pisau pengganti atau kustom. Profil, lubang, ketebalan, material, kekerasan, dan mata pisau dikontrol agar pemasangan stabil dan repeat order konsisten.",
+    stats: ["Mulai", "Area pabrik", "Mesin CNC", "Kapasitas bulanan", "Sampel", "Pengiriman", "Hub logistik dekat"],
+    workshopTitle: "Workshop dan lingkungan kerja",
+    workshopLead: "Halaman ini menjelaskan machining, finishing mata pisau, inspeksi, packing, dan lingkungan mesin makanan untuk membantu menilai kecocokan pabrik.",
+    sections: [
+      ["Material dan persiapan blank", "Pekerjaan dimulai dari pemilihan material, ketebalan, dan bentuk blank sesuai beban potong, pembersihan, dan umur pakai."],
+      ["CNC dan kecocokan pemasangan", "Profil, lubang, slot, dan ukuran pemasangan adalah titik kontrol utama agar pisau pengganti terpasang akurat."],
+      ["Grinding, mata pisau, dan inspeksi", "Fokus pada kerataan, ketebalan, sudut bevel, konsistensi mata, dan pemeriksaan sebelum packing."],
+      ["Lingkungan peralatan makanan", "Foto menunjukkan lingkungan stainless dan washable yang menjadi target penggunaan pisau ini."],
+    ],
+    cooperationTitle: "Informasi pisau kustom",
+    cooperation: ["Gambar pisau", "Foto sampel lama", "Model peralatan", "Permintaan material atau kekerasan", "Produk makanan target", "Jumlah dan rencana pengiriman"],
+  },
+} as const;
+
+const fallbackAbout = aboutFallbackByLang[lang as keyof typeof aboutFallbackByLang];
+const copy =
+  copyByLang[lang as keyof typeof copyByLang] ??
+  (fallbackAbout
+    ? {
+        ...fallbackAbout,
+        stats: [
+          { value: "1998", label: fallbackAbout.stats[0] },
+          { value: "6,000 m²", label: fallbackAbout.stats[1] },
+          { value: "80%", label: fallbackAbout.stats[2] },
+          { value: "1M+", label: fallbackAbout.stats[3] },
+          { value: "7 Days", label: fallbackAbout.stats[4] },
+          { value: "30 Days", label: fallbackAbout.stats[5] },
+          { value: "Nanjing Lukou Airport", label: fallbackAbout.stats[6] },
+        ],
+        sections: fallbackAbout.sections.map(([title, text], index) => ({
+          title,
+          text,
+          image: [productImages.manufacturing, productImages.workshop, productImages.quality, productImages.environment][index],
+        })),
+      }
+    : copyByLang.en);
 ---
 
 <BaseLayout lang={lang} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path} image={productImages.factoryGate} jsonLd={[breadcrumb]}>
@@ -177,7 +381,7 @@ const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
             </div>
           ))}
         </div>
-        <a href={withLang(lang, "/contact")} class="mt-8 inline-flex rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_about">
+        <a href={withLang(lang, "/contact")} class="mt-8 inline-flex rounded-[4px] bg-[var(--color-blue)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_about">
           {t.actions.contactUs}
         </a>
       </div>
@@ -209,7 +413,7 @@ const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
     </div>
   </section>
 
-  <section class="bg-[var(--color-ink)] py-16 text-white md:py-20">
+  <section class="bg-[#102333] py-16 text-white md:py-20">
     <div class="container-page grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
       <div>
         <p class="text-sm font-semibold uppercase text-[var(--color-silver)]">{t.actions.contactUs}</p>

@@ -5,7 +5,8 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp.astro";
 import MobileContactBar from "@/components/MobileContactBar.astro";
 import SeoHead from "@/components/SeoHead.astro";
 import Tracking from "@/components/Tracking.astro";
-import { contact, ui, type Lang } from "@/data/site";
+import { geoIndustryTerms, getGeoIndustryProfile, localizeGeoIndustryTerm } from "@/data/geo";
+import { contact, languages, ui, type Lang } from "@/data/site";
 import "@/styles/global.css";
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
   pageEventLabel?: string;
   noindex?: boolean;
   preloadImage?: string;
+  alternateLangs?: readonly Lang[];
 }
 
 const {
@@ -34,36 +36,26 @@ const {
   pageEventLabel = "",
   noindex = false,
   preloadImage,
+  alternateLangs,
 } = Astro.props;
 
 const siteUrl = String(Astro.site ?? "https://lijianblades.com");
 const normalizedPath = path === "/" ? "" : path.replace(/\/$/, "");
 const pageUrl = new URL(`/${lang}${normalizedPath}/`.replace(/\/+/g, "/"), siteUrl).href;
-const languageNames = {
-  en: "English",
-  ru: "Russian",
-  ar: "Arabic",
-  es: "Spanish",
-  pt: "Portuguese",
-  tr: "Turkish",
-  de: "German",
-  fr: "French",
-  it: "Italian",
-  th: "Thai",
-  vi: "Vietnamese",
-  id: "Indonesian",
-  zh: "Chinese",
-} as const;
-const languageName = languageNames[lang as keyof typeof languageNames] ?? languageNames.en;
+const pageLocale = languages[lang].locale;
+const geoProfile = getGeoIndustryProfile(lang);
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: contact.company[lang],
   url: siteUrl,
   logo: new URL(contact.logo, siteUrl).href,
+  description: ui[lang].seo.homeDescription,
+  slogan: geoProfile.category,
   email: contact.email,
   telephone: contact.phone,
   foundingDate: "1998",
+  knowsAbout: geoIndustryTerms.map((term) => localizeGeoIndustryTerm(term, lang)),
   address: contact.departments.map((department) => ({
     "@type": "PostalAddress",
     name: department.name[lang],
@@ -117,7 +109,7 @@ const webPageJsonLd = {
   name: title,
   description,
   url: pageUrl,
-  inLanguage: languageName,
+  inLanguage: pageLocale,
   isPartOf: {
     "@type": "WebSite",
     name: ui[lang].siteName,
@@ -127,7 +119,7 @@ const webPageJsonLd = {
 ---
 
 <!doctype html>
-<html lang={lang === "zh" ? "zh-CN" : lang} dir={lang === "ar" ? "rtl" : "ltr"}>
+<html lang={pageLocale} dir={lang === "ar" ? "rtl" : "ltr"}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -144,11 +136,12 @@ const webPageJsonLd = {
       jsonLd={[organizationJsonLd, webPageJsonLd, ...jsonLd]}
       noindex={noindex}
       preloadImage={preloadImage}
+      alternateLangs={alternateLangs}
     />
     <Tracking />
   </head>
   <body>
-    <Header lang={lang} path={path} />
+    <Header lang={lang} path={path} alternateLangs={alternateLangs} />
     {pageEvent && (
       <script is:inline define:vars={{ pageEvent, pageEventLabel }}>
         window.addEventListener("DOMContentLoaded", () => {

@@ -232,6 +232,90 @@ const copyByLang = {
   },
 } as const;
 const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
+const attachmentCopyByLang = {
+  en: {
+    label: "Drawing / old blade photo",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP or ZIP, max 6 MB each.",
+    tooLarge: "Attachment is too large. Please send large files by WhatsApp or email.",
+  },
+  ru: {
+    label: "Чертеж / фото старого ножа",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP или ZIP, до 6 МБ на файл.",
+    tooLarge: "Файл слишком большой. Отправьте крупные файлы через WhatsApp или email.",
+  },
+  ar: {
+    label: "الرسم / صورة الشفرة القديمة",
+    hint: "PDF أو JPG أو PNG أو DWG أو DXF أو STEP أو ZIP، حتى 6 MB لكل ملف.",
+    tooLarge: "المرفق كبير جدا. يرجى إرسال الملفات الكبيرة عبر WhatsApp أو البريد.",
+  },
+  es: {
+    label: "Plano / foto de cuchilla usada",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP o ZIP, máx. 6 MB por archivo.",
+    tooLarge: "El adjunto es demasiado grande. Envíe archivos grandes por WhatsApp o email.",
+  },
+  pt: {
+    label: "Desenho / foto da lâmina usada",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP ou ZIP, máx. 6 MB por arquivo.",
+    tooLarge: "O anexo é muito grande. Envie arquivos grandes por WhatsApp ou email.",
+  },
+  tr: {
+    label: "Çizim / eski bıçak fotoğrafı",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP veya ZIP, dosya başına en fazla 6 MB.",
+    tooLarge: "Ek dosya çok büyük. Büyük dosyaları WhatsApp veya email ile gönderin.",
+  },
+  de: {
+    label: "Zeichnung / Foto des alten Messers",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP oder ZIP, max. 6 MB je Datei.",
+    tooLarge: "Der Anhang ist zu groß. Senden Sie große Dateien per WhatsApp oder E-Mail.",
+  },
+  fr: {
+    label: "Plan / photo de l'ancienne lame",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP ou ZIP, max. 6 Mo par fichier.",
+    tooLarge: "La pièce jointe est trop volumineuse. Envoyez les gros fichiers par WhatsApp ou email.",
+  },
+  it: {
+    label: "Disegno / foto della lama usata",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP o ZIP, max 6 MB per file.",
+    tooLarge: "L'allegato è troppo grande. Invia i file grandi via WhatsApp o email.",
+  },
+  th: {
+    label: "แบบ / รูปใบมีดเก่า",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP หรือ ZIP สูงสุด 6 MB ต่อไฟล์",
+    tooLarge: "ไฟล์แนบใหญ่เกินไป กรุณาส่งไฟล์ใหญ่ผ่าน WhatsApp หรืออีเมล",
+  },
+  vi: {
+    label: "Bản vẽ / ảnh dao cũ",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP hoặc ZIP, tối đa 6 MB mỗi file.",
+    tooLarge: "File đính kèm quá lớn. Vui lòng gửi file lớn qua WhatsApp hoặc email.",
+  },
+  id: {
+    label: "Gambar / foto pisau lama",
+    hint: "PDF, JPG, PNG, DWG, DXF, STEP atau ZIP, maks. 6 MB per file.",
+    tooLarge: "Lampiran terlalu besar. Kirim file besar melalui WhatsApp atau email.",
+  },
+  zh: {
+    label: "图纸 / 旧刀照片",
+    hint: "支持 PDF、JPG、PNG、DWG、DXF、STEP 或 ZIP，单个文件不超过 6 MB。",
+    tooLarge: "附件过大，请通过 WhatsApp 或邮箱发送大文件。",
+  },
+} as const;
+const attachmentCopy = attachmentCopyByLang[lang as keyof typeof attachmentCopyByLang] ?? attachmentCopyByLang.en;
+const fieldStateCopyByLang = {
+  en: { required: "Required", optional: "Optional" },
+  ru: { required: "Обязательно", optional: "Необязательно" },
+  ar: { required: "مطلوب", optional: "اختياري" },
+  es: { required: "Obligatorio", optional: "Opcional" },
+  pt: { required: "Obrigatório", optional: "Opcional" },
+  tr: { required: "Zorunlu", optional: "Opsiyonel" },
+  de: { required: "Pflichtfeld", optional: "Optional" },
+  fr: { required: "Requis", optional: "Facultatif" },
+  it: { required: "Obbligatorio", optional: "Opzionale" },
+  th: { required: "จำเป็น", optional: "ไม่บังคับ" },
+  vi: { required: "Bắt buộc", optional: "Không bắt buộc" },
+  id: { required: "Wajib", optional: "Opsional" },
+  zh: { required: "必填", optional: "选填" },
+} as const;
+const fieldState = fieldStateCopyByLang[lang as keyof typeof fieldStateCopyByLang] ?? fieldStateCopyByLang.en;
 
 const isDark = tone === "dark";
 const isCompact = variant === "compact";
@@ -239,13 +323,19 @@ const panelClass = isCompact
   ? "w-[min(calc(100vw-2rem),25rem)] rounded-[8px] border border-slate-200 bg-white p-4 shadow-[0_24px_60px_rgba(8,15,25,.28)]"
   : isDark
     ? "rounded-[6px] border border-white/10 bg-[#0b1520] p-4"
-    : "rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm";
+    : "rounded-[8px] border border-[var(--color-border)] bg-white p-5 shadow-[0_10px_30px_rgba(9,42,94,.06)]";
 const labelClass = isDark ? "text-slate-300" : "text-slate-700";
 const inputClass = isDark
-  ? "mt-1 w-full rounded-[4px] border border-white/10 bg-[#07101a] px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-[var(--color-red)]"
-  : "mt-1 w-full rounded-[4px] border border-slate-200 bg-white px-3 py-2.5 text-sm text-[var(--color-ink)] outline-none placeholder:text-slate-400 focus:border-[var(--color-red)]";
+  ? "mt-1 w-full rounded-[4px] border border-white/10 bg-[#07101a] px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-[#8ecae6]"
+  : "mt-1 w-full rounded-[4px] border border-[#d5e2f4] bg-white px-3 py-2.5 text-sm text-[var(--color-ink)] outline-none placeholder:text-slate-400 focus:border-[var(--color-blue)]";
 const titleClass = isDark ? "text-white" : "text-[var(--color-ink)]";
 const textClass = isDark ? "text-slate-400" : "text-slate-600";
+const requiredBadgeClass = isDark
+  ? "ml-2 inline-flex rounded-[4px] border border-white/15 px-1.5 py-0.5 text-[10px] font-semibold text-slate-200"
+  : "ml-2 inline-flex rounded-[4px] bg-[var(--color-blue)] px-1.5 py-0.5 text-[10px] font-semibold text-white";
+const optionalBadgeClass = isDark
+  ? "ml-2 inline-flex rounded-[4px] border border-white/15 px-1.5 py-0.5 text-[10px] font-semibold text-slate-300"
+  : "ml-2 inline-flex rounded-[4px] border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-semibold text-slate-500";
 ---
 
 {
@@ -253,15 +343,15 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
     <form
       class={panelClass}
       data-inquiry-form
-      data-track="submit_floating_inquiry_form"
       data-success={copy.success}
       data-error={copy.error}
       data-sending={copy.sending}
+      data-file-error={attachmentCopy.tooLarge}
       data-inquiry-tone="light"
     >
       <input type="hidden" name="lang" value={lang} />
       <input type="hidden" name="source" value="" data-inquiry-source />
-      <label style="position:absolute;left:-5000px;top:auto;width:1px;height:1px;overflow:hidden;">
+      <label style="position:absolute;left:0;top:0;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;opacity:0;pointer-events:none;">
         Website
         <input type="text" name="website" tabindex="-1" autocomplete="off" />
       </label>
@@ -271,28 +361,39 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
         <p class="mt-1.5 text-xs leading-5 text-slate-600">{copy.lead}</p>
       </div>
 
-      <div class="mt-3 grid gap-2">
-        <label class="text-xs font-semibold text-slate-700">
-          {copy.name}
-          <input class={inputClass} name="name" type="text" autocomplete="name" placeholder={copy.namePlaceholder} required />
-        </label>
-        <div class="grid gap-2 sm:grid-cols-2">
-          <label class="text-xs font-semibold text-slate-700">
-            {copy.country}
-            <input class={inputClass} name="country" type="text" autocomplete="country-name" placeholder={copy.countryPlaceholder} required />
-          </label>
-          <label class="text-xs font-semibold text-slate-700">
-            {copy.contact}
-            <input class={inputClass} name="contact" type="text" autocomplete="email" placeholder={copy.contactPlaceholder} required />
-          </label>
-        </div>
-        <label class="text-xs font-semibold text-slate-700">
-          {copy.message}
-          <textarea class={`${inputClass} min-h-24 resize-y`} name="message" placeholder={copy.messagePlaceholder} required></textarea>
+	      <div class="mt-3 grid gap-2">
+	        <label class="text-xs font-semibold text-slate-700">
+	          <span>{copy.name}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	          <input class={inputClass} name="name" type="text" autocomplete="name" placeholder={copy.namePlaceholder} required />
+	        </label>
+	        <div class="grid gap-2 sm:grid-cols-2">
+	          <label class="text-xs font-semibold text-slate-700">
+	            <span>{copy.country}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	            <input class={inputClass} name="country" type="text" autocomplete="country-name" placeholder={copy.countryPlaceholder} required />
+	          </label>
+	          <label class="text-xs font-semibold text-slate-700">
+	            <span>{copy.contact}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	            <input class={inputClass} name="contact" type="text" autocomplete="email" placeholder={copy.contactPlaceholder} required />
+	          </label>
+	        </div>
+	        <label class="text-xs font-semibold text-slate-700">
+	          <span>{copy.message}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	          <textarea class={`${inputClass} min-h-24 resize-y`} name="message" placeholder={copy.messagePlaceholder} required></textarea>
+	        </label>
+	        <label class="text-xs font-semibold text-slate-700">
+	          <span>{attachmentCopy.label}<span class={optionalBadgeClass}>{fieldState.optional}</span></span>
+	          <input
+	            class={inputClass}
+            name="attachment"
+            type="file"
+            accept=".pdf,.jpg,.jpeg,.png,.webp,.dwg,.dxf,.step,.stp,.zip,.rar"
+            data-inquiry-attachment
+          />
+          <span class="mt-1 block text-[11px] font-medium leading-4 text-slate-500">{attachmentCopy.hint}</span>
         </label>
       </div>
 
-      <button type="submit" class="mt-3 w-full rounded-[4px] bg-[var(--color-red)] px-4 py-3 text-sm font-semibold text-white">
+      <button type="submit" class="mt-3 w-full rounded-[4px] bg-[var(--color-blue)] px-4 py-3 text-sm font-semibold text-white">
         {copy.submit}
       </button>
       <p class="mt-3 hidden rounded-[4px] px-3 py-2 text-xs font-semibold" data-inquiry-status></p>
@@ -301,15 +402,15 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
     <form
       class={panelClass}
       data-inquiry-form
-      data-track="submit_inquiry_form"
       data-success={copy.success}
       data-error={copy.error}
       data-sending={copy.sending}
+      data-file-error={attachmentCopy.tooLarge}
       data-inquiry-tone={tone}
     >
       <input type="hidden" name="lang" value={lang} />
       <input type="hidden" name="source" value="" data-inquiry-source />
-      <label style="position:absolute;left:-5000px;top:auto;width:1px;height:1px;overflow:hidden;">
+      <label style="position:absolute;left:0;top:0;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;opacity:0;pointer-events:none;">
         Website
         <input type="text" name="website" tabindex="-1" autocomplete="off" />
       </label>
@@ -319,29 +420,41 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
         <p class={`mt-2 text-sm leading-6 ${textClass}`}>{copy.lead}</p>
       </div>
 
-      <div class="mt-4 grid gap-3 sm:grid-cols-2">
-        <label class={`text-xs font-semibold ${labelClass}`}>
-          {copy.name}
-          <input class={inputClass} name="name" type="text" autocomplete="name" placeholder={copy.namePlaceholder} required />
-        </label>
-        <label class={`text-xs font-semibold ${labelClass}`}>
-          {copy.country}
-          <input class={inputClass} name="country" type="text" autocomplete="country-name" placeholder={copy.countryPlaceholder} required />
-        </label>
-        <label class={`text-xs font-semibold ${labelClass}`}>
-          {copy.contact}
-          <input class={inputClass} name="contact" type="text" autocomplete="email" placeholder={copy.contactPlaceholder} required />
-        </label>
-      </div>
+	      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+	        <label class={`text-xs font-semibold ${labelClass}`}>
+	          <span>{copy.name}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	          <input class={inputClass} name="name" type="text" autocomplete="name" placeholder={copy.namePlaceholder} required />
+	        </label>
+	        <label class={`text-xs font-semibold ${labelClass}`}>
+	          <span>{copy.country}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	          <input class={inputClass} name="country" type="text" autocomplete="country-name" placeholder={copy.countryPlaceholder} required />
+	        </label>
+	        <label class={`text-xs font-semibold ${labelClass}`}>
+	          <span>{copy.contact}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	          <input class={inputClass} name="contact" type="text" autocomplete="email" placeholder={copy.contactPlaceholder} required />
+	        </label>
+	      </div>
 
-      <label class={`mt-3 block text-xs font-semibold ${labelClass}`}>
-        {copy.message}
-        <textarea class={`${inputClass} min-h-28 resize-y`} name="message" placeholder={copy.messagePlaceholder} required></textarea>
+	      <label class={`mt-3 block text-xs font-semibold ${labelClass}`}>
+	        <span>{copy.message}<span class={requiredBadgeClass}>{fieldState.required}</span></span>
+	        <textarea class={`${inputClass} min-h-28 resize-y`} name="message" placeholder={copy.messagePlaceholder} required></textarea>
+	      </label>
+
+	      <label class={`mt-3 block text-xs font-semibold ${labelClass}`}>
+	        <span>{attachmentCopy.label}<span class={optionalBadgeClass}>{fieldState.optional}</span></span>
+	        <input
+          class={inputClass}
+          name="attachment"
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png,.webp,.dwg,.dxf,.step,.stp,.zip,.rar"
+          data-inquiry-attachment
+        />
+        <span class={`mt-1 block text-[11px] font-medium leading-4 ${textClass}`}>{attachmentCopy.hint}</span>
       </label>
 
       <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p class={`text-xs leading-5 ${textClass}`}>{copy.note}</p>
-        <button type="submit" class="shrink-0 rounded-[4px] bg-[var(--color-red)] px-4 py-3 text-sm font-semibold text-white">
+        <button type="submit" class="shrink-0 rounded-[4px] bg-[var(--color-blue)] px-4 py-3 text-sm font-semibold text-white">
           {copy.submit}
         </button>
       </div>
@@ -381,6 +494,47 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
       }
     };
 
+    const maxAttachmentSize = 6 * 1024 * 1024;
+    const maxAttachmentTotal = 10 * 1024 * 1024;
+    const maxAttachmentCount = 3;
+
+    const fileToAttachment = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = String(reader.result || "");
+          resolve({
+            filename: file.name,
+            contentType: file.type || "application/octet-stream",
+            content: result.includes(",") ? result.split(",").pop() : result,
+          });
+        };
+        reader.onerror = () => reject(reader.error || new Error("File read failed"));
+        reader.readAsDataURL(file);
+      });
+
+    const buildPayload = async (form) => {
+      const formData = new FormData(form);
+      const payload = {};
+      formData.forEach((value, key) => {
+        if (typeof File !== "undefined" && value instanceof File) return;
+        payload[key] = value;
+      });
+
+      const files = Array.from(form.querySelectorAll("[data-inquiry-attachment]"))
+        .flatMap((input) => Array.from(input.files || []))
+        .filter((file) => file.size > 0);
+      const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+      const hasOversizeFile = files.some((file) => file.size > maxAttachmentSize);
+      if (files.length > maxAttachmentCount || totalSize > maxAttachmentTotal || hasOversizeFile) {
+        throw new Error("Attachment too large");
+      }
+      if (files.length) {
+        payload.attachments = await Promise.all(files.map(fileToAttachment));
+      }
+      return payload;
+    };
+
     document.addEventListener("submit", async (event) => {
       const form = event.target instanceof Element ? event.target.closest("[data-inquiry-form]") : null;
       if (!form) return;
@@ -391,12 +545,21 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
       const source = form.querySelector("[data-inquiry-source]");
       if (source) source.value = window.location.href;
 
-      const payload = Object.fromEntries(new FormData(form).entries());
+      let payload = {};
       submitButton && (submitButton.disabled = true);
       submitButton && (submitButton.textContent = form.dataset.sending || "Sending...");
       setStatus(form, form.dataset.sending || "Sending...", "pending");
+      if (typeof window.trackSiteEvent === "function") {
+        window.trackSiteEvent("submit_inquiry_form", {
+          event_category: "lead",
+          label: form.getAttribute("data-track-label") || "",
+          language: document.documentElement.lang || "",
+          source: window.location.href,
+        });
+      }
 
       try {
+        payload = await buildPayload(form);
         const response = await fetch("/api/inquiry", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -415,6 +578,13 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
             language: payload.lang || document.documentElement.lang || "",
             source: payload.source || window.location.href,
           });
+          window.trackSiteEvent("submit_contact_form", {
+            event_category: "lead",
+            label: payload.name || "",
+            country: payload.country || "",
+            language: payload.lang || document.documentElement.lang || "",
+            source: payload.source || window.location.href,
+          });
           window.trackSiteEvent("generate_lead", {
             event_category: "conversion",
             method: "inquiry_form",
@@ -422,8 +592,17 @@ const textClass = isDark ? "text-slate-400" : "text-slate-600";
             language: payload.lang || document.documentElement.lang || "",
           });
         }
-      } catch {
-        setStatus(form, form.dataset.error || "Could not send.", "error");
+      } catch (error) {
+        const isAttachmentError = error instanceof Error && error.message === "Attachment too large";
+        setStatus(form, isAttachmentError ? form.dataset.fileError || form.dataset.error || "Could not send." : form.dataset.error || "Could not send.", "error");
+        if (typeof window.trackSiteEvent === "function") {
+          window.trackSiteEvent("inquiry_form_error", {
+            event_category: "lead",
+            error_type: isAttachmentError ? "attachment_too_large" : "request_failed",
+            language: document.documentElement.lang || "",
+            source: window.location.href,
+          });
+        }
       } finally {
         submitButton && (submitButton.disabled = false);
         submitButton && (submitButton.textContent = originalButtonText);

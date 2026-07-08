@@ -2,8 +2,10 @@
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getGeoIndustryProfile } from "@/data/geo";
 import {
   channelLinks,
+  contact,
   getProduct,
   langCodes,
   localize,
@@ -38,10 +40,180 @@ const pageDescription = `${summary} ${t.seo.productsDescription}`;
 const detail = localize(product.detail, lang);
 const materialNote = localize(product.materialNote, lang);
 const edgeNote = localize(product.edgeNote, lang);
+const edgeTitleByLang = {
+  en: "Edge Geometry",
+  ru: "Кромка",
+  ar: "هندسة الحافة",
+  es: "Geometría del filo",
+  pt: "Geometria do fio",
+  tr: "Ağız geometrisi",
+  de: "Schneidengeometrie",
+  fr: "Géométrie du tranchant",
+  it: "Geometria del filo",
+  th: "รูปทรงคมตัด",
+  vi: "Hình học cạnh dao",
+  id: "Geometri mata pisau",
+  zh: "刃口说明",
+} as const;
+const edgeTitle = edgeTitleByLang[lang as keyof typeof edgeTitleByLang] ?? edgeTitleByLang.en;
+const rfqCopyByLang = {
+  en: {
+    title: "Quote-ready specification",
+    lead: "These are the details we normally confirm before sampling or batch production.",
+    rows: ["Drawing / sample", "Key dimensions", "Machine fit", "Material / hardness", "Edge geometry", "Quantity / delivery"],
+    drawing: "Drawing, old blade photo, used blade sample or equipment model can be used as the starting point.",
+    quantity: "Target quantity, sample deadline, batch delivery date and packaging request.",
+    catalog: "Download catalog",
+    template: "Download RFQ template",
+  },
+  ru: {
+    title: "Данные для расчета",
+    lead: "Эти параметры обычно уточняются перед образцом или серийной партией.",
+    rows: ["Чертеж / образец", "Ключевые размеры", "Посадка на машину", "Материал / твердость", "Геометрия кромки", "Количество / срок"],
+    drawing: "Можно начать с чертежа, фото старого ножа, образца или модели оборудования.",
+    quantity: "Целевое количество, срок образца, дата партии и требования к упаковке.",
+    catalog: "Скачать каталог",
+    template: "Скачать RFQ шаблон",
+  },
+  ar: {
+    title: "مواصفات جاهزة للتسعير",
+    lead: "هذه التفاصيل نؤكدها عادة قبل العينة أو الإنتاج الكمي.",
+    rows: ["الرسم / العينة", "الأبعاد الرئيسية", "ملاءمة الجهاز", "المادة / الصلابة", "هندسة الحافة", "الكمية / التسليم"],
+    drawing: "يمكن البدء بالرسم أو صورة الشفرة القديمة أو العينة أو موديل الجهاز.",
+    quantity: "الكمية المطلوبة، موعد العينة، موعد الدفعة ومتطلبات التغليف.",
+    catalog: "تحميل الكتالوج",
+    template: "تحميل نموذج الطلب",
+  },
+  es: {
+    title: "Especificación lista para cotizar",
+    lead: "Estos son los datos que solemos confirmar antes de muestra o producción.",
+    rows: ["Plano / muestra", "Medidas clave", "Ajuste en máquina", "Material / dureza", "Geometría del filo", "Cantidad / entrega"],
+    drawing: "Plano, foto de cuchilla usada, muestra antigua o modelo de equipo sirven como punto de partida.",
+    quantity: "Cantidad objetivo, plazo de muestra, fecha de lote y solicitud de empaque.",
+    catalog: "Descargar catálogo",
+    template: "Descargar RFQ",
+  },
+  pt: {
+    title: "Especificação para cotação",
+    lead: "Estes dados são normalmente confirmados antes da amostra ou produção.",
+    rows: ["Desenho / amostra", "Medidas principais", "Encaixe na máquina", "Material / dureza", "Geometria do fio", "Quantidade / entrega"],
+    drawing: "Desenho, foto da lâmina usada, amostra antiga ou modelo da máquina podem iniciar a análise.",
+    quantity: "Quantidade alvo, prazo da amostra, entrega do lote e requisito de embalagem.",
+    catalog: "Baixar catálogo",
+    template: "Baixar RFQ",
+  },
+  tr: {
+    title: "Teklife hazır şartname",
+    lead: "Numune veya seri üretimden önce normalde bu bilgileri netleştiririz.",
+    rows: ["Çizim / numune", "Ana ölçüler", "Makine uyumu", "Malzeme / sertlik", "Ağız geometrisi", "Adet / teslimat"],
+    drawing: "Çizim, eski bıçak fotoğrafı, kullanılmış numune veya ekipman modeli başlangıç olabilir.",
+    quantity: "Hedef adet, numune tarihi, parti teslimatı ve paketleme isteği.",
+    catalog: "Kataloğu indir",
+    template: "RFQ şablonu indir",
+  },
+  de: {
+    title: "Anfragefertige Spezifikation",
+    lead: "Diese Angaben klären wir normalerweise vor Muster oder Serie.",
+    rows: ["Zeichnung / Muster", "Hauptmaße", "Maschinenpassung", "Material / Härte", "Schneidengeometrie", "Menge / Lieferung"],
+    drawing: "Zeichnung, Foto des alten Messers, Muster oder Maschinenmodell reichen als Startpunkt.",
+    quantity: "Zielmenge, Mustertermin, Lieferdatum der Charge und Verpackungswunsch.",
+    catalog: "Katalog herunterladen",
+    template: "RFQ-Vorlage herunterladen",
+  },
+  fr: {
+    title: "Spécification prête pour devis",
+    lead: "Ces informations sont généralement confirmées avant échantillon ou série.",
+    rows: ["Plan / échantillon", "Cotes clés", "Ajustement machine", "Matériau / dureté", "Géométrie du tranchant", "Quantité / livraison"],
+    drawing: "Plan, photo de lame usagée, ancien échantillon ou modèle machine peuvent servir de départ.",
+    quantity: "Quantité cible, délai échantillon, date de lot et demande d'emballage.",
+    catalog: "Télécharger catalogue",
+    template: "Télécharger RFQ",
+  },
+  it: {
+    title: "Specifica pronta per offerta",
+    lead: "Questi dati vengono normalmente confermati prima del campione o della produzione.",
+    rows: ["Disegno / campione", "Misure chiave", "Montaggio macchina", "Materiale / durezza", "Geometria filo", "Quantità / consegna"],
+    drawing: "Disegno, foto lama usata, vecchio campione o modello macchina possono avviare la verifica.",
+    quantity: "Quantità target, data campione, consegna lotto e richiesta imballo.",
+    catalog: "Scarica catalogo",
+    template: "Scarica RFQ",
+  },
+  th: {
+    title: "สเปกพร้อมขอราคา",
+    lead: "ข้อมูลเหล่านี้มักใช้ยืนยันก่อนทำตัวอย่างหรือผลิตล็อต",
+    rows: ["แบบ / ตัวอย่าง", "ขนาดหลัก", "ความพอดีกับเครื่อง", "วัสดุ / ความแข็ง", "รูปทรงคม", "จำนวน / ส่งมอบ"],
+    drawing: "เริ่มจากแบบ รูปใบมีดเก่า ตัวอย่างเก่า หรือรุ่นเครื่องได้",
+    quantity: "จำนวนเป้าหมาย กำหนดตัวอย่าง วันที่ส่งล็อต และความต้องการบรรจุภัณฑ์",
+    catalog: "ดาวน์โหลดแคตตาล็อก",
+    template: "ดาวน์โหลด RFQ",
+  },
+  vi: {
+    title: "Thông số sẵn sàng báo giá",
+    lead: "Đây là các dữ liệu thường xác nhận trước mẫu hoặc sản xuất lô.",
+    rows: ["Bản vẽ / mẫu", "Kích thước chính", "Độ vừa máy", "Vật liệu / độ cứng", "Hình học cạnh", "Số lượng / giao hàng"],
+    drawing: "Có thể bắt đầu từ bản vẽ, ảnh dao cũ, mẫu đã dùng hoặc model thiết bị.",
+    quantity: "Số lượng mục tiêu, thời hạn mẫu, ngày giao lô và yêu cầu đóng gói.",
+    catalog: "Tải catalog",
+    template: "Tải mẫu RFQ",
+  },
+  id: {
+    title: "Spesifikasi siap penawaran",
+    lead: "Detail ini biasanya kami konfirmasi sebelum sampel atau produksi batch.",
+    rows: ["Gambar / sampel", "Ukuran utama", "Kecocokan mesin", "Material / kekerasan", "Geometri mata pisau", "Jumlah / pengiriman"],
+    drawing: "Gambar, foto pisau lama, sampel bekas atau model mesin dapat menjadi titik awal.",
+    quantity: "Jumlah target, tenggat sampel, tanggal pengiriman batch dan permintaan kemasan.",
+    catalog: "Unduh katalog",
+    template: "Unduh RFQ",
+  },
+  zh: {
+    title: "可直接报价的规格信息",
+    lead: "打样或批量生产前，通常需要先确认以下参数，避免装机尺寸、材料和刃口方向反复沟通。",
+    rows: ["图纸 / 样品", "关键尺寸", "设备适配", "材料 / 硬度", "刃口结构", "数量 / 交期"],
+    drawing: "可从图纸、旧刀照片、旧刀样品或设备型号开始确认。",
+    quantity: "目标数量、打样时间、批量交付日期和包装要求。",
+    catalog: "下载产品目录",
+    template: "下载询价模板",
+  },
+} as const;
+const rfqCopy = rfqCopyByLang[lang as keyof typeof rfqCopyByLang] ?? rfqCopyByLang.en;
+const rfqTemplateByLang = {
+  ru: "/downloads/food-machinery-blade-rfq-template-ru.csv",
+  id: "/downloads/food-machinery-blade-rfq-template-id.csv",
+  zh: "/downloads/food-machinery-blade-rfq-template-zh.csv",
+} as const;
+const rfqTemplateHref = rfqTemplateByLang[lang as keyof typeof rfqTemplateByLang] ?? "/downloads/food-machinery-blade-rfq-template.csv";
+const rfqRows = [
+  [rfqCopy.rows[0], rfqCopy.drawing],
+  [rfqCopy.rows[1], localizeList(product.customOptions, lang).join(" / ")],
+  [rfqCopy.rows[2], product.equipment.map((item) => localizeTerm(item, lang)).join(" / ")],
+  [rfqCopy.rows[3], materialNote],
+  [rfqCopy.rows[4], edgeNote],
+  [rfqCopy.rows[5], rfqCopy.quantity],
+] as const;
+const applicationTermLinks: Record<string, string> = {
+  Meat: "/applications/meat-processing",
+  "Frozen meat": "/applications/frozen-food-processing",
+  Poultry: "/applications/poultry-processing",
+  Fish: "/applications/fish-seafood-processing",
+  Seafood: "/applications/fish-seafood-processing",
+  "Frozen seafood": "/applications/frozen-food-processing",
+  Vegetable: "/applications/vegetable-fruit-processing",
+  Fruit: "/applications/vegetable-fruit-processing",
+  Bakery: "/applications/bakery-snack-processing",
+  Bread: "/applications/bakery-snack-processing",
+  Snack: "/applications/bakery-snack-processing",
+  Packaging: "/applications/food-packaging",
+  "Food packaging": "/applications/food-packaging",
+  Film: "/applications/food-packaging",
+  Sausage: "/applications/meat-processing",
+  "Prepared food": "/applications/meat-processing",
+  "Ready meals": "/applications/vegetable-fruit-processing",
+};
 const path = `/products/${product.slug}`;
 const title = name;
 const site = Astro.site ?? new URL("https://lijianblades.com");
 const pageUrl = new URL(`/${lang}${path}/`, site).href;
+const geoProfile = getGeoIndustryProfile(lang);
 // Intentionally no `@type: Product` structured data. This is a quote-based B2B
 // catalog with no fixed price, reviews or ratings; emitting Product without
 // offers / review / aggregateRating triggers a critical Product-snippet error
@@ -70,6 +242,23 @@ const breadcrumbJsonLd = {
     },
   ],
 };
+const productServiceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name,
+  serviceType: t.seo.productsTitle,
+  description: pageDescription,
+  url: pageUrl,
+  provider: {
+    "@type": "Organization",
+    name: contact.company[lang],
+  },
+  areaServed: ["Global", "China", "Southeast Asia", "Middle East", "Europe", "Russia", "Latin America"],
+  audience: geoProfile.buyerTypes.slice(0, 3).map((buyer) => ({
+    "@type": "Audience",
+    audienceType: buyer,
+  })),
+};
 ---
 
 <BaseLayout
@@ -79,7 +268,7 @@ const breadcrumbJsonLd = {
   path={path}
   image={product.image}
   type="product"
-  jsonLd={[breadcrumbJsonLd]}
+  jsonLd={[breadcrumbJsonLd, productServiceJsonLd]}
   pageEvent="view_product_detail"
   pageEventLabel={product.slug}
 >
@@ -90,7 +279,7 @@ const breadcrumbJsonLd = {
       ))}
     </div>
     <div class="mt-8 flex flex-wrap gap-3">
-      <a href={withLang(lang, "/contact")} class="rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_product" data-track-label={product.slug}>
+      <a href={withLang(lang, "/contact")} class="rounded-[4px] bg-[var(--color-blue)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_product" data-track-label={product.slug}>
         {t.actions.discussBlade}
       </a>
       <a href={channelLinks.email} class="rounded-[4px] border border-white/30 px-5 py-3 font-semibold text-white" data-track="click_email" data-track-label={product.slug}>
@@ -120,7 +309,20 @@ const breadcrumbJsonLd = {
         <section>
           <SectionHeading title={t.labels.typicalApplications} />
           <div class="mt-5 flex flex-wrap gap-3">
-            {product.applications.map((item) => <span class="rounded-[4px] border border-[var(--color-border)] px-4 py-3 text-sm font-semibold text-slate-700">{localizeTerm(item, lang)}</span>)}
+            {product.applications.map((item) => (
+              applicationTermLinks[item] ? (
+                <a
+                  href={withLang(lang, applicationTermLinks[item])}
+                  class="rounded-[4px] border border-[var(--color-border)] px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[var(--color-blue)] hover:text-[var(--color-blue)]"
+                  data-track="click_application_detail"
+                  data-track-label={applicationTermLinks[item].split("/").pop()}
+                >
+                  {localizeTerm(item, lang)}
+                </a>
+              ) : (
+                <span class="rounded-[4px] border border-[var(--color-border)] px-4 py-3 text-sm font-semibold text-slate-700">{localizeTerm(item, lang)}</span>
+              )
+            ))}
           </div>
         </section>
         <section>
@@ -134,8 +336,29 @@ const breadcrumbJsonLd = {
           <p class="mt-5 text-base leading-8 text-slate-600">{materialNote}</p>
         </section>
         <section>
-          <SectionHeading title={lang === "zh" ? "刃口说明" : lang === "ru" ? "Кромка" : "Edge Geometry"} />
+          <SectionHeading title={edgeTitle} />
           <p class="mt-5 text-base leading-8 text-slate-600">{edgeNote}</p>
+        </section>
+        <section class="rounded-[6px] border border-slate-200 bg-slate-50 p-5 md:p-6">
+          <SectionHeading title={rfqCopy.title} lead={rfqCopy.lead} />
+          <dl class="mt-6 grid gap-px overflow-hidden rounded-[4px] border border-slate-200 bg-slate-200">
+            {rfqRows.map(([label, value]) => (
+              <div class="grid gap-0 bg-white md:grid-cols-[13rem_1fr]">
+                <dt class="border-b border-slate-200 bg-[var(--color-mist)] px-4 py-3 text-sm font-semibold text-[var(--color-ink)] md:border-b-0 md:border-r">
+                  {label}
+                </dt>
+                <dd class="px-4 py-3 text-sm leading-7 text-slate-600">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="/downloads/lijian-blades-product-catalog.pdf" class="rounded-[4px] bg-[var(--color-blue)] px-4 py-3 text-sm font-semibold text-white" download data-track="download_catalog" data-track-label={product.slug}>
+              {rfqCopy.catalog}
+            </a>
+            <a href={rfqTemplateHref} class="rounded-[4px] border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-[var(--color-ink)]" download data-track="download_rfq_template" data-track-label={product.slug}>
+              {rfqCopy.template}
+            </a>
+          </div>
         </section>
       </div>
     </div>

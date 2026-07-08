@@ -5,12 +5,20 @@ import InquiryForm from "@/components/InquiryForm.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import {
+  buildApplicationsItemListJsonLd,
+  buildFoodMachineryKnowledgeJsonLd,
+  buildFoodMachineryServiceJsonLd,
+  buildGeoFaqJsonLd,
+  buildProductsItemListJsonLd,
+} from "@/data/geo";
+import {
   applications,
   channelLinks,
   contact,
   langCodes,
   localize,
   localizeList,
+  manufacturingSteps,
   productImages,
   products,
   qualityChecks,
@@ -25,16 +33,49 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const t = ui[lang];
-const featuredProducts = products.slice(0, 3);
-const featuredApplications = applications.slice(0, 4);
+// Core products are selected by blade type / machine fit, not by processed
+// material — meat, poultry, seafood etc. belong in the Applications section.
+const featuredProductImagesBySlug = {
+  "custom-food-processing-blades": "/images/lijian/foam-packed-custom-blade.jpg",
+  "curved-food-processing-blades": "/images/lijian/foam-packed-curved-blade.jpg",
+  "bowl-cutter-blades": "/images/lijian/serrated-curved-blades.jpg",
+  "circular-blades": "/images/lijian/circular-slicer-blade.jpg",
+  "packaging-blades": "/images/lijian/export-packed-blade-sets.jpg",
+} as const;
+const featuredProductSlugs = [
+  "custom-food-processing-blades",
+  "curved-food-processing-blades",
+  "bowl-cutter-blades",
+  "circular-blades",
+  "packaging-blades",
+] as const;
+const productsBySlug = new Map(products.map((product) => [product.slug, product]));
+const featuredProducts = featuredProductSlugs
+  .map((slug) => productsBySlug.get(slug))
+  .filter((product): product is (typeof products)[number] => Boolean(product))
+  .map((product) => ({
+    ...product,
+    image: featuredProductImagesBySlug[product.slug as keyof typeof featuredProductImagesBySlug] ?? product.image,
+  }));
+const featuredApplications = applications.slice(0, 5);
 const path = "/";
-const heroWebp = productImages.hero.replace(/\.(jpe?g|png)$/i, ".webp");
+const site = Astro.site ?? new URL("https://lijianblades.com");
+const heroBannerImage = "/images/lijian/home-hero-food-blades.png";
+const heroBannerWebp = heroBannerImage.replace(/\.(jpe?g|png)$/i, ".webp");
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: t.siteName,
-  url: String(Astro.site ?? "https://lijianblades.com"),
+  url: String(site),
 };
+const supportsGeoAnswerLanguage = lang === "en" || lang === "zh";
+const homeJsonLd = [
+  pageJsonLd,
+  buildFoodMachineryServiceJsonLd(lang, site),
+  buildProductsItemListJsonLd(lang, site),
+  buildApplicationsItemListJsonLd(lang, site),
+  ...(supportsGeoAnswerLanguage ? [buildFoodMachineryKnowledgeJsonLd(lang, site), buildGeoFaqJsonLd(lang)] : []),
+];
 const polishByLang = {
   en: {
     heroKicker: "Source factory / drawing or sample / export support",
@@ -98,8 +139,8 @@ const polishByLang = {
   },
   zh: {
     heroKicker: "源头厂家 / 按图来样 / 外贸配合",
-    heroMain: "食品机械刀片定制制造",
-    heroAccent: "替换刀片 OEM 批量交付",
+    heroMain: "食品机械刀片|定制制造",
+    heroAccent: "替换刀片 OEM|批量交付",
   },
 } as const;
 const polish = polishByLang[lang as keyof typeof polishByLang] ?? polishByLang.en;
@@ -217,7 +258,7 @@ const homeFactoryByLang = {
   zh: {
     title: "始于1998年的食品机械刀片源头厂家",
     lead:
-      "马鞍山市利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，长期服务食品加工设备配套、替换刀片和非标定制需求。工厂占地约6000㎡，位于安徽马鞍山博望，靠近南京禄口机场，公路与航空物流衔接便利。车间以数控加工、磨削、热处理和刃口处理为主要生产基础，可根据图纸、旧刀样品、设备型号和实际切割工况确认方案，配合食品厂、设备厂和维修采购完成小批量打样与批量复购，重点控制装机尺寸、刃口稳定性、批次一致性和交付节奏。",
+      "利坚食品机械刀片厂始建于1998年，是中国食品机械刀片制造商和源头厂家，长期服务食品加工设备配套、替换刀片和非标定制需求。工厂占地约6000㎡，位于安徽马鞍山博望，靠近南京禄口机场，公路与航空物流衔接便利。车间以数控加工、磨削、热处理和刃口处理为主要生产基础，可根据图纸、旧刀样品、设备型号和实际切割工况确认方案，配合食品厂、设备厂和维修采购完成小批量打样与批量复购，重点控制装机尺寸、刃口稳定性、批次一致性和交付节奏。",
     stats: [
       ["1998", "始建时间"],
       ["6000㎡", "厂区占地"],
@@ -233,18 +274,84 @@ const homeFactoryByLang = {
       "面向海外采购，前期沟通先把可获得的信息发来即可。我们会协助确认装机适配、材料硬度、刃口方向、孔位尺寸、打样周期、批量交付和后续复购记录。",
   },
 } as const;
-const homeFactory = homeFactoryByLang[lang as keyof typeof homeFactoryByLang] ?? {
-  ...homeFactoryByLang.en,
-  title: t.seo.aboutTitle,
-  lead: t.seo.aboutDescription,
-  contactTitle: t.seo.contactTitle,
-  contactLead: t.contactPrompt,
-  contactDetail: t.home.productsLead,
-};
+const marketHomeFactoryByLang = {
+  es: {
+    stats: [["1998", "Fundación"], ["6.000 m²", "Área de fábrica"], ["80%", "Máquinas CNC"], ["1M+", "Capacidad mensual"]],
+    contactLead: "Envíe primero la información mínima: foto de cuchilla, plano, muestra usada, modelo de equipo o medidas clave.",
+    contactDetail: "Para compradores internacionales, no hace falta una especificación completa al inicio. Con la información disponible confirmamos ajuste, material, dureza, filo, agujeros, muestra y entrega.",
+  },
+  pt: {
+    stats: [["1998", "Fundação"], ["6.000 m²", "Área da fábrica"], ["80%", "Máquinas CNC"], ["1M+", "Capacidade mensal"]],
+    contactLead: "Envie primeiro as informações mínimas: foto da lâmina, desenho, amostra antiga, modelo do equipamento ou medidas principais.",
+    contactDetail: "Para compradores internacionais, a especificação completa não precisa estar pronta no início. Com os dados disponíveis confirmamos encaixe, material, dureza, fio, furos, amostra e entrega.",
+  },
+  tr: {
+    stats: [["1998", "Kuruluş"], ["6.000 m²", "Fabrika alanı"], ["80%", "CNC makineler"], ["1M+", "Aylık kapasite"]],
+    contactLead: "Önce minimum bilgiyi gönderin: bıçak fotoğrafı, çizim, eski numune, ekipman modeli veya ana ölçüler.",
+    contactDetail: "Uluslararası alıcılar için başlangıçta tam şartname gerekli değildir. Mevcut bilgilerle uyum, malzeme, sertlik, ağız, delikler, numune ve teslimatı netleştiririz.",
+  },
+  de: {
+    stats: [["1998", "Gründung"], ["6.000 m²", "Fabrikfläche"], ["80%", "CNC-Maschinen"], ["1M+", "Monatskapazität"]],
+    contactLead: "Senden Sie zuerst die Mindestdaten: Messerfoto, Zeichnung, altes Muster, Maschinenmodell oder Hauptmaße.",
+    contactDetail: "Für internationale Käufer ist anfangs keine vollständige Spezifikation nötig. Mit den vorhandenen Daten klären wir Passung, Material, Härte, Schneide, Bohrungen, Muster und Lieferung.",
+  },
+  fr: {
+    stats: [["1998", "Création"], ["6.000 m²", "Surface usine"], ["80%", "Machines CNC"], ["1M+", "Capacité mensuelle"]],
+    contactLead: "Envoyez d'abord les informations minimales : photo de lame, plan, ancien échantillon, modèle de machine ou cotes clés.",
+    contactDetail: "Pour les acheteurs internationaux, une spécification complète n'est pas nécessaire au départ. Avec les données disponibles, nous confirmons ajustement, matériau, dureté, tranchant, trous, échantillon et livraison.",
+  },
+  it: {
+    stats: [["1998", "Fondazione"], ["6.000 m²", "Area fabbrica"], ["80%", "Macchine CNC"], ["1M+", "Capacità mensile"]],
+    contactLead: "Invia prima le informazioni minime: foto lama, disegno, vecchio campione, modello macchina o misure chiave.",
+    contactDetail: "Per gli acquirenti internazionali non serve subito una specifica completa. Con i dati disponibili confermiamo montaggio, materiale, durezza, filo, fori, campione e consegna.",
+  },
+} as const;
+const marketHomeFactory = marketHomeFactoryByLang[lang as keyof typeof marketHomeFactoryByLang];
+const homeFactory =
+  homeFactoryByLang[lang as keyof typeof homeFactoryByLang] ??
+  (marketHomeFactory
+    ? {
+        title: t.seo.aboutTitle,
+        lead: t.seo.aboutDescription,
+        stats: marketHomeFactory.stats,
+        contactTitle: t.seo.contactTitle,
+        contactLead: marketHomeFactory.contactLead,
+        contactDetail: marketHomeFactory.contactDetail,
+      }
+    : {
+        ...homeFactoryByLang.en,
+        title: t.seo.aboutTitle,
+        lead: t.seo.aboutDescription,
+        contactTitle: t.seo.contactTitle,
+        contactLead: t.contactPrompt,
+        contactDetail: t.home.productsLead,
+      });
+const factoryLeadByLang = {
+  en: "Direct food machinery blade factory since 1998. Custom samples, repeat batches and export delivery.",
+  ru: "Завод ножей для пищевых машин с 1998 года. Образцы, повторные партии и экспорт.",
+  ar: "مصنع مباشر لشفرات آلات الأغذية منذ 1998. عينات مخصصة، دفعات متكررة وتصدير.",
+  es: "Fábrica directa de cuchillas alimentarias desde 1998. Muestras, lotes repetidos y exportación.",
+  pt: "Fábrica direta de lâminas alimentícias desde 1998. Amostras, lotes repetidos e exportação.",
+  tr: "1998'den beri gıda makinesi bıçağı fabrikası. Numune, tekrar parti ve ihracat.",
+  de: "Direktfabrik für Lebensmittelmaschinenmesser seit 1998. Muster, Serien und Export.",
+  fr: "Usine directe de lames alimentaires depuis 1998. Échantillons, séries répétées et export.",
+  it: "Fabbrica diretta di lame alimentari dal 1998. Campioni, lotti ripetuti ed export.",
+  th: "โรงงานใบมีดเครื่องจักรอาหารตั้งแต่ปี 1998 รองรับตัวอย่าง ล็อตซ้ำ และส่งออก",
+  vi: "Nhà máy dao máy thực phẩm từ 1998. Hỗ trợ mẫu, lô lặp lại và xuất khẩu.",
+  id: "Pabrik pisau mesin makanan sejak 1998. Sampel kustom, batch ulang dan ekspor.",
+  zh: "始于1998年的食品机械刀片源头厂家，支持非标打样、批量复购和外贸交付。",
+} as const;
+const factoryLead = factoryLeadByLang[lang as keyof typeof factoryLeadByLang] ?? homeFactory.lead;
 const contactLabelsByLang = {
   en: { address: "Address", phone: "Phone" },
   ru: { address: "Адрес", phone: "Телефон" },
   ar: { address: "العنوان", phone: "الهاتف" },
+  es: { address: "Dirección", phone: "Teléfono" },
+  pt: { address: "Endereço", phone: "Telefone" },
+  tr: { address: "Adres", phone: "Telefon" },
+  de: { address: "Adresse", phone: "Telefon" },
+  fr: { address: "Adresse", phone: "Téléphone" },
+  it: { address: "Indirizzo", phone: "Telefono" },
   th: { address: "ที่อยู่", phone: "โทรศัพท์" },
   vi: { address: "Địa chỉ", phone: "Điện thoại" },
   id: { address: "Alamat", phone: "Telepon" },
@@ -255,6 +362,12 @@ const contactTipsByLang = {
   en: ["Blade drawing or old sample photo", "Equipment model and blade size", "Quantity, material and delivery request"],
   ru: ["Чертеж или фото старого ножа", "Модель оборудования и размер ножа", "Количество, материал и срок поставки"],
   ar: ["رسم الشفرة أو صورة العينة القديمة", "موديل الجهاز ومقاس الشفرة", "الكمية والمادة وموعد التسليم"],
+  es: ["Plano o foto de muestra usada", "Modelo de equipo y tamaño de cuchilla", "Cantidad, material y entrega"],
+  pt: ["Desenho ou foto da amostra antiga", "Modelo do equipamento e tamanho da lâmina", "Quantidade, material e entrega"],
+  tr: ["Çizim veya eski numune fotoğrafı", "Ekipman modeli ve bıçak ölçüsü", "Adet, malzeme ve teslimat isteği"],
+  de: ["Zeichnung oder Foto des alten Musters", "Maschinenmodell und Messergröße", "Menge, Material und Lieferwunsch"],
+  fr: ["Plan ou photo de l'ancien échantillon", "Modèle de machine et taille de lame", "Quantité, matériau et livraison"],
+  it: ["Disegno o foto del vecchio campione", "Modello macchina e dimensione lama", "Quantità, materiale e consegna"],
   th: ["แบบใบมีดหรือรูปตัวอย่างเก่า", "รุ่นเครื่องและขนาดใบมีด", "จำนวน วัสดุ และกำหนดส่ง"],
   vi: ["Bản vẽ dao hoặc ảnh mẫu cũ", "Model thiết bị và kích thước dao", "Số lượng, vật liệu và yêu cầu giao hàng"],
   id: ["Gambar pisau atau foto sampel lama", "Model mesin dan ukuran pisau", "Jumlah, material dan jadwal pengiriman"],
@@ -282,6 +395,48 @@ const contactPanelByLang = {
     email: "البريد الإلكتروني",
     departments: "المكتب والدعم الفني",
     prepare: "معلومات مفيدة قبل التواصل",
+  },
+  es: {
+    directLead: "Envíe plano, foto de cuchilla usada, modelo de equipo o medidas clave. Confirmamos ajuste, material, filo y entrega.",
+    whatsapp: "Chat directo WhatsApp",
+    email: "Correo electrónico",
+    departments: "Oficina y soporte técnico",
+    prepare: "Información útil antes de contactar",
+  },
+  pt: {
+    directLead: "Envie desenho, foto da lâmina usada, modelo do equipamento ou medidas principais. Confirmamos encaixe, material, fio e entrega.",
+    whatsapp: "Chat direto WhatsApp",
+    email: "E-mail",
+    departments: "Escritório e suporte técnico",
+    prepare: "Informações úteis antes do contato",
+  },
+  tr: {
+    directLead: "Çizim, eski bıçak fotoğrafı, ekipman modeli veya ana ölçüleri gönderin. Uyum, malzeme, ağız ve teslimatı netleştiririz.",
+    whatsapp: "WhatsApp doğrudan sohbet",
+    email: "E-posta",
+    departments: "Ofis ve teknik destek",
+    prepare: "İletişimden önce faydalı bilgiler",
+  },
+  de: {
+    directLead: "Senden Sie Zeichnung, Foto des alten Messers, Maschinenmodell oder Hauptmaße. Wir klären Passung, Material, Schneide und Lieferung.",
+    whatsapp: "Direkter WhatsApp-Chat",
+    email: "E-Mail",
+    departments: "Büro und technischer Support",
+    prepare: "Nützliche Angaben vor der Anfrage",
+  },
+  fr: {
+    directLead: "Envoyez plan, photo de lame usagée, modèle de machine ou cotes clés. Nous confirmons ajustement, matériau, tranchant et livraison.",
+    whatsapp: "Chat direct WhatsApp",
+    email: "E-mail",
+    departments: "Bureau et support technique",
+    prepare: "Informations utiles avant contact",
+  },
+  it: {
+    directLead: "Invia disegno, foto della lama usata, modello macchina o misure chiave. Confermiamo montaggio, materiale, filo e consegna.",
+    whatsapp: "Chat diretto WhatsApp",
+    email: "E-mail",
+    departments: "Ufficio e supporto tecnico",
+    prepare: "Informazioni utili prima del contatto",
   },
   th: {
     directLead: "ส่งแบบ รูปใบมีดเก่า รุ่นเครื่อง หรือขนาดหลัก เราจะช่วยยืนยันความพอดี วัสดุ คม และแผนส่งมอบ",
@@ -315,39 +470,39 @@ const contactPanelByLang = {
 const contactPanel = contactPanelByLang[lang as keyof typeof contactPanelByLang] ?? contactPanelByLang.en;
 const productSummaryByLang = {
   en: {
-    title: "Core Blade Range",
-    lead: "For replacement knives and OEM equipment sourcing, start with the closest blade type. After receiving a drawing, old sample or machine model, we confirm profile, holes, thickness, material and edge geometry.",
-    cta: "Open Product Center",
+    title: "Core Products",
+    lead: "Blade type and custom parameters: profile, holes, thickness, material and edge. Production-line use is covered in the next section.",
+    cta: "View Products",
   },
   ru: {
     title: "Основной Ассортимент",
-    lead: "Для замены ножей и OEM оборудования начните с ближайшего типа ножа. По чертежу, образцу или модели машины мы уточним профиль, отверстия, толщину, материал и кромку.",
+    lead: "Выберите тип ножа. По чертежу или образцу уточним профиль, отверстия, материал, кромку и поставку.",
     cta: "Открыть Продукцию",
   },
   ar: {
     title: "نطاق الشفرات الأساسي",
-    lead: "لطلب الشفرات البديلة أو OEM، ابدأ بأقرب نوع شفرة. بعد استلام الرسم أو العينة أو موديل الجهاز، نؤكد الشكل، الفتحات، السماكة، المادة وهندسة الحافة.",
+    lead: "ابدأ بنوع الشفرة. نؤكد الشكل، الفتحات، المادة، الحافة والتسليم من الرسم أو العينة.",
     cta: "فتح المنتجات",
   },
   th: {
     title: "กลุ่มใบมีดหลัก",
-    lead: "สำหรับใบมีดทดแทนและงาน OEM เริ่มจากประเภทใบมีดที่ใกล้เคียง หลังได้รับแบบ ตัวอย่าง หรือรุ่นเครื่อง เราจะยืนยันรูปทรง รู ความหนา วัสดุ และคมตัด",
+    lead: "เริ่มจากประเภทใบมีด เรายืนยันรูปทรง รู วัสดุ คม และส่งมอบจากแบบหรือตัวอย่าง",
     cta: "เปิดศูนย์สินค้า",
   },
   vi: {
     title: "Dải dao chính",
-    lead: "Với dao thay thế và OEM, hãy bắt đầu từ loại dao gần nhất. Sau khi nhận bản vẽ, mẫu cũ hoặc model máy, chúng tôi xác nhận biên dạng, lỗ, độ dày, vật liệu và cạnh dao.",
+    lead: "Bắt đầu từ loại dao. Chúng tôi xác nhận biên dạng, lỗ, vật liệu, cạnh dao và giao hàng từ bản vẽ hoặc mẫu.",
     cta: "Mở sản phẩm",
   },
   id: {
     title: "Rentang Pisau Utama",
-    lead: "Untuk pisau pengganti dan OEM, mulai dari jenis pisau terdekat. Setelah menerima gambar, sampel lama atau model mesin, kami mengonfirmasi profil, lubang, ketebalan, material dan geometri mata pisau.",
+    lead: "Mulai dari jenis pisau. Kami konfirmasi profil, lubang, material, mata pisau dan pengiriman dari gambar atau sampel.",
     cta: "Buka Produk",
   },
   zh: {
-    title: "核心产品范围",
-    lead: "面向替换刀片和 OEM 设备配套采购，可先按刀片形状或设备用途确认方向。客户提供图纸、旧刀样品或设备型号后，我们再确认外形、孔位、厚度、材料与刃口结构。",
-    cta: "进入完整产品中心",
+    title: "核心产品",
+    lead: "这里看刀型与定制参数：外形、孔位、厚度、材料和刃口。具体产线使用放在应用场景。",
+    cta: "查看全部产品",
   },
 } as const;
 const productSummary = productSummaryByLang[lang as keyof typeof productSummaryByLang] ?? {
@@ -355,6 +510,20 @@ const productSummary = productSummaryByLang[lang as keyof typeof productSummaryB
   title: t.nav.products,
   lead: t.home.productsLead,
   cta: t.actions.viewProducts,
+};
+const applicationSummaryByLang = {
+  en: {
+    lead: "Application cards focus on production conditions: food material, machine station, cleaning frequency, speed and replacement risk.",
+    cta: "View Applications",
+  },
+  zh: {
+    lead: "这里按使用工况区分：物料类型、设备工位、清洗频率、运行速度和停机替换风险。",
+    cta: "查看全部应用",
+  },
+} as const;
+const applicationSummary = applicationSummaryByLang[lang as keyof typeof applicationSummaryByLang] ?? {
+  lead: t.home.applicationsLead,
+  cta: t.nav.applications,
 };
 const homeQualityReportsByLang = {
   en: {
@@ -368,6 +537,30 @@ const homeQualityReportsByLang = {
   ar: {
     title: "عينات تقارير الفحص",
     items: ["SEM للحافة", "تحليل EDS", "الفحص المعدني", "الصلابة"],
+  },
+  es: {
+    title: "Muestras de informes de inspección",
+    items: ["Filo SEM", "Espectro EDS", "Metalografía", "Dureza"],
+  },
+  pt: {
+    title: "Amostras de relatórios de inspeção",
+    items: ["Fio SEM", "Espectro EDS", "Metalografia", "Dureza"],
+  },
+  tr: {
+    title: "Kontrol raporu örnekleri",
+    items: ["SEM ağız", "EDS spektrumu", "Metalografi", "Sertlik"],
+  },
+  de: {
+    title: "Beispiele für Prüfberichte",
+    items: ["SEM-Schneide", "EDS-Spektrum", "Metallografie", "Härte"],
+  },
+  fr: {
+    title: "Exemples de rapports d'inspection",
+    items: ["SEM tranchant", "Spectre EDS", "Métallographie", "Dureté"],
+  },
+  it: {
+    title: "Esempi di rapporti di ispezione",
+    items: ["SEM filo", "Spettro EDS", "Metallografia", "Durezza"],
   },
   th: {
     title: "ตัวอย่างรายงานตรวจสอบ",
@@ -393,6 +586,100 @@ const homeQualityReportImages = [
   "/images/quality/report-metallography-cropped.jpg",
   "/images/quality/report-hardness-cropped.jpg",
 ];
+const qualityVisualByLang = {
+  en: {
+    kicker: "Quality assurance",
+    imageCaption: "Manual check for blade flatness, edge condition and mounting surface",
+    riskTitle: "Risks controlled before shipment",
+    reportLead: "Inspection samples show edge structure, composition, metallurgy and hardness records.",
+    note: "Inspection files can be matched to drawing, sample or repeat order requirements.",
+  },
+  ru: {
+    kicker: "Контроль качества",
+    imageCaption: "Ручная проверка плоскостности, кромки и монтажной поверхности",
+    riskTitle: "Риски перед отгрузкой",
+    reportLead: "Образцы контроля показывают кромку, состав, металлографию и твердость.",
+    note: "Проверки можно связать с чертежом, образцом или повторным заказом.",
+  },
+  ar: {
+    kicker: "ضمان الجودة",
+    imageCaption: "فحص يدوي للاستواء، حالة الحافة وسطح التركيب",
+    riskTitle: "المخاطر المضبوطة قبل الشحن",
+    reportLead: "توضح عينات الفحص بنية الحافة، التركيب، الفحص المعدني والصلابة.",
+    note: "يمكن ربط ملفات الفحص بالرسم أو العينة أو طلبات التكرار.",
+  },
+  es: {
+    kicker: "Aseguramiento de calidad",
+    imageCaption: "Revisión manual de planitud, filo y superficie de montaje",
+    riskTitle: "Riesgos controlados antes del envío",
+    reportLead: "Las muestras muestran estructura de filo, composición, metalografía y dureza.",
+    note: "Los archivos de inspección pueden vincularse a plano, muestra o pedido repetido.",
+  },
+  pt: {
+    kicker: "Garantia de qualidade",
+    imageCaption: "Verificação manual de planicidade, fio e superfície de montagem",
+    riskTitle: "Riscos controlados antes do envio",
+    reportLead: "As amostras mostram estrutura do fio, composição, metalografia e dureza.",
+    note: "Os arquivos de inspeção podem seguir desenho, amostra ou pedido repetido.",
+  },
+  tr: {
+    kicker: "Kalite güvencesi",
+    imageCaption: "Düzlük, ağız durumu ve montaj yüzeyi için manuel kontrol",
+    riskTitle: "Sevkiyat öncesi kontrol edilen riskler",
+    reportLead: "Kontrol örnekleri ağız yapısı, bileşim, metalografi ve sertlik kaydını gösterir.",
+    note: "Kontrol dosyaları çizim, numune veya tekrar sipariş şartlarına bağlanabilir.",
+  },
+  de: {
+    kicker: "Qualitätssicherung",
+    imageCaption: "Manuelle Prüfung von Planheit, Schneide und Montagefläche",
+    riskTitle: "Risiken vor dem Versand",
+    reportLead: "Prüfmuster zeigen Schneidenstruktur, Zusammensetzung, Metallografie und Härte.",
+    note: "Prüfdaten können Zeichnung, Muster oder Wiederholauftrag zugeordnet werden.",
+  },
+  fr: {
+    kicker: "Assurance qualité",
+    imageCaption: "Contrôle manuel de planéité, tranchant et surface de montage",
+    riskTitle: "Risques contrôlés avant expédition",
+    reportLead: "Les échantillons montrent structure du tranchant, composition, métallographie et dureté.",
+    note: "Les fichiers d'inspection peuvent suivre plan, échantillon ou commande répétée.",
+  },
+  it: {
+    kicker: "Garanzia qualità",
+    imageCaption: "Controllo manuale di planarità, filo e superficie di montaggio",
+    riskTitle: "Rischi controllati prima della spedizione",
+    reportLead: "I campioni mostrano struttura del filo, composizione, metallografia e durezza.",
+    note: "I file di ispezione possono seguire disegno, campione o riordino.",
+  },
+  th: {
+    kicker: "ประกันคุณภาพ",
+    imageCaption: "ตรวจด้วยมือเรื่องความเรียบ คม และพื้นผิวติดตั้ง",
+    riskTitle: "ความเสี่ยงที่ควบคุมก่อนส่ง",
+    reportLead: "ตัวอย่างรายงานแสดงโครงสร้างคม ส่วนประกอบ โลหะวิทยา และความแข็ง",
+    note: "ไฟล์ตรวจสอบสามารถผูกกับแบบ ตัวอย่าง หรือคำสั่งซื้อซ้ำได้",
+  },
+  vi: {
+    kicker: "Đảm bảo chất lượng",
+    imageCaption: "Kiểm tra thủ công độ phẳng, cạnh dao và bề mặt lắp",
+    riskTitle: "Rủi ro kiểm soát trước khi giao",
+    reportLead: "Mẫu kiểm tra thể hiện cấu trúc cạnh, thành phần, kim tương và độ cứng.",
+    note: "Hồ sơ kiểm tra có thể gắn với bản vẽ, mẫu hoặc đơn hàng lặp lại.",
+  },
+  id: {
+    kicker: "Jaminan kualitas",
+    imageCaption: "Pemeriksaan manual kerataan, kondisi mata dan permukaan pemasangan",
+    riskTitle: "Risiko yang dikontrol sebelum pengiriman",
+    reportLead: "Sampel inspeksi menunjukkan struktur mata, komposisi, metalografi dan kekerasan.",
+    note: "File inspeksi dapat dikaitkan dengan gambar, sampel atau repeat order.",
+  },
+  zh: {
+    kicker: "质量保障",
+    imageCaption: "人工复核刀片平面、刃口状态和装配接触面",
+    riskTitle: "出货前重点控制的风险",
+    reportLead: "检测样张覆盖刃口结构、材料成分、金相组织和硬度记录。",
+    note: "检测资料可按图纸、样品或复购批次要求匹配留档。",
+  },
+} as const;
+const qualityVisual = qualityVisualByLang[lang as keyof typeof qualityVisualByLang] ?? qualityVisualByLang.en;
 const homeManufacturingCapabilitiesByLang = {
   en: [
     ["Drawing To Production", "Convert drawings, old samples or machine models into controlled profile, hole and thickness requirements."],
@@ -451,9 +738,520 @@ const homeManufacturingCapabilitiesByLang = {
     ["复购批次记录", "沉淀关键尺寸和生产记录，便于后续替换刀片复购。"],
   ],
 } as const;
+const marketHomeManufacturingCapabilityTextByLang = {
+  es: [
+    "Confirmar material según contacto alimentario, humedad y carga de corte.",
+    "Preparar blank y forma inicial antes del mecanizado.",
+    "Controlar agujeros, ranuras y medidas que definen el ajuste.",
+    "Ajustar dureza a desgaste, impacto y vida útil.",
+    "Controlar espesor, planitud y rectitud antes del filo.",
+    "Terminar filo, diente o perforación según alimento y velocidad.",
+  ],
+  pt: [
+    "Confirmar material conforme contato alimentar, umidade e carga de corte.",
+    "Preparar blank e forma inicial antes da usinagem.",
+    "Controlar furos, ranhuras e medidas que definem o encaixe.",
+    "Ajustar dureza a desgaste, impacto e vida útil.",
+    "Controlar espessura, planicidade e retidão antes do fio.",
+    "Finalizar fio, dente ou perfuração conforme alimento e velocidade.",
+  ],
+  tr: [
+    "Malzemeyi gıda teması, nem ve kesme yüküne göre doğrulama.",
+    "İşleme öncesi blank ve ilk şekli hazırlama.",
+    "Uyumu belirleyen delik, kanal ve ölçüleri kontrol etme.",
+    "Sertliği aşınma, darbe ve kullanım ömrüne göre ayarlama.",
+    "Ağız öncesi kalınlık, düzlük ve doğruluğu kontrol etme.",
+    "Ağız, diş veya perforasyonu gıda ve hıza göre bitirme.",
+  ],
+  de: [
+    "Material nach Lebensmittelkontakt, Feuchtigkeit und Schneidlast bestätigen.",
+    "Rohling und Vorform vor der Bearbeitung vorbereiten.",
+    "Bohrungen, Schlitze und Passmaße kontrollieren.",
+    "Härte auf Verschleiß, Stoß und Standzeit abstimmen.",
+    "Dicke, Planheit und Geradheit vor dem Schneidenfinish prüfen.",
+    "Schneide, Zahn oder Perforation nach Produkt und Geschwindigkeit fertigstellen.",
+  ],
+  fr: [
+    "Confirmer le matériau selon contact alimentaire, humidité et charge de coupe.",
+    "Préparer le blank et la forme initiale avant usinage.",
+    "Contrôler trous, rainures et cotes qui déterminent l'ajustement.",
+    "Adapter la dureté à l'usure, l'impact et la durée de vie.",
+    "Contrôler épaisseur, planéité et rectitude avant finition.",
+    "Finir tranchant, denture ou perforation selon aliment et vitesse.",
+  ],
+  it: [
+    "Confermare il materiale secondo contatto alimentare, umidità e carico di taglio.",
+    "Preparare blank e forma iniziale prima della lavorazione.",
+    "Controllare fori, asole e quote che determinano il montaggio.",
+    "Regolare la durezza per usura, impatto e vita utile.",
+    "Controllare spessore, planarità e rettilineità prima del filo.",
+    "Finire filo, dente o perforazione secondo alimento e velocità.",
+  ],
+} as const;
+const marketHomeManufacturingTexts =
+  marketHomeManufacturingCapabilityTextByLang[lang as keyof typeof marketHomeManufacturingCapabilityTextByLang];
 const homeManufacturingCapabilities =
-  homeManufacturingCapabilitiesByLang[lang as keyof typeof homeManufacturingCapabilitiesByLang] ?? homeManufacturingCapabilitiesByLang.en;
+  homeManufacturingCapabilitiesByLang[lang as keyof typeof homeManufacturingCapabilitiesByLang] ??
+  (marketHomeManufacturingTexts
+    ? manufacturingSteps[lang].slice(0, 6).map((title, index) => [title, marketHomeManufacturingTexts[index]] as const)
+    : homeManufacturingCapabilitiesByLang.en);
+const manufacturingVisualByLang = {
+  en: {
+    kicker: "Manufacturing control",
+    imageCaption: "CNC machining for holes, slots and replacement fit",
+    flowTitle: "Controlled from sample to repeat batch",
+    detailTitle: "What this section proves",
+    detailText: "The factory can translate real blades, drawings and machine models into controlled dimensions, edge geometry and export-ready batches.",
+  },
+  ru: {
+    kicker: "Контроль производства",
+    imageCaption: "CNC обработка отверстий, пазов и посадки",
+    flowTitle: "Контроль от образца до повторной партии",
+    detailTitle: "Что подтверждает блок",
+    detailText: "Завод переводит ножи, чертежи и модели машин в контролируемые размеры, кромку и экспортные партии.",
+  },
+  ar: {
+    kicker: "التحكم في التصنيع",
+    imageCaption: "تشغيل CNC للفتحات والشقوق وملاءمة التركيب",
+    flowTitle: "تحكم من العينة إلى الدفعة المتكررة",
+    detailTitle: "ما يثبته هذا القسم",
+    detailText: "يمكن للمصنع تحويل الشفرات والرسومات وموديلات الأجهزة إلى أبعاد وحواف ودفعات تصدير مضبوطة.",
+  },
+  es: {
+    kicker: "Control de fabricación",
+    imageCaption: "Mecanizado CNC para agujeros, ranuras y ajuste",
+    flowTitle: "Control desde muestra hasta lote repetido",
+    detailTitle: "Qué demuestra esta sección",
+    detailText: "La fábrica convierte cuchillas, planos y modelos de máquina en medidas, filo y lotes exportables controlados.",
+  },
+  pt: {
+    kicker: "Controle de fabricação",
+    imageCaption: "Usinagem CNC para furos, ranhuras e encaixe",
+    flowTitle: "Controle da amostra ao lote repetido",
+    detailTitle: "O que esta seção prova",
+    detailText: "A fábrica transforma lâminas, desenhos e modelos de máquina em dimensões, fio e lotes de exportação controlados.",
+  },
+  tr: {
+    kicker: "Üretim kontrolü",
+    imageCaption: "Delikler, kanallar ve uyum için CNC işleme",
+    flowTitle: "Numuneden tekrar partiye kontrollü süreç",
+    detailTitle: "Bu bölüm neyi kanıtlar",
+    detailText: "Fabrika bıçak, çizim ve makine modellerini kontrollü ölçü, ağız geometrisi ve ihracata hazır partiye dönüştürür.",
+  },
+  de: {
+    kicker: "Fertigungskontrolle",
+    imageCaption: "CNC-Bearbeitung für Bohrungen, Schlitze und Passung",
+    flowTitle: "Kontrolliert vom Muster bis zur Wiederholcharge",
+    detailTitle: "Was dieser Bereich zeigt",
+    detailText: "Die Fabrik überträgt Messer, Zeichnungen und Maschinenmodelle in kontrollierte Maße, Schneiden und Exportchargen.",
+  },
+  fr: {
+    kicker: "Contrôle de fabrication",
+    imageCaption: "Usinage CNC pour trous, rainures et ajustement",
+    flowTitle: "Contrôle de l'échantillon au lot répété",
+    detailTitle: "Ce que cette section prouve",
+    detailText: "L'usine transforme lames, plans et modèles machine en dimensions, tranchants et lots export contrôlés.",
+  },
+  it: {
+    kicker: "Controllo produzione",
+    imageCaption: "Lavorazione CNC per fori, asole e montaggio",
+    flowTitle: "Controllo dal campione al lotto ripetuto",
+    detailTitle: "Cosa dimostra questa sezione",
+    detailText: "La fabbrica trasforma lame, disegni e modelli macchina in quote, filo e lotti export controllati.",
+  },
+  th: {
+    kicker: "ควบคุมการผลิต",
+    imageCaption: "CNC สำหรับรู ร่อง และความพอดีในการติดตั้ง",
+    flowTitle: "ควบคุมตั้งแต่ตัวอย่างถึงล็อตสั่งซ้ำ",
+    detailTitle: "ส่วนนี้ยืนยันอะไร",
+    detailText: "โรงงานแปลงใบมีดจริง แบบ และรุ่นเครื่องเป็นขนาด คม และล็อตส่งออกที่ควบคุมได้",
+  },
+  vi: {
+    kicker: "Kiểm soát sản xuất",
+    imageCaption: "Gia công CNC cho lỗ, rãnh và độ khớp",
+    flowTitle: "Kiểm soát từ mẫu đến lô lặp lại",
+    detailTitle: "Phần này chứng minh gì",
+    detailText: "Nhà máy chuyển dao thật, bản vẽ và model máy thành kích thước, cạnh dao và lô xuất khẩu được kiểm soát.",
+  },
+  id: {
+    kicker: "Kontrol produksi",
+    imageCaption: "CNC untuk lubang, slot dan kecocokan pemasangan",
+    flowTitle: "Terkontrol dari sampel sampai batch ulang",
+    detailTitle: "Apa yang dibuktikan bagian ini",
+    detailText: "Pabrik mengubah pisau, gambar dan model mesin menjadi ukuran, mata pisau dan batch ekspor yang terkontrol.",
+  },
+  zh: {
+    kicker: "制造能力控制",
+    imageCaption: "CNC 加工孔位、槽位与替换刀片装机尺寸",
+    flowTitle: "从样品确认到批量复购的受控流程",
+    detailTitle: "这个模块要证明什么",
+    detailText: "工厂能把真实刀片、图纸或设备型号转化为可生产、可检测、可复购的尺寸、刃口和出口批次。",
+  },
+} as const;
+const manufacturingVisual = manufacturingVisualByLang[lang as keyof typeof manufacturingVisualByLang] ?? manufacturingVisualByLang.en;
+const manufacturingStats = homeFactory.stats.slice(2, 6).length >= 2 ? homeFactory.stats.slice(2, 6) : homeFactory.stats.slice(0, 4);
 const aboutHighlights = homeFactory.stats.slice(0, 4);
+const heroSlideImages = [
+  { image: heroBannerImage, imageClass: "object-[68%_center] sm:object-[62%_center]" },
+  { image: "/images/lijian/hero-food-processing-line.jpg", imageClass: "object-center" },
+  { image: "/images/lijian/hero-cnc-machining.jpg", imageClass: "object-center" },
+  { image: "/images/lijian/blade-inspection.jpg", imageClass: "object-center" },
+] as const;
+const heroCarouselCopyByLang = {
+  en: {
+    aria: "Homepage visual highlights",
+    slides: [
+      {
+        eyebrow: "Product banner",
+        title: "Food machinery blades in processing context",
+        caption: "Circular, curved, serrated and perforated blades shown with a food production line.",
+      },
+      {
+        eyebrow: "Application context",
+        title: "Food processing line context",
+        caption: "Shows how blade profile, edge and material decisions connect to real food production lines, hygiene and uptime.",
+      },
+      {
+        eyebrow: "Workshop",
+        title: "Machining and finishing environment",
+        caption: "CNC machining, grinding and edge preparation for repeatable fit.",
+      },
+      {
+        eyebrow: "Quality check",
+        title: "Inspection examples before delivery",
+        caption: "Hardness, flatness, hole position, edge and surface checks before packing.",
+      },
+    ],
+  },
+  ru: {
+    aria: "Визуальные акценты главной страницы",
+    slides: [
+      {
+        eyebrow: "Главный баннер",
+        title: "Ножи для пищевых машин на линии",
+        caption: "Круглые, изогнутые, зубчатые и перфорированные ножи в контексте пищевого производства.",
+      },
+      {
+        eyebrow: "Применение",
+        title: "Контекст пищевой линии",
+        caption: "Показывает, как профиль, кромка и материал ножа связаны с реальной линией, гигиеной и простоем.",
+      },
+      {
+        eyebrow: "Цех",
+        title: "Обработка и финишная доводка",
+        caption: "CNC-обработка, шлифование и подготовка кромки для повторяемой посадки.",
+      },
+      {
+        eyebrow: "Контроль",
+        title: "Примеры проверки перед отгрузкой",
+        caption: "Твердость, плоскостность, отверстия, кромка и поверхность проверяются перед упаковкой.",
+      },
+    ],
+  },
+  ar: {
+    aria: "عناصر مرئية في الصفحة الرئيسية",
+    slides: [
+      {
+        eyebrow: "الصورة الرئيسية",
+        title: "شفرات آلات الأغذية داخل بيئة الإنتاج",
+        caption: "شفرات دائرية ومنحنية ومسننة ومثقبة مع خط معالجة غذائية.",
+      },
+      {
+        eyebrow: "سياق التطبيق",
+        title: "خط معالجة الأغذية",
+        caption: "يوضح علاقة شكل الشفرة والحافة والمادة بخط الإنتاج الفعلي والنظافة وتقليل التوقف.",
+      },
+      {
+        eyebrow: "الورشة",
+        title: "بيئة التشغيل والتشطيب",
+        caption: "تشغيل CNC، طحن وتحضير الحافة لضمان تكرار الملاءمة.",
+      },
+      {
+        eyebrow: "الجودة",
+        title: "أمثلة فحص قبل التسليم",
+        caption: "فحص الصلادة والاستواء والثقوب والحافة والسطح قبل التغليف.",
+      },
+    ],
+  },
+  es: {
+    aria: "Destacados visuales de la página inicial",
+    slides: [
+      {
+        eyebrow: "Banner principal",
+        title: "Cuchillas alimentarias en contexto de línea",
+        caption: "Cuchillas circulares, curvas, dentadas y perforadas junto a una línea de proceso.",
+      },
+      {
+        eyebrow: "Contexto de aplicación",
+        title: "Línea de proceso alimentario",
+        caption: "Muestra cómo perfil, filo y material se relacionan con la línea real, higiene y menor parada.",
+      },
+      {
+        eyebrow: "Taller",
+        title: "Mecanizado y acabado",
+        caption: "CNC, rectificado y preparación del filo para un ajuste repetible.",
+      },
+      {
+        eyebrow: "Calidad",
+        title: "Ejemplos de inspección antes del envío",
+        caption: "Dureza, planitud, agujeros, filo y superficie revisados antes del embalaje.",
+      },
+    ],
+  },
+  pt: {
+    aria: "Destaques visuais da página inicial",
+    slides: [
+      {
+        eyebrow: "Banner principal",
+        title: "Lâminas para máquinas alimentares na linha",
+        caption: "Lâminas circulares, curvas, serrilhadas e perfuradas em contexto de produção alimentar.",
+      },
+      {
+        eyebrow: "Contexto de aplicação",
+        title: "Linha de processamento alimentar",
+        caption: "Mostra como perfil, fio e material se ligam à linha real, higiene e menos paradas.",
+      },
+      {
+        eyebrow: "Oficina",
+        title: "Usinagem e acabamento",
+        caption: "CNC, retífica e preparação do fio para encaixe repetível.",
+      },
+      {
+        eyebrow: "Qualidade",
+        title: "Exemplos de inspeção antes do envio",
+        caption: "Dureza, planicidade, furos, fio e superfície verificados antes da embalagem.",
+      },
+    ],
+  },
+  tr: {
+    aria: "Ana sayfa görsel öne çıkanları",
+    slides: [
+      {
+        eyebrow: "Ana görsel",
+        title: "Gıda makinesi bıçakları üretim hattında",
+        caption: "Dairesel, kavisli, tırtıklı ve delikli bıçaklar gıda işleme hattı bağlamında.",
+      },
+      {
+        eyebrow: "Uygulama bağlamı",
+        title: "Gıda işleme hattı",
+        caption: "Profil, ağız ve malzeme seçiminin gerçek hat, hijyen ve duruş süresiyle ilişkisini gösterir.",
+      },
+      {
+        eyebrow: "Atölye",
+        title: "İşleme ve son yüzey hazırlığı",
+        caption: "Tekrarlanabilir uyum için CNC işleme, taşlama ve ağız hazırlığı.",
+      },
+      {
+        eyebrow: "Kalite",
+        title: "Teslimat öncesi kontrol örnekleri",
+        caption: "Sertlik, düzlük, delik konumu, ağız ve yüzey paketleme öncesi kontrol edilir.",
+      },
+    ],
+  },
+  de: {
+    aria: "Visuelle Highlights der Startseite",
+    slides: [
+      {
+        eyebrow: "Startbanner",
+        title: "Lebensmittelmaschinenmesser im Linienkontext",
+        caption: "Runde, gebogene, gezahnte und gelochte Messer neben einer Lebensmittelproduktionslinie.",
+      },
+      {
+        eyebrow: "Anwendungskontext",
+        title: "Lebensmittel-Verarbeitungslinie",
+        caption: "Zeigt, wie Profil, Schneide und Material mit realer Linie, Hygiene und weniger Stillstand zusammenhängen.",
+      },
+      {
+        eyebrow: "Werkstatt",
+        title: "Bearbeitungs- und Finishumgebung",
+        caption: "CNC-Bearbeitung, Schleifen und Kantenvorbereitung für wiederholbare Passung.",
+      },
+      {
+        eyebrow: "Qualität",
+        title: "Prüfbeispiele vor Lieferung",
+        caption: "Härte, Ebenheit, Bohrungen, Schneide und Oberfläche vor dem Verpacken geprüft.",
+      },
+    ],
+  },
+  fr: {
+    aria: "Points visuels de la page d'accueil",
+    slides: [
+      {
+        eyebrow: "Visuel principal",
+        title: "Lames alimentaires en contexte de ligne",
+        caption: "Lames circulaires, courbes, dentées et perforées près d'une ligne de transformation.",
+      },
+      {
+        eyebrow: "Contexte d'application",
+        title: "Ligne de transformation alimentaire",
+        caption: "Relie profil, tranchant et matériau à la ligne réelle, l'hygiène et la réduction des arrêts.",
+      },
+      {
+        eyebrow: "Atelier",
+        title: "Usinage et finition",
+        caption: "CNC, rectification et préparation du tranchant pour un ajustement répétable.",
+      },
+      {
+        eyebrow: "Qualité",
+        title: "Exemples d'inspection avant livraison",
+        caption: "Dureté, planéité, trous, tranchant et surface contrôlés avant emballage.",
+      },
+    ],
+  },
+  it: {
+    aria: "Evidenze visive della homepage",
+    slides: [
+      {
+        eyebrow: "Banner principale",
+        title: "Lame alimentari nel contesto di linea",
+        caption: "Lame circolari, curve, dentate e forate accanto a una linea di processo alimentare.",
+      },
+      {
+        eyebrow: "Contesto applicativo",
+        title: "Linea di processo alimentare",
+        caption: "Mostra come profilo, filo e materiale si legano a linea reale, igiene e minori fermi.",
+      },
+      {
+        eyebrow: "Officina",
+        title: "Ambiente di lavorazione e finitura",
+        caption: "CNC, rettifica e preparazione del filo per un accoppiamento ripetibile.",
+      },
+      {
+        eyebrow: "Qualità",
+        title: "Esempi di controllo prima della consegna",
+        caption: "Durezza, planarità, fori, filo e superficie verificati prima dell'imballo.",
+      },
+    ],
+  },
+  th: {
+    aria: "ภาพเด่นหน้าแรก",
+    slides: [
+      {
+        eyebrow: "แบนเนอร์หลัก",
+        title: "ใบมีดเครื่องจักรอาหารในบริบทสายการผลิต",
+        caption: "ใบมีดกลม โค้ง ฟันเลื่อย และมีรู แสดงร่วมกับสายแปรรูปอาหาร.",
+      },
+      {
+        eyebrow: "บริบทการใช้งาน",
+        title: "ไลน์แปรรูปอาหาร",
+        caption: "แสดงความสัมพันธ์ของรูปทรงใบมีด คม และวัสดุกับไลน์จริง สุขอนามัย และการลดเวลาหยุดเครื่อง.",
+      },
+      {
+        eyebrow: "เวิร์กช็อป",
+        title: "สภาพแวดล้อมการผลิตและตกแต่ง",
+        caption: "CNC การเจียร และการเตรียมคมเพื่อความพอดีที่ทำซ้ำได้.",
+      },
+      {
+        eyebrow: "คุณภาพ",
+        title: "ตัวอย่างการตรวจสอบก่อนส่งมอบ",
+        caption: "ตรวจความแข็ง ความเรียบ รู คม และผิวก่อนบรรจุ.",
+      },
+    ],
+  },
+  vi: {
+    aria: "Điểm nhấn hình ảnh trang chủ",
+    slides: [
+      {
+        eyebrow: "Banner chính",
+        title: "Dao máy thực phẩm trong bối cảnh dây chuyền",
+        caption: "Dao tròn, dao cong, dao răng và dao đục lỗ hiển thị cùng dây chuyền chế biến.",
+      },
+      {
+        eyebrow: "Bối cảnh ứng dụng",
+        title: "Dây chuyền chế biến thực phẩm",
+        caption: "Cho thấy biên dạng, cạnh dao và vật liệu liên quan đến dây chuyền thật, vệ sinh và thời gian dừng máy.",
+      },
+      {
+        eyebrow: "Xưởng",
+        title: "Gia công và hoàn thiện",
+        caption: "CNC, mài và chuẩn bị cạnh dao để lắp vừa ổn định qua nhiều lô.",
+      },
+      {
+        eyebrow: "Chất lượng",
+        title: "Ví dụ kiểm tra trước giao hàng",
+        caption: "Độ cứng, độ phẳng, lỗ, cạnh dao và bề mặt được kiểm trước khi đóng gói.",
+      },
+    ],
+  },
+  id: {
+    aria: "Sorotan visual beranda",
+    slides: [
+      {
+        eyebrow: "Banner utama",
+        title: "Pisau mesin makanan dalam konteks lini",
+        caption: "Pisau bulat, melengkung, bergerigi dan berlubang ditampilkan bersama lini proses makanan.",
+      },
+      {
+        eyebrow: "Konteks aplikasi",
+        title: "Lini proses makanan",
+        caption: "Menunjukkan hubungan profil, edge dan material dengan lini nyata, higienitas dan downtime.",
+      },
+      {
+        eyebrow: "Workshop",
+        title: "Lingkungan machining dan finishing",
+        caption: "CNC, grinding dan persiapan edge untuk kecocokan berulang.",
+      },
+      {
+        eyebrow: "Kualitas",
+        title: "Contoh inspeksi sebelum pengiriman",
+        caption: "Kekerasan, kerataan, lubang, edge dan permukaan dicek sebelum packing.",
+      },
+    ],
+  },
+  zh: {
+    aria: "首页视觉轮播",
+    slides: [
+      {
+        eyebrow: "首页主视觉",
+        title: "食品机械刀片与加工产线",
+        caption: "适合正在确认圆刀、弧形刀、齿刀、孔板刀等食品设备刀片形态和询价入口的采购。",
+      },
+      {
+        eyebrow: "应用场景",
+        title: "食品加工产线需求",
+        caption: "采购需要先判断刀型、刃口和材料是否适合真实食品产线、清洗环境和连续生产节奏。",
+      },
+      {
+        eyebrow: "车间情况",
+        title: "看加工能力与装机适配",
+        caption: "关注孔位、槽位、厚度、刃口和批次一致性，减少替换刀片装机不匹配风险。",
+      },
+      {
+        eyebrow: "质量检测示例",
+        title: "出货前质检与复核",
+        caption: "关注硬度、平面度、孔位、刃口和表面状态，帮助判断刀片是否适合批量采购。",
+      },
+    ],
+  },
+} as const;
+const heroCarouselCopy = heroCarouselCopyByLang[lang as keyof typeof heroCarouselCopyByLang] ?? heroCarouselCopyByLang.en;
+const heroSlides = heroCarouselCopy.slides.slice(0, heroSlideImages.length).map((slide, index) => ({
+  ...heroSlideImages[index],
+  ...slide,
+  sourceIndex: index,
+  isClone: false,
+  isPrimary: index === 0,
+  eyebrowText: index === 0 ? t.home.eyebrow : slide.eyebrow,
+  kickerText: index === 0 ? polish.heroKicker : slide.eyebrow,
+  headlineLines: index === 0 ? heroMainLines : [slide.title],
+  accentLines: index === 0 ? heroAccentLines : [],
+  headlineMainText: index === 0 ? heroMainLines.join(" ") : slide.title,
+  headlineAccentText: index === 0 ? heroAccentLines.join(" ") : "",
+  introText: slide.caption,
+}));
+const factoryVisualByLang = {
+  en: {
+    main: "Factory gate and source manufacturer identity",
+    sample: "Machining workshop environment",
+    workshop: "Food processing environment reference",
+  },
+  zh: {
+    main: "工厂厂门与源头厂家信息",
+    sample: "车间加工环境",
+    workshop: "食品加工环境参考",
+  },
+} as const;
+const factoryVisual = factoryVisualByLang[lang as keyof typeof factoryVisualByLang] ?? factoryVisualByLang.en;
 ---
 
 <BaseLayout
@@ -461,137 +1259,245 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
   title={t.seo.homeTitle}
   description={t.seo.homeDescription}
   path={path}
-  image={productImages.hero}
-  preloadImage={heroWebp}
-  jsonLd={[pageJsonLd]}
+  image={heroBannerImage}
+  preloadImage={heroBannerWebp}
+  jsonLd={homeJsonLd}
 >
-  <section
-    class="relative overflow-hidden bg-[var(--color-ink)] text-white"
-    style={`background-image: linear-gradient(90deg, rgba(15,18,24,.98), rgba(15,18,24,.86) 44%, rgba(15,18,24,.34)), url('${productImages.hero}'); background-image: linear-gradient(90deg, rgba(15,18,24,.98), rgba(15,18,24,.86) 44%, rgba(15,18,24,.34)), image-set(url('${heroWebp}') type('image/webp'), url('${productImages.hero}')); background-size: cover; background-position: center;`}
-  >
-    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.42))]"></div>
-    <div class="container-page relative grid min-h-[72vh] gap-10 py-16 lg:grid-cols-[1fr_.78fr] lg:items-center">
-      <div class="min-w-0 max-w-4xl">
-        <p class="max-w-full break-words text-sm font-semibold uppercase text-[var(--color-silver)]">{t.home.eyebrow}</p>
-        <p class="mt-4 inline-block max-w-full break-words rounded-[4px] border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-slate-100">{polish.heroKicker}</p>
-        <h1 class="mt-5 max-w-full break-words text-[2.35rem] font-semibold uppercase leading-[1.04] md:text-6xl">
-          <span class="block">
-            {heroMainLines.map((line) => <span class="block">{line}</span>)}
+  <section class="relative isolate overflow-hidden border-b border-[#dbe6f5] bg-[#edf4fb] text-[var(--color-ink)]" aria-label={heroCarouselCopy.aria} data-hero-root>
+    <div class="absolute inset-0" data-hero-carousel data-interval="6200">
+      {heroSlides.map((slide, index) => (
+        <div
+          class:list={[
+            "absolute inset-0 transition-opacity duration-700 ease-out motion-reduce:transition-none",
+            index === 0 ? "opacity-100" : "opacity-0",
+          ]}
+          data-hero-slide
+          data-hero-index={index}
+          data-hero-title={slide.title}
+          data-hero-eyebrow-copy={slide.eyebrowText}
+          data-hero-headline-main-copy={slide.headlineMainText}
+          data-hero-headline-accent-copy={slide.headlineAccentText}
+          data-hero-caption-copy={slide.introText}
+          aria-hidden={index === 0 ? "false" : "true"}
+        >
+          <Img
+            src={slide.image}
+            alt={slide.title}
+            class={`h-full w-full object-cover ${slide.imageClass}`}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchpriority={index === 0 ? "high" : "auto"}
+          />
+        </div>
+      ))}
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,251,255,.98)_0%,rgba(242,247,253,.94)_36%,rgba(242,247,253,.48)_61%,rgba(242,247,253,.08)_100%)]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white/76 to-transparent"></div>
+
+    <div class="container-page relative flex min-h-[480px] items-start py-7 pb-8 max-[360px]:min-h-[390px] max-[360px]:py-4 max-[360px]:pb-5 sm:min-h-[500px] sm:items-center sm:py-10 md:min-h-[540px] md:py-14">
+      <div class="min-w-0 max-w-2xl">
+        <p class="max-w-full break-words text-xs font-semibold uppercase text-[var(--color-blue)] [overflow-wrap:anywhere]" data-hero-eyebrow>{heroSlides[0].eyebrowText}</p>
+        <h1 class="mt-4 min-h-[9.5rem] max-w-full break-words text-[1.8rem] font-semibold leading-tight tracking-normal text-[var(--color-ink)] [overflow-wrap:anywhere] max-[360px]:mt-2 max-[360px]:text-[1.46rem] max-[360px]:leading-[1.14] sm:mt-5 sm:min-h-[7rem] sm:text-[2.55rem] md:min-h-[8rem] md:text-[3rem]">
+          <span class="block" data-hero-headline-main>
+            {heroSlides[0].headlineLines.map((line) => <span class="block max-w-full break-words [overflow-wrap:anywhere] md:inline md:after:content-['\\00a0']">{line}</span>)}
           </span>
-          <span class="mt-2 block text-[var(--color-red)]">
-            {heroAccentLines.map((line) => <span class="block">{line}</span>)}
+          <span class="mt-2 block text-[var(--color-blue)]" data-hero-headline-accent>
+            {heroSlides[0].accentLines.map((line) => <span class="block max-w-full break-words [overflow-wrap:anywhere] md:inline md:after:content-['\\00a0']">{line}</span>)}
           </span>
         </h1>
-        <p class="mt-6 max-w-2xl break-words text-lg leading-8 text-slate-200 md:text-xl">{t.home.intro}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#products" class="rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-home-jump="products">
+        <p class="mt-4 max-w-xl break-words text-sm leading-7 text-slate-600 [overflow-wrap:anywhere] max-[360px]:mt-2 max-[360px]:text-[12.5px] max-[360px]:leading-5 sm:text-base md:text-lg" data-hero-caption>{heroSlides[0].introText}</p>
+
+        <div class="mt-5 grid grid-cols-2 gap-2.5 max-[360px]:mt-3 max-[360px]:gap-1.5 sm:mt-7 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
+          {t.home.trust.map((item) => (
+            <span class="grid min-h-13 grid-cols-[28px_1fr] items-center gap-2 rounded-[6px] border border-[#d7e5f7] bg-white/78 px-2.5 py-2 text-[11px] font-semibold leading-4 text-slate-700 shadow-[0_8px_22px_rgba(9,42,94,.06)] backdrop-blur [overflow-wrap:anywhere] max-[360px]:min-h-10 max-[360px]:grid-cols-[22px_1fr] max-[360px]:gap-1.5 max-[360px]:px-1.5 max-[360px]:py-1 max-[360px]:text-[10px] sm:min-h-16 sm:grid-cols-[34px_1fr] sm:gap-3 sm:px-3 sm:py-3 sm:text-xs sm:leading-5">
+              <span class="grid h-7 w-7 place-items-center rounded-full border border-[#c8daf1] bg-[var(--color-blue-soft)] max-[360px]:h-[22px] max-[360px]:w-[22px] sm:h-8 sm:w-8" aria-hidden="true">
+                <span class="h-3 w-3 rounded-[4px] border-2 border-[var(--color-blue)] max-[360px]:h-2 max-[360px]:w-2 sm:h-3.5 sm:w-3.5"></span>
+              </span>
+              <span class="min-w-0 break-words">{item}</span>
+            </span>
+          ))}
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3 max-[360px]:mt-3 max-[360px]:grid max-[360px]:grid-cols-2 max-[360px]:gap-1.5 sm:mt-8">
+          <a href="#products" class="inline-flex items-center justify-center gap-2 rounded-[4px] bg-[var(--color-blue)] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(11,74,162,.22)] max-[360px]:px-2.5 max-[360px]:py-1.5 max-[360px]:text-[11.5px] sm:px-5 sm:py-3" data-home-jump="products">
             {t.actions.viewProducts}
+            <span aria-hidden="true">→</span>
           </a>
-          <a href="#contact" class="rounded-[4px] border border-white/40 px-5 py-3 font-semibold text-white" data-home-jump="contact">
+          <a href="#contact" class="inline-flex items-center justify-center gap-2 rounded-[4px] border border-[#b8cce8] bg-white/78 px-4 py-2.5 text-sm font-semibold text-[var(--color-blue)] shadow-sm backdrop-blur max-[360px]:px-2.5 max-[360px]:py-1.5 max-[360px]:text-[11.5px] sm:px-5 sm:py-3" data-home-jump="contact">
             {t.actions.contactUs}
+            <span aria-hidden="true">→</span>
           </a>
         </div>
-      </div>
 
-      <Img src={productImages.circular} alt={t.nav.products} class="hidden aspect-square w-full rounded-[6px] border border-white/12 bg-black/20 object-contain p-10 lg:block" loading="lazy" />
-    </div>
-    <div class="relative border-t border-white/10 bg-black/24">
-      <div class="container-page grid gap-2 py-5 sm:grid-cols-2 lg:grid-cols-4">
-        {t.home.trust.map((item) => (
-          <span class="rounded-[4px] border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100">{item}</span>
-        ))}
+        <div class="mt-6 flex items-center gap-2 max-[360px]:hidden sm:mt-8" aria-label={heroCarouselCopy.aria}>
+          {heroSlides.map((slide, index) => (
+            <button
+              type="button"
+              class:list={[
+                "h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-blue)] focus-visible:ring-offset-2",
+                index === 0 ? "w-9 bg-[var(--color-blue)]" : "w-7 bg-[#c7d5e8]",
+              ]}
+              data-hero-dot
+              data-hero-index={index}
+              aria-label={slide.title}
+              aria-current={index === 0 ? "true" : "false"}
+            ></button>
+          ))}
+        </div>
+        <span class="sr-only" aria-live="polite" data-hero-status>{heroSlides[0].title}</span>
       </div>
     </div>
   </section>
 
-  <section id="products" data-home-section="products" class="scroll-mt-24 border-b border-slate-200 bg-white py-12 md:py-14">
+  <section id="products" data-home-section="products" class="scroll-mt-24 border-b border-[var(--color-border)] bg-white pt-8 pb-10 max-[360px]:pt-6 sm:py-12 md:py-14">
     <div class="container-page">
-      <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <SectionHeading title={t.nav.products} lead={productSummary.lead} />
-        <a href={withLang(lang, "/products")} class="mt-6 inline-flex rounded-[4px] bg-[var(--color-ink)] px-4 py-3 text-sm font-semibold text-white">
-          {productSummary.cta}
-        </a>
-      </div>
+      <SectionHeading title={productSummary.title} lead={productSummary.lead} />
 
-      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-7 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {featuredProducts.map((product) => (
-          <ProductCard product={product} lang={lang} contactHref="#contact" useHomeJump />
+          <ProductCard product={product} lang={lang} contactHref="#contact" useHomeJump variant="catalog" />
         ))}
       </div>
     </div>
   </section>
 
-  <section id="applications" data-home-section="applications" class="scroll-mt-24 bg-[var(--color-mist)] py-16 md:py-20">
+  <section id="applications" data-home-section="applications" class="scroll-mt-24 bg-white py-10 sm:py-12 md:py-14">
     <div class="container-page">
-      <SectionHeading title={t.nav.applications} lead={t.home.applicationsLead} />
-      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <SectionHeading title={t.nav.applications} lead={applicationSummary.lead} />
+      <div class="mt-7 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {featuredApplications.map((application) => (
-          <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
-            <div class="relative overflow-hidden">
-              <Img src={application.image} alt={localize(application.name, lang)} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+          <a
+            href={withLang(lang, `/applications/${application.slug}`)}
+            class="group relative block overflow-hidden rounded-[8px] border border-[var(--color-border)] bg-white shadow-[0_10px_30px_rgba(9,42,94,.06)] transition duration-200 hover:-translate-y-0.5 hover:border-[#b9cceb] hover:shadow-[0_18px_42px_rgba(9,42,94,.12)]"
+            data-track="click_application_detail"
+            data-track-label={application.slug}
+          >
+            <div class="relative">
+              <Img src={application.image} alt={localize(application.name, lang)} class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" loading="lazy" />
+              <span class="absolute -bottom-5 left-4 grid h-10 w-10 place-items-center rounded-full border-4 border-white bg-[var(--color-blue)] shadow-[0_10px_22px_rgba(11,74,162,.22)]" aria-hidden="true">
+                <span class="h-4 w-4 rounded-[4px] border-2 border-white"></span>
+              </span>
             </div>
-            <div class="p-5">
-              <h3 class="text-xl font-semibold text-[var(--color-ink)]">{localize(application.name, lang)}</h3>
-              <p class="mt-3 text-sm leading-7 text-slate-600">{localize(application.summary, lang)}</p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                {localizeList(application.focus, lang).slice(0, 3).map((item) => (
-                  <span class="rounded-[4px] bg-[var(--color-mist)] px-2.5 py-1 text-xs font-semibold text-slate-600">{item}</span>
+            <div class="p-4 pt-7">
+              <h3 class="min-h-10 break-words text-sm font-semibold leading-5 text-[var(--color-ink)] [overflow-wrap:anywhere] group-hover:text-[var(--color-blue)]">{localize(application.name, lang)}</h3>
+              <p class="mt-2 overflow-hidden text-xs leading-5 text-slate-600 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">{localize(application.summary, lang)}</p>
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                {localizeList(application.focus, lang).slice(0, 2).map((item) => (
+                  <span class="rounded-[4px] bg-[var(--color-mist)] px-2 py-1 text-[11px] font-semibold leading-4 text-slate-600">{item}</span>
                 ))}
               </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </div>
   </section>
 
-  <section id="manufacturing" data-home-section="manufacturing" class="scroll-mt-24 bg-white py-16 md:py-20">
-    <div class="container-page grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-      <div>
-        <SectionHeading title={t.nav.manufacturing} lead={t.home.manufacturingLead} />
-        <div class="mt-8 grid gap-3">
-          {homeManufacturingCapabilities.map(([title, text], index) => (
-            <article class="grid gap-3 border border-[var(--color-border)] bg-white p-4 sm:grid-cols-[44px_1fr]">
-              <span class="grid h-10 w-10 shrink-0 place-items-center bg-[var(--color-blue)] text-sm font-semibold text-white">{String(index + 1).padStart(2, "0")}</span>
-              <span>
-                <h3 class="text-base font-semibold text-[var(--color-ink)]">{title}</h3>
-                <p class="mt-1 text-sm leading-6 text-slate-600">{text}</p>
-              </span>
-            </article>
-          ))}
+  <section id="manufacturing" data-home-section="manufacturing" class="scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] bg-white py-10 sm:py-14 md:py-16">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+        <div class="min-w-0">
+          <SectionHeading eyebrow={manufacturingVisual.kicker} title={t.nav.manufacturing} lead={t.home.manufacturingLead} />
+
+          <figure class="mt-8 overflow-hidden rounded-[8px] border border-[var(--color-border)] bg-white shadow-[0_16px_42px_rgba(9,42,94,.08)]">
+            <div class="relative">
+              <Img src={productImages.manufacturing} alt={manufacturingVisual.imageCaption} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+            </div>
+            <figcaption class="border-t border-[var(--color-border)] bg-white px-4 py-3 text-sm font-semibold leading-6 text-slate-700">{manufacturingVisual.imageCaption}</figcaption>
+          </figure>
+
+          <div class="mt-4 grid gap-2 sm:grid-cols-2">
+            {manufacturingStats.map(([value, label]) => (
+              <div class="rounded-[6px] border border-[var(--color-border)] bg-[var(--color-mist)] px-4 py-3">
+                <p class="text-xl font-semibold leading-none text-[var(--color-blue)]">{value}</p>
+                <p class="mt-1 text-xs font-semibold uppercase leading-5 text-slate-600">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="min-w-0">
+          <div class="mb-5 flex flex-col gap-2 border-l-2 border-[var(--color-blue)] pl-4">
+            <p class="text-sm font-semibold uppercase tracking-normal text-[var(--color-blue)]">{manufacturingVisual.flowTitle}</p>
+          </div>
+
+          <div class="relative grid gap-3">
+            <div class="absolute left-5 top-4 hidden h-[calc(100%-2rem)] w-px bg-[#d6e4f6] sm:block"></div>
+            {homeManufacturingCapabilities.map(([title, text], index) => (
+              <article class="relative grid gap-3 rounded-[8px] border border-[var(--color-border)] bg-white p-4 shadow-[0_10px_30px_rgba(9,42,94,.05)] transition duration-200 hover:border-[#b9cceb] sm:grid-cols-[44px_1fr]">
+                <span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#c8daf1] bg-[var(--color-blue-soft)] text-sm font-semibold text-[var(--color-blue)]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span class="min-w-0">
+                  <h3 class="break-words text-base font-semibold leading-6 text-[var(--color-ink)] [overflow-wrap:anywhere]">{title}</h3>
+                  <p class="mt-1 break-words text-sm leading-6 text-slate-600 [overflow-wrap:anywhere]">{text}</p>
+                </span>
+              </article>
+            ))}
+          </div>
+
+          <div class="mt-5 grid gap-3 border-t border-[var(--color-border)] pt-5 sm:grid-cols-[.9fr_1.1fr] sm:items-center">
+            <p class="text-sm font-semibold text-[var(--color-blue)]">{manufacturingVisual.detailTitle}</p>
+            <p class="text-sm leading-7 text-slate-600">{manufacturingVisual.detailText}</p>
+          </div>
         </div>
       </div>
-      <Img src={productImages.manufacturing} alt={t.nav.manufacturing} class="aspect-[4/3] w-full rounded-[6px] object-cover" loading="lazy" />
     </div>
   </section>
 
-  <section id="quality" data-home-section="quality" class="scroll-mt-24 bg-[var(--color-mist)] py-16 md:py-20">
+  <section id="quality" data-home-section="quality" class="scroll-mt-24 border-y border-slate-200 bg-[var(--color-mist)] py-10 sm:py-16 md:py-20">
     <div class="container-page">
-      <SectionHeading title={t.nav.quality} lead={t.home.qualityLead} />
+      <div class="grid gap-5 lg:grid-cols-[.72fr_.28fr] lg:items-end">
+        <SectionHeading eyebrow={qualityVisual.kicker} title={t.nav.quality} lead={t.home.qualityLead} />
+        <div class="rounded-[6px] border border-slate-200 bg-white p-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase text-[var(--color-blue)]">{qualityVisual.riskTitle}</p>
+          <p class="mt-2 text-sm leading-7 text-slate-600">{t.seo.qualityDescription}</p>
+        </div>
+      </div>
+
       <div class="mt-10 grid gap-6 lg:grid-cols-[.92fr_1.08fr] lg:items-start">
         <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
-          <Img src={productImages.quality} alt={t.nav.quality} class="aspect-[4/3] w-full object-cover" loading="lazy" />
-          <div class="border-t border-slate-200 p-5">
-            <p class="text-sm leading-7 text-slate-600">{t.seo.qualityDescription}</p>
+          <div class="relative">
+            <Img src={productImages.quality} alt={qualityVisual.imageCaption} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/82 via-slate-950/36 to-transparent p-4">
+              <p class="max-w-md text-sm font-semibold leading-6 text-white">{qualityVisual.imageCaption}</p>
+            </div>
+          </div>
+          <div class="grid gap-px border-t border-slate-200 bg-slate-200 sm:grid-cols-3">
+            {qualityChecks[lang].slice(0, 3).map((check) => (
+              <span class="bg-white px-4 py-3 text-xs font-semibold uppercase leading-5 text-slate-700">{check}</span>
+            ))}
           </div>
         </article>
 
         <div class="grid gap-5">
-          <div class="grid gap-3 sm:grid-cols-2">
-            {qualityChecks[lang].slice(0, 6).map((check) => (
-              <span class="rounded-[4px] border border-slate-200 bg-white px-4 py-3 text-sm font-semibold leading-6 text-[var(--color-ink)] shadow-sm">{check}</span>
-            ))}
-          </div>
           <div class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
             <div class="flex items-center justify-between gap-4 border-b border-slate-200 pb-4">
-              <h3 class="text-base font-semibold text-[var(--color-ink)]">{homeQualityReports.title}</h3>
-              <span class="hidden rounded-[4px] bg-[var(--color-ink)] px-3 py-1.5 text-xs font-semibold text-white sm:inline-flex">{t.labels.inspection}</span>
+              <h3 class="text-base font-semibold text-[var(--color-ink)]">{qualityVisual.riskTitle}</h3>
+              <span class="hidden rounded-[4px] bg-[var(--color-blue)] px-3 py-1.5 text-xs font-semibold text-white sm:inline-flex">{t.labels.inspection}</span>
+            </div>
+            <div class="mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+              {qualityChecks[lang].slice(0, 9).map((check, index) => (
+                <span class="grid min-h-16 grid-cols-[34px_1fr] items-center gap-3 rounded-[4px] border border-slate-200 bg-[var(--color-mist)] px-3 py-2 text-sm font-semibold leading-5 text-[var(--color-ink)]">
+                  <span class="grid h-8 w-8 place-items-center rounded-[4px] bg-white text-xs font-semibold text-[var(--color-blue)] shadow-sm">{String(index + 1).padStart(2, "0")}</span>
+                  <span class="break-words [overflow-wrap:anywhere]">{check}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="grid gap-3 border-b border-slate-200 pb-4 md:grid-cols-[.55fr_.45fr] md:items-end">
+              <div>
+                <h3 class="text-base font-semibold text-[var(--color-ink)]">{homeQualityReports.title}</h3>
+                <p class="mt-2 text-sm leading-7 text-slate-600">{qualityVisual.reportLead}</p>
+              </div>
+              <p class="text-sm leading-7 text-slate-500">{qualityVisual.note}</p>
             </div>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
               {homeQualityReportImages.map((image, index) => (
-                <figure class="rounded-[4px] border border-slate-200 bg-[var(--color-mist)] p-2">
-                  <Img src={image} alt={homeQualityReports.items[index]} class="aspect-[16/9] w-full object-contain" loading="lazy" />
-                  <figcaption class="mt-2 text-xs font-semibold text-slate-600">{homeQualityReports.items[index]}</figcaption>
+                <figure class="overflow-hidden rounded-[4px] border border-slate-200 bg-[var(--color-mist)]">
+                  <Img src={image} alt={homeQualityReports.items[index]} class="aspect-[16/9] w-full object-contain p-2" loading="lazy" />
+                  <figcaption class="border-t border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600">{homeQualityReports.items[index]}</figcaption>
                 </figure>
               ))}
             </div>
@@ -599,12 +1505,12 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
         </div>
       </div>
     </div>
-  </section>
+	  </section>
 
-  <section id="about" data-home-section="about" class="scroll-mt-24 bg-white py-16 md:py-20">
+	  <section id="about" data-home-section="about" class="scroll-mt-24 bg-white py-10 sm:py-16 md:py-20">
     <div class="container-page grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-center">
       <div>
-        <SectionHeading title={t.nav.about} lead={homeFactory.lead} />
+        <SectionHeading title={t.nav.about} lead={factoryLead} />
         <div class="mt-6 grid gap-px overflow-hidden rounded-[6px] border border-slate-200 bg-slate-200 sm:grid-cols-2">
           {aboutHighlights.map(([value, label]) => (
             <div class="bg-[var(--color-mist)] p-4">
@@ -614,23 +1520,48 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
           ))}
         </div>
       </div>
-      <Img src={productImages.factoryGate} alt={t.nav.about} class="aspect-[16/10] w-full rounded-[6px] object-cover shadow-sm" loading="lazy" />
+      <div class="grid gap-3">
+        <figure class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+          <Img src={productImages.factoryGate} alt={factoryVisual.main} class="aspect-[16/9] w-full object-cover" loading="lazy" />
+        </figure>
+	        <div class="grid gap-3 sm:grid-cols-2">
+	          <figure class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+	            <Img src="/images/placeholders/about-workshop-machining.jpg" alt={factoryVisual.sample} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+	          </figure>
+	          <figure class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+	            <Img src="/images/placeholders/about-food-workshop-environment.jpg" alt={factoryVisual.workshop} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+	          </figure>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="contact" data-home-section="contact" class="scroll-mt-24 border-t border-slate-200 bg-[var(--color-mist)] py-14 md:py-16">
+  <section id="contact" data-home-section="contact" class="scroll-mt-24 border-t border-[var(--color-border)] bg-[var(--color-mist)] py-10 sm:py-14 md:py-16">
     <div class="container-page">
-      <div class="grid gap-5 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+      <div class="grid gap-5 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
         <SectionHeading title={homeFactory.contactTitle} lead={homeFactory.contactLead} />
-        <p class="rounded-[6px] border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-600 shadow-sm">{homeFactory.contactDetail}</p>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div class="rounded-[6px] border border-slate-200 bg-white p-4 shadow-sm">
+            <p class="text-sm font-semibold text-[var(--color-ink)]">{t.nav.about}</p>
+            <p class="mt-2 text-sm leading-7 text-slate-600">{factoryLead}</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {aboutHighlights.slice(0, 3).map(([value, label]) => (
+                <span class="rounded-[4px] bg-[var(--color-blue-soft)] px-2.5 py-1 text-xs font-semibold leading-5 text-[var(--color-blue)]">{value} {label}</span>
+              ))}
+            </div>
+          </div>
+          <p class="rounded-[6px] border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-600 shadow-sm">{homeFactory.contactDetail}</p>
+        </div>
       </div>
 
-      <div class="mt-10 grid gap-5 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
-        <InquiryForm lang={lang} tone="light" />
+      <div class="mt-10 grid gap-5 lg:grid-cols-[.85fr_1.15fr] lg:items-start">
+        <div class="lg:order-2">
+          <InquiryForm lang={lang} tone="light" />
+        </div>
 
-        <aside class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+        <aside class="rounded-[8px] border border-[var(--color-border)] bg-white p-5 shadow-[0_10px_30px_rgba(9,42,94,.06)] lg:order-1">
           <div class="grid gap-4 sm:grid-cols-[120px_1fr] sm:items-center">
-            <div class="rounded-[6px] border border-slate-200 bg-[var(--color-mist)] p-2">
+            <div class="mx-auto w-44 max-w-full rounded-[6px] border border-slate-200 bg-[var(--color-mist)] p-2 sm:mx-0 sm:w-auto">
               <img src={contact.whatsappQr} alt={t.labels.whatsappQr} class="aspect-square w-full rounded-[4px] object-contain" loading="lazy" />
             </div>
             <div>
@@ -692,4 +1623,107 @@ const aboutHighlights = homeFactory.stats.slice(0, 4);
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector("[data-hero-carousel]");
+      if (!root) return;
+
+      const section = root.closest("[data-hero-root]");
+      if (!section) return;
+
+      const slides = Array.from(root.querySelectorAll("[data-hero-slide]"));
+      const dots = Array.from(section.querySelectorAll("[data-hero-dot]"));
+      const eyebrow = section.querySelector("[data-hero-eyebrow]");
+      const headlineMain = section.querySelector("[data-hero-headline-main]");
+      const headlineAccent = section.querySelector("[data-hero-headline-accent]");
+      const caption = section.querySelector("[data-hero-caption]");
+      const status = section.querySelector("[data-hero-status]");
+      const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const interval = Number(root.getAttribute("data-interval")) || 6200;
+      let current = 0;
+      let timer = 0;
+
+      if (slides.length < 2 || dots.length !== slides.length) return;
+
+      const slideCopy = slides.map((slide) => ({
+        title: slide.getAttribute("data-hero-title") || "",
+        eyebrow: slide.getAttribute("data-hero-eyebrow-copy") || "",
+        headlineMain: slide.getAttribute("data-hero-headline-main-copy") || "",
+        headlineAccent: slide.getAttribute("data-hero-headline-accent-copy") || "",
+        caption: slide.getAttribute("data-hero-caption-copy") || "",
+      }));
+
+      const setDotState = (dot, active) => {
+        dot.classList.toggle("w-9", active);
+        dot.classList.toggle("w-7", !active);
+        dot.classList.toggle("bg-[var(--color-blue)]", active);
+        dot.classList.toggle("bg-[#c7d5e8]", !active);
+        dot.setAttribute("aria-current", active ? "true" : "false");
+      };
+
+      const stop = () => {
+        if (!timer) return;
+        window.clearInterval(timer);
+        timer = 0;
+      };
+
+      const start = () => {
+        if (timer || reduceMotionQuery.matches) return;
+        timer = window.setInterval(() => show(current + 1), interval);
+      };
+
+      const show = (nextIndex) => {
+        const next = (nextIndex + slides.length) % slides.length;
+        if (next === current) return;
+
+        slides.forEach((slide, index) => {
+          const active = index === next;
+          slide.classList.toggle("opacity-100", active);
+          slide.classList.toggle("opacity-0", !active);
+          slide.setAttribute("aria-hidden", active ? "false" : "true");
+        });
+        dots.forEach((dot, index) => setDotState(dot, index === next));
+
+        const copy = slideCopy[next];
+        if (eyebrow && copy.eyebrow) eyebrow.textContent = copy.eyebrow;
+        if (headlineMain && copy.headlineMain) headlineMain.textContent = copy.headlineMain;
+        if (headlineAccent) {
+          headlineAccent.textContent = copy.headlineAccent;
+          headlineAccent.classList.toggle("hidden", !copy.headlineAccent);
+        }
+        if (caption && copy.caption) caption.textContent = copy.caption;
+        if (status && copy.title) status.textContent = copy.title;
+
+        current = next;
+      };
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          stop();
+          show(index);
+          start();
+        });
+      });
+
+      section.addEventListener("pointerenter", stop);
+      section.addEventListener("pointerleave", start);
+      section.addEventListener("focusin", stop);
+      section.addEventListener("focusout", start);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stop();
+          return;
+        }
+        start();
+      });
+
+      reduceMotionQuery.addEventListener("change", () => {
+        stop();
+        start();
+      });
+
+      start();
+    })();
+  </script>
 </BaseLayout>

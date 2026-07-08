@@ -27,6 +27,67 @@ const copyByLang = {
       "Частые вопросы зарубежных покупателей: чертежи, образцы, материалы, сроки, минимальный заказ, OEM и экспорт.",
     cta: "Отправить запрос по ножам",
   },
+  ar: {
+    eyebrow: "أسئلة المشترين",
+    h1: "أسئلة شفرات آلات الأغذية",
+    lead: "أسئلة شائعة من المشترين الخارجيين حول الشفرات المخصصة والبديلة: الرسومات، العينات، المواد، المدة، الحد الأدنى، OEM والتصدير.",
+    cta: "أرسل متطلبات الشفرة",
+  },
+  es: {
+    eyebrow: "FAQ del comprador",
+    h1: "FAQ de cuchillas para maquinaria alimentaria",
+    lead:
+      "Preguntas frecuentes de compradores internacionales sobre cuchillas personalizadas y recambios: planos, muestras, materiales, plazo, MOQ, OEM y exportación.",
+    cta: "Enviar requisito de cuchilla",
+  },
+  pt: {
+    eyebrow: "FAQ do comprador",
+    h1: "FAQ de lâminas para máquinas alimentícias",
+    lead:
+      "Perguntas frequentes de compradores internacionais sobre lâminas sob medida e reposições: desenhos, amostras, materiais, prazo, MOQ, OEM e exportação.",
+    cta: "Enviar necessidade de lâmina",
+  },
+  tr: {
+    eyebrow: "Alıcı SSS",
+    h1: "Gıda makinesi bıçakları SSS",
+    lead:
+      "Yurt dışı alıcıların özel ve yedek gıda makinesi bıçakları hakkında sık sorduğu konular: çizim, numune, malzeme, süre, MOQ, OEM ve ihracat.",
+    cta: "Bıçak ihtiyacınızı gönderin",
+  },
+  de: {
+    eyebrow: "Käufer-FAQ",
+    h1: "FAQ zu Messern für Lebensmittelmaschinen",
+    lead:
+      "Häufige Fragen internationaler Käufer zu kundenspezifischen und Ersatzmessern: Zeichnungen, Muster, Materialien, Lieferzeit, Mindestmenge, OEM und Export.",
+    cta: "Messeranforderung senden",
+  },
+  fr: {
+    eyebrow: "FAQ acheteur",
+    h1: "FAQ lames pour machines alimentaires",
+    lead:
+      "Questions fréquentes des acheteurs internationaux sur les lames sur mesure et de rechange : plans, échantillons, matériaux, délai, MOQ, OEM et export.",
+    cta: "Envoyer votre besoin de lame",
+  },
+  it: {
+    eyebrow: "FAQ acquirenti",
+    h1: "FAQ lame per macchine alimentari",
+    lead:
+      "Domande frequenti degli acquirenti esteri su lame su misura e ricambi: disegni, campioni, materiali, tempi, MOQ, OEM ed export.",
+    cta: "Invia richiesta lama",
+  },
+  th: {
+    eyebrow: "FAQ สำหรับผู้ซื้อ",
+    h1: "คำถามใบมีดเครื่องจักรอาหาร",
+    lead: "คำถามทั่วไปจากผู้ซื้อต่างประเทศเกี่ยวกับใบมีดสั่งทำและใบมีดทดแทน: แบบ ตัวอย่าง วัสดุ ระยะเวลา MOQ OEM และการส่งออก",
+    cta: "ส่งความต้องการใบมีด",
+  },
+  vi: {
+    eyebrow: "FAQ người mua",
+    h1: "FAQ dao máy thực phẩm",
+    lead:
+      "Câu hỏi thường gặp của khách hàng quốc tế về dao tùy chỉnh và dao thay thế: bản vẽ, mẫu, vật liệu, thời gian, MOQ, OEM và xuất khẩu.",
+    cta: "Gửi yêu cầu dao",
+  },
   zh: {
     eyebrow: "采购常见问题",
     h1: "食品机械刀片常见问题",
@@ -83,7 +144,7 @@ const faqJsonLd = {
       </div>
 
       <div class="mt-10 flex flex-wrap gap-3">
-        <a href={withLang(lang, "/contact")} class="rounded-[4px] bg-[var(--color-red)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_product" data-track-label="faq">
+        <a href={withLang(lang, "/contact")} class="rounded-[4px] bg-[var(--color-blue)] px-5 py-3 font-semibold text-white" data-track="click_contact_from_product" data-track-label="faq">
           {copy.cta}
         </a>
         <a href={withLang(lang, "/products")} class="rounded-[4px] border border-[var(--color-border)] px-5 py-3 font-semibold text-[var(--color-ink)]">

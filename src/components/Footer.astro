@@ -1,4 +1,5 @@
 ---
+import { guideNavLabel, localizeGuideText, seoGuides, supportsGuideLang } from "@/data/guides";
 import { channelLinks, contact, ui, withLang, type Lang } from "@/data/site";
 
 interface Props {
@@ -245,6 +246,22 @@ const footerCopyByLang = {
   },
 } as const;
 const footerCopy = footerCopyByLang[lang as keyof typeof footerCopyByLang] ?? footerCopyByLang.en;
+const brandSubtitleByLang = {
+  en: "Food Machine Blades",
+  ru: "Ножи для пищевых машин",
+  ar: "شفرات آلات الأغذية",
+  es: "Cuchillas alimentarias",
+  pt: "Lâminas alimentícias",
+  tr: "Gıda makinesi bıçakları",
+  de: "Lebensmittelmaschinenmesser",
+  fr: "Lames alimentaires",
+  it: "Lame alimentari",
+  th: "ใบมีดเครื่องจักรอาหาร",
+  vi: "Dao máy thực phẩm",
+  id: "Pisau mesin makanan",
+  zh: "食品机械刀片",
+} as const;
+const brandSubtitle = brandSubtitleByLang[lang as keyof typeof brandSubtitleByLang] ?? brandSubtitleByLang.en;
 const footerProductsByLang = {
   en: [
     ["Custom food processing blades", "/products/custom-food-processing-blades"],
@@ -263,6 +280,42 @@ const footerProductsByLang = {
     ["شفرات Bowl Cutter", "/products/bowl-cutter-blades"],
     ["شفرات معالجة اللحوم", "/products/meat-processing-blades"],
     ["شفرات التغليف", "/products/packaging-blades"],
+  ],
+  es: [
+    ["Cuchillas a medida", "/products/custom-food-processing-blades"],
+    ["Cuchillas bowl cutter", "/products/bowl-cutter-blades"],
+    ["Cuchillas para carne", "/products/meat-processing-blades"],
+    ["Cuchillas de empaque", "/products/packaging-blades"],
+  ],
+  pt: [
+    ["Lâminas sob medida", "/products/custom-food-processing-blades"],
+    ["Lâminas bowl cutter", "/products/bowl-cutter-blades"],
+    ["Lâminas para carne", "/products/meat-processing-blades"],
+    ["Lâminas de embalagem", "/products/packaging-blades"],
+  ],
+  tr: [
+    ["Özel bıçaklar", "/products/custom-food-processing-blades"],
+    ["Bowl cutter bıçakları", "/products/bowl-cutter-blades"],
+    ["Et işleme bıçakları", "/products/meat-processing-blades"],
+    ["Paketleme bıçakları", "/products/packaging-blades"],
+  ],
+  de: [
+    ["Sondermesser", "/products/custom-food-processing-blades"],
+    ["Kuttermesser", "/products/bowl-cutter-blades"],
+    ["Fleischmesser", "/products/meat-processing-blades"],
+    ["Verpackungsmesser", "/products/packaging-blades"],
+  ],
+  fr: [
+    ["Lames sur mesure", "/products/custom-food-processing-blades"],
+    ["Lames bowl cutter", "/products/bowl-cutter-blades"],
+    ["Lames pour viande", "/products/meat-processing-blades"],
+    ["Lames d'emballage", "/products/packaging-blades"],
+  ],
+  it: [
+    ["Lame su misura", "/products/custom-food-processing-blades"],
+    ["Lame bowl cutter", "/products/bowl-cutter-blades"],
+    ["Lame per carne", "/products/meat-processing-blades"],
+    ["Lame per packaging", "/products/packaging-blades"],
   ],
   th: [
     ["ใบมีดสั่งทำ", "/products/custom-food-processing-blades"],
@@ -309,6 +362,42 @@ const footerApplicationsByLang = {
     ["الأسماك والمأكولات البحرية", "/applications/fish-seafood-processing"],
     ["تغليف الأغذية", "/applications/food-packaging"],
   ],
+  es: [
+    ["Procesamiento de carne", "/applications/meat-processing"],
+    ["Procesamiento de aves", "/applications/poultry-processing"],
+    ["Pescado y mariscos", "/applications/fish-seafood-processing"],
+    ["Empaque alimentario", "/applications/food-packaging"],
+  ],
+  pt: [
+    ["Processamento de carne", "/applications/meat-processing"],
+    ["Processamento de aves", "/applications/poultry-processing"],
+    ["Pescado e seafood", "/applications/fish-seafood-processing"],
+    ["Embalagem alimentícia", "/applications/food-packaging"],
+  ],
+  tr: [
+    ["Et işleme", "/applications/meat-processing"],
+    ["Tavuk işleme", "/applications/poultry-processing"],
+    ["Balık ve deniz ürünleri", "/applications/fish-seafood-processing"],
+    ["Gıda paketleme", "/applications/food-packaging"],
+  ],
+  de: [
+    ["Fleischverarbeitung", "/applications/meat-processing"],
+    ["Geflügelverarbeitung", "/applications/poultry-processing"],
+    ["Fisch und Seafood", "/applications/fish-seafood-processing"],
+    ["Lebensmittelverpackung", "/applications/food-packaging"],
+  ],
+  fr: [
+    ["Transformation viande", "/applications/meat-processing"],
+    ["Transformation volaille", "/applications/poultry-processing"],
+    ["Poisson et fruits de mer", "/applications/fish-seafood-processing"],
+    ["Emballage alimentaire", "/applications/food-packaging"],
+  ],
+  it: [
+    ["Lavorazione carne", "/applications/meat-processing"],
+    ["Lavorazione pollame", "/applications/poultry-processing"],
+    ["Pesce e seafood", "/applications/fish-seafood-processing"],
+    ["Packaging alimentare", "/applications/food-packaging"],
+  ],
   th: [
     ["แปรรูปเนื้อสัตว์", "/applications/meat-processing"],
     ["แปรรูปสัตว์ปีก", "/applications/poultry-processing"],
@@ -338,21 +427,36 @@ const footerApplications = footerApplicationsByLang[lang as keyof typeof footerA
 const faqLabelByLang = {
   en: "FAQ",
   ru: "Вопросы и ответы",
+  ar: "الأسئلة الشائعة",
+  es: "Preguntas frecuentes",
+  pt: "Perguntas frequentes",
+  tr: "SSS",
+  de: "FAQ",
+  fr: "FAQ",
+  it: "FAQ",
+  th: "คำถามที่พบบ่อย",
+  vi: "FAQ",
+  id: "FAQ",
   zh: "常见问题",
 } as const;
 const faqLabel = faqLabelByLang[lang as keyof typeof faqLabelByLang] ?? "FAQ";
+const footerGuideLinks = seoGuides.slice(0, 3).map((guide) => ({
+  label: localizeGuideText(guide.title, lang),
+  href: `/guides/${guide.slug}`,
+}));
+const showGuideLinks = supportsGuideLang(lang);
 ---
 
-<footer class="border-t border-white/10 bg-[#070b10] pb-24 text-white sm:pb-12">
+<footer class="border-t border-[#24475a] bg-[#102333] pb-24 text-white sm:pb-12">
   <div class="container-page grid gap-9 py-12 lg:grid-cols-[1.35fr_.72fr_.72fr_1.05fr]">
     <div>
-      <div class="flex items-center gap-3">
+      <div class="flex min-w-0 items-center gap-3">
         <span class="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-[4px] bg-white p-1.5">
           <img src={contact.logo} alt="" class="h-full w-full object-contain" loading="lazy" />
         </span>
-        <span>
-          <p class="text-lg font-semibold">{t.siteName}</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-[.14em] text-slate-400">Food Machine Blades</p>
+        <span class="min-w-0">
+          <p class="max-w-full break-words text-lg font-semibold [overflow-wrap:anywhere]">{t.siteName}</p>
+          <p class="mt-1 max-w-full break-words text-xs font-semibold uppercase tracking-normal text-slate-400 [overflow-wrap:anywhere] sm:tracking-[.14em]">{brandSubtitle}</p>
         </span>
       </div>
       <p class="mt-4 text-sm font-semibold uppercase text-[var(--color-silver)]">{footerCopy.tagline}</p>
@@ -383,6 +487,16 @@ const faqLabel = faqLabelByLang[lang as keyof typeof faqLabelByLang] ?? "FAQ";
       <p class="mt-6 text-sm font-semibold uppercase text-slate-400">{footerCopy.buyerTitle}</p>
       <p class="mt-4 text-sm leading-7 text-slate-300">{footerCopy.inquiryHint}</p>
       <a href={withLang(lang, "/faq")} class="mt-3 inline-block text-sm font-semibold text-slate-300 hover:text-white">{faqLabel}</a>
+      {showGuideLinks && (
+        <>
+          <p class="mt-6 text-sm font-semibold uppercase text-slate-400">{guideNavLabel(lang)}</p>
+          <div class="mt-4 grid gap-2.5 text-sm text-slate-300">
+            {footerGuideLinks.map((item) => (
+              <a href={withLang(lang, item.href)} class="hover:text-white">{item.label}</a>
+            ))}
+          </div>
+        </>
+      )}
     </div>
 
     <div>

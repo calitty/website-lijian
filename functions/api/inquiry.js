@@ -1,7 +1,11 @@
 const TO_EMAIL = "yijiangyaoqu@gmail.com";
 const FROM_EMAIL = "Website Inquiry <inquiry@send.lijianblades.com>";
 const MAX_FIELD_LENGTH = 1200;
-const MAX_BODY_LENGTH = 20000;
+const MAX_BODY_LENGTH = 15 * 1024 * 1024;
+const MAX_ATTACHMENT_COUNT = 3;
+const MAX_ATTACHMENT_SIZE = 6 * 1024 * 1024;
+const MAX_ATTACHMENT_TOTAL = 10 * 1024 * 1024;
+const ALLOWED_ATTACHMENT_EXTENSIONS = new Set(["pdf", "jpg", "jpeg", "png", "webp", "dwg", "dxf", "step", "stp", "zip", "rar"]);
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -30,6 +34,50 @@ const emailFromText = (value) => {
   return match ? match[0] : "";
 };
 
+const cleanFilename = (value) =>
+  String(value || "")
+    .replace(/[^\w.\- ()\u4e00-\u9fff]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 160);
+
+const base64ByteLength = (value) => {
+  const content = String(value || "");
+  const padding = content.endsWith("==") ? 2 : content.endsWith("=") ? 1 : 0;
+  return Math.max(0, Math.floor((content.length * 3) / 4) - padding);
+};
+
+const normalizeAttachments = (value) => {
+  if (!Array.isArray(value)) return [];
+  if (value.length > MAX_ATTACHMENT_COUNT) {
+    throw new Error("Too many attachments");
+  }
+
+  let totalBytes = 0;
+  return value.map((item) => {
+    const filename = cleanFilename(item?.filename);
+    const extension = filename.includes(".") ? filename.split(".").pop().toLowerCase() : "";
+    const content = String(item?.content || "").replace(/^data:[^,]+,/, "").replace(/\s/g, "");
+    const contentType = clean(item?.contentType || item?.content_type || "application/octet-stream", 120);
+
+    if (!filename || !ALLOWED_ATTACHMENT_EXTENSIONS.has(extension) || !content || !/^[A-Za-z0-9+/=]+$/.test(content)) {
+      throw new Error("Invalid attachment");
+    }
+
+    const bytes = base64ByteLength(content);
+    totalBytes += bytes;
+    if (bytes > MAX_ATTACHMENT_SIZE || totalBytes > MAX_ATTACHMENT_TOTAL) {
+      throw new Error("Attachment too large");
+    }
+
+    return {
+      filename,
+      content,
+      content_type: contentType,
+    };
+  });
+};
+
 const row = (label, value) => {
   if (!clean(value)) return "";
   return `<tr><td style="padding:8px 12px;border:1px solid #d9dee5;background:#f5f7fa;font-weight:700;">${escapeHtml(label)}</td><td style="padding:8px 12px;border:1px solid #d9dee5;">${escapeHtml(value)}</td></tr>`;
@@ -49,6 +97,13 @@ export async function onRequestPost({ request, env }) {
     const data = await request.json();
     if (clean(data.website)) {
       return json({ ok: true });
+    }
+
+    let attachments = [];
+    try {
+      attachments = normalizeAttachments(data.attachments);
+    } catch {
+      return json({ ok: false, error: "Attachment too large or unsupported" }, 413);
     }
 
     const inquiry = {
@@ -78,6 +133,7 @@ export async function onRequestPost({ request, env }) {
     const subjectName = inquiry.name || "New inquiry";
     const subject = `[Lijian Website Inquiry] ${subjectName}`;
     const receivedAt = new Date().toISOString();
+    const attachmentNames = attachments.map((attachment) => attachment.filename).join(", ");
     const html = `
       <div style="font-family:Arial,sans-serif;color:#171a1f;">
         <h2 style="margin:0 0 12px;">New website inquiry</h2>
@@ -90,6 +146,7 @@ export async function onRequestPost({ request, env }) {
           ${row("Machine model", inquiry.equipment)}
           ${row("Size / material / hardness", inquiry.size)}
           ${row("Quantity / delivery time", inquiry.quantity)}
+          ${row("Attachments", attachmentNames)}
           ${row("Language", inquiry.lang)}
           ${row("Source page", inquiry.source)}
           ${row("Received at", receivedAt)}
@@ -106,6 +163,7 @@ export async function onRequestPost({ request, env }) {
       `Machine model: ${inquiry.equipment}`,
       `Size / material / hardness: ${inquiry.size}`,
       `Quantity / delivery time: ${inquiry.quantity}`,
+      `Attachments: ${attachmentNames}`,
       `Language: ${inquiry.lang}`,
       `Source page: ${inquiry.source}`,
       `Received at: ${receivedAt}`,
@@ -120,6 +178,7 @@ export async function onRequestPost({ request, env }) {
       subject,
       html,
       text,
+      ...(attachments.length ? { attachments } : {}),
       ...(replyTo ? { reply_to: replyTo } : {}),
     };
 

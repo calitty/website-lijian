@@ -8,11 +8,18 @@ These files are placeholder visuals for the Maanshan Lijian Food Blades Factory 
 - `unsplash-slicer-berkel.jpg`: Unsplash photo `OwRFe3W2UeU`, food slicer equipment, cropped to avoid the visible brand area in generated derivatives.
 - `unsplash-industrial-kitchen-steam.jpg`: Unsplash photo from the industrial kitchen search result, used as a food equipment environment placeholder.
 - `unsplash-knife-black-surface.jpg`: Unsplash knife close-up, used as a generic blade texture placeholder.
+- `../lijian/hero-food-processing-line.jpg`: Pexels photo "Efficient fruit processing on conveyor belts", used for the homepage food production line carousel slide.
+- `../lijian/hero-cnc-machining.jpg`: Unsplash photo by Visax, CNC machining / metal cutting, used for the homepage machining capability carousel slide.
 
 License references:
 
 - https://unsplash.com/license
 - https://www.pexels.com/license/
+
+Source pages:
+
+- https://www.pexels.com/photo/efficient-fruit-processing-on-conveyor-belts-32578355/
+- https://unsplash.com/photos/a-machine-that-is-cutting-a-piece-of-metal-sxtClAGwRck
 
 ## Generated Local Derivatives
 

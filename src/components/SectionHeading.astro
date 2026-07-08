@@ -10,8 +10,9 @@ interface Props {
 const { eyebrow, title, lead, align = "left", tone = "light" } = Astro.props;
 ---
 
-<div class:list={["max-w-3xl", align === "center" && "mx-auto text-center"]}>
-  {eyebrow && <p class:list={["text-sm font-semibold uppercase", tone === "dark" ? "text-[var(--color-silver)]" : "text-[var(--color-green)]"]}>{eyebrow}</p>}
-  <h2 class:list={[eyebrow && "mt-3", "text-3xl font-semibold leading-tight md:text-4xl", tone === "dark" ? "text-white" : "text-[var(--color-ink)]"]}>{title}</h2>
-  {lead && <p class:list={["mt-4 text-base leading-8 md:text-lg", tone === "dark" ? "text-slate-300" : "text-slate-600"]}>{lead}</p>}
+<div class:list={["min-w-0 max-w-3xl", align === "center" && "mx-auto text-center"]}>
+  {eyebrow && <p class:list={["max-w-full break-words text-xs font-semibold uppercase tracking-normal [overflow-wrap:anywhere]", tone === "dark" ? "text-[var(--color-silver)]" : "text-[var(--color-blue)]"]}>{eyebrow}</p>}
+  <h2 class:list={[eyebrow && "mt-2", "max-w-full whitespace-normal break-words text-2xl font-semibold leading-tight [overflow-wrap:anywhere] [word-break:break-all] sm:[word-break:normal] md:text-[1.75rem]", tone === "dark" ? "text-white" : "text-[var(--color-ink)]"]}>{title}</h2>
+  <span class:list={["mt-3 block h-0.5 w-8 rounded-full bg-[var(--color-blue)]", align === "center" && "mx-auto", tone === "dark" && "bg-[#9fd2ff]"]} aria-hidden="true"></span>
+  {lead && <p class:list={["mt-4 max-w-full break-words text-sm leading-7 [overflow-wrap:anywhere] md:text-base", tone === "dark" ? "text-slate-300" : "text-slate-600"]}>{lead}</p>}
 </div>

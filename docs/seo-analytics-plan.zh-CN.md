@@ -38,7 +38,7 @@
 > 实现说明：
 >
 > - 表单成功时会同时触发 `inquiry_form_sent`（漏斗中间指标）与 `generate_lead`（主转化）。建议在 GA4 中仅将 `generate_lead` 标记为 Key event，避免重复统计转化。
-> - `download_catalog` 为可选功能事件，目前站点未提供目录下载，暂未实现；如后续上线目录 PDF，再在下载按钮上补 `data-track="download_catalog"`。
+> - `download_catalog` 用于产品目录 PDF 下载，下载按钮已通过 `data-track="download_catalog"` 接入；RFQ 模板下载使用 `download_rfq_template`。
 > - `click_telegram` / `click_wechat` / `click_linkedin` 仅在 `src/data/site.ts` 中配置了对应渠道后才会出现（当前为空，已自动隐藏，不会产生空点击数据）。
 
 ### 转化漏斗

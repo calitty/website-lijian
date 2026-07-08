@@ -3,7 +3,8 @@ import Img from "@/components/Img.astro";
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { applications, buildBreadcrumb, langCodes, localize, localizeList, productImages, ui, type Lang } from "@/data/site";
+import { buildApplicationsItemListJsonLd } from "@/data/geo";
+import { applications, buildBreadcrumb, langCodes, localize, localizeList, productImages, ui, withLang, type Lang } from "@/data/site";
 
 export function getStaticPaths() {
   return langCodes.map((lang) => ({ params: { lang } }));
@@ -52,6 +53,78 @@ const solutionCopyByLang = {
       "vegetable-fruit-processing": "حواف حادة لثبات الشرائح وتقليل الكدمات وسهولة التنظيف.",
       "bakery-snack-processing": "سنون وحواف مناسبة للخبز والمعجنات والوجبات الخفيفة.",
       "food-packaging": "شفرات قطع وثقب وأفلام لتقليل النتوءات وثبات الخط.",
+    },
+  },
+  es: {
+    problem: "Enfoque de producción",
+    items: {
+      "meat-processing": "Corte limpio, vida útil del filo y recambio rápido para líneas de carne.",
+      "poultry-processing": "Perfiles compactos para deshuesado, división y recorte con menos desgarro.",
+      "fish-seafood-processing": "Cuchillas inoxidables para ambientes húmedos, salinos y de lavado.",
+      "frozen-food-processing": "Opciones más resistentes para corte a baja temperatura, control de astillado y empaque.",
+      "vegetable-fruit-processing": "Filos limpios para consistencia de rebanada, menos magullado y limpieza sencilla.",
+      "bakery-snack-processing": "Paso de diente y geometría ajustados para pan, pastelería, snacks y control de migas.",
+      "food-packaging": "Corte, perforación y film para control de rebaba y estabilidad de línea.",
+    },
+  },
+  pt: {
+    problem: "Foco de produção",
+    items: {
+      "meat-processing": "Corte limpo, vida do fio e reposição rápida para linhas de carne.",
+      "poultry-processing": "Perfis compactos para desossa, divisão e aparo com menos rasgo.",
+      "fish-seafood-processing": "Lâminas inox para ambientes úmidos, salinos e de lavagem frequente.",
+      "frozen-food-processing": "Opções mais resistentes para corte em baixa temperatura, controle de lascas e embalagem.",
+      "vegetable-fruit-processing": "Fios limpos para consistência de fatia, menos amassamento e limpeza fácil.",
+      "bakery-snack-processing": "Passo do dente e geometria do fio ajustados para pão, pastry, snacks e controle de migalhas.",
+      "food-packaging": "Corte, perfuração e filme para controle de rebarba e estabilidade da linha.",
+    },
+  },
+  tr: {
+    problem: "Üretim odağı",
+    items: {
+      "meat-processing": "Et hatları için temiz kesim, ağız ömrü ve hızlı yedek değişimi.",
+      "poultry-processing": "Kemik ayırma, bölme ve trimleme için daha az yırtılma sağlayan kompakt profiller.",
+      "fish-seafood-processing": "Islak, tuzlu ve sık yıkanan deniz ürünü ortamları için paslanmaz bıçaklar.",
+      "frozen-food-processing": "Düşük sıcaklıkta kesim, çentik kontrolü ve paketleme için daha güçlü bıçak seçenekleri.",
+      "vegetable-fruit-processing": "Dilim tutarlılığı, düşük ezilme ve kolay temizlik için temiz ağızlar.",
+      "bakery-snack-processing": "Ekmek, hamur işi, atıştırmalık ve kırıntı kontrolü için diş aralığı ve ağız geometrisi.",
+      "food-packaging": "Çapak kontrolü ve hat stabilitesi için kesme, perforasyon ve film bıçakları.",
+    },
+  },
+  de: {
+    problem: "Produktionsfokus",
+    items: {
+      "meat-processing": "Sauberer Schnitt, Schneidenstandzeit und schneller Ersatz für Fleischlinien.",
+      "poultry-processing": "Kompakte Profile für Entbeinen, Teilen und Trimmen mit weniger Reißen.",
+      "fish-seafood-processing": "Rostfreie Messer für feuchte, salzige und häufig gewaschene Umgebungen.",
+      "frozen-food-processing": "Robustere Messer für Tieftemperaturschnitt, Ausbruchkontrolle und Verpackung.",
+      "vegetable-fruit-processing": "Saubere Schneiden für konstante Scheiben, weniger Druckstellen und einfache Reinigung.",
+      "bakery-snack-processing": "Zahnteilung und Schneidengeometrie für Brot, Gebäck, Snacks und Krümelkontrolle.",
+      "food-packaging": "Abschneiden, Perforation und Folienschnitt für Gratkontrolle und Linienkonstanz.",
+    },
+  },
+  fr: {
+    problem: "Focus production",
+    items: {
+      "meat-processing": "Coupe nette, durée du tranchant et remplacement rapide pour les lignes viande.",
+      "poultry-processing": "Profils compacts pour désossage, découpe et parage avec moins de déchirure.",
+      "fish-seafood-processing": "Lames inox pour environnements humides, salins et lavés fréquemment.",
+      "frozen-food-processing": "Choix plus robustes pour coupe froide, contrôle des éclats et emballage.",
+      "vegetable-fruit-processing": "Tranchants propres pour régularité des tranches, moins de meurtrissure et nettoyage facile.",
+      "bakery-snack-processing": "Pas de dent et géométrie adaptés au pain, pâtisserie, snacks et contrôle des miettes.",
+      "food-packaging": "Coupe, perforation et film pour contrôle des bavures et stabilité de ligne.",
+    },
+  },
+  it: {
+    problem: "Focus produzione",
+    items: {
+      "meat-processing": "Taglio pulito, durata del filo e ricambio rapido per linee carne.",
+      "poultry-processing": "Profili compatti per disosso, sezionamento e rifilo con meno strappi.",
+      "fish-seafood-processing": "Lame inox per ambienti umidi, salini e lavati frequentemente.",
+      "frozen-food-processing": "Scelte più robuste per taglio a bassa temperatura, controllo scheggiature e packaging.",
+      "vegetable-fruit-processing": "Fili puliti per fette costanti, meno ammaccature e pulizia facile.",
+      "bakery-snack-processing": "Passo dente e geometria del filo per pane, pastry, snack e controllo briciole.",
+      "food-packaging": "Taglio, perforazione e film per controllo bava e stabilità linea.",
     },
   },
   th: {
@@ -114,7 +187,7 @@ const solutionCopy = solutionCopyByLang[lang as keyof typeof solutionCopyByLang]
   image={productImages.manufacturing}
   pageEvent="view_application_page"
   pageEventLabel="all-applications"
-  jsonLd={[breadcrumb]}
+  jsonLd={[breadcrumb, buildApplicationsItemListJsonLd(lang, site)]}
 >
   <PageHero eyebrow={t.labels.applicationRange} title={t.seo.applicationsTitle} lead={t.seo.applicationsDescription} image={productImages.environment} imageAlt={t.nav.applications} />
 
@@ -123,13 +196,18 @@ const solutionCopy = solutionCopyByLang[lang as keyof typeof solutionCopyByLang]
       <SectionHeading title={t.nav.applications} lead={t.home.applicationsLead} />
       <div class="mt-10 grid gap-6 lg:grid-cols-2">
         {applications.map((application) => (
-          <article class="grid overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm md:grid-cols-[.92fr_1.08fr]">
+          <a
+            href={withLang(lang, `/applications/${application.slug}`)}
+            class="group grid overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm transition-colors hover:border-[var(--color-blue)] md:grid-cols-[.92fr_1.08fr]"
+            data-track="click_application_detail"
+            data-track-label={application.slug}
+          >
             <div class="relative min-h-[260px] overflow-hidden bg-slate-100">
-              <Img src={application.image} alt={localize(application.name, lang)} class="h-full min-h-[260px] w-full object-cover" loading="lazy" />
+              <Img src={application.image} alt={localize(application.name, lang)} class="h-full min-h-[260px] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="flex flex-col p-6">
               <p class="text-xs font-semibold uppercase text-[var(--color-green)]">{solutionCopy.problem}</p>
-              <h2 class="mt-3 text-2xl font-semibold text-[var(--color-ink)]">{localize(application.name, lang)}</h2>
+              <h2 class="mt-3 text-2xl font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-blue)]">{localize(application.name, lang)}</h2>
               <p class="mt-4 text-sm leading-7 text-slate-600">{solutionCopy.items[application.slug as keyof typeof solutionCopy.items]}</p>
               <div class="mt-5 flex flex-wrap gap-2">
                 {localizeList(application.focus, lang).map((item) => (
@@ -137,7 +215,7 @@ const solutionCopy = solutionCopyByLang[lang as keyof typeof solutionCopyByLang]
                 ))}
               </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </div>

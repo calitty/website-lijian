@@ -25,25 +25,25 @@ const copyByLang = {
 const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
 ---
 
-<div class="fixed bottom-[4.75rem] right-4 z-50 flex flex-col items-end gap-3 sm:bottom-4">
+<div class="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-1.5 z-50 flex flex-col items-end gap-1.5 sm:bottom-5 sm:right-5 sm:gap-3">
   <div class="group relative flex flex-col items-end">
     <div class="pointer-events-none absolute bottom-full right-0 mb-3 translate-y-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
       <InquiryForm lang={lang} tone="light" variant="compact" />
     </div>
     <button
       type="button"
-      class="flex items-center gap-3 rounded-full border border-white/15 bg-[var(--color-red)] px-4 py-3 text-white shadow-[0_14px_30px_rgba(0,0,0,.22)] outline-none transition hover:bg-[#9f201a] focus-visible:ring-2 focus-visible:ring-white/80"
+      class="group/label relative grid h-9 w-9 place-items-center rounded-full border border-white/70 bg-[var(--color-blue)] text-white shadow-[0_14px_30px_rgba(15,23,42,.18)] outline-none transition hover:bg-[var(--color-blue-dark)] focus-visible:ring-2 focus-visible:ring-white/80 max-[360px]:h-8 max-[360px]:w-8 sm:h-[52px] sm:w-[52px]"
       data-track="open_floating_inquiry"
       data-track-label="floating_inquiry"
       aria-label={copy.inquiry}
     >
-      <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-[var(--color-red)]">
-        <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white text-[var(--color-blue)] max-[360px]:h-5 max-[360px]:w-5 sm:h-8 sm:w-8">
+        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 max-[360px]:h-3 max-[360px]:w-3 sm:h-5 sm:w-5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16v16H4z" />
           <path d="m4 7 8 6 8-6" />
         </svg>
       </span>
-      <span class="hidden text-left leading-tight sm:grid">
+      <span class="pointer-events-none absolute right-full mr-3 hidden min-w-32 rounded-[4px] bg-[var(--color-blue)] px-3 py-2 text-left leading-tight text-white shadow-[0_12px_28px_rgba(15,23,42,.18)] group-hover/label:grid group-focus-visible/label:grid sm:grid sm:translate-x-2 sm:opacity-0 sm:transition sm:group-hover/label:translate-x-0 sm:group-hover/label:opacity-100 sm:group-focus-visible/label:translate-x-0 sm:group-focus-visible/label:opacity-100">
         <span class="text-sm font-semibold">{copy.inquiry}</span>
         <span class="text-xs font-semibold text-white/75">{copy.inquiryText}</span>
       </span>
@@ -52,17 +52,17 @@ const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
 
   <a
     href={channelLinks.whatsapp}
-    class="flex items-center gap-3 rounded-full border border-white/15 bg-[#25d366] px-4 py-3 text-[#06130b] shadow-[0_14px_30px_rgba(0,0,0,.22)]"
+    class="group/label relative grid h-9 w-9 place-items-center rounded-full border border-white/70 bg-[#25d366] text-[#06130b] shadow-[0_14px_30px_rgba(0,0,0,.18)] transition hover:bg-[#20bd5a] max-[360px]:h-8 max-[360px]:w-8 sm:h-[52px] sm:w-[52px]"
     data-track="click_whatsapp"
     data-track-label="floating_whatsapp"
     aria-label={`${copy.title}: ${contact.whatsapp}`}
   >
-    <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white">
-      <svg viewBox="0 0 32 32" class="h-5 w-5" aria-hidden="true" fill="currentColor">
+    <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white max-[360px]:h-5 max-[360px]:w-5 sm:h-8 sm:w-8">
+      <svg viewBox="0 0 32 32" class="h-3.5 w-3.5 max-[360px]:h-3 max-[360px]:w-3 sm:h-5 sm:w-5" aria-hidden="true" fill="currentColor">
         <path d="M16.03 4.5A11.33 11.33 0 0 0 6.4 21.8L5 27.5l5.82-1.36A11.33 11.33 0 1 0 16.03 4.5Zm0 2.22a9.1 9.1 0 0 1 7.8 13.78 9.08 9.08 0 0 1-11.7 3.34l-.4-.2-3.5.82.84-3.4-.24-.41a9.1 9.1 0 0 1 7.2-13.93Zm-3.35 4.55c-.2 0-.52.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.08 3.33 5.15 4.54 2.56 1.01 3.08.8 3.64.75.56-.05 1.8-.73 2.05-1.43.25-.7.25-1.3.18-1.43-.08-.13-.28-.2-.58-.35-.3-.15-1.8-.9-2.08-1-.28-.1-.48-.15-.68.15-.2.3-.78 1-1 1.2-.18.2-.37.22-.67.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.6.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.07-.15-.67-1.62-.92-2.22-.24-.58-.5-.5-.68-.5h-.72Z" />
       </svg>
     </span>
-    <span class="hidden leading-tight sm:grid">
+    <span class="pointer-events-none absolute right-full mr-3 hidden min-w-32 rounded-[4px] bg-white px-3 py-2 leading-tight text-[#06130b] shadow-[0_12px_28px_rgba(15,23,42,.18)] group-hover/label:grid sm:grid sm:translate-x-2 sm:opacity-0 sm:transition sm:group-hover/label:translate-x-0 sm:group-hover/label:opacity-100">
       <span class="text-sm font-semibold">{copy.title}</span>
       <span class="text-xs font-semibold opacity-75">{copy.text}</span>
     </span>

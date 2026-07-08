@@ -1,15 +1,12 @@
 ---
-import { channelLinks, contact, ui, withLang, type Lang } from "@/data/site";
+import { channelLinks, contact, type Lang } from "@/data/site";
 
 interface Props {
   lang: Lang;
   path?: string;
 }
 
-const { lang, path = "/" } = Astro.props;
-const t = ui[lang];
-const isHome = path === "/";
-const contactHref = isHome ? "#contact" : `${withLang(lang)}#contact`;
+const { lang } = Astro.props;
 const ruPrimary = contact.telegram
   ? ["Telegram", channelLinks.telegram, "click_telegram"]
   : ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"];
@@ -18,33 +15,29 @@ const items = lang === "ru"
   ? [
       ruPrimary,
       ["Email", channelLinks.email, "click_email"],
-      [t.nav.contact, contactHref, "click_contact_from_mobile_bar"],
     ]
   : lang === "zh"
     ? [
         ["电话", channelLinks.phone, "click_phone"],
         ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"],
-        [t.nav.contact, contactHref, "click_contact_from_mobile_bar"],
       ]
     : [
         ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"],
         ["Email", channelLinks.email, "click_email"],
-        [t.nav.contact, contactHref, "click_contact_from_mobile_bar"],
       ];
 ---
 
-<nav class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-white/10 bg-[#070b10] sm:hidden">
+<nav class="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-2 overflow-hidden border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_28px_rgba(15,23,42,.08)] sm:hidden">
   {items.map(([label, href, event], index) => (
     <a
       href={href}
       class:list={[
-        "flex min-h-14 items-center justify-center border-r border-white/10 px-2 text-center text-sm font-semibold last:border-r-0",
-        index === 0 ? "bg-[var(--color-red)] text-white" : "text-slate-100",
+        "flex min-h-14 min-w-0 items-center justify-center overflow-hidden border-r border-slate-200 px-1.5 text-center text-sm font-semibold leading-tight last:border-r-0",
+        index === 0 ? "bg-[var(--color-blue)] text-white" : "text-[var(--color-ink)]",
       ]}
       data-track={event}
-      data-home-jump={event === "click_contact_from_mobile_bar" && isHome ? "contact" : undefined}
     >
-      {label}
+      <span class="min-w-0 max-w-full break-words [overflow-wrap:anywhere]">{label}</span>
     </a>
   ))}
 </nav>

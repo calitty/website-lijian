@@ -1,6 +1,7 @@
 ---
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
+import Img from "@/components/Img.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buildBreadcrumb, langCodes, manufacturingSteps, productImages, ui, type Lang } from "@/data/site";
 
@@ -33,7 +34,59 @@ const copyByLang = {
     note: "制造配合可依据刀片图纸、旧刀样品、设备型号、材料需求和使用工况，确认可制造性、装机尺寸和刃口方案。",
   },
 } as const;
-const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.en;
+const manufacturingFallbackByLang = {
+  ar: {
+    h1: "قدرات تصنيع الشفرات الصناعية المخصصة",
+    lead: "تركز القدرة التصنيعية على الشكل، الفتحات، المعالجة الحرارية، السماكة، تشطيب الحافة وثبات الطلبات المتكررة لشفرات آلات الأغذية.",
+    note: "للحصول على عرض دقيق، أرسل الرسم، العينة القديمة، طلب المادة وتطبيق العمل. نستخدم هذه البيانات لتأكيد قابلية التصنيع وملاءمة الاستبدال.",
+  },
+  es: {
+    h1: "Capacidad de fabricación para cuchillas industriales a medida",
+    lead: "La fabricación se centra en geometría, agujeros, tratamiento térmico, espesor, acabado del filo y consistencia de pedidos repetidos para cuchillas alimentarias.",
+    note: "Para cotizar con precisión, envíe plano, muestra antigua, material requerido y aplicación de trabajo. Usamos esos datos para confirmar fabricabilidad y ajuste de recambio.",
+  },
+  pt: {
+    h1: "Capacidade de fabricação para lâminas industriais sob medida",
+    lead: "A fabricação foca geometria, furos, tratamento térmico, espessura, acabamento do fio e consistência de pedidos repetidos para lâminas alimentícias.",
+    note: "Para uma cotação precisa, envie desenho, amostra antiga, material solicitado e aplicação de trabalho. Usamos esses dados para confirmar fabricação e encaixe de reposição.",
+  },
+  tr: {
+    h1: "Özel endüstriyel bıçak üretim kapasitesi",
+    lead: "Üretim kapasitesi; gıda makinesi bıçakları için geometri, delikler, ısıl işlem, kalınlık, ağız bitirme ve tekrar sipariş tutarlılığına odaklanır.",
+    note: "Doğru teklif için bıçak çizimi, eski numune, malzeme talebi ve çalışma uygulamasını gönderin. Bu bilgilerle üretilebilirliği ve yedek uyumunu doğrularız.",
+  },
+  de: {
+    h1: "Fertigungskapazität für kundenspezifische Industriemesser",
+    lead: "Die Fertigung konzentriert sich auf Geometrie, Bohrungen, Wärmebehandlung, Dicke, Schneidenfinish und Wiederholgenauigkeit für Lebensmittelmaschinenmesser.",
+    note: "Für ein genaues Angebot senden Sie Zeichnung, altes Muster, Materialanforderung und Anwendung. Damit prüfen wir Herstellbarkeit und Ersatzpassung.",
+  },
+  fr: {
+    h1: "Capacité de fabrication pour lames industrielles sur mesure",
+    lead: "La fabrication se concentre sur géométrie, trous, traitement thermique, épaisseur, finition du tranchant et répétabilité des commandes.",
+    note: "Pour un devis précis, envoyez le plan, l'ancien échantillon, le matériau demandé et l'application. Ces données servent à confirmer fabricabilité et ajustement.",
+  },
+  it: {
+    h1: "Capacità produttiva per lame industriali su misura",
+    lead: "La produzione si concentra su geometria, fori, trattamento termico, spessore, finitura del filo e coerenza dei riordini per lame alimentari.",
+    note: "Per un preventivo accurato, inviare disegno, vecchio campione, richiesta materiale e applicazione. Usiamo questi dati per confermare producibilità e montaggio.",
+  },
+  th: {
+    h1: "ความสามารถผลิตใบมีดอุตสาหกรรมสั่งทำ",
+    lead: "การผลิตเน้นรูปทรง รูติดตั้ง การชุบแข็ง ความหนา การแต่งคม และความสม่ำเสมอของการสั่งซ้ำสำหรับใบมีดเครื่องจักรอาหาร",
+    note: "เพื่อเสนอราคาแม่นยำ กรุณาส่งแบบ ตัวอย่างเก่า วัสดุที่ต้องการ และการใช้งานจริง เราจะใช้ข้อมูลนี้ยืนยันการผลิตและความพอดีในการทดแทน",
+  },
+  vi: {
+    h1: "Năng lực sản xuất dao công nghiệp tùy chỉnh",
+    lead: "Sản xuất tập trung vào hình học dao, vị trí lỗ, nhiệt luyện, độ dày, hoàn thiện cạnh và độ ổn định khi đặt lại dao máy thực phẩm.",
+    note: "Để báo giá chính xác, hãy gửi bản vẽ, mẫu cũ, yêu cầu vật liệu và ứng dụng. Chúng tôi dùng thông tin này để xác nhận khả năng sản xuất và độ khớp thay thế.",
+  },
+  id: {
+    h1: "Kemampuan produksi pisau industri kustom",
+    lead: "Kemampuan produksi fokus pada geometri pisau, lubang, heat treatment, ketebalan, finishing mata, dan konsistensi repeat order untuk pisau mesin makanan.",
+    note: "Untuk penawaran akurat, kirim gambar pisau, sampel lama, permintaan material, dan aplikasi kerja. Data ini dipakai untuk memastikan bisa diproduksi dan cocok sebagai pengganti.",
+  },
+} as const;
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? manufacturingFallbackByLang[lang as keyof typeof manufacturingFallbackByLang] ?? copyByLang.en;
 const capabilityCopyByLang = {
   en: {
     title: "Manufacturing Control Points",
@@ -150,7 +203,253 @@ const capabilityCopyByLang = {
     ],
   },
 } as const;
-const capabilityCopy = capabilityCopyByLang[lang as keyof typeof capabilityCopyByLang] ?? capabilityCopyByLang.en;
+const capabilityFallbackByLang = {
+  ar: {
+    title: "نقاط التحكم في التصنيع",
+    lead: "يهتم المشتري عادة بما إذا كانت الشفرة ستتركب وتقطع بثبات ويمكن طلبها مرة أخرى بنفس المواصفة.",
+    processTitle: "تدفق الإنتاج",
+    texts: ["تأكيد المادة المناسبة لملامسة الطعام، الرطوبة وحمل القطع.", "تحضير الخام والشكل الأولي لتقليل التشوه قبل التشغيل.", "تشغيل الفتحات، الشقوق والأبعاد التي تحدد ملاءمة التركيب.", "مطابقة الصلادة المطلوبة مع مقاومة التآكل والصدمة.", "التحكم في السماكة والاستواء قبل تشطيب الحافة.", "إنهاء الحافة أو الأسنان حسب المادة وسرعة الجهاز."],
+    checks: ["المادة والسماكة.", "شكل الخام والهامش.", "الفتحات والشقوق والأبعاد.", "هدف الصلادة.", "السماكة والاستواء.", "زاوية الحافة والزوائد."],
+  },
+  es: {
+    title: "Puntos de control de fabricación",
+    lead: "Para cuchillas a medida, al comprador le importa si la pieza encaja, corta de forma estable y puede repetirse con la misma especificación.",
+    processTitle: "Flujo de producción",
+    texts: ["Confirmar material según contacto alimentario, humedad y carga de corte.", "Preparar blank y forma inicial para reducir deformación antes del mecanizado.", "Mecanizar agujeros, ranuras y dimensiones que deciden el ajuste.", "Ajustar dureza objetivo con desgaste e impacto esperados.", "Controlar espesor y planitud antes del acabado del filo.", "Terminar filo o dientes según alimento y velocidad de máquina."],
+    checks: ["Material y espesor.", "Forma del blank.", "Agujeros y ranuras.", "Objetivo de dureza.", "Espesor y planitud.", "Ángulo y rebaba."],
+  },
+  pt: {
+    title: "Pontos de controle de fabricação",
+    lead: "Para lâminas sob medida, o comprador precisa saber se a peça encaixa, corta com estabilidade e pode ser repetida com a mesma especificação.",
+    processTitle: "Fluxo de produção",
+    texts: ["Confirmar material conforme contato alimentar, umidade e carga de corte.", "Preparar blank e forma inicial para reduzir deformação antes da usinagem.", "Usinar furos, ranhuras e dimensões que definem o encaixe.", "Ajustar dureza alvo com desgaste e impacto esperados.", "Controlar espessura e planicidade antes do acabamento do fio.", "Finalizar fio ou dentes conforme alimento e velocidade da máquina."],
+    checks: ["Material e espessura.", "Forma do blank.", "Furos e ranhuras.", "Meta de dureza.", "Espessura e planicidade.", "Ângulo e rebarba."],
+  },
+  tr: {
+    title: "Üretim kontrol noktaları",
+    lead: "Özel bıçaklarda alıcı için önemli olan parçanın takılması, stabil kesmesi ve aynı şartla tekrar üretilebilmesidir.",
+    processTitle: "Üretim akışı",
+    texts: ["Malzemeyi gıda teması, nem ve kesme yüküne göre doğrulama.", "İşleme öncesi deformasyonu azaltmak için blank ve ilk şekli hazırlama.", "Montajı belirleyen delik, kanal ve ölçüleri işleme.", "Hedef sertliği aşınma ve darbe beklentisine göre ayarlama.", "Ağız öncesi kalınlık ve düzlük kontrolü.", "Gıda malzemesi ve makine hızına göre ağız veya diş bitirme."],
+    checks: ["Malzeme ve kalınlık.", "Blank şekli.", "Delik ve kanal.", "Sertlik hedefi.", "Kalınlık ve düzlük.", "Ağız açısı ve çapak."],
+  },
+  de: {
+    title: "Kontrollpunkte der Fertigung",
+    lead: "Bei Sondermessern zählt, ob das Teil passt, stabil schneidet und mit derselben Spezifikation wieder gefertigt werden kann.",
+    processTitle: "Produktionsablauf",
+    texts: ["Material nach Lebensmittelkontakt, Feuchtigkeit und Schneidlast bestätigen.", "Rohling und Vorform vorbereiten, um Verzug vor der Bearbeitung zu reduzieren.", "Bohrungen, Schlitze und Maße bearbeiten, die die Passung bestimmen.", "Zielhärte auf Verschleiß und Stoßbelastung abstimmen.", "Dicke und Planheit vor dem Schneidenfinish kontrollieren.", "Schneide oder Zähne nach Produkt und Maschinengeschwindigkeit fertigstellen."],
+    checks: ["Material und Dicke.", "Rohlingsform.", "Bohrungen und Schlitze.", "Härteziel.", "Dicke und Planheit.", "Winkel und Grat."],
+  },
+  fr: {
+    title: "Points de contrôle de fabrication",
+    lead: "Pour les lames sur mesure, l'acheteur veut surtout savoir si la pièce s'installe, coupe régulièrement et peut être reproduite.",
+    processTitle: "Flux de production",
+    texts: ["Confirmer le matériau selon contact alimentaire, humidité et charge de coupe.", "Préparer le blank et la forme initiale pour réduire la déformation avant usinage.", "Usiner trous, rainures et dimensions qui déterminent l'ajustement.", "Adapter la dureté cible à l'usure et au risque d'impact.", "Contrôler épaisseur et planéité avant finition du tranchant.", "Finir tranchant ou dents selon aliment et vitesse machine."],
+    checks: ["Matériau et épaisseur.", "Forme du blank.", "Trous et rainures.", "Dureté cible.", "Épaisseur et planéité.", "Angle et bavure."],
+  },
+  it: {
+    title: "Punti di controllo produzione",
+    lead: "Per lame su misura conta soprattutto se il pezzo monta, taglia in modo stabile e può essere riprodotto con la stessa specifica.",
+    processTitle: "Flusso di produzione",
+    texts: ["Confermare il materiale secondo contatto alimentare, umidità e carico di taglio.", "Preparare blank e forma iniziale per ridurre deformazioni prima della lavorazione.", "Lavorare fori, asole e quote che determinano il montaggio.", "Regolare la durezza target in base a usura e impatto attesi.", "Controllare spessore e planarità prima del filo.", "Finire filo o denti secondo alimento e velocità macchina."],
+    checks: ["Materiale e spessore.", "Forma blank.", "Fori e asole.", "Target durezza.", "Spessore e planarità.", "Angolo e bava."],
+  },
+  th: {
+    title: "จุดควบคุมการผลิต",
+    lead: "สำหรับใบมีดสั่งทำ สิ่งสำคัญคือใบมีดติดตั้งได้ ตัดเสถียร และผลิตซ้ำตามสเปกเดิมได้",
+    processTitle: "กระบวนการผลิต",
+    texts: ["ยืนยันวัสดุตามการสัมผัสอาหาร ความชื้น และแรงตัด", "เตรียมชิ้นงานและรูปทรงเริ่มต้นเพื่อลดการบิดก่อนขึ้นรูป", "ขึ้นรูปรู ร่อง และขนาดที่กำหนดความพอดีในการติดตั้ง", "ปรับความแข็งเป้าหมายตามการสึกและแรงกระแทก", "ควบคุมความหนาและความเรียบก่อนแต่งคม", "แต่งคมหรือฟันตามวัตถุดิบและความเร็วเครื่อง"],
+    checks: ["วัสดุและความหนา", "รูปทรงชิ้นงาน", "รูและร่อง", "เป้าหมายความแข็ง", "ความหนาและความเรียบ", "มุมคมและครีบ"],
+  },
+  vi: {
+    title: "Điểm kiểm soát sản xuất",
+    lead: "Với dao tùy chỉnh, người mua cần biết dao có lắp đúng, cắt ổn định và có thể đặt lại cùng thông số hay không.",
+    processTitle: "Quy trình sản xuất",
+    texts: ["Xác nhận vật liệu theo tiếp xúc thực phẩm, độ ẩm và tải cắt.", "Chuẩn bị phôi và hình dạng ban đầu để giảm biến dạng trước gia công.", "Gia công lỗ, rãnh và kích thước quyết định độ khớp lắp.", "Điều chỉnh độ cứng mục tiêu theo mài mòn và va đập dự kiến.", "Kiểm soát độ dày và độ phẳng trước khi hoàn thiện cạnh.", "Hoàn thiện cạnh hoặc răng theo vật liệu thực phẩm và tốc độ máy."],
+    checks: ["Vật liệu và độ dày.", "Hình dạng phôi.", "Lỗ và rãnh.", "Mục tiêu độ cứng.", "Độ dày và độ phẳng.", "Góc cạnh và ba via."],
+  },
+  id: {
+    title: "Titik kontrol produksi",
+    lead: "Untuk pisau kustom, pembeli perlu tahu apakah pisau bisa terpasang, memotong stabil, dan bisa diproduksi ulang dengan spesifikasi sama.",
+    processTitle: "Alur produksi",
+    texts: ["Konfirmasi material sesuai kontak makanan, kelembapan, dan beban potong.", "Siapkan blank dan bentuk awal untuk mengurangi deformasi sebelum machining.", "Machining lubang, slot, dan ukuran yang menentukan kecocokan pemasangan.", "Sesuaikan target kekerasan dengan aus dan risiko benturan.", "Kontrol ketebalan dan kerataan sebelum finishing mata.", "Selesaikan mata atau gigi sesuai bahan makanan dan kecepatan mesin."],
+    checks: ["Material dan ketebalan.", "Bentuk blank.", "Lubang dan slot.", "Target kekerasan.", "Ketebalan dan kerataan.", "Sudut mata dan burr."],
+  },
+} as const;
+const capabilityFallback = capabilityFallbackByLang[lang as keyof typeof capabilityFallbackByLang];
+const capabilityCopy =
+  capabilityCopyByLang[lang as keyof typeof capabilityCopyByLang] ??
+  (capabilityFallback
+    ? {
+        title: capabilityFallback.title,
+        lead: capabilityFallback.lead,
+        processTitle: capabilityFallback.processTitle,
+        items: manufacturingSteps[lang].slice(0, 6).map((title, index) => ({
+          title,
+          text: capabilityFallback.texts[index],
+          check: capabilityFallback.checks[index],
+        })),
+      }
+    : capabilityCopyByLang.en);
+const packagingImages = [
+  "/images/lijian/export-packed-blade-sets.jpg",
+  "/images/lijian/export-batch-wooden-trays.jpg",
+  "/images/lijian/foam-packed-custom-blade.jpg",
+] as const;
+const packagingCopyByLang = {
+  en: {
+    title: "Packaging And Export Delivery",
+    lead: "Sharp, rust-prone blades need protection in transit, so every order is edge-guarded, rust-inhibited and export-packed to arrive ready to install.",
+    captions: ["Export-packed blade sets", "Fumigation-ready wooden pallets", "Foam-separated edge protection"],
+    points: [
+      { title: "Rust Protection", text: "VCI paper or oil coating guards the steel against moisture and salt air on long sea routes." },
+      { title: "Edge Guarding", text: "Foam separation and edge sleeves keep bevels and tips undamaged during handling and transit." },
+      { title: "Export Packing", text: "Cartons on fumigation-ready wooden pallets or cases, labelled for sea and air freight." },
+      { title: "Flexible Shipping", text: "Express, air or sea freight by order size and lead time, delivered FOB or CIF on request." },
+    ],
+  },
+  ru: {
+    title: "Упаковка И Экспортная Поставка",
+    lead: "Острые и склонные к коррозии ножи нуждаются в защите при перевозке: каждый заказ проходит защиту кромки, антикоррозионную обработку и экспортную упаковку и приходит готовым к установке.",
+    captions: ["Экспортная упаковка комплектов ножей", "Поддоны под фумигацию", "Защита кромки пеноматериалом"],
+    points: [
+      { title: "Защита От Коррозии", text: "VCI-бумага или масляное покрытие защищают сталь от влаги и соли при долгой морской перевозке." },
+      { title: "Защита Кромки", text: "Прокладки из пеноматериала и чехлы сохраняют фаску и кончик при перевозке." },
+      { title: "Экспортная Упаковка", text: "Картон на деревянных поддонах под фумигацию или ящики с маркировкой для моря и авиа." },
+      { title: "Гибкая Доставка", text: "Экспресс, авиа или море по объёму заказа и срокам, поставка FOB или CIF по запросу." },
+    ],
+  },
+  zh: {
+    title: "包装与出口交付",
+    lead: "刀片锋利且易锈，运输环节的防护直接影响到货状态。出货前统一做护刃、防锈和出口包装，让刀片到货即可装机。",
+    captions: ["出口包装刀片套装", "可熏蒸出口木托盘", "泡棉分隔护刃包装"],
+    points: [
+      { title: "防锈处理", text: "气相防锈纸或涂油防护，应对海运长途的潮湿和盐雾环境。" },
+      { title: "刃口防护", text: "泡棉分隔、刃口套管，避免搬运和运输中磕碰刃口和刀尖。" },
+      { title: "出口包装", text: "纸箱配可熏蒸木托盘或木箱，标注清晰，适配海运和空运。" },
+      { title: "灵活发运", text: "按订单量和交期选择快递、空运或海运，可按 FOB / CIF 交付。" },
+    ],
+  },
+} as const;
+const packagingFallbackByLang = {
+  ar: {
+    title: "التغليف والتسليم للتصدير",
+    lead: "الشفرات الحادة والمعرضة للصدأ تحتاج حماية أثناء النقل، لذا يُحمى كل طلب عند الحافة ويُعالج ضد الصدأ ويُغلّف للتصدير ليصل جاهزًا للتركيب.",
+    captions: ["أطقم شفرات مغلفة للتصدير", "منصات خشبية جاهزة للتبخير", "حماية الحافة بالإسفنج"],
+    points: [
+      { title: "الحماية من الصدأ", text: "ورق VCI أو طلاء زيتي يحمي الفولاذ من الرطوبة والهواء المالح في الرحلات البحرية الطويلة." },
+      { title: "حماية الحافة", text: "الفصل بالإسفنج وأكمام الحافة تحافظ على الأشطاب والأطراف دون تلف أثناء النقل." },
+      { title: "تغليف التصدير", text: "صناديق على منصات خشبية جاهزة للتبخير، موسومة للشحن البحري والجوي." },
+      { title: "شحن مرن", text: "بريد سريع أو جوي أو بحري حسب الكمية والمهلة، التسليم FOB أو CIF عند الطلب." },
+    ],
+  },
+  es: {
+    title: "Embalaje Y Entrega De Exportación",
+    lead: "Las cuchillas afiladas y propensas a la corrosión necesitan protección en tránsito: cada pedido se protege en el filo, se trata anticorrosión y se embala para exportación, listo para instalar.",
+    captions: ["Juegos de cuchillas embalados para exportación", "Palés de madera listos para fumigación", "Protección del filo con espuma"],
+    points: [
+      { title: "Protección Anticorrosión", text: "Papel VCI o recubrimiento de aceite protegen el acero de la humedad y el aire salino en rutas marítimas largas." },
+      { title: "Protección Del Filo", text: "La separación con espuma y las fundas mantienen biseles y puntas sin daño durante el transporte." },
+      { title: "Embalaje De Exportación", text: "Cartones sobre palés de madera listos para fumigación o cajas, etiquetados para flete marítimo y aéreo." },
+      { title: "Envío Flexible", text: "Exprés, aéreo o marítimo según volumen y plazo, entrega FOB o CIF a solicitud." },
+    ],
+  },
+  pt: {
+    title: "Embalagem E Entrega De Exportação",
+    lead: "Lâminas afiadas e sujeitas à ferrugem precisam de proteção no transporte: cada pedido é protegido no fio, tratado anticorrosão e embalado para exportação, pronto para instalar.",
+    captions: ["Conjuntos de lâminas embalados para exportação", "Paletes de madeira prontos para fumigação", "Proteção do fio com espuma"],
+    points: [
+      { title: "Proteção Anticorrosão", text: "Papel VCI ou revestimento de óleo protegem o aço da umidade e do ar salino em rotas marítimas longas." },
+      { title: "Proteção Do Fio", text: "Separação com espuma e mangas mantêm biséis e pontas sem dano durante o transporte." },
+      { title: "Embalagem De Exportação", text: "Caixas sobre paletes de madeira prontos para fumigação, etiquetadas para frete marítimo e aéreo." },
+      { title: "Envio Flexível", text: "Expresso, aéreo ou marítimo conforme volume e prazo, entrega FOB ou CIF sob pedido." },
+    ],
+  },
+  tr: {
+    title: "Paketleme Ve İhracat Teslimatı",
+    lead: "Keskin ve paslanmaya yatkın bıçaklar taşımada korunmalıdır: her sipariş ağız korumalı, pas önleyici ve ihracata uygun paketlenir, montaja hazır ulaşır.",
+    captions: ["İhracata paketli bıçak setleri", "Fümigasyona hazır ahşap paletler", "Köpükle ağız koruması"],
+    points: [
+      { title: "Pas Koruması", text: "VCI kağıdı veya yağ kaplama, çeliği uzun deniz yollarında nem ve tuzlu havaya karşı korur." },
+      { title: "Ağız Koruması", text: "Köpük ayırma ve ağız kılıfları, taşıma sırasında ağız ve uçları hasarsız tutar." },
+      { title: "İhracat Paketleme", text: "Fümigasyona hazır ahşap paletlerde kutular veya sandıklar, deniz ve hava kargosu için etiketli." },
+      { title: "Esnek Sevkiyat", text: "Sipariş miktarı ve teslim süresine göre ekspres, hava veya deniz; talebe göre FOB veya CIF teslim." },
+    ],
+  },
+  de: {
+    title: "Verpackung Und Exportlieferung",
+    lead: "Scharfe, rostanfällige Messer brauchen Transportschutz: Jede Bestellung wird kantengeschützt, korrosionsgeschützt und exportverpackt und kommt einbaufertig an.",
+    captions: ["Exportverpackte Messersätze", "Begasungsfertige Holzpaletten", "Schaumstoff-Kantenschutz"],
+    points: [
+      { title: "Korrosionsschutz", text: "VCI-Papier oder Ölbeschichtung schützt den Stahl vor Feuchtigkeit und Salzluft auf langen Seewegen." },
+      { title: "Kantenschutz", text: "Schaumstofftrennung und Kantenhülsen halten Fasen und Spitzen bei Transport und Handling unbeschädigt." },
+      { title: "Exportverpackung", text: "Kartons auf begasungsfertigen Holzpaletten oder Kisten, beschriftet für See- und Luftfracht." },
+      { title: "Flexibler Versand", text: "Express, Luft- oder Seefracht je nach Menge und Lieferzeit, Lieferung FOB oder CIF auf Anfrage." },
+    ],
+  },
+  fr: {
+    title: "Emballage Et Livraison Export",
+    lead: "Les lames tranchantes et sujettes à la rouille doivent être protégées pendant le transport : chaque commande est protégée au tranchant, traitée anticorrosion et emballée pour l'export, prête à monter.",
+    captions: ["Jeux de lames emballés export", "Palettes bois prêtes à fumigation", "Protection du tranchant par mousse"],
+    points: [
+      { title: "Protection Anticorrosion", text: "Papier VCI ou huilage protège l'acier de l'humidité et de l'air salin sur les longs trajets maritimes." },
+      { title: "Protection Du Tranchant", text: "Séparation mousse et manchons préservent biseaux et pointes pendant la manutention et le transport." },
+      { title: "Emballage Export", text: "Cartons sur palettes bois prêtes à fumigation ou caisses, étiquetés pour fret maritime et aérien." },
+      { title: "Expédition Flexible", text: "Express, aérien ou maritime selon volume et délai, livraison FOB ou CIF sur demande." },
+    ],
+  },
+  it: {
+    title: "Imballaggio E Consegna Export",
+    lead: "Le lame affilate e soggette a ruggine vanno protette nel trasporto: ogni ordine è protetto sul filo, trattato anticorrosione e imballato per l'export, pronto al montaggio.",
+    captions: ["Set di lame imballati per export", "Pallet in legno pronti per fumigazione", "Protezione del filo con schiuma"],
+    points: [
+      { title: "Protezione Antiruggine", text: "Carta VCI o oliatura proteggono l'acciaio da umidità e aria salina sulle lunghe tratte marittime." },
+      { title: "Protezione Del Filo", text: "Separazione in schiuma e guaine mantengono smussi e punte integri durante trasporto e movimentazione." },
+      { title: "Imballaggio Export", text: "Cartoni su pallet in legno pronti per fumigazione o casse, etichettati per via mare e aerea." },
+      { title: "Spedizione Flessibile", text: "Espresso, aereo o mare secondo volume e tempi, consegna FOB o CIF su richiesta." },
+    ],
+  },
+  th: {
+    title: "การบรรจุและการส่งมอบเพื่อส่งออก",
+    lead: "ใบมีดคมและเป็นสนิมง่ายต้องได้รับการปกป้องระหว่างขนส่ง ทุกคำสั่งซื้อจึงมีการป้องกันคม กันสนิม และบรรจุเพื่อส่งออก ให้ถึงมือพร้อมติดตั้ง",
+    captions: ["ชุดใบมีดบรรจุเพื่อส่งออก", "พาเลตไม้พร้อมรมยา", "ป้องกันคมด้วยโฟม"],
+    points: [
+      { title: "การป้องกันสนิม", text: "กระดาษ VCI หรือเคลือบน้ำมันปกป้องเหล็กจากความชื้นและไอเกลือในเส้นทางเดินเรือระยะไกล" },
+      { title: "การป้องกันคม", text: "การคั่นด้วยโฟมและปลอกหุ้มคมช่วยรักษาคมและปลายไม่ให้เสียหายระหว่างขนส่ง" },
+      { title: "การบรรจุเพื่อส่งออก", text: "กล่องบนพาเลตไม้พร้อมรมยาหรือลัง ติดฉลากสำหรับการขนส่งทางเรือและทางอากาศ" },
+      { title: "การจัดส่งที่ยืดหยุ่น", text: "ด่วน ทางอากาศ หรือทางเรือ ตามปริมาณและกำหนดส่ง จัดส่งแบบ FOB หรือ CIF ตามคำขอ" },
+    ],
+  },
+  vi: {
+    title: "Đóng Gói Và Giao Hàng Xuất Khẩu",
+    lead: "Dao sắc và dễ gỉ cần được bảo vệ khi vận chuyển, nên mỗi đơn hàng đều được bảo vệ lưỡi, chống gỉ và đóng gói xuất khẩu, đến nơi sẵn sàng lắp đặt.",
+    captions: ["Bộ dao đóng gói xuất khẩu", "Pallet gỗ sẵn sàng hun trùng", "Bảo vệ lưỡi bằng mút xốp"],
+    points: [
+      { title: "Chống Gỉ", text: "Giấy VCI hoặc phủ dầu bảo vệ thép khỏi ẩm và không khí muối trên tuyến biển dài." },
+      { title: "Bảo Vệ Lưỡi", text: "Ngăn cách bằng mút và ống bọc giữ cạnh vát và mũi dao không hư hại khi vận chuyển." },
+      { title: "Đóng Gói Xuất Khẩu", text: "Thùng carton trên pallet gỗ sẵn sàng hun trùng hoặc kiện, dán nhãn cho vận tải biển và hàng không." },
+      { title: "Giao Hàng Linh Hoạt", text: "Chuyển phát nhanh, đường hàng không hoặc đường biển theo số lượng và thời gian, giao FOB hoặc CIF theo yêu cầu." },
+    ],
+  },
+  id: {
+    title: "Pengemasan Dan Pengiriman Ekspor",
+    lead: "Pisau tajam dan mudah berkarat perlu perlindungan saat transit, jadi setiap pesanan diberi pelindung mata, anti-karat, dan dikemas ekspor agar tiba siap dipasang.",
+    captions: ["Set pisau kemasan ekspor", "Palet kayu siap fumigasi", "Perlindungan mata dengan busa"],
+    points: [
+      { title: "Perlindungan Karat", text: "Kertas VCI atau lapisan oli melindungi baja dari kelembapan dan udara garam pada rute laut jauh." },
+      { title: "Perlindungan Mata", text: "Pemisah busa dan selongsong mata menjaga bevel dan ujung tetap utuh selama transit." },
+      { title: "Pengemasan Ekspor", text: "Kardus di atas palet kayu siap fumigasi atau peti, berlabel untuk angkutan laut dan udara." },
+      { title: "Pengiriman Fleksibel", text: "Ekspres, udara, atau laut sesuai jumlah dan tenggat, dikirim FOB atau CIF sesuai permintaan." },
+    ],
+  },
+} as const;
+const packaging =
+  packagingCopyByLang[lang as keyof typeof packagingCopyByLang] ??
+  packagingFallbackByLang[lang as keyof typeof packagingFallbackByLang] ??
+  packagingCopyByLang.en;
+const packagingItems = packagingImages.map((src, index) => ({
+  src,
+  caption: packaging.captions[index] ?? packagingCopyByLang.en.captions[index],
+}));
 const processIcons = [
   {
     paths: ["M4 15.5 12 19l8-3.5-8-3.5-8 3.5Z", "M4 11.5 12 15l8-3.5", "M4 8l8-3.5L20 8l-8 3.5L4 8Z", "M8.5 8 12 9.5 15.5 8"],
@@ -234,12 +533,35 @@ const processIcons = [
               <span class="grid h-14 w-14 shrink-0 place-items-center rounded-[6px] border border-slate-200 bg-[linear-gradient(135deg,#f8fafc,#edf2f7)] text-[var(--color-blue)]">
                 <svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round">
                   {processIcons[index].paths.map((path) => <path d={path}></path>)}
-                  {processIcons[index].accent.map((path) => <path d={path} stroke="var(--color-red)"></path>)}
+                  {processIcons[index].accent.map((path) => <path d={path} stroke="#8ecae6"></path>)}
                 </svg>
               </span>
             </div>
             <h2 class="mt-5 text-lg font-semibold leading-snug text-[var(--color-ink)]">{step}</h2>
           </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="container-page">
+      <SectionHeading title={packaging.title} lead={packaging.lead} />
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {packagingItems.map((item) => (
+          <figure class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+            <Img src={item.src} alt={item.caption} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+            <figcaption class="border-t border-slate-200 px-4 py-3 text-sm font-semibold leading-6 text-slate-700">{item.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {packaging.points.map((point, index) => (
+          <article class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="text-sm font-semibold text-[var(--color-green)]">{String(index + 1).padStart(2, "0")}</span>
+            <h2 class="mt-3 text-lg font-semibold leading-snug text-[var(--color-ink)]">{point.title}</h2>
+            <p class="mt-3 text-sm leading-7 text-slate-600">{point.text}</p>
+          </article>
         ))}
       </div>
     </div>

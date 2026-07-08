@@ -12,6 +12,7 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
   preloadImage?: string;
+  alternateLangs?: readonly Lang[];
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   jsonLd = [],
   noindex = false,
   preloadImage,
+  alternateLangs = langCodes,
 } = Astro.props;
 
 const site = Astro.site ?? new URL("https://lijianblades.com");
@@ -51,7 +53,7 @@ const ogLocales = {
   id: "id_ID",
   zh: "zh_CN",
 } as const;
-const alternates = langCodes.map((code) => ({
+const alternates = alternateLangs.map((code) => ({
   code,
   hreflang: languages[code].locale,
   href: new URL(`/${code}${normalizedPath}/`.replace(/\/+/g, "/"), site).href,

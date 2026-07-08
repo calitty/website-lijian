@@ -1,20 +1,21 @@
 ---
-import { contact, languages, ui, withLang, type Lang } from "@/data/site";
+import { contact, langCodes, languages, ui, withLang, type Lang } from "@/data/site";
 
 interface Props {
   lang: Lang;
   path?: string;
+  alternateLangs?: readonly Lang[];
 }
 
-const { lang, path = "/" } = Astro.props;
+const { lang, path = "/", alternateLangs = langCodes } = Astro.props;
 const t = ui[lang];
 const navItems = [
-  ["products", "/products"],
-  ["applications", "/applications"],
-  ["manufacturing", "/manufacturing"],
-  ["quality", "/quality"],
-  ["about", "/about"],
-  ["contact", "/contact"],
+  { key: "products", href: "/products", label: t.nav.products },
+  { key: "applications", href: "/applications", label: t.nav.applications },
+  { key: "manufacturing", href: "/manufacturing", label: t.nav.manufacturing },
+  { key: "quality", href: "/quality", label: t.nav.quality },
+  { key: "about", href: "/about", label: t.nav.about },
+  { key: "contact", href: "/contact", label: t.nav.contact },
 ] as const;
 
 const activePath = path === "/" ? "/" : path.replace(/\/$/, "");
@@ -35,63 +36,79 @@ const addressLabels = {
   zh: "地址",
 } as const;
 const addressLabel = addressLabels[lang as keyof typeof addressLabels] ?? addressLabels.en;
+const menuLabelByLang = {
+  en: "Menu",
+  ru: "Меню",
+  ar: "القائمة",
+  es: "Menú",
+  pt: "Menu",
+  tr: "Menü",
+  de: "Menü",
+  fr: "Menu",
+  it: "Menu",
+  th: "เมนู",
+  vi: "Menu",
+  id: "Menu",
+  zh: "菜单",
+} as const;
+const menuLabel = menuLabelByLang[lang as keyof typeof menuLabelByLang] ?? menuLabelByLang.en;
 const homeHref = withLang(lang);
 const contactHref = isHome ? "#contact" : `${homeHref}#contact`;
-const brandName = isHome && lang === "zh" ? contact.company.zh : t.siteName;
+const brandName = lang === "zh" ? "利坚食品机械刀片厂" : t.siteName;
 const homeAnchorKeys = new Set(["products", "applications", "manufacturing", "quality", "about", "contact"]);
 const compactNavLangs = new Set(["ru", "es", "pt", "tr", "de", "fr", "it"]);
 const navSpacingClass = compactNavLangs.has(lang) ? "gap-0.5" : "gap-1";
 const navItemClass = compactNavLangs.has(lang) ? "px-2.5 text-[13px]" : "px-3 text-sm";
+const languageEntries = Object.entries(languages).filter(([code]) => alternateLangs.includes(code as Lang));
 const getNavHref = (key: string, href: string) => {
-  if (isHome && homeAnchorKeys.has(key)) return `#${key}`;
+  if (homeAnchorKeys.has(key)) return isHome ? `#${key}` : `${homeHref}#${key}`;
   if (key === "contact") return contactHref;
   return withLang(lang, href);
 };
 ---
 
-<header class="sticky top-0 z-40 border-b border-white/10 bg-[#070b10] text-white">
-  <div class="container-page flex min-h-18 items-center justify-between gap-5">
-    <a href={homeHref} class="flex items-center gap-3 font-semibold text-white" aria-label={t.nav.home}>
-      <span class="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[4px] bg-white p-1.5">
+<header class="sticky top-0 z-40 border-b border-[var(--color-border)] bg-white/94 text-[var(--color-ink)] shadow-[0_1px_0_rgba(9,42,94,.04)] backdrop-blur-xl">
+  <div class="container-page flex min-h-16 items-center gap-3 sm:min-h-18 lg:justify-between lg:gap-5">
+    <a href={homeHref} class="flex min-w-0 items-center gap-3 font-semibold text-[var(--color-ink)]" aria-label={t.nav.home}>
+      <span class="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[4px] border border-[#d5e2f4] bg-white p-1.5 shadow-sm">
         <img src={contact.logo} alt="" class="h-full w-full object-contain" />
       </span>
-      <span class="grid leading-tight">
-        <span class="whitespace-nowrap text-[15px] font-semibold sm:text-base">{brandName}</span>
-        <span class="hidden text-[10px] font-semibold uppercase tracking-[.14em] text-slate-400 sm:block">Food Machine Blades</span>
+      <span class="grid min-w-0 leading-tight">
+        <span class="max-w-[min(54vw,18rem)] truncate whitespace-nowrap text-[15px] font-semibold sm:max-w-none sm:text-base">{brandName}</span>
       </span>
     </a>
 
     <nav class:list={["hidden items-center lg:flex", navSpacingClass]} aria-label="Primary navigation">
-      {navItems.map(([key, href]) => {
-        const isActive = activePath === href || activePath.startsWith(`${href}/`);
+      {navItems.map((item) => {
+        const isActive = activePath === item.href || activePath.startsWith(`${item.href}/`);
         return (
           <a
-            href={getNavHref(key, href)}
+            href={getNavHref(item.key, item.href)}
             class:list={[
-              "home-nav-desktop whitespace-nowrap rounded-[4px] border-b-2 py-2 font-semibold",
+              "home-nav-desktop whitespace-nowrap border-b-2 px-3 py-2 font-semibold",
               navItemClass,
-              !isHome && isActive ? "border-[var(--color-red)] bg-white/6 text-white" : "border-transparent text-slate-300",
+              !isHome && isActive ? "border-[var(--color-blue)] text-[var(--color-blue)]" : "border-transparent text-slate-600 hover:text-[var(--color-blue)]",
             ]}
-            data-home-nav={isHome && homeAnchorKeys.has(key) ? key : undefined}
+            data-home-nav={isHome && homeAnchorKeys.has(item.key) ? item.key : undefined}
           >
-            {t.nav[key]}
+            {item.label}
           </a>
         );
       })}
     </nav>
 
     <div class="hidden items-center gap-2 lg:flex">
-      <details class="relative border-l border-white/15 pl-3" aria-label={t.labels.language}>
-        <summary class="list-none rounded-[4px] bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)]">
+      <details class="relative border-l border-[var(--color-border)] pl-3" aria-label={t.labels.language}>
+        <summary class="list-none rounded-[4px] border border-[#d5e2f4] bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)] shadow-sm">
           {languages[lang].shortLabel}
         </summary>
-        <div class="absolute right-0 mt-2 grid min-w-36 gap-1 rounded-[6px] border border-white/10 bg-[#0b1118] p-2 shadow-sm">
-          {Object.entries(languages).map(([code, language]) => (
+        <div class="absolute right-0 mt-2 grid min-w-36 gap-1 rounded-[6px] border border-slate-200 bg-white p-2 shadow-lg shadow-slate-900/10">
+          {languageEntries.map(([code, language]) => (
             <a
               href={withLang(code as Lang, path)}
               class:list={[
                 "whitespace-nowrap rounded-[4px] px-3 py-2 text-sm font-semibold",
-                code === lang ? "bg-white text-[var(--color-ink)]" : "text-slate-200 hover:bg-white/8",
+                code === lang ? "bg-[var(--color-blue)] text-white" : "text-slate-600 hover:bg-slate-100 hover:text-[var(--color-ink)]",
               ]}
               data-track="switch_language"
               data-track-label={code}
@@ -104,7 +121,7 @@ const getNavHref = (key: string, href: string) => {
       </details>
       <a
         href={contactHref}
-        class="rounded-[4px] bg-[var(--color-red)] px-4 py-2 text-sm font-semibold text-white"
+        class="rounded-[4px] bg-[var(--color-blue)] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_22px_rgba(11,74,162,.18)]"
         data-track="click_contact_from_header"
         data-home-jump={isHome ? "contact" : undefined}
       >
@@ -112,47 +129,53 @@ const getNavHref = (key: string, href: string) => {
       </a>
     </div>
 
-    <details class="relative lg:hidden">
-      <summary class="list-none rounded-[4px] border border-white/20 px-3 py-2 text-sm font-semibold text-white">
-        Menu
-      </summary>
-      <div class="absolute right-0 mt-3 w-72 rounded-[6px] border border-white/10 bg-[#0b1118] p-3 shadow-sm">
+    <div class="relative shrink-0 lg:hidden" data-mobile-menu-wrap>
+      <button
+        type="button"
+        class="grid h-10 w-10 place-items-center rounded-[4px] border border-slate-200 bg-white text-xl font-semibold leading-none text-[var(--color-ink)] shadow-sm"
+        aria-label={menuLabel}
+        aria-expanded="false"
+        data-mobile-menu-button
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+      <div class="fixed left-3 right-3 top-[4.5rem] z-50 hidden max-h-[calc(100vh-5.5rem)] overflow-y-auto rounded-[6px] border border-slate-200 bg-white p-3 shadow-xl shadow-slate-900/15 sm:left-4 sm:right-4 sm:top-[4.75rem]" data-mobile-menu>
         <nav class="grid gap-1" aria-label="Mobile navigation">
           <a
             href={withLang(lang)}
             class:list={[
               "rounded-[4px] border-l-2 px-3 py-2 text-sm font-medium",
-              "border-transparent text-slate-200",
+              "border-transparent text-slate-700",
             ]}
           >
             {t.nav.home}
           </a>
-          {navItems.map(([key, href]) => {
-            const isActive = activePath === href || activePath.startsWith(`${href}/`);
+          {navItems.map((item) => {
+            const isActive = activePath === item.href || activePath.startsWith(`${item.href}/`);
             return (
               <a
-                href={getNavHref(key, href)}
+                href={getNavHref(item.key, item.href)}
                 class:list={[
                   "home-nav-mobile rounded-[4px] border-l-2 px-3 py-2 text-sm font-medium",
-                  !isHome && isActive ? "border-[var(--color-red)] bg-white/8 text-white" : "border-transparent text-slate-200",
+                  !isHome && isActive ? "border-[var(--color-blue)] bg-slate-100 text-[var(--color-ink)]" : "border-transparent text-slate-700",
                 ]}
-                data-home-nav={isHome && homeAnchorKeys.has(key) ? key : undefined}
+                data-home-nav={isHome && homeAnchorKeys.has(item.key) ? item.key : undefined}
               >
-                {t.nav[key]}
+                {item.label}
               </a>
             );
           })}
         </nav>
-        <div class="mt-3 border-t border-white/10 pt-3 text-xs leading-6 text-slate-300">
-          <span class="font-semibold text-slate-100">{addressLabel}: </span>{contact.address[lang]}
+        <div class="mt-3 border-t border-slate-200 pt-3 text-xs leading-6 text-slate-500">
+          <span class="font-semibold text-slate-800">{addressLabel}: </span>{contact.address[lang]}
         </div>
-        <div class="mt-3 grid grid-cols-4 gap-1 border-t border-white/10 pt-3">
-          {Object.entries(languages).map(([code, language]) => (
+        <div class="mt-3 grid grid-cols-4 gap-1 border-t border-slate-200 pt-3">
+          {languageEntries.map(([code, language]) => (
             <a
               href={withLang(code as Lang, path)}
               class:list={[
                 "flex-1 whitespace-nowrap rounded-[4px] px-2 py-2 text-center text-xs font-semibold",
-                code === lang ? "bg-white text-[var(--color-ink)]" : "bg-white/5 text-slate-200",
+                code === lang ? "bg-[var(--color-blue)] text-white" : "bg-slate-100 text-slate-600",
               ]}
               data-track="switch_language"
               data-track-label={code}
@@ -163,9 +186,40 @@ const getNavHref = (key: string, href: string) => {
           ))}
         </div>
       </div>
-    </details>
+    </div>
   </div>
   <script is:inline>
+    const setupMobileMenu = () => {
+      const menus = Array.from(document.querySelectorAll("[data-mobile-menu-wrap]"));
+      menus.forEach((wrap) => {
+        const button = wrap.querySelector("[data-mobile-menu-button]");
+        const panel = wrap.querySelector("[data-mobile-menu]");
+        if (!button || !panel || button.dataset.mobileMenuReady) return;
+        button.dataset.mobileMenuReady = "true";
+
+        const close = () => {
+          panel.classList.add("hidden");
+          button.setAttribute("aria-expanded", "false");
+        };
+        const toggle = () => {
+          const isOpen = !panel.classList.contains("hidden");
+          panel.classList.toggle("hidden", isOpen);
+          button.setAttribute("aria-expanded", String(!isOpen));
+        };
+
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          toggle();
+        });
+        panel.addEventListener("click", (event) => {
+          if (event.target instanceof Element && event.target.closest("a")) close();
+        });
+        document.addEventListener("click", (event) => {
+          if (event.target instanceof Node && !wrap.contains(event.target)) close();
+        });
+      });
+    };
+
     document.addEventListener("click", (event) => {
       const target = event.target instanceof Element ? event.target.closest("[data-language-option]") : null;
       if (!target) return;
@@ -211,6 +265,11 @@ const getNavHref = (key: string, href: string) => {
           scrollToHomeSection(key);
           const menu = link.closest("details");
           if (menu) menu.removeAttribute("open");
+          const mobileMenu = link.closest("[data-mobile-menu-wrap]");
+          const mobilePanel = mobileMenu ? mobileMenu.querySelector("[data-mobile-menu]") : null;
+          const mobileButton = mobileMenu ? mobileMenu.querySelector("[data-mobile-menu-button]") : null;
+          if (mobilePanel) mobilePanel.classList.add("hidden");
+          if (mobileButton) mobileButton.setAttribute("aria-expanded", "false");
         });
       });
 
@@ -233,22 +292,24 @@ const getNavHref = (key: string, href: string) => {
     };
 
     if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupMobileMenu, { once: true });
       document.addEventListener("DOMContentLoaded", setupHomeNavigation, { once: true });
     } else {
+      setupMobileMenu();
       setupHomeNavigation();
     }
   </script>
   <style>
     .home-nav-desktop[data-home-active] {
-      border-bottom-color: var(--color-red);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
+      border-bottom-color: var(--color-blue);
+      background: #f1f5f9;
+      color: var(--color-ink);
     }
 
     .home-nav-mobile[data-home-active] {
-      border-left-color: var(--color-red);
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      border-left-color: var(--color-blue);
+      background: #f1f5f9;
+      color: var(--color-ink);
     }
   </style>
 </header>

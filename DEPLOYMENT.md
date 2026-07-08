@@ -94,12 +94,43 @@ Run before deployment:
 npm run build
 ```
 
+Deploy the latest build with Wrangler:
+
+```text
+export CLOUDFLARE_API_TOKEN=your_cloudflare_api_token
+npm run deploy
+```
+
+The token must be able to deploy the `website-lijian` Worker and upload assets.
+
 After deployment:
 
 ```text
 curl -I https://lijianblades.com/zh/
 curl -I https://lijianblades.com/sitemap-index.xml
 curl -I https://lijianblades.com/robots.txt
+npm run check:live-seo
 ```
 
 Then submit one test inquiry from the website and confirm the email arrives in `yijiangyaoqu@gmail.com`.
+
+## Search Console Submission
+
+After the latest build is deployed:
+
+1. Verify `lijianblades.com` in Google Search Console.
+2. Set `PUBLIC_GOOGLE_SITE_VERIFICATION` as a build variable if using meta-tag verification, then redeploy.
+3. Submit this sitemap:
+
+```text
+https://lijianblades.com/sitemap-index.xml
+```
+
+4. Use URL Inspection to request indexing for:
+
+```text
+https://lijianblades.com/zh/
+https://lijianblades.com/en/
+https://lijianblades.com/zh/products/
+https://lijianblades.com/en/products/
+```

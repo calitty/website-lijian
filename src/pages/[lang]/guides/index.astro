@@ -1,0 +1,134 @@
+---
+import Img from "@/components/Img.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  guideIndexCopy,
+  guideLangCodes,
+  guideNavLabel,
+  localizeGuideList,
+  localizeGuideText,
+  seoGuides,
+} from "@/data/guides";
+import { buildBreadcrumb, channelLinks, productImages, ui, withLang, type Lang } from "@/data/site";
+
+export function getStaticPaths() {
+  return guideLangCodes.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = ui[lang];
+const path = "/guides";
+const site = Astro.site ?? new URL("https://lijianblades.com");
+const title = localizeGuideText(guideIndexCopy.title, lang);
+const description = localizeGuideText(guideIndexCopy.description, lang);
+const guideLabel = guideNavLabel(lang);
+const breadcrumb = buildBreadcrumb(lang, site, [
+  { name: t.nav.home, path: "/" },
+  { name: guideLabel, path },
+]);
+const itemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: title,
+  itemListElement: seoGuides.map((guide, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: localizeGuideText(guide.title, lang),
+    description: localizeGuideText(guide.description, lang),
+    url: new URL(withLang(lang, `/guides/${guide.slug}`), site).href,
+  })),
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  path={path}
+  image={productImages.equipment}
+  pageEvent="view_guide_index"
+  pageEventLabel="food-machinery-blade-guides"
+  jsonLd={[breadcrumb, itemListJsonLd]}
+  alternateLangs={guideLangCodes}
+>
+  <PageHero
+    eyebrow={localizeGuideText(guideIndexCopy.eyebrow, lang)}
+    title={title}
+    lead={description}
+    image={productImages.equipment}
+    imageAlt={title}
+  >
+    <div class="mt-7 flex flex-wrap gap-2">
+      {seoGuides.map((guide) => (
+        <a href={withLang(lang, `/guides/${guide.slug}`)} class="rounded-[4px] border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-slate-100">
+          {localizeGuideText(guide.title, lang)}
+        </a>
+      ))}
+    </div>
+  </PageHero>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="container-page">
+      <div class="grid gap-5 lg:grid-cols-[.78fr_.22fr] lg:items-end">
+        <SectionHeading title={guideLabel} lead={localizeGuideText(guideIndexCopy.lead, lang)} />
+        <a
+          href={withLang(lang, "/contact")}
+          class="inline-flex justify-center rounded-[4px] bg-[var(--color-blue)] px-4 py-3 text-sm font-semibold text-white"
+          data-track="click_contact_from_guides"
+          data-track-label="guide-index"
+        >
+          {localizeGuideText(guideIndexCopy.contact, lang)}
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {seoGuides.map((guide) => (
+          <article class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
+            <a
+              href={withLang(lang, `/guides/${guide.slug}`)}
+              class="group grid h-full md:grid-cols-[.9fr_1.1fr]"
+              data-track="click_guide_detail"
+              data-track-label={guide.slug}
+            >
+              <div class="relative min-h-[240px] overflow-hidden bg-slate-100">
+                <Img src={guide.image} alt={localizeGuideText(guide.title, lang)} class="h-full min-h-[240px] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" loading="lazy" />
+              </div>
+              <div class="flex flex-col p-6">
+                <p class="text-xs font-semibold uppercase text-[var(--color-green)]">{localizeGuideText(guideIndexCopy.checklist, lang)}</p>
+                <h2 class="mt-3 text-2xl font-semibold leading-tight text-[var(--color-ink)] group-hover:text-[var(--color-blue)]">
+                  {localizeGuideText(guide.title, lang)}
+                </h2>
+                <p class="mt-4 text-sm leading-7 text-slate-600">{localizeGuideText(guide.description, lang)}</p>
+                <div class="mt-5 flex flex-wrap gap-2">
+                  {localizeGuideList(guide.checklist, lang).slice(0, 3).map((item) => (
+                    <span class="rounded-[4px] bg-[var(--color-mist)] px-2.5 py-1 text-xs font-semibold leading-5 text-slate-600">{item}</span>
+                  ))}
+                </div>
+                <span class="mt-6 inline-flex text-sm font-semibold text-[var(--color-blue)]">{localizeGuideText(guideIndexCopy.readGuide, lang)}</span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-[var(--color-mist)] py-14 md:py-16">
+    <div class="container-page grid gap-6 md:grid-cols-3">
+      <a href="/downloads/lijian-blades-product-catalog.pdf" class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm" download data-track="download_catalog" data-track-label="guide-index">
+        <p class="text-sm font-semibold text-[var(--color-ink)]">{localizeGuideText(guideIndexCopy.catalog, lang)}</p>
+        <p class="mt-2 text-sm leading-6 text-slate-600">{localizeGuideText(guideIndexCopy.catalogLead, lang)}</p>
+      </a>
+      <a href="/downloads/food-machinery-blade-rfq-template.csv" class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm" download data-track="download_rfq_template" data-track-label="guide-index">
+        <p class="text-sm font-semibold text-[var(--color-ink)]">{localizeGuideText(guideIndexCopy.rfqTemplate, lang)}</p>
+        <p class="mt-2 text-sm leading-6 text-slate-600">{localizeGuideText(guideIndexCopy.rfqTemplateLead, lang)}</p>
+      </a>
+      <a href={channelLinks.email} class="rounded-[6px] border border-slate-200 bg-white p-5 shadow-sm" data-track="click_email" data-track-label="guide-index">
+        <p class="text-sm font-semibold text-[var(--color-ink)]">{localizeGuideText(guideIndexCopy.emailInquiry, lang)}</p>
+        <p class="mt-2 text-sm leading-6 text-slate-600">{channelLinks.email.replace("mailto:", "")}</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
