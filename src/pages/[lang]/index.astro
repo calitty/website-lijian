@@ -1281,7 +1281,7 @@ const factoryVisual = factoryVisualByLang[lang as keyof typeof factoryVisualByLa
           >
             <div class="relative">
               <Img src={application.image} alt={localize(application.name, lang)} class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" loading="lazy" />
-              <span class="absolute -bottom-5 left-4 grid h-10 w-10 place-items-center rounded-full border-4 border-white bg-[var(--color-blue)] shadow-[0_10px_22px_rgba(11,74,162,.22)]" aria-hidden="true">
+              <span class="absolute -bottom-5 start-4 grid h-10 w-10 place-items-center rounded-full border-4 border-white bg-[var(--color-blue)] shadow-[0_10px_22px_rgba(11,74,162,.22)]" aria-hidden="true">
                 <span class="h-4 w-4 rounded-[4px] border-2 border-white"></span>
               </span>
             </div>
@@ -1324,12 +1324,12 @@ const factoryVisual = factoryVisualByLang[lang as keyof typeof factoryVisualByLa
         </div>
 
         <div class="min-w-0">
-          <div class="mb-5 flex flex-col gap-2 border-l-2 border-[var(--color-blue)] pl-4">
+          <div class="mb-5 flex flex-col gap-2 border-s-2 border-[var(--color-blue)] ps-4">
             <p class="text-sm font-semibold uppercase tracking-normal text-[var(--color-blue)]">{manufacturingVisual.flowTitle}</p>
           </div>
 
           <div class="relative grid gap-3">
-            <div class="absolute left-5 top-4 hidden h-[calc(100%-2rem)] w-px bg-[#d6e4f6] sm:block"></div>
+            <div class="absolute start-5 top-4 hidden h-[calc(100%-2rem)] w-px bg-[#d6e4f6] sm:block"></div>
             {homeManufacturingCapabilities.map(([title, text], index) => (
               <article class="relative grid gap-3 rounded-[8px] border border-[var(--color-border)] bg-white p-4 shadow-[0_10px_30px_rgba(9,42,94,.05)] transition duration-200 hover:border-[#b9cceb] sm:grid-cols-[44px_1fr]">
                 <span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#c8daf1] bg-[var(--color-blue-soft)] text-sm font-semibold text-[var(--color-blue)]">

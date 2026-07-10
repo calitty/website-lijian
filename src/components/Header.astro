@@ -98,11 +98,11 @@ const getNavHref = (key: string, href: string) => {
     </nav>
 
     <div class="hidden items-center gap-2 lg:flex">
-      <details class="relative border-l border-[var(--color-border)] pl-3" aria-label={t.labels.language}>
+      <details class="relative border-s border-[var(--color-border)] ps-3" aria-label={t.labels.language}>
         <summary aria-label={t.labels.language} class="list-none rounded-[4px] border border-[#d5e2f4] bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)] shadow-sm">
           {languages[lang].shortLabel}
         </summary>
-        <div class="absolute right-0 mt-2 grid min-w-36 gap-1 rounded-[6px] border border-slate-200 bg-white p-2 shadow-lg shadow-slate-900/10">
+        <div class="absolute end-0 mt-2 grid min-w-36 gap-1 rounded-[6px] border border-slate-200 bg-white p-2 shadow-lg shadow-slate-900/10">
           {languageEntries.map(([code, language]) => (
             <a
               href={withLang(code as Lang, path)}
@@ -144,7 +144,7 @@ const getNavHref = (key: string, href: string) => {
           <a
             href={withLang(lang)}
             class:list={[
-              "rounded-[4px] border-l-2 px-3 py-2 text-sm font-medium",
+              "rounded-[4px] border-s-2 px-3 py-2 text-sm font-medium",
               "border-transparent text-slate-700",
             ]}
           >
@@ -156,7 +156,7 @@ const getNavHref = (key: string, href: string) => {
               <a
                 href={getNavHref(item.key, item.href)}
                 class:list={[
-                  "home-nav-mobile rounded-[4px] border-l-2 px-3 py-2 text-sm font-medium",
+                  "home-nav-mobile rounded-[4px] border-s-2 px-3 py-2 text-sm font-medium",
                   !isHome && isActive ? "border-[var(--color-blue)] bg-slate-100 text-[var(--color-ink)]" : "border-transparent text-slate-700",
                 ]}
                 data-home-nav={isHome && homeAnchorKeys.has(item.key) ? item.key : undefined}
@@ -307,7 +307,7 @@ const getNavHref = (key: string, href: string) => {
     }
 
     .home-nav-mobile[data-home-active] {
-      border-left-color: var(--color-blue);
+      border-inline-start-color: var(--color-blue);
       background: #f1f5f9;
       color: var(--color-ink);
     }
