@@ -62,6 +62,7 @@ const path = "/";
 const site = Astro.site ?? new URL("https://lijianblades.com");
 const heroBannerImage = "/images/lijian/home-hero-food-blades.png";
 const heroBannerWebp = heroBannerImage.replace(/\.(jpe?g|png)$/i, ".webp");
+const ogImage = "/images/og-home.jpg";
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -1166,7 +1167,7 @@ const factoryVisual = factoryVisualByLang[lang as keyof typeof factoryVisualByLa
   title={t.seo.homeTitle}
   description={t.seo.homeDescription}
   path={path}
-  image={heroBannerImage}
+  image={ogImage}
   preloadImage={heroBannerWebp}
   jsonLd={homeJsonLd}
 >

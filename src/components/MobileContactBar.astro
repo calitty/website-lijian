@@ -8,35 +8,36 @@ interface Props {
 
 const { lang } = Astro.props;
 const ruPrimary = contact.telegram
-  ? ["Telegram", channelLinks.telegram, "click_telegram"]
-  : ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"];
+  ? ["Telegram", channelLinks.telegram, "click_telegram", "telegram"]
+  : ["WhatsApp", channelLinks.whatsapp, "click_whatsapp", "whatsapp"];
 
 const items = lang === "ru"
   ? [
       ruPrimary,
-      ["Email", channelLinks.email, "click_email"],
+      ["Email", channelLinks.email, "click_email", "email"],
     ]
   : lang === "zh"
     ? [
-        ["电话", channelLinks.phone, "click_phone"],
-        ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"],
-        ["邮箱", channelLinks.email, "click_email"],
+        ["电话", channelLinks.phone, "click_phone", "phone"],
+        ["WhatsApp", channelLinks.whatsapp, "click_whatsapp", "whatsapp"],
+        ["邮箱", channelLinks.email, "click_email", "email"],
       ]
     : [
-        ["WhatsApp", channelLinks.whatsapp, "click_whatsapp"],
-        ["Email", channelLinks.email, "click_email"],
+        ["WhatsApp", channelLinks.whatsapp, "click_whatsapp", "whatsapp"],
+        ["Email", channelLinks.email, "click_email", "email"],
       ];
 ---
 
 <nav class="fixed bottom-0 left-0 right-0 z-50 grid grid-flow-col auto-cols-fr overflow-hidden border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_28px_rgba(15,23,42,.08)] sm:hidden">
-  {items.map(([label, href, event], index) => (
+  {items.map(([label, href, , channel], index) => (
     <a
       href={href}
       class:list={[
         "flex min-h-14 min-w-0 items-center justify-center overflow-hidden border-r border-slate-200 px-1.5 text-center text-sm font-semibold leading-tight last:border-r-0",
         index === 0 ? "bg-[var(--color-blue)] text-white" : "text-[var(--color-ink)]",
       ]}
-      data-track={event}
+      data-track="click_contact_from_mobile_bar"
+      data-track-label={channel}
     >
       <span class="min-w-0 max-w-full break-words [overflow-wrap:anywhere]">{label}</span>
     </a>

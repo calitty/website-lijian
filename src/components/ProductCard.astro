@@ -112,11 +112,11 @@ const cardCopy = cardCopyByLang[lang as keyof typeof cardCopyByLang] ?? cardCopy
 
       <div class="mt-4 grid gap-3 border-t border-[var(--color-border)] pt-4">
         <div>
-          <p class="text-[11px] font-semibold uppercase text-slate-400">{cardCopy.equipment}</p>
+          <p class="text-[11px] font-semibold uppercase text-slate-600">{cardCopy.equipment}</p>
           <p class="mt-1 text-xs font-semibold leading-5 text-slate-700">{product.equipment.slice(0, 2).map(formatEquipment).join(" / ")}</p>
         </div>
         <div>
-          <p class="text-[11px] font-semibold uppercase text-slate-400">{cardCopy.custom}</p>
+          <p class="text-[11px] font-semibold uppercase text-slate-600">{cardCopy.custom}</p>
           <div class="mt-2 flex flex-wrap gap-2">
             {product.applications.slice(0, 2).map((item) => (
               <span class="rounded-[4px] bg-[var(--color-mist)] px-2.5 py-1 text-[11px] font-semibold leading-4 text-slate-600">{formatApplication(item)}</span>

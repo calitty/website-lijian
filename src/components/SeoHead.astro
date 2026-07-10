@@ -85,6 +85,7 @@ const fullTitle = brandInTitle || title.length > 50 ? title : `${title} | ${site
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={fullTitle} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:locale" content={ogLocales[lang]} />
 {alternates.filter((alternate) => alternate.code !== lang).map((alternate) => (

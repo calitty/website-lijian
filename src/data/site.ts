@@ -1839,6 +1839,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
       name: "شفرات مسننة",
       summary: "أشكال أسنان مسننة للخبز، الفيلم، التغليف وقطع الأغذية ذات القوام المختلف.",
     },
+    "meat-grinder-blades-plates": {
+      name: "شفرات وأقراص مفرمة اللحم",
+      summary: "شفرات مفرمة وأقراص مثقبة لفرم اللحم، النقانق ومفارم الأغذية الجاهزة.",
+    },
+    "dicing-blade-sets": {
+      name: "أطقم شفرات التقطيع المكعب",
+      summary: "أطقم شفرات دائرية وقاطعة عرضية وشبكية لتقطيع اللحم والخضار والفواكه مكعبات وشرائح.",
+    },
+    "shredding-strip-blades": {
+      name: "شفرات التقطيع الرفيع والشرائط",
+      summary: "شفرات جوليان، تقطيع رفيع وقطع شرائط لخطوط معالجة الخضار والفواكه والأغذية الجاهزة.",
+    },
   },
   es: {
     "custom-food-processing-blades": {
@@ -1888,6 +1900,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
     "serrated-blades": {
       name: "Cuchillas dentadas",
       summary: "Perfiles dentados para cortar pan, film, empaque y alimentos con textura.",
+    },
+    "meat-grinder-blades-plates": {
+      name: "Cuchillas y placas para picadora de carne",
+      summary: "Cuchillas y placas perforadas para picado de carne, embutidos y picadoras de alimentos preparados.",
+    },
+    "dicing-blade-sets": {
+      name: "Juegos de cuchillas para cubetear",
+      summary: "Juegos de cuchillas circulares, de corte transversal y de rejilla para cubetear y cortar en tiras carne, vegetales y fruta.",
+    },
+    "shredding-strip-blades": {
+      name: "Cuchillas para rallar y cortar en tiras",
+      summary: "Cuchillas de juliana, rallado y corte en tiras para líneas de vegetales, fruta y alimentos preparados.",
     },
   },
   pt: {
@@ -1939,6 +1963,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
       name: "Lâminas serrilhadas",
       summary: "Perfis serrilhados para cortar pão, filme, embalagem e alimentos com textura.",
     },
+    "meat-grinder-blades-plates": {
+      name: "Lâminas e placas para moedor de carne",
+      summary: "Lâminas e placas perfuradas para moagem de carne, linguiça e moedores de alimentos preparados.",
+    },
+    "dicing-blade-sets": {
+      name: "Conjuntos de lâminas para cubos",
+      summary: "Conjuntos de lâminas circulares, de corte transversal e de grade para cortar carne, vegetais e frutas em cubos e tiras.",
+    },
+    "shredding-strip-blades": {
+      name: "Lâminas para ralar e cortar em tiras",
+      summary: "Lâminas julienne, de ralar e de corte em tiras para linhas de vegetais, frutas e alimentos preparados.",
+    },
   },
   tr: {
     "custom-food-processing-blades": {
@@ -1988,6 +2024,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
     "serrated-blades": {
       name: "Dişli bıçaklar",
       summary: "Ekmek, film, paketleme ve dokulu gıda kesimi için dişli profiller.",
+    },
+    "meat-grinder-blades-plates": {
+      name: "Kıyma makinesi bıçakları ve plakaları",
+      summary: "Et kıyma, sosis ve hazır gıda kıyma makineleri için kıyma bıçakları ve delikli plakalar.",
+    },
+    "dicing-blade-sets": {
+      name: "Küp kesme bıçak setleri",
+      summary: "Et, sebze ve meyveyi küp ve şerit şeklinde kesmek için dairesel, çapraz ve ızgara bıçak setleri.",
+    },
+    "shredding-strip-blades": {
+      name: "Rendeleme ve şerit bıçakları",
+      summary: "Sebze, meyve ve hazır gıda hatları için jülyen, rendeleme ve şerit kesme bıçakları.",
     },
   },
   de: {
@@ -2039,6 +2087,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
       name: "Gezahnte Messer",
       summary: "Gezahnte Profile für Brot, Folie, Verpackung und strukturierte Lebensmittel.",
     },
+    "meat-grinder-blades-plates": {
+      name: "Messer und Lochscheiben für Fleischwolf",
+      summary: "Wolfmesser und Lochscheiben für Fleischwolf, Wurst- und Fertiggericht-Wölfe.",
+    },
+    "dicing-blade-sets": {
+      name: "Würfelschneidsätze",
+      summary: "Rund-, Quer- und Gittermessersätze zum Würfeln und Streifenschneiden von Fleisch, Gemüse und Obst.",
+    },
+    "shredding-strip-blades": {
+      name: "Raspel- und Streifenmesser",
+      summary: "Julienne-, Raspel- und Streifenmesser für Gemüse-, Obst- und Fertiggerichtlinien.",
+    },
   },
   fr: {
     "custom-food-processing-blades": {
@@ -2088,6 +2148,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
     "serrated-blades": {
       name: "Lames dentelées",
       summary: "Profils dentelés pour couper pain, film, emballage et aliments texturés.",
+    },
+    "meat-grinder-blades-plates": {
+      name: "Lames et grilles pour hachoir à viande",
+      summary: "Couteaux de hachoir et grilles perforées pour hachoirs à viande, saucisse et aliments préparés.",
+    },
+    "dicing-blade-sets": {
+      name: "Jeux de lames pour découpe en dés",
+      summary: "Jeux de lames circulaires, transversales et à grille pour couper viande, légumes et fruits en dés et en lanières.",
+    },
+    "shredding-strip-blades": {
+      name: "Lames à râper et à lanières",
+      summary: "Lames julienne, à râper et à couper en lanières pour lignes de légumes, fruits et aliments préparés.",
     },
   },
   it: {
@@ -2139,6 +2211,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
       name: "Lame dentate",
       summary: "Profili dentati per pane, film, packaging e taglio di alimenti strutturati.",
     },
+    "meat-grinder-blades-plates": {
+      name: "Lame e piastre per tritacarne",
+      summary: "Coltelli per tritacarne e piastre forate per macinatura di carne, salsiccia e alimenti preparati.",
+    },
+    "dicing-blade-sets": {
+      name: "Set di lame per cubettatura",
+      summary: "Set di lame circolari, trasversali e a griglia per cubettare e tagliare a strisce carne, verdura e frutta.",
+    },
+    "shredding-strip-blades": {
+      name: "Lame per grattugiare e a strisce",
+      summary: "Lame julienne, per grattugiare e per taglio a strisce per linee di verdura, frutta e alimenti preparati.",
+    },
   },
   th: {
     "custom-food-processing-blades": {
@@ -2188,6 +2272,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
     "serrated-blades": {
       name: "ใบมีดฟันเลื่อย",
       summary: "โปรไฟล์ฟันเลื่อยสำหรับตัดขนมปัง ฟิล์ม บรรจุภัณฑ์ และอาหารที่มีเนื้อสัมผัส",
+    },
+    "meat-grinder-blades-plates": {
+      name: "ใบมีดและแผ่นรูเครื่องบดเนื้อ",
+      summary: "ใบมีดบดและแผ่นรูสำหรับบดเนื้อ ไส้กรอก และเครื่องบดอาหารพร้อมปรุง",
+    },
+    "dicing-blade-sets": {
+      name: "ชุดใบมีดหั่นเต๋า",
+      summary: "ชุดใบมีดวงกลม ใบมีดตัดขวาง และใบมีดตะแกรงสำหรับหั่นเต๋าและหั่นเส้นเนื้อ ผัก และผลไม้",
+    },
+    "shredding-strip-blades": {
+      name: "ใบมีดซอยและหั่นเส้น",
+      summary: "ใบมีดจูเลียน ซอย และหั่นเส้นสำหรับไลน์แปรรูปผัก ผลไม้ และอาหารพร้อมปรุง",
     },
   },
   vi: {
@@ -2239,6 +2335,18 @@ const fallbackProductText: Partial<Record<Lang, Record<string, { name: string; s
       name: "Dao răng cưa",
       summary: "Biên dạng răng cưa cho bánh mì, màng, bao bì và thực phẩm có kết cấu.",
     },
+    "meat-grinder-blades-plates": {
+      name: "Dao và mặt sàng máy xay thịt",
+      summary: "Dao xay và mặt sàng đục lỗ cho máy xay thịt, xúc xích và máy xay thực phẩm chế biến.",
+    },
+    "dicing-blade-sets": {
+      name: "Bộ dao cắt hạt lựu",
+      summary: "Bộ dao tròn, dao cắt ngang và dao lưới để cắt hạt lựu và cắt sợi thịt, rau củ và trái cây.",
+    },
+    "shredding-strip-blades": {
+      name: "Dao bào sợi và cắt sợi",
+      summary: "Dao julienne, bào sợi và cắt sợi cho dây chuyền rau củ, trái cây và thực phẩm chế biến.",
+    },
   },
 };
 
@@ -2255,6 +2363,9 @@ const fallbackProductOptionKeys: Record<string, readonly string[]> = {
   "circular-blades": ["diameter", "bore", "holes", "edgeGeometry", "surfaceFinish"],
   "straight-blades": ["lengthWidth", "thickness", "holes", "edgeGeometry", "straightness"],
   "serrated-blades": ["toothPitch", "toothDepth", "bladeLength", "holes", "edgeDirection"],
+  "meat-grinder-blades-plates": ["knifeWings", "plateHoleDiameter", "boreKeyway", "setMatching", "surfaceFinish"],
+  "dicing-blade-sets": ["cubeSize", "bladeSpacing", "circularCrosscut", "gridPitch", "setMatching"],
+  "shredding-strip-blades": ["stripWidth", "toothOrStraight", "bladeSpacing", "mountingBore", "discCombLayout"],
 };
 
 const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>> = {
@@ -2281,6 +2392,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "استقامة الحافة",
     toothDepth: "عمق الأسنان",
     edgeDirection: "اتجاه الحافة",
+    knifeWings: "عدد أجنحة السكين",
+    plateHoleDiameter: "قطر ثقوب القرص",
+    boreKeyway: "الثقب ومجرى الخابور",
+    cubeSize: "حجم المكعب",
+    bladeSpacing: "تباعد الشفرات",
+    circularCrosscut: "سكاكين دائرية وعرضية",
+    gridPitch: "خطوة الشبكة",
+    stripWidth: "عرض الشريط",
+    toothOrStraight: "حافة مسننة أو مستقيمة",
+    mountingBore: "ثقب التركيب",
+    discCombLayout: "ترتيب القرص أو المشط",
   },
   es: {
     profile: "Perfil exterior",
@@ -2305,6 +2427,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Control de rectitud",
     toothDepth: "Profundidad de diente",
     edgeDirection: "Dirección del filo",
+    knifeWings: "Número de alas de cuchilla",
+    plateHoleDiameter: "Diámetro de agujeros de placa",
+    boreKeyway: "Agujero y chavetero",
+    cubeSize: "Tamaño del cubo",
+    bladeSpacing: "Separación de cuchillas",
+    circularCrosscut: "Cuchillas circulares y transversales",
+    gridPitch: "Paso de rejilla",
+    stripWidth: "Ancho de tira",
+    toothOrStraight: "Filo dentado o recto",
+    mountingBore: "Agujero de montaje",
+    discCombLayout: "Disposición en disco o peine",
   },
   pt: {
     profile: "Perfil externo",
@@ -2329,6 +2462,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Controle de retidão",
     toothDepth: "Profundidade do dente",
     edgeDirection: "Direção do fio",
+    knifeWings: "Número de asas da faca",
+    plateHoleDiameter: "Diâmetro dos furos da placa",
+    boreKeyway: "Furo e rasgo de chaveta",
+    cubeSize: "Tamanho do cubo",
+    bladeSpacing: "Espaçamento das lâminas",
+    circularCrosscut: "Facas circulares e transversais",
+    gridPitch: "Passo da grade",
+    stripWidth: "Largura da tira",
+    toothOrStraight: "Fio serrilhado ou reto",
+    mountingBore: "Furo de montagem",
+    discCombLayout: "Disposição em disco ou pente",
   },
   tr: {
     profile: "Dış profil",
@@ -2353,6 +2497,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Doğruluk kontrolü",
     toothDepth: "Diş derinliği",
     edgeDirection: "Ağız yönü",
+    knifeWings: "Bıçak kanat sayısı",
+    plateHoleDiameter: "Plaka delik çapı",
+    boreKeyway: "Delik ve kama kanalı",
+    cubeSize: "Küp boyutu",
+    bladeSpacing: "Bıçak aralığı",
+    circularCrosscut: "Dairesel ve çapraz bıçaklar",
+    gridPitch: "Izgara aralığı",
+    stripWidth: "Şerit genişliği",
+    toothOrStraight: "Dişli veya düz ağız",
+    mountingBore: "Montaj deliği",
+    discCombLayout: "Disk veya tarak düzeni",
   },
   de: {
     profile: "Außenprofil",
@@ -2377,6 +2532,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Geradheitskontrolle",
     toothDepth: "Zahntiefe",
     edgeDirection: "Schneidenrichtung",
+    knifeWings: "Anzahl Messerflügel",
+    plateHoleDiameter: "Lochdurchmesser der Scheibe",
+    boreKeyway: "Bohrung und Passfedernut",
+    cubeSize: "Würfelgröße",
+    bladeSpacing: "Messerabstand",
+    circularCrosscut: "Rund- und Quermesser",
+    gridPitch: "Gitterteilung",
+    stripWidth: "Streifenbreite",
+    toothOrStraight: "Gezahnte oder gerade Schneide",
+    mountingBore: "Montagebohrung",
+    discCombLayout: "Scheiben- oder Kammanordnung",
   },
   fr: {
     profile: "Profil extérieur",
@@ -2401,6 +2567,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Contrôle de rectitude",
     toothDepth: "Profondeur de dent",
     edgeDirection: "Sens du tranchant",
+    knifeWings: "Nombre d'ailes de couteau",
+    plateHoleDiameter: "Diamètre des trous de grille",
+    boreKeyway: "Alésage et rainure de clavette",
+    cubeSize: "Taille du dé",
+    bladeSpacing: "Espacement des lames",
+    circularCrosscut: "Couteaux circulaires et transversaux",
+    gridPitch: "Pas de grille",
+    stripWidth: "Largeur de lanière",
+    toothOrStraight: "Tranchant denté ou droit",
+    mountingBore: "Alésage de montage",
+    discCombLayout: "Disposition en disque ou peigne",
   },
   it: {
     profile: "Profilo esterno",
@@ -2425,6 +2602,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Controllo rettilineità",
     toothDepth: "Profondità dente",
     edgeDirection: "Direzione del filo",
+    knifeWings: "Numero di ali del coltello",
+    plateHoleDiameter: "Diametro fori piastra",
+    boreKeyway: "Foro e cava per chiavetta",
+    cubeSize: "Dimensione del cubo",
+    bladeSpacing: "Distanza tra le lame",
+    circularCrosscut: "Coltelli circolari e trasversali",
+    gridPitch: "Passo griglia",
+    stripWidth: "Larghezza striscia",
+    toothOrStraight: "Filo dentato o dritto",
+    mountingBore: "Foro di montaggio",
+    discCombLayout: "Disposizione a disco o pettine",
   },
   th: {
     profile: "รูปทรงภายนอก",
@@ -2449,6 +2637,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "การควบคุมความตรง",
     toothDepth: "ความลึกฟัน",
     edgeDirection: "ทิศทางคม",
+    knifeWings: "จำนวนปีกใบมีด",
+    plateHoleDiameter: "เส้นผ่านศูนย์กลางรูแผ่น",
+    boreKeyway: "รูในและร่องลิ่ม",
+    cubeSize: "ขนาดลูกเต๋า",
+    bladeSpacing: "ระยะห่างใบมีด",
+    circularCrosscut: "ใบมีดวงกลมและตัดขวาง",
+    gridPitch: "ระยะตะแกรง",
+    stripWidth: "ความกว้างเส้น",
+    toothOrStraight: "คมฟันเลื่อยหรือคมตรง",
+    mountingBore: "รูติดตั้ง",
+    discCombLayout: "การจัดวางแบบจานหรือหวี",
   },
   vi: {
     profile: "Biên dạng ngoài",
@@ -2473,6 +2672,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Kiểm soát độ thẳng",
     toothDepth: "Độ sâu răng",
     edgeDirection: "Hướng cạnh dao",
+    knifeWings: "Số cánh dao",
+    plateHoleDiameter: "Đường kính lỗ mặt sàng",
+    boreKeyway: "Lỗ trong và rãnh then",
+    cubeSize: "Kích thước hạt lựu",
+    bladeSpacing: "Khoảng cách dao",
+    circularCrosscut: "Dao tròn và dao cắt ngang",
+    gridPitch: "Bước lưới",
+    stripWidth: "Chiều rộng sợi",
+    toothOrStraight: "Cạnh răng cưa hoặc cạnh thẳng",
+    mountingBore: "Lỗ lắp",
+    discCombLayout: "Bố trí dạng đĩa hoặc lược",
   },
   id: {
     profile: "Profil luar",
@@ -2497,6 +2707,17 @@ const fallbackProductOptionLabels: Partial<Record<Lang, Record<string, string>>>
     straightness: "Kontrol kelurusan",
     toothDepth: "Kedalaman gigi",
     edgeDirection: "Arah mata pisau",
+    knifeWings: "Jumlah sayap pisau",
+    plateHoleDiameter: "Diameter lubang plat",
+    boreKeyway: "Lubang dalam dan alur pasak",
+    cubeSize: "Ukuran dadu",
+    bladeSpacing: "Jarak pisau",
+    circularCrosscut: "Pisau bulat dan crosscut",
+    gridPitch: "Pitch grid",
+    stripWidth: "Lebar strip",
+    toothOrStraight: "Mata bergigi atau lurus",
+    mountingBore: "Lubang pemasangan",
+    discCombLayout: "Tata letak cakram atau sisir",
   },
 };
 
@@ -3023,17 +3244,9 @@ export function localizeList<T>(value: LocalizedList<T>, lang: Lang) {
   return value[lang] || (localizedListFallbacks.get(value) as Partial<Record<Lang, readonly T[]>> | undefined)?.[lang] || value[defaultLang];
 }
 
-export function pickLang<T>(value: LocalizedValue<T>, lang: Lang) {
-  return value[lang] || value[defaultLang];
-}
-
 export function withLang(lang: Lang, path = "/") {
   const cleanPath = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
   return `/${lang}${cleanPath}/`.replace(/\/+/g, "/");
-}
-
-export function pathWithoutTrailingSlash(path: string) {
-  return path === "/" ? "/" : path.replace(/\/$/, "");
 }
 
 export function getProduct(slug: string) {
@@ -3383,6 +3596,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "وجبات جاهزة",
     Sausage: "نقانق",
     Snack: "وجبات خفيفة",
+    Grinder: "مفرمة",
+    Dicing: "تقطيع مكعبات",
+    Shredding: "تقطيع رفيع",
   },
   es: {
     Bakery: "Panadería",
@@ -3425,6 +3641,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "Platos listos",
     Sausage: "Embutido",
     Snack: "Snack",
+    Grinder: "Picadora",
+    Dicing: "Cubeteado",
+    Shredding: "Rallado",
   },
   pt: {
     Bakery: "Panificação",
@@ -3467,6 +3686,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "Pratos prontos",
     Sausage: "Salsicha",
     Snack: "Snack",
+    Grinder: "Moedor",
+    Dicing: "Corte em cubos",
+    Shredding: "Ralado",
   },
   tr: {
     Bakery: "Fırın ürünleri",
@@ -3509,6 +3731,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "Hazır yemek",
     Sausage: "Sosis",
     Snack: "Atıştırmalık",
+    Grinder: "Kıyma makinesi",
+    Dicing: "Küp kesme",
+    Shredding: "Rendeleme",
   },
   de: {
     Bakery: "Backwaren",
@@ -3551,6 +3776,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "Ready Meals",
     Sausage: "Wurst",
     Snack: "Snack",
+    Grinder: "Fleischwolf",
+    Dicing: "Würfeln",
+    Shredding: "Raspeln",
   },
   fr: {
     Bakery: "Boulangerie",
@@ -3593,6 +3821,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "Plats prêts",
     Sausage: "Saucisse",
     Snack: "Snack",
+    Grinder: "Hachoir",
+    Dicing: "Découpe en dés",
+    Shredding: "Râpage",
   },
   it: {
     Bakery: "Bakery",
@@ -3635,6 +3866,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "Piatti pronti",
     Sausage: "Salsiccia",
     Snack: "Snack",
+    Grinder: "Tritacarne",
+    Dicing: "Cubettatura",
+    Shredding: "Grattugiatura",
   },
   th: {
     Bakery: "เบเกอรี่",
@@ -3677,6 +3911,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "อาหารพร้อมทาน",
     Sausage: "ไส้กรอก",
     Snack: "ขนมขบเคี้ยว",
+    Grinder: "เครื่องบด",
+    Dicing: "หั่นเต๋า",
+    Shredding: "ซอยเส้น",
   },
   vi: {
     Bakery: "Bánh mì",
@@ -3719,6 +3956,9 @@ const marketProductTermLabels: Partial<Record<Lang, Record<string, string>>> = {
     "Ready meals": "Suất ăn sẵn",
     Sausage: "Xúc xích",
     Snack: "Snack",
+    Grinder: "Máy xay",
+    Dicing: "Cắt hạt lựu",
+    Shredding: "Bào sợi",
   },
 };
 
@@ -3756,6 +3996,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "آلات ختم الصواني",
     Trimmers: "أدوات التشذيب",
     "Trimming stations": "محطات التشذيب",
+    "Meat grinders": "مفارم اللحم",
+    "Mixer grinders": "مفارم خلاطة",
+    Shredders: "آلات التقطيع الرفيع",
   },
   es: {
     "Bakery lines": "Líneas de panadería",
@@ -3790,6 +4033,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "Selladoras de bandejas",
     Trimmers: "Recortadoras",
     "Trimming stations": "Estaciones de recorte",
+    "Meat grinders": "Picadoras de carne",
+    "Mixer grinders": "Picadoras mezcladoras",
+    Shredders: "Ralladoras",
   },
   pt: {
     "Bakery lines": "Linhas de panificação",
@@ -3824,6 +4070,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "Seladoras de bandejas",
     Trimmers: "Aparadores",
     "Trimming stations": "Estações de aparo",
+    "Meat grinders": "Moedores de carne",
+    "Mixer grinders": "Moedores misturadores",
+    Shredders: "Raladoras",
   },
   tr: {
     "Bakery lines": "Fırın hatları",
@@ -3858,6 +4107,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "Tepsi kapatma makineleri",
     Trimmers: "Düzeltme kesicileri",
     "Trimming stations": "Düzeltme istasyonları",
+    "Meat grinders": "Kıyma makineleri",
+    "Mixer grinders": "Karıştırıcılı kıyma makineleri",
+    Shredders: "Rendeleme makineleri",
   },
   de: {
     "Bakery lines": "Bäckereilinien",
@@ -3892,6 +4144,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "Schalenversiegler",
     Trimmers: "Trimmer",
     "Trimming stations": "Trimmstationen",
+    "Meat grinders": "Fleischwölfe",
+    "Mixer grinders": "Mischwölfe",
+    Shredders: "Raspelmaschinen",
   },
   fr: {
     "Bakery lines": "Lignes de boulangerie",
@@ -3926,6 +4181,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "Scelleuses de barquettes",
     Trimmers: "Pareuses",
     "Trimming stations": "Postes de parage",
+    "Meat grinders": "Hachoirs à viande",
+    "Mixer grinders": "Hachoirs mélangeurs",
+    Shredders: "Râpeuses",
   },
   it: {
     "Bakery lines": "Linee da forno",
@@ -3960,6 +4218,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "Termosigillatrici per vaschette",
     Trimmers: "Rifilatrici",
     "Trimming stations": "Stazioni di rifilo",
+    "Meat grinders": "Tritacarne",
+    "Mixer grinders": "Tritacarne miscelatori",
+    Shredders: "Grattugiatrici",
   },
   th: {
     "Bakery lines": "สายการผลิตเบเกอรี่",
@@ -3994,6 +4255,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "เครื่องซีลถาด",
     Trimmers: "เครื่องตัดแต่ง",
     "Trimming stations": "สถานีตัดแต่ง",
+    "Meat grinders": "เครื่องบดเนื้อ",
+    "Mixer grinders": "เครื่องบดผสม",
+    Shredders: "เครื่องซอยเส้น",
   },
   vi: {
     "Bakery lines": "Dây chuyền bánh mì",
@@ -4028,6 +4292,9 @@ const marketEquipmentTermLabels: Partial<Record<Lang, Record<string, string>>> =
     "Tray sealers": "Máy hàn khay",
     Trimmers: "Máy tỉa",
     "Trimming stations": "Trạm tỉa",
+    "Meat grinders": "Máy xay thịt",
+    "Mixer grinders": "Máy xay trộn",
+    Shredders: "Máy bào sợi",
   },
 };
 

@@ -99,7 +99,7 @@ const getNavHref = (key: string, href: string) => {
 
     <div class="hidden items-center gap-2 lg:flex">
       <details class="relative border-l border-[var(--color-border)] pl-3" aria-label={t.labels.language}>
-        <summary class="list-none rounded-[4px] border border-[#d5e2f4] bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)] shadow-sm">
+        <summary aria-label={t.labels.language} class="list-none rounded-[4px] border border-[#d5e2f4] bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)] shadow-sm">
           {languages[lang].shortLabel}
         </summary>
         <div class="absolute right-0 mt-2 grid min-w-36 gap-1 rounded-[6px] border border-slate-200 bg-white p-2 shadow-lg shadow-slate-900/10">
