@@ -1,0 +1,57 @@
+---
+import SectionHeading from "@/components/SectionHeading.astro";
+import { withLang, type Lang } from "@/data/site";
+import { seoGuides, localizeGuideText, supportsGuideLang } from "@/data/guides";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+// FAQ exists for every language; selection guides only for the languages in
+// guideLangCodes (currently en/zh). Rendering these as contextual links keeps
+// the guide and FAQ pages internally linked instead of orphaned.
+const faqLabelByLang: Partial<Record<Lang, string>> = {
+  en: "FAQ",
+  ru: "Вопросы и ответы",
+  ar: "الأسئلة الشائعة",
+  es: "Preguntas frecuentes",
+  pt: "Perguntas frequentes",
+  tr: "SSS",
+  de: "FAQ",
+  fr: "FAQ",
+  it: "FAQ",
+  th: "คำถามที่พบบ่อย",
+  vi: "FAQ",
+  id: "FAQ",
+  zh: "常见问题",
+};
+const faqLabel = faqLabelByLang[lang] ?? "FAQ";
+
+const showGuides = supportsGuideLang(lang);
+const heading = showGuides ? (lang === "zh" ? "选型指南与常见问题" : "Guides & FAQ") : faqLabel;
+const guideLinks = showGuides
+  ? seoGuides.slice(0, 4).map((guide) => ({
+      label: localizeGuideText(guide.title, lang),
+      href: `/guides/${guide.slug}`,
+    }))
+  : [];
+const links = [...guideLinks, { label: faqLabel, href: "/faq" }];
+---
+
+<section class="border-t border-slate-200 bg-[var(--color-mist)] py-12 md:py-16">
+  <div class="container-page">
+    <SectionHeading title={heading} />
+    <div class="mt-6 flex flex-wrap gap-3">
+      {links.map((item) => (
+        <a
+          href={withLang(lang, item.href)}
+          class="rounded-[4px] border border-slate-200 bg-white px-4 py-3 text-sm font-semibold leading-6 text-[var(--color-ink)] shadow-sm transition hover:border-[var(--color-blue)] hover:text-[var(--color-blue)]"
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

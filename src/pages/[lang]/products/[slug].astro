@@ -2,6 +2,7 @@
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import RelatedResources from "@/components/RelatedResources.astro";
 import { getGeoIndustryProfile } from "@/data/geo";
 import {
   channelLinks,
@@ -363,4 +364,6 @@ const productServiceJsonLd = {
       </div>
     </div>
   </section>
+
+  <RelatedResources lang={lang} />
 </BaseLayout>

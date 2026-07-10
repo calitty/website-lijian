@@ -3,6 +3,7 @@ import ProductCard from "@/components/ProductCard.astro";
 import PageHero from "@/components/PageHero.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import RelatedResources from "@/components/RelatedResources.astro";
 import { getGeoIndustryProfile } from "@/data/geo";
 import {
   applications,
@@ -146,4 +147,6 @@ const serviceJsonLd = {
       </div>
     </div>
   </section>
+
+  <RelatedResources lang={lang} />
 </BaseLayout>
