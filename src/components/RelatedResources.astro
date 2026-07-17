@@ -9,7 +9,7 @@ interface Props {
 
 const { lang } = Astro.props;
 
-// FAQ exists for every language; selection guides only for the languages in
+// FAQ exists for every language; buyer resource guides only for the languages in
 // guideLangCodes (currently en/zh). Rendering these as contextual links keeps
 // the guide and FAQ pages internally linked instead of orphaned.
 const faqLabelByLang: Partial<Record<Lang, string>> = {
@@ -30,7 +30,7 @@ const faqLabelByLang: Partial<Record<Lang, string>> = {
 const faqLabel = faqLabelByLang[lang] ?? "FAQ";
 
 const showGuides = supportsGuideLang(lang);
-const heading = showGuides ? (lang === "zh" ? "选型指南与常见问题" : "Guides & FAQ") : faqLabel;
+const heading = showGuides ? (lang === "zh" ? "采购资料与常见问题" : "Guides & FAQ") : faqLabel;
 const guideLinks = showGuides
   ? seoGuides.slice(0, 4).map((guide) => ({
       label: localizeGuideText(guide.title, lang),

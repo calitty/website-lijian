@@ -55,7 +55,8 @@ async function checkZhHome() {
   const { response, text } = await fetchText("/zh/");
   assert(response.ok, "zh homepage returns 2xx", `${response.status}`);
   assert(getHtmlLang(text) === "zh-CN", "zh html lang is zh-CN", getHtmlLang(text));
-  assert(getTitle(text).includes("马鞍山市利坚食品机械刀片厂"), "zh title contains full factory name", getTitle(text));
+  assert(getTitle(text).includes("利坚食品机械刀片厂"), "zh title contains short factory name", getTitle(text));
+  assert(!getTitle(text).startsWith("马鞍山市"), "zh title omits city-prefixed company name", getTitle(text));
   assert(getMeta(text, "description").includes("中国食品机械刀片制造商"), "zh meta description contains category phrase");
   assert(text.includes("利坚食品机械刀片厂"), "zh visible/html text contains short brand keyword");
 
@@ -89,7 +90,7 @@ async function checkMachineReadableFiles() {
   const llms = await fetchText("/llms.txt");
   assert(llms.response.ok, "llms.txt returns 2xx", `${llms.response.status}`);
   assert(llms.response.ok && llms.text.includes("Maanshan Lijian Food Machinery Blade Factory"), "llms.txt contains English entity name");
-  assert(llms.response.ok && llms.text.includes("马鞍山市利坚食品机械刀片厂"), "llms.txt contains Chinese entity name");
+  assert(llms.response.ok && llms.text.includes("利坚食品机械刀片厂"), "llms.txt contains Chinese entity name");
 
   const summary = await fetchText("/ai-summary.json");
   assert(summary.response.ok, "ai-summary.json returns 2xx", `${summary.response.status}`);

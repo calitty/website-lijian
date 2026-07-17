@@ -57,7 +57,37 @@ const featuredProducts = featuredProductSlugs
     ...product,
     image: featuredProductImagesBySlug[product.slug as keyof typeof featuredProductImagesBySlug] ?? product.image,
   }));
-const featuredApplications = applications.slice(0, 5);
+const featuredApplicationVisualsBySlug = {
+  "meat-processing": {
+    image: "/images/placeholders/about-equipment-slicer.jpg",
+    imageClass: "object-[36%_center]",
+  },
+  "poultry-processing": {
+    image: "/images/lijian/custom-dicing-grid-knife-set.jpg",
+    imageClass: "object-[50%_42%]",
+  },
+  "fish-seafood-processing": {
+    image: "/images/stock/tuna-fillet-cutting.jpg",
+    imageClass: "object-[44%_center]",
+  },
+  "frozen-food-processing": {
+    image: "/images/stock/potato-processing-conveyor.jpg",
+    imageClass: "object-[50%_44%]",
+  },
+  "vegetable-fruit-processing": {
+    image: "/images/lijian/assorted-food-machinery-blades.jpg",
+    imageClass: "object-[50%_58%]",
+  },
+} as const;
+const featuredApplications = applications.slice(0, 5).map((application) => {
+  const visual = featuredApplicationVisualsBySlug[application.slug as keyof typeof featuredApplicationVisualsBySlug];
+
+  return {
+    ...application,
+    homeImage: visual?.image ?? application.image,
+    homeImageClass: visual?.imageClass ?? "object-center",
+  };
+});
 const path = "/";
 const site = Astro.site ?? new URL("https://lijianblades.com");
 const heroBannerImage = "/images/lijian/home-hero-food-blades.png";
@@ -447,11 +477,11 @@ const productSummary = productSummaryByLang[lang as keyof typeof productSummaryB
 };
 const applicationSummaryByLang = {
   en: {
-    lead: "Application cards focus on production conditions: food material, machine station, cleaning frequency, speed and replacement risk.",
+    lead: "Food machinery blades cover a wide range of processing equipment. We match blade type by machine station, mounting size, cutting method and cleaning environment.",
     cta: "View Applications",
   },
   zh: {
-    lead: "这里按使用工况区分：物料类型、设备工位、清洗频率、运行速度和停机替换风险。",
+    lead: "食品机械刀片应用场景广泛，适合各类食品加工机械，可按设备工位、装机尺寸、切割方式和清洗环境匹配刀型。",
     cta: "查看全部应用",
   },
 } as const;
@@ -801,9 +831,9 @@ const manufacturingStats = homeFactory.stats.slice(2, 6).length >= 2 ? homeFacto
 const aboutHighlights = homeFactory.stats.slice(0, 4);
 const heroSlideImages = [
   { image: heroBannerImage, imageClass: "object-[68%_center] sm:object-[62%_center]" },
-  { image: "/images/lijian/hero-food-processing-line.jpg", imageClass: "object-center" },
-  { image: "/images/lijian/hero-cnc-machining.jpg", imageClass: "object-center" },
-  { image: "/images/lijian/blade-inspection.jpg", imageClass: "object-center" },
+  { image: "/images/lijian/foam-packed-custom-blade.jpg", imageClass: "object-[70%_center] sm:object-[72%_center]" },
+  { image: "/images/lijian/circular-slicer-blade.jpg", imageClass: "object-[68%_34%] sm:object-[72%_32%]" },
+  { image: "/images/lijian/export-packed-blade-sets.jpg", imageClass: "object-[62%_center] sm:object-[68%_center]" },
 ] as const;
 const heroCarouselCopyByLang = {
   en: {
@@ -815,19 +845,19 @@ const heroCarouselCopyByLang = {
         caption: "Circular, curved, serrated and perforated blades shown with a food production line.",
       },
       {
-        eyebrow: "Application context",
-        title: "Food processing line context",
-        caption: "Shows how blade profile, edge and material decisions connect to real food production lines, hygiene and uptime.",
+        eyebrow: "Custom profile",
+        title: "Confirm non-standard blade shapes",
+        caption: "Start from drawing, old blade photo, sample or machine model to confirm profile, holes, thickness and edge.",
       },
       {
-        eyebrow: "Workshop",
-        title: "Machining and finishing environment",
-        caption: "CNC machining, grinding and edge preparation for repeatable fit.",
+        eyebrow: "Mounting fit",
+        title: "Check circular blades and hole position",
+        caption: "Inner bore, mounting holes, thickness and edge finish are confirmed before replacement or OEM batch orders.",
       },
       {
-        eyebrow: "Quality check",
-        title: "Inspection examples before delivery",
-        caption: "Hardness, flatness, hole position, edge and surface checks before packing.",
+        eyebrow: "Batch delivery",
+        title: "Protected packing for repeat orders",
+        caption: "Foam separation, edge protection and export packing reduce handling damage and keep batch deliveries consistent.",
       },
     ],
   },
@@ -840,19 +870,19 @@ const heroCarouselCopyByLang = {
         caption: "Круглые, изогнутые, зубчатые и перфорированные ножи в контексте пищевого производства.",
       },
       {
-        eyebrow: "Применение",
-        title: "Контекст пищевой линии",
-        caption: "Показывает, как профиль, кромка и материал ножа связаны с реальной линией, гигиеной и простоем.",
+        eyebrow: "Нестандартный профиль",
+        title: "Согласование формы ножа",
+        caption: "Работу можно начать с чертежа, фото старого ножа, образца или модели машины, чтобы уточнить профиль, отверстия, толщину и кромку.",
       },
       {
-        eyebrow: "Цех",
-        title: "Обработка и финишная доводка",
-        caption: "CNC-обработка, шлифование и подготовка кромки для повторяемой посадки.",
+        eyebrow: "Посадка",
+        title: "Круглые ножи и отверстия",
+        caption: "Перед заменой или OEM-партией проверяются внутренний диаметр, монтажные отверстия, толщина и обработка кромки.",
       },
       {
-        eyebrow: "Контроль",
-        title: "Примеры проверки перед отгрузкой",
-        caption: "Твердость, плоскостность, отверстия, кромка и поверхность проверяются перед упаковкой.",
+        eyebrow: "Партия",
+        title: "Защитная упаковка для повторных заказов",
+        caption: "Поролоновое разделение, защита кромки и экспортная упаковка снижают повреждения и поддерживают стабильность партий.",
       },
     ],
   },
@@ -865,19 +895,19 @@ const heroCarouselCopyByLang = {
         caption: "شفرات دائرية ومنحنية ومسننة ومثقبة مع خط معالجة غذائية.",
       },
       {
-        eyebrow: "سياق التطبيق",
-        title: "خط معالجة الأغذية",
-        caption: "يوضح علاقة شكل الشفرة والحافة والمادة بخط الإنتاج الفعلي والنظافة وتقليل التوقف.",
+        eyebrow: "شكل مخصص",
+        title: "تأكيد أشكال الشفرات غير القياسية",
+        caption: "يمكن البدء من الرسم أو صورة الشفرة القديمة أو العينة أو موديل الماكينة لتأكيد الشكل والثقوب والسماكة والحافة.",
       },
       {
-        eyebrow: "الورشة",
-        title: "بيئة التشغيل والتشطيب",
-        caption: "تشغيل CNC، طحن وتحضير الحافة لضمان تكرار الملاءمة.",
+        eyebrow: "ملاءمة التركيب",
+        title: "فحص الشفرات الدائرية ومواضع الثقوب",
+        caption: "يتم تأكيد الثقب الداخلي وثقوب التركيب والسماكة وتشطيب الحافة قبل طلبات الاستبدال أو دفعات OEM.",
       },
       {
-        eyebrow: "الجودة",
-        title: "أمثلة فحص قبل التسليم",
-        caption: "فحص الصلادة والاستواء والثقوب والحافة والسطح قبل التغليف.",
+        eyebrow: "تسليم الدفعات",
+        title: "تغليف محمي للطلبات المتكررة",
+        caption: "الفصل بالفوم وحماية الحافة وتغليف التصدير تساعد على تقليل التلف والحفاظ على اتساق الدفعات.",
       },
     ],
   },
@@ -890,19 +920,19 @@ const heroCarouselCopyByLang = {
         caption: "Cuchillas circulares, curvas, dentadas y perforadas junto a una línea de proceso.",
       },
       {
-        eyebrow: "Contexto de aplicación",
-        title: "Línea de proceso alimentario",
-        caption: "Muestra cómo perfil, filo y material se relacionan con la línea real, higiene y menor parada.",
+        eyebrow: "Perfil a medida",
+        title: "Confirmar formas de cuchilla no estándar",
+        caption: "Comience con plano, foto de cuchilla usada, muestra o modelo de máquina para confirmar perfil, agujeros, espesor y filo.",
       },
       {
-        eyebrow: "Taller",
-        title: "Mecanizado y acabado",
-        caption: "CNC, rectificado y preparación del filo para un ajuste repetible.",
+        eyebrow: "Ajuste de montaje",
+        title: "Revisar cuchillas circulares y agujeros",
+        caption: "Se confirman diámetro interior, agujeros, espesor y acabado del filo antes de reemplazos o lotes OEM.",
       },
       {
-        eyebrow: "Calidad",
-        title: "Ejemplos de inspección antes del envío",
-        caption: "Dureza, planitud, agujeros, filo y superficie revisados antes del embalaje.",
+        eyebrow: "Entrega por lote",
+        title: "Embalaje protegido para pedidos repetidos",
+        caption: "Separación con espuma, protección del filo y embalaje de exportación reducen daños y mantienen la consistencia del lote.",
       },
     ],
   },
@@ -915,19 +945,19 @@ const heroCarouselCopyByLang = {
         caption: "Lâminas circulares, curvas, serrilhadas e perfuradas em contexto de produção alimentar.",
       },
       {
-        eyebrow: "Contexto de aplicação",
-        title: "Linha de processamento alimentar",
-        caption: "Mostra como perfil, fio e material se ligam à linha real, higiene e menos paradas.",
+        eyebrow: "Perfil sob medida",
+        title: "Confirmar formatos de lâmina não padrão",
+        caption: "Comece por desenho, foto da lâmina usada, amostra ou modelo da máquina para confirmar perfil, furos, espessura e fio.",
       },
       {
-        eyebrow: "Oficina",
-        title: "Usinagem e acabamento",
-        caption: "CNC, retífica e preparação do fio para encaixe repetível.",
+        eyebrow: "Encaixe",
+        title: "Verificar lâminas circulares e furos",
+        caption: "Diâmetro interno, furos, espessura e acabamento do fio são confirmados antes de reposição ou lotes OEM.",
       },
       {
-        eyebrow: "Qualidade",
-        title: "Exemplos de inspeção antes do envio",
-        caption: "Dureza, planicidade, furos, fio e superfície verificados antes da embalagem.",
+        eyebrow: "Entrega em lote",
+        title: "Embalagem protegida para pedidos repetidos",
+        caption: "Separação por espuma, proteção do fio e embalagem de exportação reduzem danos e mantêm a consistência dos lotes.",
       },
     ],
   },
@@ -940,19 +970,19 @@ const heroCarouselCopyByLang = {
         caption: "Dairesel, kavisli, tırtıklı ve delikli bıçaklar gıda işleme hattı bağlamında.",
       },
       {
-        eyebrow: "Uygulama bağlamı",
-        title: "Gıda işleme hattı",
-        caption: "Profil, ağız ve malzeme seçiminin gerçek hat, hijyen ve duruş süresiyle ilişkisini gösterir.",
+        eyebrow: "Özel profil",
+        title: "Standart dışı bıçak şeklini doğrulayın",
+        caption: "Profil, delik, kalınlık ve ağız detayını doğrulamak için çizim, eski bıçak fotoğrafı, numune veya makine modeliyle başlayın.",
       },
       {
-        eyebrow: "Atölye",
-        title: "İşleme ve son yüzey hazırlığı",
-        caption: "Tekrarlanabilir uyum için CNC işleme, taşlama ve ağız hazırlığı.",
+        eyebrow: "Montaj uyumu",
+        title: "Dairesel bıçak ve delik konumu kontrolü",
+        caption: "İç çap, montaj delikleri, kalınlık ve ağız finisajı değiştirme veya OEM parti siparişi öncesi doğrulanır.",
       },
       {
-        eyebrow: "Kalite",
-        title: "Teslimat öncesi kontrol örnekleri",
-        caption: "Sertlik, düzlük, delik konumu, ağız ve yüzey paketleme öncesi kontrol edilir.",
+        eyebrow: "Parti teslimatı",
+        title: "Tekrar siparişler için korumalı paketleme",
+        caption: "Sünger ayırma, ağız koruması ve ihracat paketlemesi hasarı azaltır ve parti tutarlılığını korur.",
       },
     ],
   },
@@ -965,19 +995,19 @@ const heroCarouselCopyByLang = {
         caption: "Runde, gebogene, gezahnte und gelochte Messer neben einer Lebensmittelproduktionslinie.",
       },
       {
-        eyebrow: "Anwendungskontext",
-        title: "Lebensmittel-Verarbeitungslinie",
-        caption: "Zeigt, wie Profil, Schneide und Material mit realer Linie, Hygiene und weniger Stillstand zusammenhängen.",
+        eyebrow: "Sonderprofil",
+        title: "Nicht standardisierte Messerformen klären",
+        caption: "Start mit Zeichnung, Foto des alten Messers, Muster oder Maschinenmodell zur Klärung von Profil, Bohrungen, Dicke und Schneide.",
       },
       {
-        eyebrow: "Werkstatt",
-        title: "Bearbeitungs- und Finishumgebung",
-        caption: "CNC-Bearbeitung, Schleifen und Kantenvorbereitung für wiederholbare Passung.",
+        eyebrow: "Einbaupassung",
+        title: "Rundmesser und Bohrbild prüfen",
+        caption: "Innenbohrung, Befestigungslöcher, Dicke und Schneidenfinish werden vor Ersatz- oder OEM-Serien geklärt.",
       },
       {
-        eyebrow: "Qualität",
-        title: "Prüfbeispiele vor Lieferung",
-        caption: "Härte, Ebenheit, Bohrungen, Schneide und Oberfläche vor dem Verpacken geprüft.",
+        eyebrow: "Serienlieferung",
+        title: "Geschützte Verpackung für Wiederholaufträge",
+        caption: "Schaumtrennung, Schneidenschutz und Exportverpackung reduzieren Schäden und halten Serienlieferungen konstant.",
       },
     ],
   },
@@ -990,19 +1020,19 @@ const heroCarouselCopyByLang = {
         caption: "Lames circulaires, courbes, dentées et perforées près d'une ligne de transformation.",
       },
       {
-        eyebrow: "Contexte d'application",
-        title: "Ligne de transformation alimentaire",
-        caption: "Relie profil, tranchant et matériau à la ligne réelle, l'hygiène et la réduction des arrêts.",
+        eyebrow: "Profil sur mesure",
+        title: "Confirmer les formes de lame non standard",
+        caption: "Démarrez avec plan, photo d'ancienne lame, échantillon ou modèle machine pour valider profil, trous, épaisseur et tranchant.",
       },
       {
-        eyebrow: "Atelier",
-        title: "Usinage et finition",
-        caption: "CNC, rectification et préparation du tranchant pour un ajustement répétable.",
+        eyebrow: "Ajustement",
+        title: "Vérifier lames circulaires et trous",
+        caption: "Alésage, trous de montage, épaisseur et finition du tranchant sont validés avant remplacement ou lot OEM.",
       },
       {
-        eyebrow: "Qualité",
-        title: "Exemples d'inspection avant livraison",
-        caption: "Dureté, planéité, trous, tranchant et surface contrôlés avant emballage.",
+        eyebrow: "Livraison par lot",
+        title: "Emballage protégé pour commandes répétées",
+        caption: "Séparation mousse, protection du tranchant et emballage export réduisent les dommages et stabilisent les lots.",
       },
     ],
   },
@@ -1015,19 +1045,19 @@ const heroCarouselCopyByLang = {
         caption: "Lame circolari, curve, dentate e forate accanto a una linea di processo alimentare.",
       },
       {
-        eyebrow: "Contesto applicativo",
-        title: "Linea di processo alimentare",
-        caption: "Mostra come profilo, filo e materiale si legano a linea reale, igiene e minori fermi.",
+        eyebrow: "Profilo su misura",
+        title: "Confermare forme lama non standard",
+        caption: "Partire da disegno, foto della lama usata, campione o modello macchina per confermare profilo, fori, spessore e filo.",
       },
       {
-        eyebrow: "Officina",
-        title: "Ambiente di lavorazione e finitura",
-        caption: "CNC, rettifica e preparazione del filo per un accoppiamento ripetibile.",
+        eyebrow: "Montaggio",
+        title: "Verifica lame circolari e fori",
+        caption: "Foro interno, fori di fissaggio, spessore e finitura del filo sono confermati prima di ricambi o lotti OEM.",
       },
       {
-        eyebrow: "Qualità",
-        title: "Esempi di controllo prima della consegna",
-        caption: "Durezza, planarità, fori, filo e superficie verificati prima dell'imballo.",
+        eyebrow: "Consegna a lotto",
+        title: "Imballo protetto per ordini ripetuti",
+        caption: "Separazione in schiuma, protezione del filo e imballo export riducono danni e mantengono costanti i lotti.",
       },
     ],
   },
@@ -1040,19 +1070,19 @@ const heroCarouselCopyByLang = {
         caption: "ใบมีดกลม โค้ง ฟันเลื่อย และมีรู แสดงร่วมกับสายแปรรูปอาหาร.",
       },
       {
-        eyebrow: "บริบทการใช้งาน",
-        title: "ไลน์แปรรูปอาหาร",
-        caption: "แสดงความสัมพันธ์ของรูปทรงใบมีด คม และวัสดุกับไลน์จริง สุขอนามัย และการลดเวลาหยุดเครื่อง.",
+        eyebrow: "โปรไฟล์สั่งผลิต",
+        title: "ยืนยันรูปทรงใบมีดนอกมาตรฐาน",
+        caption: "เริ่มจากแบบ รูปใบมีดเก่า ตัวอย่าง หรือรุ่นเครื่อง เพื่อยืนยันรูปทรง รู ความหนา และคมใบมีด.",
       },
       {
-        eyebrow: "เวิร์กช็อป",
-        title: "สภาพแวดล้อมการผลิตและตกแต่ง",
-        caption: "CNC การเจียร และการเตรียมคมเพื่อความพอดีที่ทำซ้ำได้.",
+        eyebrow: "ความพอดีในการติดตั้ง",
+        title: "ตรวจใบมีดกลมและตำแหน่งรู",
+        caption: "รูใน รูยึด ความหนา และการตกแต่งคมจะถูกยืนยันก่อนสั่งใบมีดทดแทนหรือ OEM เป็นล็อต.",
       },
       {
-        eyebrow: "คุณภาพ",
-        title: "ตัวอย่างการตรวจสอบก่อนส่งมอบ",
-        caption: "ตรวจความแข็ง ความเรียบ รู คม และผิวก่อนบรรจุ.",
+        eyebrow: "ส่งมอบเป็นล็อต",
+        title: "แพ็กกิ้งป้องกันสำหรับการสั่งซ้ำ",
+        caption: "โฟมแยกชิ้น การป้องกันคม และแพ็กกิ้งส่งออกช่วยลดความเสียหายและรักษาความสม่ำเสมอของล็อต.",
       },
     ],
   },
@@ -1065,19 +1095,19 @@ const heroCarouselCopyByLang = {
         caption: "Dao tròn, dao cong, dao răng và dao đục lỗ hiển thị cùng dây chuyền chế biến.",
       },
       {
-        eyebrow: "Bối cảnh ứng dụng",
-        title: "Dây chuyền chế biến thực phẩm",
-        caption: "Cho thấy biên dạng, cạnh dao và vật liệu liên quan đến dây chuyền thật, vệ sinh và thời gian dừng máy.",
+        eyebrow: "Biên dạng tùy chỉnh",
+        title: "Xác nhận hình dạng dao không tiêu chuẩn",
+        caption: "Bắt đầu từ bản vẽ, ảnh dao cũ, mẫu hoặc model máy để xác nhận biên dạng, lỗ, độ dày và cạnh dao.",
       },
       {
-        eyebrow: "Xưởng",
-        title: "Gia công và hoàn thiện",
-        caption: "CNC, mài và chuẩn bị cạnh dao để lắp vừa ổn định qua nhiều lô.",
+        eyebrow: "Lắp vừa",
+        title: "Kiểm tra dao tròn và vị trí lỗ",
+        caption: "Lỗ tâm, lỗ lắp, độ dày và hoàn thiện cạnh dao được xác nhận trước đơn thay thế hoặc lô OEM.",
       },
       {
-        eyebrow: "Chất lượng",
-        title: "Ví dụ kiểm tra trước giao hàng",
-        caption: "Độ cứng, độ phẳng, lỗ, cạnh dao và bề mặt được kiểm trước khi đóng gói.",
+        eyebrow: "Giao theo lô",
+        title: "Đóng gói bảo vệ cho đơn đặt lại",
+        caption: "Tách bằng xốp, bảo vệ cạnh dao và đóng gói xuất khẩu giúp giảm hư hại và giữ ổn định giữa các lô.",
       },
     ],
   },
@@ -1090,19 +1120,19 @@ const heroCarouselCopyByLang = {
         caption: "Pisau bulat, melengkung, bergerigi dan berlubang ditampilkan bersama lini proses makanan.",
       },
       {
-        eyebrow: "Konteks aplikasi",
-        title: "Lini proses makanan",
-        caption: "Menunjukkan hubungan profil, edge dan material dengan lini nyata, higienitas dan downtime.",
+        eyebrow: "Profil kustom",
+        title: "Konfirmasi bentuk pisau non-standar",
+        caption: "Mulai dari gambar, foto pisau lama, sampel atau model mesin untuk mengonfirmasi profil, lubang, ketebalan dan edge.",
       },
       {
-        eyebrow: "Workshop",
-        title: "Lingkungan machining dan finishing",
-        caption: "CNC, grinding dan persiapan edge untuk kecocokan berulang.",
+        eyebrow: "Kecocokan pasang",
+        title: "Cek pisau circular dan posisi lubang",
+        caption: "Bore dalam, lubang pemasangan, ketebalan dan finishing edge dikonfirmasi sebelum order pengganti atau batch OEM.",
       },
       {
-        eyebrow: "Kualitas",
-        title: "Contoh inspeksi sebelum pengiriman",
-        caption: "Kekerasan, kerataan, lubang, edge dan permukaan dicek sebelum packing.",
+        eyebrow: "Pengiriman batch",
+        title: "Packing terlindungi untuk repeat order",
+        caption: "Pemisahan busa, pelindung edge dan packing ekspor mengurangi kerusakan serta menjaga konsistensi batch.",
       },
     ],
   },
@@ -1115,19 +1145,19 @@ const heroCarouselCopyByLang = {
         caption: "适合正在确认圆刀、弧形刀、齿刀、孔板刀等食品设备刀片形态和询价入口的采购。",
       },
       {
-        eyebrow: "应用场景",
-        title: "食品加工产线需求",
-        caption: "采购需要先判断刀型、刃口和材料是否适合真实食品产线、清洗环境和连续生产节奏。",
+        eyebrow: "非标刀型",
+        title: "先确认刀片外形与孔位",
+        caption: "可从图纸、旧刀照片、样品或设备型号开始，先确认外形、孔位、厚度和刃口方向。",
       },
       {
-        eyebrow: "车间情况",
-        title: "看加工能力与装机适配",
-        caption: "关注孔位、槽位、厚度、刃口和批次一致性，减少替换刀片装机不匹配风险。",
+        eyebrow: "装机适配",
+        title: "圆刀内孔与安装尺寸复核",
+        caption: "替换刀片和 OEM 批量采购前，重点确认内孔、安装孔、厚度、平面度和刃口处理。",
       },
       {
-        eyebrow: "质量检测示例",
-        title: "出货前质检与复核",
-        caption: "关注硬度、平面度、孔位、刃口和表面状态，帮助判断刀片是否适合批量采购。",
+        eyebrow: "批量交付",
+        title: "包装保护与复购一致性",
+        caption: "泡棉隔离、刃口保护和出口包装可以减少运输磕碰，便于后续批量复购保持一致。",
       },
     ],
   },
@@ -1280,7 +1310,15 @@ const factoryVisual = factoryVisualByLang[lang as keyof typeof factoryVisualByLa
             data-track-label={application.slug}
           >
             <div class="relative">
-              <Img src={application.image} alt={localize(application.name, lang)} class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" loading="lazy" />
+              <Img
+                src={application.homeImage}
+                alt={localize(application.name, lang)}
+                class:list={[
+                  "aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]",
+                  application.homeImageClass,
+                ]}
+                loading="lazy"
+              />
               <span class="absolute -bottom-5 start-4 grid h-10 w-10 place-items-center rounded-full border-4 border-white bg-[var(--color-blue)] shadow-[0_10px_22px_rgba(11,74,162,.22)]" aria-hidden="true">
                 <span class="h-4 w-4 rounded-[4px] border-2 border-white"></span>
               </span>
@@ -1430,10 +1468,10 @@ const factoryVisual = factoryVisualByLang[lang as keyof typeof factoryVisualByLa
         </figure>
 	        <div class="grid gap-3 sm:grid-cols-2">
 	          <figure class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
-	            <Img src="/images/placeholders/about-workshop-machining.jpg" alt={factoryVisual.sample} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+	            <Img src="/images/stock/cnc-milling-metal-part.jpg" alt={factoryVisual.sample} class="aspect-[4/3] w-full object-cover" loading="lazy" />
 	          </figure>
 	          <figure class="overflow-hidden rounded-[6px] border border-slate-200 bg-white shadow-sm">
-	            <Img src="/images/placeholders/about-food-workshop-environment.jpg" alt={factoryVisual.workshop} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+	            <Img src="/images/stock/food-processing-conveyor-apples.jpg" alt={factoryVisual.workshop} class="aspect-[4/3] w-full object-cover" loading="lazy" />
 	          </figure>
         </div>
       </div>

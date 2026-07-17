@@ -44,7 +44,7 @@ const guideNavLabels: GuideText = {
   th: "คู่มือ",
   vi: "Hướng dẫn",
   id: "Panduan",
-  zh: "选型指南",
+  zh: "采购资料",
 };
 
 export const guideIndexCopy = {
@@ -54,7 +54,7 @@ export const guideIndexCopy = {
   },
   title: {
     en: "Food Machinery Blade Selection Guides",
-    zh: "食品机械刀片选型与询价指南",
+    zh: "食品机械刀片采购与询价资料",
   },
   description: {
     en: "Practical guides for choosing custom food processing blades, preparing quote information, selecting materials and checking replacement fit before sampling or batch orders.",
@@ -381,14 +381,14 @@ export const seoGuides: readonly SeoGuide[] = [
   },
   {
     slug: "choose-blades-by-food-processing-application",
-    image: "/images/lijian/food-line.jpg",
+    image: "/images/stock/food-processing-conveyor-apples.jpg",
     title: {
       en: "Choose Blades by Food Processing Application",
       zh: "按食品加工应用选择刀片",
     },
     description: {
       en: "A buyer guide for matching blade profile, material and edge geometry to meat, poultry, seafood, frozen food, vegetable, bakery and food packaging lines.",
-      zh: "按肉类、禽类、水产、冷冻、果蔬、烘焙和食品包装产线匹配刀片外形、材料和刃口结构的选型指南。",
+      zh: "按肉类、禽类、水产、冷冻、果蔬、烘焙和食品包装产线匹配刀片外形、材料和刃口结构的采购资料。",
     },
     lead: {
       en: "Application-based selection is often faster than starting from a blade name, because the food material and line condition explain the real cutting problem.",

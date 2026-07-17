@@ -1093,12 +1093,12 @@ export const ui = {
 } as const;
 
 export const productImages = {
-  hero: "/images/placeholders/photo-hero-factory.jpg",
+  hero: "/images/lijian/home-hero-food-blades.png",
   factoryGate: "/images/placeholders/factory-gate-lijian.jpg",
   manufacturing: "/images/lijian/cnc-machining.jpg",
   quality: "/images/lijian/blade-inspection.jpg",
   workshop: "/images/lijian/precision-machined-cutter-heads.jpg",
-  environment: "/images/lijian/food-line.jpg",
+  environment: "/images/stock/food-processing-conveyor-apples.jpg",
   equipment: "/images/lijian/china-source-sample-table.jpg",
   custom: "/images/lijian/assorted-food-machinery-blades.jpg",
   curved: "/images/lijian/foam-packed-curved-blade.jpg",
@@ -1118,13 +1118,13 @@ export const productImages = {
 };
 
 export const applicationImages = {
-  meat: "/images/lijian/batch-serrated-edge-stack.jpg",
-  poultry: "/images/lijian/custom-dicing-grid-knife-set.jpg",
-  seafood: "/images/lijian/assorted-food-machinery-blades.jpg",
-  frozen: "/images/lijian/straight-cutoff-knives.jpg",
-  vegetable: "/images/lijian/toothed-strip-knives.jpg",
-  bakery: "/images/placeholders/applications/application-bakery-snack-processing.jpg",
-  packaging: "/images/placeholders/applications/application-food-packaging.jpg",
+  meat: "/images/stock/meat-processing-workers.jpg",
+  poultry: "/images/stock/poultry-egg-sorting-line.jpg",
+  seafood: "/images/stock/tuna-fillet-cutting.jpg",
+  frozen: "/images/stock/potato-processing-conveyor.jpg",
+  vegetable: "/images/stock/tomato-sorting-quality-line.jpg",
+  bakery: "/images/stock/bakery-dough-production.jpg",
+  packaging: "/images/stock/date-packaging-workstation.jpg",
 };
 
 export const products = [
